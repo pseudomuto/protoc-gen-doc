@@ -1,5 +1,5 @@
 protoc-gen-doc
-Makefile
+/Makefile
 *.o
 *.pro.user
 qrc_*
