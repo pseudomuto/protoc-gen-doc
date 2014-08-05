@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Protocol Documentation</title>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic"/>
+    <style>
+      body {
+        width: 60em;
+        margin: 1em auto;
+        color: #222;
+        font-family: "Ubuntu", sans-serif;
+        padding-bottom: 4em;
+      }
+      h1 {
+        font-weight: normal;
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+      }
+      h2 {
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+        margin: 1.5em 0;
+      }
+      h3 {
+        font-weight: normal;
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+      }
+      ul {
+        list-style-type: none;
+        padding-left: 1em;
+      }
+      a {
+        text-decoration: none;
+        color: #567e25;
+      }
+      table {
+        width: 100%;
+        font-size: 80%;
+        border-collapse: collapse;
+      }
+      thead {
+        font-weight: 700;
+        background-color: #dcdcdc;
+      }
+      td {
+        border: 1px solid #ccc;
+        padding: 0.5ex 2ex;
+      }
+      tbody tr:nth-child(even) {
+        background-color: #fbfbfb;
+      }
+      td:nth-child(1) {
+        width: 10em;
+      }
+      td:nth-child(2) {
+        width: 10em;
+      }
+      td:nth-child(3) {
+        width: 6em;
+      }
+      .enum-table td:nth-child(3) {
+        width: auto;
+      }
+      #toc {
+        line-height: 180%;
+        margin: 0;
+      }
+      #toc > li > a {
+        font-weight: bold;
+      }
+
+      .file-header {
+        width: 100%;
+        display: table;
+        border-bottom: 1px solid #aaa;
+        margin: 4em 0 1.5em 0;
+      }
+      .file-header h2 {
+        border: none;
+        display: table-cell;
+      }
+      .file-header a {
+        text-align: right;
+        display: table-cell;
+      }
+
+      .badge {
+        display: inline-block;
+        width: 1.6em;
+        height: 1.6em;
+        line-height: 1.6em;
+        text-align: center;
+        color: #89ba48;
+        background-color: #dff0c8;
+        font-weight: bold;
+        font-size: 60%;
+        margin: 0.5ex 1em 0.5ex -1em;
+        border: 1px solid #fbfbfb;
+        border-radius: 1ex;
+      }
+
+    </style>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+  </head>
+
+  <body>
+
+    <h1 id="title">Protocol Documentation</h1>
+
+    <h2>Table of Contents</h2>
+
+    <!-- Table of Contents --->
+    <div id="toc-container">
+
+      <ul id="toc">
+      {{#files}}
+        <li>
+          <a href="#{{file_name}}">{{file_name}}</a>
+          <ul>
+            {{#file_messages}}
+            <li>
+              <a href="#{{message_full_name}}">
+                <span class="badge">M</span>
+                {{message_long_name}}
+              </a>
+            </li>
+            {{/file_messages}}
+            {{#file_enums}}
+            <li>
+              <a href="#{{enum_full_name}}"><span class="badge">E</span>{{enum_long_name}}</a>
+            </li>
+            {{/file_enums}}
+          </ul>
+        </li>
+      {{/files}}
+      </ul>
+
+    </div>
+
+    {{#files}}
+
+      <div class="file-header">
+        <h2 id="{{file_name}}">{{file_name}}</h2><a href="#title">Top</a>
+      </div>
+
+      {{#file_messages}}
+        <h3 id="{{message_full_name}}">{{message_long_name}}</h3>
+
+        <p>{{message_description}}</p>
+
+        <table>
+          <thead>
+            <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+          {{#message_fields}}
+            <tr>
+              <td>{{field_name}}</td>
+              <td>
+                {{#field_full_type}}
+                  <a href="#{{field_full_type}}">{{field_long_type}}</a>
+                {{/field_full_type}}
+                {{^field_full_type}}
+                  {{field_type}}
+                {{/field_full_type}}
+              </td>
+              <td>{{field_label}}</td>
+              <td>{{field_description}}</td>
+            </tr>
+          {{/message_fields}}
+          </tbody>
+        </table>
+      {{/file_messages}}
+
+      {{#file_enums}}
+        <h3 id="{{enum_full_name}}">{{enum_long_name}}</h3>
+
+        <p>{{enum_description}}</p>
+
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+          {{#enum_values}}
+            <tr>
+              <td>{{value_name}}</td>
+              <td>{{value_number}}</td>
+              <td>{{value_description}}</td>
+            </tr>
+          {{/enum_values}}
+          </tbody>
+        </table>
+      {{/file_enums}}
+
+    {{/files}}
+
+  </body>
+
+</html>

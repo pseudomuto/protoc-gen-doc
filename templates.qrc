@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>templates/html.mustache</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,24 @@
+package com.example;
+
+/**
+ * Represents the status of a vehicle booking.
+ */
+message BookingStatus {
+    required int32 id = 1;           /// Unique booking status ID.
+    required string description = 2; /// Booking status description. E.g. "Active".
+}
+
+/**
+ * Represents the booking of a vehicle.
+ */
+message Booking {
+    required int32 vehicle_id = 1;     /// ID of booked vehicle.
+    required int32 customer_id = 2;    /// Customer that booked the vehicle.
+    required BookingStatus status = 3; /// Status of the booking.
+
+    /** Has booking confirmation been sent? */
+    required bool confirmation_sent = 4;
+
+    /** Has payment been received? */
+    required bool payment_received = 5;
+}
