@@ -7,8 +7,9 @@ or Markdown documentation from comments in your `.proto` files.
 ## Building the Plugin
 
 Run `qmake` followed by `make` to build the plugin. This will
-produce the plugin executable (`protoc-gen-doc`). The plugin
-depends only on QtCore from Qt 5 and the libprotobuf/libprotoc
+produce the plugin executable (`protoc-gen-doc`). There's no
+install step, just copy the executable anywhere you like it.
+The plugin depends on QtCore from Qt 5 and the libprotobuf/libprotoc
 libraries from Google.
 
 ## Invoking the Plugin
