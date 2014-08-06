@@ -1,25 +1,28 @@
-DOCBOOK_XSL="/usr/share/xml/docbook/xsl-stylesheets-1.78.1/fo/docbook.xsl"
+DOCBOOK_XSL=/usr/share/xml/docbook/xsl-stylesheets-1.78.1/fo/docbook.xsl
 
-all: protoc-gen-doc html/example.html docbook/example.pdf
+all: protoc-gen-doc doc/example.html doc/example.pdf
 
 protoc-gen-doc:
 	cd ..; qmake; make
 
-html/example.html: *.proto
-	protoc --plugin=../protoc-gen-doc --doc_out=html,example.html:html *.proto
+doc/example.html: *.proto
+	protoc --plugin=../protoc-gen-doc \
+		--doc_out=html,example.html:doc *.proto
 
-docbook/example.docbook: *.proto
-	protoc --plugin=../protoc-gen-doc --doc_out=docbook,example.docbook:docbook *.proto
+doc/example.docbook: *.proto
+	protoc --plugin=../protoc-gen-doc \
+		--doc_out=docbook,example.docbook:doc *.proto
 
-docbook/example.pdf: docbook/example.docbook
-	xsltproc -o docbook/example.fo \
+doc/example.pdf: doc/example.docbook
+	xsltproc -o doc/example.fo \
 		--stringparam use.extensions 0 \
 		--stringparam fop1.extensions 1 \
 		--stringparam paper.type A4 \
 		--stringparam page.orientation landscape \
 		$(DOCBOOK_XSL) \
-		docbook/example.docbook
-	fop -fo docbook/example.fo -pdf docbook/example.pdf
+		doc/example.docbook
+	fop -fo doc/example.fo -pdf doc/example.pdf
+	rm doc/example.fo
 
 clean:
-	-rm html/* docbook/*
+	-rm doc/*
