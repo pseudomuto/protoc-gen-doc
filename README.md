@@ -6,9 +6,10 @@ or Markdown documentation from comments in your `.proto` files.
 
 ## Building the Plugin
 
-Run `qmake` followed by `make` to build the plugin. The plugin
+Run `qmake` followed by `make` to build the plugin. This will
+produce the plugin executable (`protoc-gen-doc`). The plugin
 depends only on QtCore from Qt 5 and the libprotobuf/libprotoc
-from Google.
+libraries from Google.
 
 ## Invoking the Plugin
 
@@ -25,13 +26,13 @@ documentation for all `.proto` files in the `proto` directory into
 
     protoc --doc_out=html,index.html:doc proto/*.proto
 
-The path to the plugin executable must be either be in `PATH` or
-specified using the `--plugin` option for the `protoc` compiler to
-find it. If you need support for a custom output format, see the
-built-in templates in [src/templates](src/templates) for how to
-write your own. If you just want to customize the look of the HTML
-output, just put your CSS in `stylesheet.css` next to the output
-file and it will be picked up.
+The plugin executable must be in `PATH` or specified explicitly
+using the `--plugin` for `protoc` to find it. If you need support
+for a custom output format, see the built-in templates in
+[src/templates](src/templates) for how to write your own. If you
+just want to customize the look of the HTML output, just put your
+CSS in `stylesheet.css` next to the output file and it will be
+picked up.
 
 ## Writing Documentation
 
