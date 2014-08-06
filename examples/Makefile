@@ -4,11 +4,11 @@ export PATH := ..:$(PATH)
 
 all: doc/example.html doc/example.pdf
 
-doc/example.html: *.proto ../protoc-gen-doc
-	protoc --doc_out=html,example.html:doc *.proto
+doc/example.html: proto/*.proto ../protoc-gen-doc
+	protoc --doc_out=html,example.html:doc proto/*.proto
 
-doc/example.docbook: *.proto ../protoc-gen-doc
-	protoc --doc_out=docbook,example.docbook:doc *.proto
+doc/example.docbook: proto/*.proto ../protoc-gen-doc
+	protoc --doc_out=docbook,example.docbook:doc proto/*.proto
 
 doc/example.pdf: doc/example.docbook
 	fop -xml doc/example.docbook \
