@@ -17,6 +17,9 @@ The plugin is invoked by passing the `--doc_out` option to the
 
     --doc_out=docbook|html|markdown|<TEMPLATE_FILENAME>,<OUT_FILENAME>:<OUT_DIR>
 
+The format may be either `docbook`, `html` or `markdown` or the
+name of a file containing a custom [Mustache][mustache] template.
+
 The `protoc-gen-doc` executable must be placed in a directory
 that is in `PATH` for the `protoc` compiler to find it, or else
 your must specify the path to the executable with the `--plugin`
@@ -26,8 +29,10 @@ type:
 
     protoc --doc_out=html,index.html:doc proto/*.proto
 
-The format may be either `docbook`, `html` or `markdown` or the
-name of a file containing a custom [Mustache][mustache] template.
+See the built-in templates in [src/templates](src/templates) for
+how to write your own. If you just want to customize the look of
+the HTML output, just put your CSS in `stylesheet.css` next to
+the output file and it will be picked up.
 
 ## Documenting your Messages
 
