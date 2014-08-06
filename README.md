@@ -7,7 +7,8 @@ or Markdown documentation from comments in your `.proto` files.
 ## Building the Plugin
 
 Run `qmake` followed by `make` to build the plugin. The plugin
-depends only on QtCore from Qt 5.
+depends only on QtCore from Qt 5 and the libprotobuf/libprotoc
+from Google.
 
 ## Invoking the Plugin
 
