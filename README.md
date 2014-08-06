@@ -35,7 +35,7 @@ name of a file containing a custom [Mustache][mustache] template.
 Use `/** */` or `///` comments to document your files. Comments
 for enumerations and messages go before the message/enumeration
 definition. Comments for fields or enum values can go either
-before or after the field/value.
+before or after the field/value definition.
 
 ### Example Output
 
