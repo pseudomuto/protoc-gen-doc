@@ -11,15 +11,13 @@ doc/example.docbook: *.proto ../protoc-gen-doc
 		--doc_out=docbook,example.docbook:doc *.proto
 
 doc/example.pdf: doc/example.docbook
-	xsltproc -o doc/example.fo \
-		--stringparam use.extensions 0 \
-		--stringparam fop1.extensions 1 \
-		--stringparam paper.type A4 \
-		--stringparam page.orientation landscape \
-		$(DOCBOOK_XSL) \
-		doc/example.docbook
-	fop -fo doc/example.fo -pdf doc/example.pdf
-	rm doc/example.fo
+	fop -xml doc/example.docbook \
+		-xsl $(DOCBOOK_XSL) \
+		-param use.extensions 0 \
+		-param fop1.extensions 1 \
+		-param paper.type A4 \
+		-param page.orientation landscape \
+		-pdf doc/example.pdf
 
 clean:
 	-rm doc/*
