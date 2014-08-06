@@ -4,11 +4,10 @@ This is a documentation generator plugin for the Google Protocol
 Buffers compiler (`protoc`). The plugin can generate HTML, DocBook
 or Markdown documentation from comments in your `.proto` files.
 
-The plugin depends on QtCore from Qt 5.
-
 ## Building the Plugin
 
-Run `qmake` followed by `make` to build the plugin.
+Run `qmake` followed by `make` to build the plugin. The plugin
+depends only on QtCore from Qt 5.
 
 ## Invoking the Plugin
 
