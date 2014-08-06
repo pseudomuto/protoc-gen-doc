@@ -39,9 +39,10 @@ before or after the field/value definition.
 ## Example Output
 
 The [examples][examples] directory contains a full example with
-multiple `.proto` files, including the [Markdown][markdown],
-[HTML][html] and [DocBook][docbook] output, as well as a [PDF][pdf]
-obtained from running [Apache FOP][fop] on the DocBook XML.
+multiple `.proto` files. The [Markdown][markdown], [HTML][html]
+and [DocBook][docbook] output is the `doc` subdirectory. A
+[PDF][pdf] obtained from running [Apache FOP][fop] on the DocBook
+XML is included as well.
 
 
 [mustache]: http://mustache.github.io/ "Mustache - Logic-less templates"
