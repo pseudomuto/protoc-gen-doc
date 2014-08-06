@@ -9,7 +9,7 @@
     {{#file_messages}}
     <section {{#message_full_name}}id="{{message_full_name}}"{{/message_full_name}}>
       <title>{{message_long_name}}</title>
-      <para>{{message_description}}</para>
+      {{#para}}{{message_description}}{{/para}}
       <informaltable frame="all">
         <tgroup cols="4">
           <colspec colwidth="*"/>
@@ -37,7 +37,7 @@
                 {{/field_full_type}}
               </entry>
               <entry>{{field_label}}</entry>
-              <entry>{{field_description}}</entry>
+              <entry>{{#para}}{{field_description}}{{/para}}</entry>
             </row>
             {{/message_fields}}
           </tbody>
@@ -48,7 +48,7 @@
     {{#file_enums}}
     <section {{#enum_full_name}}id="{{enum_full_name}}"{{/enum_full_name}}>
       <title>{{enum_long_name}}</title>
-      <para>{{enum_description}}</para>
+      {{#para}}{{enum_description}}{{/para}}
       <informaltable frame="all">
         <tgroup cols="3">
           <colspec colwidth="*"/>
@@ -66,7 +66,7 @@
             <row>
               <entry>{{value_name}}</entry>
               <entry>{{value_number}}</entry>
-              <entry>{{value_description}}</entry>
+              <entry>{{#para}}{{value_description}}{{/para}}</entry>
             </row>
             {{/enum_values}}
           </tbody>

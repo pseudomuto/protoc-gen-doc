@@ -9,7 +9,7 @@
     
     <section id="com.example.Booking">
       <title>Booking</title>
-      <para>Represents the booking of a vehicle.</para>
+      <para>Represents the booking of a vehicle.</para><para>Vehicles are some cool shit. But drive carefully!</para>
       <informaltable frame="all">
         <tgroup cols="4">
           <colspec colwidth="*"/>
@@ -35,7 +35,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>ID of booked vehicle.</entry>
+              <entry><para>ID of booked vehicle.</para></entry>
             </row>
             
             <row>
@@ -47,7 +47,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>Customer that booked the vehicle.</entry>
+              <entry><para>Customer that booked the vehicle.</para></entry>
             </row>
             
             <row>
@@ -59,7 +59,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>Status of the booking.</entry>
+              <entry><para>Status of the booking.</para></entry>
             </row>
             
             <row>
@@ -71,7 +71,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>Has booking confirmation been sent?</entry>
+              <entry><para>Has booking confirmation been sent?</para></entry>
             </row>
             
             <row>
@@ -83,7 +83,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>Has payment been received?</entry>
+              <entry><para>Has payment been received?</para></entry>
             </row>
             
           </tbody>
@@ -119,7 +119,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>Unique booking status ID.</entry>
+              <entry><para>Unique booking status ID.</para></entry>
             </row>
             
             <row>
@@ -131,7 +131,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>Booking status description. E.g. &quot;Active&quot;.</entry>
+              <entry><para>Booking status description. E.g. &quot;Active&quot;.</para></entry>
             </row>
             
           </tbody>
@@ -173,7 +173,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>First address line.</entry>
+              <entry><para>First address line.</para></entry>
             </row>
             
             <row>
@@ -185,7 +185,7 @@
                 
               </entry>
               <entry>optional</entry>
-              <entry>Second address line.</entry>
+              <entry><para>Second address line.</para></entry>
             </row>
             
             <row>
@@ -197,7 +197,7 @@
                 
               </entry>
               <entry>optional</entry>
-              <entry>Second address line.</entry>
+              <entry><para>Second address line.</para></entry>
             </row>
             
             <row>
@@ -209,7 +209,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>Address town.</entry>
+              <entry><para>Address town.</para></entry>
             </row>
             
             <row>
@@ -221,7 +221,7 @@
                 
               </entry>
               <entry>optional</entry>
-              <entry>Address county, if applicable.</entry>
+              <entry><para>Address county, if applicable.</para></entry>
             </row>
             
             <row>
@@ -233,7 +233,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>Address country.</entry>
+              <entry><para>Address country.</para></entry>
             </row>
             
           </tbody>
@@ -269,7 +269,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>Unique customer ID.</entry>
+              <entry><para>Unique customer ID.</para></entry>
             </row>
             
             <row>
@@ -281,7 +281,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>Customer first name.</entry>
+              <entry><para>Customer first name.</para></entry>
             </row>
             
             <row>
@@ -293,7 +293,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>Customer last name.</entry>
+              <entry><para>Customer last name.</para></entry>
             </row>
             
             <row>
@@ -305,7 +305,7 @@
                 
               </entry>
               <entry>optional</entry>
-              <entry>Customer details.</entry>
+              <entry><para>Customer details.</para></entry>
             </row>
             
             <row>
@@ -317,7 +317,7 @@
                 
               </entry>
               <entry>optional</entry>
-              <entry>Customer e-mail address.</entry>
+              <entry><para>Customer e-mail address.</para></entry>
             </row>
             
             <row>
@@ -329,7 +329,7 @@
                 
               </entry>
               <entry>repeated</entry>
-              <entry>Customer phone numbers, primary first.</entry>
+              <entry><para>Customer phone numbers, primary first.</para></entry>
             </row>
             
             <row>
@@ -341,7 +341,7 @@
                 
               </entry>
               <entry>repeated</entry>
-              <entry>Customer mail addresses, primary first.</entry>
+              <entry><para>Customer mail addresses, primary first.</para></entry>
             </row>
             
           </tbody>
@@ -383,7 +383,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>The unique manufacturer ID.</entry>
+              <entry><para>The unique manufacturer ID.</para></entry>
             </row>
             
             <row>
@@ -395,7 +395,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>A manufacturer code, e.g. &quot;DKL4P&quot;.</entry>
+              <entry><para>A manufacturer code, e.g. &quot;DKL4P&quot;.</para></entry>
             </row>
             
             <row>
@@ -407,7 +407,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>Manufacturer category.</entry>
+              <entry><para>Manufacturer category.</para></entry>
             </row>
             
             <row>
@@ -419,7 +419,7 @@
                 
               </entry>
               <entry>optional</entry>
-              <entry>Manufacturer details (minimum orders et.c.).</entry>
+              <entry><para>Manufacturer details (minimum orders et.c.).</para></entry>
             </row>
             
           </tbody>
@@ -455,7 +455,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>The unique model ID.</entry>
+              <entry><para>The unique model ID.</para></entry>
             </row>
             
             <row>
@@ -467,7 +467,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>The car model code, e.g. &quot;PZ003&quot;.</entry>
+              <entry><para>The car model code, e.g. &quot;PZ003&quot;.</para></entry>
             </row>
             
             <row>
@@ -479,7 +479,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>The car model name, e.g. &quot;Z3&quot;.</entry>
+              <entry><para>The car model name, e.g. &quot;Z3&quot;.</para></entry>
             </row>
             
             <row>
@@ -491,7 +491,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>Dollars per day.</entry>
+              <entry><para>Dollars per day.</para></entry>
             </row>
             
             <row>
@@ -503,7 +503,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>Cents per day.</entry>
+              <entry><para>Cents per day.</para></entry>
             </row>
             
           </tbody>
@@ -539,7 +539,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>Unique vehicle ID.</entry>
+              <entry><para>Unique vehicle ID.</para></entry>
             </row>
             
             <row>
@@ -551,7 +551,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>Vehicle model.</entry>
+              <entry><para>Vehicle model.</para></entry>
             </row>
             
             <row>
@@ -563,7 +563,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>Vehicle registration number.</entry>
+              <entry><para>Vehicle registration number.</para></entry>
             </row>
             
             <row>
@@ -575,7 +575,7 @@
                 
               </entry>
               <entry>optional</entry>
-              <entry>Current vehicle mileage, if known.</entry>
+              <entry><para>Current vehicle mileage, if known.</para></entry>
             </row>
             
             <row>
@@ -587,7 +587,7 @@
                 
               </entry>
               <entry>optional</entry>
-              <entry>Vehicle category.</entry>
+              <entry><para>Vehicle category.</para></entry>
             </row>
             
             <row>
@@ -599,7 +599,7 @@
                 
               </entry>
               <entry>optional</entry>
-              <entry>Dollars per day. Taken from model if unspecified.</entry>
+              <entry><para>Dollars per day.</para><para>Taken from model if unspecified.</para></entry>
             </row>
             
             <row>
@@ -611,7 +611,7 @@
                 
               </entry>
               <entry>optional</entry>
-              <entry>Cents per day. Taken from model if unspecified.</entry>
+              <entry><para>Cents per day.</para><para>Taken from model if unspecified.</para></entry>
             </row>
             
           </tbody>
@@ -647,7 +647,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>Category code. E.g. &quot;S&quot;.</entry>
+              <entry><para>Category code. E.g. &quot;S&quot;.</para></entry>
             </row>
             
             <row>
@@ -659,7 +659,7 @@
                 
               </entry>
               <entry>required</entry>
-              <entry>Category name. E.g. &quot;Sedan&quot;.</entry>
+              <entry><para>Category name. E.g. &quot;Sedan&quot;.</para></entry>
             </row>
             
           </tbody>
@@ -688,13 +688,13 @@
             <row>
               <entry>CATEGORY_INHOUSE</entry>
               <entry>0</entry>
-              <entry>The manufacturer is inhouse.</entry>
+              <entry><para>The manufacturer is inhouse.</para></entry>
             </row>
             
             <row>
               <entry>CATEGORY_EXTERNAL</entry>
               <entry>1</entry>
-              <entry>The manufacturer is external.</entry>
+              <entry><para>The manufacturer is external.</para></entry>
             </row>
             
           </tbody>

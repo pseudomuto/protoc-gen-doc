@@ -387,6 +387,32 @@ static bool parseParameter(const std::string &parameter,
 }
 
 /**
+ * Template filter for breaking paragraphs into HTML `<p>` elements.
+ *
+ * Renders @p text with @p renderer in @p context and returns the result with
+ * paragraphs enclosed in `<p>..</p>`.
+ *
+ */
+static QString pFilter(const QString &text, ms::Renderer* renderer, ms::Context* context)
+{
+    QRegularExpression re("(\\n|\\r|\\r\\n)\\s*(\\n|\\r|\\r\\n)");
+    return "<p>" + renderer->render(text, context).split(re).join("</p><p>") + "</p>";
+}
+
+/**
+ * Template filter for breaking paragraphs into DocBook `<para>` elements.
+ *
+ * Renders @p text with @p renderer in @p context and returns the result with
+ * paragraphs enclosed in `<para>..</para>`.
+ *
+ */
+static QString paraFilter(const QString &text, ms::Renderer* renderer, ms::Context* context)
+{
+    QRegularExpression re("(\\n|\\r|\\r\\n)\\s*(\\n|\\r|\\r\\n)");
+    return "<para>" + renderer->render(text, context).split(re).join("</para><para>") + "</para>";
+}
+
+/**
  * Renders the list of files.
  *
  * Renders files in the @p generatorContext to the directory specified in
@@ -401,9 +427,16 @@ static bool parseParameter(const std::string &parameter,
 static bool render(const DocGeneratorContext &generatorContext,
                    gp::compiler::GeneratorContext *context, std::string *error)
 {
-    // Render template.
     QVariantHash args;
+
+    // Add files list.
     args["files"] = generatorContext.files;
+
+    // Add filters.
+    args["p"] = QVariant::fromValue(ms::QtVariantContext::fn_t(pFilter));
+    args["para"] = QVariant::fromValue(ms::QtVariantContext::fn_t(paraFilter));
+
+    // Render template.
     ms::Renderer renderer;
     ms::QtVariantContext variantContext(args);
     QString result = renderer.render(generatorContext.template_, &variantContext);

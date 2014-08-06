@@ -13,58 +13,88 @@
         font-family: "Ubuntu", sans-serif;
         padding-bottom: 4em;
       }
+
       h1 {
         font-weight: normal;
         border-bottom: 1px solid #aaa;
         padding-bottom: 0.5ex;
       }
+
       h2 {
         border-bottom: 1px solid #aaa;
         padding-bottom: 0.5ex;
         margin: 1.5em 0;
       }
+
       h3 {
         font-weight: normal;
         border-bottom: 1px solid #aaa;
         padding-bottom: 0.5ex;
       }
-      ul {
-        list-style-type: none;
-        padding-left: 1em;
-      }
+
       a {
         text-decoration: none;
         color: #567e25;
       }
+
       table {
         width: 100%;
         font-size: 80%;
         border-collapse: collapse;
       }
+
       thead {
         font-weight: 700;
         background-color: #dcdcdc;
       }
+
+      tbody tr:nth-child(even) {
+        background-color: #fbfbfb;
+      }
+
       td {
         border: 1px solid #ccc;
         padding: 0.5ex 2ex;
       }
-      tbody tr:nth-child(even) {
-        background-color: #fbfbfb;
+
+      td p {
+        text-indent: 1em;
+        margin: 0;
       }
-      td:nth-child(1) {
+
+      td p:nth-child(1) {
+        text-indent: 0; /* No indent on first p in td */
+      }
+
+      /* Table of fields */
+      .field-table td:nth-child(1) { /* Field */
         width: 10em;
       }
-      td:nth-child(2) {
+      .field-table td:nth-child(2) { /* Type */
         width: 10em;
       }
-      td:nth-child(3) {
+      .field-table td:nth-child(3) { /* Label */
         width: 6em;
       }
-      .enum-table td:nth-child(3) {
+      .field-table td:nth-child(4) { /* Description */
         width: auto;
       }
-      #toc {
+
+      /* Table of enum values. */
+      .enum-table td:nth-child(1) { /* Name */
+        width: 10em;
+      }
+      .enum-table td:nth-child(2) { /* Number */
+        width: 10em;
+      }
+      .enum-table td:nth-child(3) { /* Description */
+        width: auto;
+      }
+
+      /* Table of contents. */
+      #toc-container ul {
+        list-style-type: none;
+        padding-left: 1em;
         line-height: 180%;
         margin: 0;
       }
@@ -72,37 +102,43 @@
         font-weight: bold;
       }
 
-      .file-header {
+      /* File heading div */
+      .file-heading {
         width: 100%;
         display: table;
         border-bottom: 1px solid #aaa;
         margin: 4em 0 1.5em 0;
       }
-      .file-header h2 {
+      .file-heading h2 {
         border: none;
         display: table-cell;
       }
-      .file-header a {
+      .file-heading a {
         text-align: right;
         display: table-cell;
       }
 
+      /* The 'M' and 'E' badges in the ToC */
       .badge {
-        display: inline-block;
         width: 1.6em;
         height: 1.6em;
+        display: inline-block;
+
         line-height: 1.6em;
         text-align: center;
-        color: #89ba48;
-        background-color: #dff0c8;
         font-weight: bold;
         font-size: 60%;
+
+        color: #89ba48;
+        background-color: #dff0c8;
+
         margin: 0.5ex 1em 0.5ex -1em;
         border: 1px solid #fbfbfb;
         border-radius: 1ex;
       }
-
     </style>
+
+    <!-- User custom CSS -->
     <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
   </head>
 
@@ -206,16 +242,16 @@
 
     
 
-      <div class="file-header">
+      <div class="file-heading">
         <h2 id="Booking.proto">Booking.proto</h2><a href="#title">Top</a>
       </div>
 
       
         <h3 id="com.example.Booking">Booking</h3>
 
-        <p>Represents the booking of a vehicle.</p>
+        <p>Represents the booking of a vehicle.</p><p>Vehicles are some cool shit. But drive carefully!</p>
 
-        <table>
+        <table class="field-table">
           <thead>
             <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
           </thead>
@@ -230,7 +266,7 @@
                 
               </td>
               <td>required</td>
-              <td>ID of booked vehicle.</td>
+              <td><p>ID of booked vehicle.</p></td>
             </tr>
           
             <tr>
@@ -242,7 +278,7 @@
                 
               </td>
               <td>required</td>
-              <td>Customer that booked the vehicle.</td>
+              <td><p>Customer that booked the vehicle.</p></td>
             </tr>
           
             <tr>
@@ -254,7 +290,7 @@
                 
               </td>
               <td>required</td>
-              <td>Status of the booking.</td>
+              <td><p>Status of the booking.</p></td>
             </tr>
           
             <tr>
@@ -266,7 +302,7 @@
                 
               </td>
               <td>required</td>
-              <td>Has booking confirmation been sent?</td>
+              <td><p>Has booking confirmation been sent?</p></td>
             </tr>
           
             <tr>
@@ -278,7 +314,7 @@
                 
               </td>
               <td>required</td>
-              <td>Has payment been received?</td>
+              <td><p>Has payment been received?</p></td>
             </tr>
           
           </tbody>
@@ -288,7 +324,7 @@
 
         <p>Represents the status of a vehicle booking.</p>
 
-        <table>
+        <table class="field-table">
           <thead>
             <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
           </thead>
@@ -303,7 +339,7 @@
                 
               </td>
               <td>required</td>
-              <td>Unique booking status ID.</td>
+              <td><p>Unique booking status ID.</p></td>
             </tr>
           
             <tr>
@@ -315,7 +351,7 @@
                 
               </td>
               <td>required</td>
-              <td>Booking status description. E.g. &quot;Active&quot;.</td>
+              <td><p>Booking status description. E.g. &quot;Active&quot;.</p></td>
             </tr>
           
           </tbody>
@@ -326,7 +362,7 @@
 
     
 
-      <div class="file-header">
+      <div class="file-heading">
         <h2 id="Customer.proto">Customer.proto</h2><a href="#title">Top</a>
       </div>
 
@@ -335,7 +371,7 @@
 
         <p>Represents a mail address.</p>
 
-        <table>
+        <table class="field-table">
           <thead>
             <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
           </thead>
@@ -350,7 +386,7 @@
                 
               </td>
               <td>required</td>
-              <td>First address line.</td>
+              <td><p>First address line.</p></td>
             </tr>
           
             <tr>
@@ -362,7 +398,7 @@
                 
               </td>
               <td>optional</td>
-              <td>Second address line.</td>
+              <td><p>Second address line.</p></td>
             </tr>
           
             <tr>
@@ -374,7 +410,7 @@
                 
               </td>
               <td>optional</td>
-              <td>Second address line.</td>
+              <td><p>Second address line.</p></td>
             </tr>
           
             <tr>
@@ -386,7 +422,7 @@
                 
               </td>
               <td>required</td>
-              <td>Address town.</td>
+              <td><p>Address town.</p></td>
             </tr>
           
             <tr>
@@ -398,7 +434,7 @@
                 
               </td>
               <td>optional</td>
-              <td>Address county, if applicable.</td>
+              <td><p>Address county, if applicable.</p></td>
             </tr>
           
             <tr>
@@ -410,7 +446,7 @@
                 
               </td>
               <td>required</td>
-              <td>Address country.</td>
+              <td><p>Address country.</p></td>
             </tr>
           
           </tbody>
@@ -420,7 +456,7 @@
 
         <p>Represents a customer.</p>
 
-        <table>
+        <table class="field-table">
           <thead>
             <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
           </thead>
@@ -435,7 +471,7 @@
                 
               </td>
               <td>required</td>
-              <td>Unique customer ID.</td>
+              <td><p>Unique customer ID.</p></td>
             </tr>
           
             <tr>
@@ -447,7 +483,7 @@
                 
               </td>
               <td>required</td>
-              <td>Customer first name.</td>
+              <td><p>Customer first name.</p></td>
             </tr>
           
             <tr>
@@ -459,7 +495,7 @@
                 
               </td>
               <td>required</td>
-              <td>Customer last name.</td>
+              <td><p>Customer last name.</p></td>
             </tr>
           
             <tr>
@@ -471,7 +507,7 @@
                 
               </td>
               <td>optional</td>
-              <td>Customer details.</td>
+              <td><p>Customer details.</p></td>
             </tr>
           
             <tr>
@@ -483,7 +519,7 @@
                 
               </td>
               <td>optional</td>
-              <td>Customer e-mail address.</td>
+              <td><p>Customer e-mail address.</p></td>
             </tr>
           
             <tr>
@@ -495,7 +531,7 @@
                 
               </td>
               <td>repeated</td>
-              <td>Customer phone numbers, primary first.</td>
+              <td><p>Customer phone numbers, primary first.</p></td>
             </tr>
           
             <tr>
@@ -507,7 +543,7 @@
                 
               </td>
               <td>repeated</td>
-              <td>Customer mail addresses, primary first.</td>
+              <td><p>Customer mail addresses, primary first.</p></td>
             </tr>
           
           </tbody>
@@ -518,7 +554,7 @@
 
     
 
-      <div class="file-header">
+      <div class="file-heading">
         <h2 id="Vehicle.proto">Vehicle.proto</h2><a href="#title">Top</a>
       </div>
 
@@ -527,7 +563,7 @@
 
         <p>Represents a manufacturer of cars.</p>
 
-        <table>
+        <table class="field-table">
           <thead>
             <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
           </thead>
@@ -542,7 +578,7 @@
                 
               </td>
               <td>required</td>
-              <td>The unique manufacturer ID.</td>
+              <td><p>The unique manufacturer ID.</p></td>
             </tr>
           
             <tr>
@@ -554,7 +590,7 @@
                 
               </td>
               <td>required</td>
-              <td>A manufacturer code, e.g. &quot;DKL4P&quot;.</td>
+              <td><p>A manufacturer code, e.g. &quot;DKL4P&quot;.</p></td>
             </tr>
           
             <tr>
@@ -566,7 +602,7 @@
                 
               </td>
               <td>required</td>
-              <td>Manufacturer category.</td>
+              <td><p>Manufacturer category.</p></td>
             </tr>
           
             <tr>
@@ -578,7 +614,7 @@
                 
               </td>
               <td>optional</td>
-              <td>Manufacturer details (minimum orders et.c.).</td>
+              <td><p>Manufacturer details (minimum orders et.c.).</p></td>
             </tr>
           
           </tbody>
@@ -588,7 +624,7 @@
 
         <p>Represents a vehicle model.</p>
 
-        <table>
+        <table class="field-table">
           <thead>
             <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
           </thead>
@@ -603,7 +639,7 @@
                 
               </td>
               <td>required</td>
-              <td>The unique model ID.</td>
+              <td><p>The unique model ID.</p></td>
             </tr>
           
             <tr>
@@ -615,7 +651,7 @@
                 
               </td>
               <td>required</td>
-              <td>The car model code, e.g. &quot;PZ003&quot;.</td>
+              <td><p>The car model code, e.g. &quot;PZ003&quot;.</p></td>
             </tr>
           
             <tr>
@@ -627,7 +663,7 @@
                 
               </td>
               <td>required</td>
-              <td>The car model name, e.g. &quot;Z3&quot;.</td>
+              <td><p>The car model name, e.g. &quot;Z3&quot;.</p></td>
             </tr>
           
             <tr>
@@ -639,7 +675,7 @@
                 
               </td>
               <td>required</td>
-              <td>Dollars per day.</td>
+              <td><p>Dollars per day.</p></td>
             </tr>
           
             <tr>
@@ -651,7 +687,7 @@
                 
               </td>
               <td>required</td>
-              <td>Cents per day.</td>
+              <td><p>Cents per day.</p></td>
             </tr>
           
           </tbody>
@@ -661,7 +697,7 @@
 
         <p>Represents a vehicle that can be hired.</p>
 
-        <table>
+        <table class="field-table">
           <thead>
             <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
           </thead>
@@ -676,7 +712,7 @@
                 
               </td>
               <td>required</td>
-              <td>Unique vehicle ID.</td>
+              <td><p>Unique vehicle ID.</p></td>
             </tr>
           
             <tr>
@@ -688,7 +724,7 @@
                 
               </td>
               <td>required</td>
-              <td>Vehicle model.</td>
+              <td><p>Vehicle model.</p></td>
             </tr>
           
             <tr>
@@ -700,7 +736,7 @@
                 
               </td>
               <td>required</td>
-              <td>Vehicle registration number.</td>
+              <td><p>Vehicle registration number.</p></td>
             </tr>
           
             <tr>
@@ -712,7 +748,7 @@
                 
               </td>
               <td>optional</td>
-              <td>Current vehicle mileage, if known.</td>
+              <td><p>Current vehicle mileage, if known.</p></td>
             </tr>
           
             <tr>
@@ -724,7 +760,7 @@
                 
               </td>
               <td>optional</td>
-              <td>Vehicle category.</td>
+              <td><p>Vehicle category.</p></td>
             </tr>
           
             <tr>
@@ -736,7 +772,7 @@
                 
               </td>
               <td>optional</td>
-              <td>Dollars per day. Taken from model if unspecified.</td>
+              <td><p>Dollars per day.</p><p>Taken from model if unspecified.</p></td>
             </tr>
           
             <tr>
@@ -748,7 +784,7 @@
                 
               </td>
               <td>optional</td>
-              <td>Cents per day. Taken from model if unspecified.</td>
+              <td><p>Cents per day.</p><p>Taken from model if unspecified.</p></td>
             </tr>
           
           </tbody>
@@ -758,7 +794,7 @@
 
         <p>Represents a vehicle category. E.g. &quot;Sedan&quot; or &quot;Truck&quot;.</p>
 
-        <table>
+        <table class="field-table">
           <thead>
             <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
           </thead>
@@ -773,7 +809,7 @@
                 
               </td>
               <td>required</td>
-              <td>Category code. E.g. &quot;S&quot;.</td>
+              <td><p>Category code. E.g. &quot;S&quot;.</p></td>
             </tr>
           
             <tr>
@@ -785,7 +821,7 @@
                 
               </td>
               <td>required</td>
-              <td>Category name. E.g. &quot;Sedan&quot;.</td>
+              <td><p>Category name. E.g. &quot;Sedan&quot;.</p></td>
             </tr>
           
           </tbody>
@@ -806,13 +842,13 @@
             <tr>
               <td>CATEGORY_INHOUSE</td>
               <td>0</td>
-              <td>The manufacturer is inhouse.</td>
+              <td><p>The manufacturer is inhouse.</p></td>
             </tr>
           
             <tr>
               <td>CATEGORY_EXTERNAL</td>
               <td>1</td>
-              <td>The manufacturer is external.</td>
+              <td><p>The manufacturer is external.</p></td>
             </tr>
           
           </tbody>

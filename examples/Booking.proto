@@ -10,6 +10,8 @@ message BookingStatus {
 
 /**
  * Represents the booking of a vehicle.
+ *
+ * Vehicles are some cool shit. But drive carefully!
  */
 message Booking {
     required int32 vehicle_id = 1;     /// ID of booked vehicle.

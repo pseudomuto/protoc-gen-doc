@@ -48,10 +48,22 @@ message Vehicle {
     optional sint32 mileage = 4;    /** Current vehicle mileage, if known. */
     optional Category category = 5; /** Vehicle category. */
 
-    // Doc comments for fields can come before or after the field definition:
+    // Doc comments for fields can come before or
+    // after the field definition. And just like
+    // comments for messages / enums, they can be
+    // multi-paragraph:
 
-    /// Dollars per day. Taken from model if unspecified.
+    /**
+     * Dollars per day.
+     *
+     * Taken from model if unspecified.
+     */
     optional sint32 daily_hire_rate_dollars = 6;
-    /// Cents per day. Taken from model if unspecified.
+
+    /**
+     * Cents per day.
+     *
+     * Taken from model if unspecified.
+     */
     optional sint32 daily_hire_rate_cents = 7;
 }
