@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>templates/html.mustache</file>
+        <file>templates/docbook.mustache</file>
     </qresource>
 </RCC>

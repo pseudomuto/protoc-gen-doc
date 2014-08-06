@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD Simplified DocBook XML V1.0//EN"
+"http://www.oasis-open.org/docbook/xml/simple/1.0/sdocbook.dtd">
+<article>
+  <title>Protocol Documentation</title>
+  <section>
+    <title>What is DocBook ?</title>
+    <para>DocBook is an SGML dialect developed by O'Reilly and HaL Computer
+    Systems in 1991. It is currently maintained by the Organization for the
+    Advancement of Structured Information Standards (OASIS). DocBook describes
+    the content of articles, books, technical manuals, and other documents.
+    Although DocBook is focused on technical writing styles, it is general
+    enough to describe most prose writing. In this article, I'll discuss an
+    XML variant of the DocBook DTD that is also available.
+    </para>
+  </section>
+</article>

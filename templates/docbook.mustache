@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD Simplified DocBook XML V1.0//EN"
+"http://www.oasis-open.org/docbook/xml/simple/1.0/sdocbook.dtd">
+<article>
+  <title>Protocol Documentation</title>
+  {{#files}}
+  <section>
+    <title>{{file_name}}</title>
+    {{#file_messages}}
+    <section {{#message_full_name}}id="{{message_full_name}}"{{/message_full_name}}>
+      <title>{{message_long_name}}</title>
+      <para>{{message_description}}</para>
+      <informaltable frame="all">
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            {{#message_fields}}
+            <row>
+              <entry>{{field_name}}</entry>
+              <entry>
+                {{#field_full_type}}
+                  <link linkend="{{field_full_type}}">{{field_long_type}}</link>
+                {{/field_full_type}}
+                {{^field_full_type}}
+                  {{field_type}}
+                {{/field_full_type}}
+              </entry>
+              <entry>{{field_label}}</entry>
+              <entry>{{field_description}}</entry>
+            </row>
+            {{/message_fields}}
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+    {{/file_messages}}
+    {{#file_enums}}
+    <section {{#enum_full_name}}id="{{enum_full_name}}"{{/enum_full_name}}>
+      <title>{{enum_long_name}}</title>
+      <para>{{enum_description}}</para>
+      <informaltable frame="all">
+        <tgroup cols="3">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Name</entry>
+              <entry>Number</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            {{#enum_values}}
+            <row>
+              <entry>{{value_name}}</entry>
+              <entry>{{value_number}}</entry>
+              <entry>{{value_description}}</entry>
+            </row>
+            {{/enum_values}}
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+    {{/file_enums}}
+  </section>
+  {{/files}}
+</article>
