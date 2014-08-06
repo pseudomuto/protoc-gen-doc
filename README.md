@@ -1,4 +1,4 @@
-# Google Protocol Buffers Documentation Generator
+# Google Protocol Buffers<br/>Documentation Generator
 
 `protoc-gen-doc` is a documentation generator plugin for the
 Google Protocol Buffers compiler (`protoc`). It can generate
