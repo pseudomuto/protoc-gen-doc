@@ -5,7 +5,7 @@
   <title>Protocol Documentation</title>
   
   <section>
-    <title>proto/Booking.proto</title>
+    <title>Booking.proto</title>
     
     <section id="com.example.Booking">
       <title>Booking</title>
@@ -108,7 +108,7 @@
   </section>
   
   <section>
-    <title>proto/Customer.proto</title>
+    <title>Customer.proto</title>
     
     <section id="com.example.Address">
       <title>Address</title>
@@ -253,7 +253,7 @@
   </section>
   
   <section>
-    <title>proto/Vehicle.proto</title>
+    <title>Vehicle.proto</title>
     
     <section id="com.example.Manufacturer">
       <title>Manufacturer</title>
