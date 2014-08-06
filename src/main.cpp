@@ -419,6 +419,21 @@ static QString paraFilter(const QString &text, ms::Renderer* renderer, ms::Conte
 }
 
 /**
+ * Template filter for removing line breaks.
+ *
+ * Renders @p text with @p renderer in @p context and returns the result with
+ * all occurrances of `\r\n`, `\n`, `\r` removed in that order.
+ */
+static QString nobrFilter(const QString &text, ms::Renderer* renderer, ms::Context* context)
+{
+    QString result = renderer->render(text, context);
+    result.remove("\r\n");
+    result.remove("\r");
+    result.remove("\n");
+    return result;
+}
+
+/**
  * Renders the list of files.
  *
  * Renders files in the @p generatorContext to the directory specified in
@@ -438,6 +453,7 @@ static bool render(const DocGeneratorContext &generatorContext,
     // Add filters.
     args["p"] = QVariant::fromValue(ms::QtVariantContext::fn_t(pFilter));
     args["para"] = QVariant::fromValue(ms::QtVariantContext::fn_t(paraFilter));
+    args["nobr"] = QVariant::fromValue(ms::QtVariantContext::fn_t(nobrFilter));
 
     // Add files list.
     args["files"] = generatorContext.files;

@@ -2,7 +2,10 @@ DOCBOOK_XSL=/usr/share/xml/docbook/xsl-stylesheets-1.78.1/fo/docbook.xsl
 
 export PATH := ..:$(PATH)
 
-all: doc/example.html doc/example.pdf
+all: doc/example.md doc/example.html doc/example.pdf
+
+doc/example.md: proto/*.proto ../protoc-gen-doc
+	protoc --doc_out=markdown,example.md:doc proto/*.proto
 
 doc/example.html: proto/*.proto ../protoc-gen-doc
 	protoc --doc_out=html,example.html:doc proto/*.proto
