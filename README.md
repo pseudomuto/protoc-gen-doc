@@ -33,7 +33,7 @@ own. If you just want to customize the look of the HTML output,
 just put your CSS in `stylesheet.css` next to the output file and
 it will be picked up.
 
-## Documenting your Messages
+## Writing Documentation
 
 Use `/** */` or `///` comments to document your files. Comments
 for enumerations and messages go before the message/enumeration
