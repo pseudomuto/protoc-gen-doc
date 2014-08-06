@@ -1,4 +1,4 @@
-## Google Protocol Buffers Documentation Generator
+# Google Protocol Buffers Documentation Generator
 
 `protoc-gen-doc` is a documentation generator plugin for the
 Google Protocol Buffers compiler (`protoc`). It can generate
@@ -7,11 +7,11 @@ HTML, DocBook or Markdown documentation from comments in your
 
 The plugin depends on QtCore from Qt 5.
 
-### Building the Plugin
+## Building the Plugin
 
 Run `qmake` followed by `make` to build the plugin.
 
-### Invoking the Plugin
+## Invoking the Plugin
 
 The plugin is invoked by passing the `--doc_out` option to the
 `protoc` compiler. The option has the following format:
@@ -30,14 +30,14 @@ type:
 The format may be either `docbook`, `html` or `markdown` or the
 name of a file containing a custom [Mustache][mustache] template.
 
-### Documenting your Messages
+## Documenting your Messages
 
 Use `/** */` or `///` comments to document your files. Comments
 for enumerations and messages go before the message/enumeration
 definition. Comments for fields or enum values can go either
 before or after the field/value definition.
 
-### Example Output
+## Example Output
 
 The [examples][examples] directory contains a full example with
 multiple `.proto` files, including the [Markdown][markdown],
