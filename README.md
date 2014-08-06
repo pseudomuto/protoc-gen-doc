@@ -49,7 +49,7 @@ the plugin gives the output
 * [Markdown](examples/doc/example.md)
 * [HTML][html_preview]
 * [DocBook](examples/doc/example.docbook)
-* [PDF](examples/doc/example.html?raw=true) (Using [Apache FOP][fop])
+* [PDF](examples/doc/example.pdf?raw=true) (Using [Apache FOP][fop])
 
 
 [mustache]: http://mustache.github.io/ "Mustache - Logic-less templates"
