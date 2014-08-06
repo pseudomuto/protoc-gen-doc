@@ -1,9 +1,6 @@
 DOCBOOK_XSL=/usr/share/xml/docbook/xsl-stylesheets-1.78.1/fo/docbook.xsl
 
-all: protoc-gen-doc doc/example.html doc/example.pdf
-
-protoc-gen-doc:
-	cd ..; qmake; make
+all: doc/example.html doc/example.pdf
 
 doc/example.html: *.proto ../protoc-gen-doc
 	protoc --plugin=../protoc-gen-doc \
