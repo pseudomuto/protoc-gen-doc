@@ -3,15 +3,705 @@
 "http://www.oasis-open.org/docbook/xml/simple/1.0/sdocbook.dtd">
 <article>
   <title>Protocol Documentation</title>
+  
   <section>
-    <title>What is DocBook ?</title>
-    <para>DocBook is an SGML dialect developed by O'Reilly and HaL Computer
-    Systems in 1991. It is currently maintained by the Organization for the
-    Advancement of Structured Information Standards (OASIS). DocBook describes
-    the content of articles, books, technical manuals, and other documents.
-    Although DocBook is focused on technical writing styles, it is general
-    enough to describe most prose writing. In this article, I'll discuss an
-    XML variant of the DocBook DTD that is also available.
-    </para>
+    <title>Booking.proto</title>
+    
+    <section id="com.example.Booking">
+      <title>Booking</title>
+      <para>Represents the booking of a vehicle.</para>
+      <informaltable frame="all">
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>vehicle_id</entry>
+              <entry>
+                
+                
+                  int32
+                
+              </entry>
+              <entry>required</entry>
+              <entry>ID of booked vehicle.</entry>
+            </row>
+            
+            <row>
+              <entry>customer_id</entry>
+              <entry>
+                
+                
+                  int32
+                
+              </entry>
+              <entry>required</entry>
+              <entry>Customer that booked the vehicle.</entry>
+            </row>
+            
+            <row>
+              <entry>status</entry>
+              <entry>
+                
+                  <link linkend="com.example.BookingStatus">BookingStatus</link>
+                
+                
+              </entry>
+              <entry>required</entry>
+              <entry>Status of the booking.</entry>
+            </row>
+            
+            <row>
+              <entry>confirmation_sent</entry>
+              <entry>
+                
+                
+                  bool
+                
+              </entry>
+              <entry>required</entry>
+              <entry>Has booking confirmation been sent?</entry>
+            </row>
+            
+            <row>
+              <entry>payment_received</entry>
+              <entry>
+                
+                
+                  bool
+                
+              </entry>
+              <entry>required</entry>
+              <entry>Has payment been received?</entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+    
+    <section id="com.example.BookingStatus">
+      <title>BookingStatus</title>
+      <para>Represents the status of a vehicle booking.</para>
+      <informaltable frame="all">
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>id</entry>
+              <entry>
+                
+                
+                  int32
+                
+              </entry>
+              <entry>required</entry>
+              <entry>Unique booking status ID.</entry>
+            </row>
+            
+            <row>
+              <entry>description</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>required</entry>
+              <entry>Booking status description. E.g. &quot;Active&quot;.</entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+    
+    
   </section>
+  
+  <section>
+    <title>Customer.proto</title>
+    
+    <section id="com.example.Address">
+      <title>Address</title>
+      <para>Represents a mail address.</para>
+      <informaltable frame="all">
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>address_line_1</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>required</entry>
+              <entry>First address line.</entry>
+            </row>
+            
+            <row>
+              <entry>address_line_2</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>optional</entry>
+              <entry>Second address line.</entry>
+            </row>
+            
+            <row>
+              <entry>address_line_3</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>optional</entry>
+              <entry>Second address line.</entry>
+            </row>
+            
+            <row>
+              <entry>town</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>required</entry>
+              <entry>Address town.</entry>
+            </row>
+            
+            <row>
+              <entry>county</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>optional</entry>
+              <entry>Address county, if applicable.</entry>
+            </row>
+            
+            <row>
+              <entry>country</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>required</entry>
+              <entry>Address country.</entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+    
+    <section id="com.example.Customer">
+      <title>Customer</title>
+      <para>Represents a customer.</para>
+      <informaltable frame="all">
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>id</entry>
+              <entry>
+                
+                
+                  int32
+                
+              </entry>
+              <entry>required</entry>
+              <entry>Unique customer ID.</entry>
+            </row>
+            
+            <row>
+              <entry>first_name</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>required</entry>
+              <entry>Customer first name.</entry>
+            </row>
+            
+            <row>
+              <entry>last_name</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>required</entry>
+              <entry>Customer last name.</entry>
+            </row>
+            
+            <row>
+              <entry>details</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>optional</entry>
+              <entry>Customer details.</entry>
+            </row>
+            
+            <row>
+              <entry>email_address</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>optional</entry>
+              <entry>Customer e-mail address.</entry>
+            </row>
+            
+            <row>
+              <entry>phone_number</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>repeated</entry>
+              <entry>Customer phone numbers, primary first.</entry>
+            </row>
+            
+            <row>
+              <entry>mail_addresses</entry>
+              <entry>
+                
+                  <link linkend="com.example.Address">Address</link>
+                
+                
+              </entry>
+              <entry>repeated</entry>
+              <entry>Customer mail addresses, primary first.</entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+    
+    
+  </section>
+  
+  <section>
+    <title>Vehicle.proto</title>
+    
+    <section id="com.example.Manufacturer">
+      <title>Manufacturer</title>
+      <para>Represents a manufacturer of cars.</para>
+      <informaltable frame="all">
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>id</entry>
+              <entry>
+                
+                
+                  int32
+                
+              </entry>
+              <entry>required</entry>
+              <entry>The unique manufacturer ID.</entry>
+            </row>
+            
+            <row>
+              <entry>code</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>required</entry>
+              <entry>A manufacturer code, e.g. &quot;DKL4P&quot;.</entry>
+            </row>
+            
+            <row>
+              <entry>category</entry>
+              <entry>
+                
+                  <link linkend="com.example.Manufacturer.Category">Manufacturer.Category</link>
+                
+                
+              </entry>
+              <entry>required</entry>
+              <entry>Manufacturer category.</entry>
+            </row>
+            
+            <row>
+              <entry>details</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>optional</entry>
+              <entry>Manufacturer details (minimum orders et.c.).</entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+    
+    <section id="com.example.Model">
+      <title>Model</title>
+      <para>Represents a vehicle model.</para>
+      <informaltable frame="all">
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>id</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>required</entry>
+              <entry>The unique model ID.</entry>
+            </row>
+            
+            <row>
+              <entry>model_code</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>required</entry>
+              <entry>The car model code, e.g. &quot;PZ003&quot;.</entry>
+            </row>
+            
+            <row>
+              <entry>model_name</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>required</entry>
+              <entry>The car model name, e.g. &quot;Z3&quot;.</entry>
+            </row>
+            
+            <row>
+              <entry>daily_hire_rate_dollars</entry>
+              <entry>
+                
+                
+                  sint32
+                
+              </entry>
+              <entry>required</entry>
+              <entry>Dollars per day.</entry>
+            </row>
+            
+            <row>
+              <entry>daily_hire_rate_cents</entry>
+              <entry>
+                
+                
+                  sint32
+                
+              </entry>
+              <entry>required</entry>
+              <entry>Cents per day.</entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+    
+    <section id="com.example.Vehicle">
+      <title>Vehicle</title>
+      <para>Represents a vehicle that can be hired.</para>
+      <informaltable frame="all">
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>id</entry>
+              <entry>
+                
+                
+                  int32
+                
+              </entry>
+              <entry>required</entry>
+              <entry>Unique vehicle ID.</entry>
+            </row>
+            
+            <row>
+              <entry>model</entry>
+              <entry>
+                
+                  <link linkend="com.example.Model">Model</link>
+                
+                
+              </entry>
+              <entry>required</entry>
+              <entry>Vehicle model.</entry>
+            </row>
+            
+            <row>
+              <entry>reg_number</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>required</entry>
+              <entry>Vehicle registration number.</entry>
+            </row>
+            
+            <row>
+              <entry>mileage</entry>
+              <entry>
+                
+                
+                  sint32
+                
+              </entry>
+              <entry>optional</entry>
+              <entry>Current vehicle mileage, if known.</entry>
+            </row>
+            
+            <row>
+              <entry>category</entry>
+              <entry>
+                
+                  <link linkend="com.example.Vehicle.Category">Vehicle.Category</link>
+                
+                
+              </entry>
+              <entry>optional</entry>
+              <entry>Vehicle category.</entry>
+            </row>
+            
+            <row>
+              <entry>daily_hire_rate_dollars</entry>
+              <entry>
+                
+                
+                  sint32
+                
+              </entry>
+              <entry>optional</entry>
+              <entry>Dollars per day. Taken from model if unspecified.</entry>
+            </row>
+            
+            <row>
+              <entry>daily_hire_rate_cents</entry>
+              <entry>
+                
+                
+                  sint32
+                
+              </entry>
+              <entry>optional</entry>
+              <entry>Cents per day. Taken from model if unspecified.</entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+    
+    <section id="com.example.Vehicle.Category">
+      <title>Vehicle.Category</title>
+      <para>Represents a vehicle category. E.g. &quot;Sedan&quot; or &quot;Truck&quot;.</para>
+      <informaltable frame="all">
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>code</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>required</entry>
+              <entry>Category code. E.g. &quot;S&quot;.</entry>
+            </row>
+            
+            <row>
+              <entry>description</entry>
+              <entry>
+                
+                
+                  string
+                
+              </entry>
+              <entry>required</entry>
+              <entry>Category name. E.g. &quot;Sedan&quot;.</entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+    
+    
+    <section id="com.example.Manufacturer.Category">
+      <title>Manufacturer.Category</title>
+      <para>Manufacturer category. A manufacturer may be either inhouse or external.</para>
+      <informaltable frame="all">
+        <tgroup cols="3">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Name</entry>
+              <entry>Number</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>CATEGORY_INHOUSE</entry>
+              <entry>0</entry>
+              <entry>The manufacturer is inhouse.</entry>
+            </row>
+            
+            <row>
+              <entry>CATEGORY_EXTERNAL</entry>
+              <entry>1</entry>
+              <entry>The manufacturer is external.</entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+    
+  </section>
+  
 </article>
