@@ -17,10 +17,11 @@ The plugin is invoked by passing the `--doc_out` option to the
 
     --doc_out=docbook|html|markdown|<TEMPLATE_FILENAME>,<OUT_FILENAME>:<OUT_DIR>
 
-The format may be either `docbook`, `html` or `markdown` or the
-name of a file containing a custom [Mustache][mustache] template.
-For example, to generate HTML documentation for all `.proto` files
-in the `proto` directory into `doc/index.html`, type:
+The format may be on of the built-in ones ( `docbook`, `html` or
+`markdown`) or the name of a file containing a custom
+[Mustache][mustache] template. For example, to generate HTML
+documentation for all `.proto` files in the `proto` directory into
+`doc/index.html`, type:
 
     protoc --doc_out=html,index.html:doc proto/*.proto
 
