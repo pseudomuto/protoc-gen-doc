@@ -32,8 +32,8 @@ using the `--plugin` option in order for `protoc` to find it. If
 you need support for a custom output format, see the built-in
 templates in [src/templates](src/templates) for how to write your
 own. If you just want to customize the look of the HTML output,
-just put your CSS in `stylesheet.css` next to the output file and
-it will be picked up.
+put your CSS in `stylesheet.css` next to the output file and it
+will be picked up.
 
 ## Writing Documentation
 
