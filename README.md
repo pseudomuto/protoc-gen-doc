@@ -1,9 +1,8 @@
 # Google Protocol Buffers<br/>Documentation Generator
 
-`protoc-gen-doc` is a documentation generator plugin for the
-Google Protocol Buffers compiler (`protoc`). It can generate
-HTML, DocBook or Markdown documentation from comments in your
-`.proto` files.
+This is a documentation generator plugin for the Google Protocol
+Buffers compiler (`protoc`). The plugin can generate HTML, DocBook
+or Markdown documentation from comments in your `.proto` files.
 
 The plugin depends on QtCore from Qt 5.
 
