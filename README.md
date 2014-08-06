@@ -1,4 +1,4 @@
-# Google Protocol Buffers<br/>Documentation Generator
+# Google Protocol Buffers<br>Documentation Generator
 
 This is a documentation generator plugin for the Google Protocol
 Buffers compiler (`protoc`). The plugin can generate HTML, DocBook
@@ -36,19 +36,22 @@ for enumerations and messages go before the message/enumeration
 definition. Comments for fields or enum values can go either
 before or after the field/value definition.
 
-## Example Output
+## Output Example
 
-The [examples][examples] directory contains a full example with
-multiple `.proto` files. The [Markdown][markdown], [HTML][html]
-and [DocBook][docbook] output is the `doc` subdirectory. A
-[PDF][pdf] obtained from running [Apache FOP][fop] on the DocBook
-XML is included as well.
+With the input `.proto` files
+
+* [Booking.proto](examples/proto/Booking.proto)
+* [Customer.proto](examples/proto/Customer.proto)
+* [Vehicle.proto](examples/proto/Vehicle.proto)
+
+the plugin gives the output
+
+* [Markdown](examples/doc/example.md)
+* [HTML][html_preview]
+* [DocBook](examples/doc/example.docbook)
+* [PDF](examples/doc/example.html?raw=true) (Using [Apache FOP][fop])
 
 
 [mustache]: http://mustache.github.io/ "Mustache - Logic-less templates"
-[examples]: https://github.com/estan/protoc-gen-doc/tree/master/examples "Full Example"
-[markdown]: https://github.com/estan/protoc-gen-doc/tree/master/examples/doc/example.md "Markdown Example Output"
-[html]: https://rawgit.com/estan/protoc-gen-doc/master/examples/doc/example.html "HTML Example Output"
-[docbook]: https://github.com/estan/protoc-gen-doc/blob/master/examples/doc/example.docbook "DocBook Example Output"
-[pdf]: https://github.com/estan/protoc-gen-doc/raw/master/examples/doc/example.pdf "Formatted PDF"
-[fop]: http://xmlgraphics.apache.org/fop/ "Apache FOP Website"
+[fop]: http://xmlgraphics.apache.org/fop/ "Apache™ FOP (Formatting Objects Processor)"
+[html_preview]: https://rawgit.com/estan/protoc-gen-doc/master/examples/doc/example.html "HTML Example Output"
