@@ -290,7 +290,7 @@ static void addFile(const gp::FileDescriptor *fileDescriptor, QVariantList *file
     QVariantHash file;
 
     // Add basic info.
-    file["file_name"] = QString::fromStdString(fileDescriptor->name());
+    file["file_name"] = QFileInfo(QString::fromStdString(fileDescriptor->name())).fileName();
     file["file_package"] = QString::fromStdString(fileDescriptor->package());
 
     QVariantList messages;
