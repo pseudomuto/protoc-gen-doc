@@ -22,6 +22,9 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QFileInfoList>
+#include <QIODevice>
+#include <QJsonDocument>
+#include <QJsonArray>
 #include <QRegularExpression>
 #include <QString>
 #include <QStringList>
@@ -204,7 +207,10 @@ static void addField(const gp::FieldDescriptor *fieldDescriptor, QVariantList *f
         field["field_full_type"] = QString::fromStdString(descriptor->full_name());
     } else {
         // Field is of scalar type.
-        field["field_type"] = scalarTypeName(type);
+        QString typeName(scalarTypeName(type));
+        field["field_type"] = typeName;
+        field["field_long_type"] = typeName;
+        field["field_full_type"] = typeName;
     }
 
     fields->append(field);
@@ -429,12 +435,22 @@ static bool render(const DocGeneratorContext &generatorContext,
 {
     QVariantHash args;
 
-    // Add files list.
-    args["files"] = generatorContext.files;
-
     // Add filters.
     args["p"] = QVariant::fromValue(ms::QtVariantContext::fn_t(pFilter));
     args["para"] = QVariant::fromValue(ms::QtVariantContext::fn_t(paraFilter));
+
+    // Add files list.
+    args["files"] = generatorContext.files;
+
+    // Add scalar value types table.
+    QString fileName(":/templates/scalar_value_types.json");
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly)) {
+        *error = QString("%1: %2").arg(fileName).arg(file.errorString()).toStdString();
+        return false;
+    }
+    QJsonDocument document(QJsonDocument::fromJson(file.readAll()));
+    args["scalar_value_types"] = document.array().toVariantList();
 
     // Render template.
     ms::Renderer renderer;

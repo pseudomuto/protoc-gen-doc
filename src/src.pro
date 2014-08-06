@@ -13,4 +13,4 @@ QMAKE_LIBS += -lprotoc
 
 HEADERS   += mustache.h
 SOURCES   += mustache.cpp main.cpp
-RESOURCES += templates.qrc
+RESOURCES += protoc-gen-doc.qrc

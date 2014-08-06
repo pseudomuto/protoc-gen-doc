@@ -91,6 +91,11 @@
         width: auto;
       }
 
+      /* Table of scalar value types. */
+      .scalar-value-types-table tr {
+        height: 3em;
+      }
+
       /* Table of contents. */
       #toc-container ul {
         list-style-type: none;
@@ -151,7 +156,7 @@
     <div id="toc-container">
 
       <ul id="toc">
-      {{#files}}
+        {{#files}}
         <li>
           <a href="#{{file_name}}">{{file_name}}</a>
           <ul>
@@ -170,7 +175,8 @@
             {{/file_enums}}
           </ul>
         </li>
-      {{/files}}
+        {{/files}}
+        <li><a href="#scalar-value-types">Scalar Value Types</a></li>
       </ul>
 
     </div>
@@ -194,14 +200,7 @@
           {{#message_fields}}
             <tr>
               <td>{{field_name}}</td>
-              <td>
-                {{#field_full_type}}
-                  <a href="#{{field_full_type}}">{{field_long_type}}</a>
-                {{/field_full_type}}
-                {{^field_full_type}}
-                  {{field_type}}
-                {{/field_full_type}}
-              </td>
+              <td><a href="#{{field_full_type}}">{{field_long_type}}</a></td>
               <td>{{field_label}}</td>
               <td>{{#p}}{{field_description}}{{/p}}</td>
             </tr>
@@ -232,6 +231,25 @@
       {{/file_enums}}
 
     {{/files}}
+
+    <h2 id="scalar-value-types">Scalar Value Types</h2>
+
+    <table class="scalar-value-types-table">
+      <thead>
+        <tr><td>.proto Type</td><td>Notes</td><td>C++ Type</td><td>Java Type</td><td>Python Type</td></tr>
+      </thead>
+      <tbody>
+      {{#scalar_value_types}}
+        <tr id="{{scalar_value_proto_type}}">
+          <td>{{scalar_value_proto_type}}</td>
+          <td>{{scalar_value_notes}}</td>
+          <td>{{scalar_value_cpp_type}}</td>
+          <td>{{scalar_value_java_type}}</td>
+          <td>{{scalar_value_python_type}}</td>
+        </tr>
+      {{/scalar_value_types}}
+      </tbody>
+    </table>
 
   </body>
 

@@ -28,14 +28,7 @@
             {{#message_fields}}
             <row>
               <entry>{{field_name}}</entry>
-              <entry>
-                {{#field_full_type}}
-                  <link linkend="{{field_full_type}}">{{field_long_type}}</link>
-                {{/field_full_type}}
-                {{^field_full_type}}
-                  {{field_type}}
-                {{/field_full_type}}
-              </entry>
+              <entry><link linkend="{{field_full_type}}">{{field_long_type}}</link></entry>
               <entry>{{field_label}}</entry>
               <entry>{{#para}}{{field_description}}{{/para}}</entry>
             </row>
@@ -76,4 +69,38 @@
     {{/file_enums}}
   </section>
   {{/files}}
+
+  <section>
+    <title>Scalar Value Types</title>
+    <informaltable frame="all">
+      <tgroup cols="5">
+        <colspec colwidth="*"/>
+        <colspec colwidth="5*"/>
+        <colspec colwidth="*"/>
+        <colspec colwidth="*"/>
+        <colspec colwidth="*"/>
+        <thead>
+          <row>
+            <entry>.proto Type</entry>
+            <entry>Notes</entry>
+            <entry>C++ Type</entry>
+            <entry>Java Type</entry>
+            <entry>Python Type</entry>
+          </row>
+        </thead>
+        <tbody>
+          {{#scalar_value_types}}
+          <row>
+            <entry id="{{scalar_value_proto_type}}">{{scalar_value_proto_type}}</entry>
+            <entry>{{scalar_value_notes}}</entry>
+            <entry>{{scalar_value_cpp_type}}</entry>
+            <entry>{{scalar_value_java_type}}</entry>
+            <entry>{{scalar_value_python_type}}</entry>
+          </row>
+          {{/scalar_value_types}}
+        </tbody>
+      </tgroup>
+    </informaltable>
+  </section>
+
 </article>
