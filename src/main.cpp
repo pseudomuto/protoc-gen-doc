@@ -191,14 +191,19 @@ static void addField(const gp::FieldDescriptor *fieldDescriptor, QVariantList *f
     // Add type information.
     gp::FieldDescriptor::Type type = fieldDescriptor->type();
     if (type == gp::FieldDescriptor::TYPE_MESSAGE || type == gp::FieldDescriptor::TYPE_GROUP) {
-        field["field_type"] = QString::fromStdString(fieldDescriptor->message_type()->name());
-        field["field_long_type"] = longName(fieldDescriptor->message_type());
-        field["field_full_type"] = QString::fromStdString(fieldDescriptor->message_type()->full_name());
+        // Field is of message / group type.
+        const gp::Descriptor *descriptor = fieldDescriptor->message_type();
+        field["field_type"] = QString::fromStdString(descriptor->name());
+        field["field_long_type"] = longName(descriptor);
+        field["field_full_type"] = QString::fromStdString(descriptor->full_name());
     } else if (type == gp::FieldDescriptor::TYPE_ENUM) {
-        field["field_type"] = QString::fromStdString(fieldDescriptor->enum_type()->name());
-        field["field_long_type"] = longName(fieldDescriptor->enum_type());
-        field["field_full_type"] = QString::fromStdString(fieldDescriptor->enum_type()->full_name());
+        // Field is of enum type.
+        const gp::EnumDescriptor *descriptor = fieldDescriptor->enum_type();
+        field["field_type"] = QString::fromStdString(descriptor->name());
+        field["field_long_type"] = longName(descriptor);
+        field["field_full_type"] = QString::fromStdString(descriptor->full_name());
     } else {
+        // Field is of scalar type.
         field["field_type"] = scalarTypeName(type);
     }
 
