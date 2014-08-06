@@ -57,6 +57,9 @@ the plugin gives the output
 * [DocBook](examples/doc/example.docbook)
 * [PDF](examples/doc/example.pdf?raw=true) (Using [Apache FOP][fop])
 
+Look in [examples/Makefile](examples/Makefile) to see how these
+outputs were built.
+
 
 [mustache]: http://mustache.github.io/ "Mustache - Logic-less templates"
 [fop]: http://xmlgraphics.apache.org/fop/ "Apache™ FOP (Formatting Objects Processor)"
