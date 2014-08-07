@@ -12,6 +12,13 @@ install step, just copy the executable to where you want it. The
 plugin depends on QtCore from Qt 5 and the libprotobuf/libprotoc
 libraries from Google.
 
+The story on Windows is a little more involved, which is why I
+provide a [pre-built binary for Windows][release_zip]. On Windows,
+the plugin executable must always stay next to the libraries
+included in the ZIP. I'll try to keep updating the ZIP with each
+new release. No guarantees though.
+
+
 ## Invoking the Plugin
 
 The plugin is invoked by passing the `--doc_out` option to the
@@ -64,3 +71,4 @@ outputs were built.
 [mustache]: http://mustache.github.io/ "Mustache - Logic-less templates"
 [fop]: http://xmlgraphics.apache.org/fop/ "Apache™ FOP (Formatting Objects Processor)"
 [html_preview]: https://rawgit.com/estan/protoc-gen-doc/master/examples/doc/example.html "HTML Example Output"
+[release_zip]: https://github.com/estan/protoc-gen-doc/releases/download/v0.1/protoc-gen-doc-v0.1-win32.zip "Release 0.1 for Windows"
