@@ -6,18 +6,41 @@ or Markdown documentation from comments in your `.proto` files.
 
 ## Building the Plugin
 
-Run `qmake` followed by `make` to build the plugin. This will
-produce the plugin executable (`protoc-gen-doc`). There's no
-install step, just copy the executable to where you want it. The
-plugin depends on QtCore from Qt 5 and the libprotobuf/libprotoc
-libraries from Google.
+### Prerequisites
+* Protocol Buffers library from Google
+* QtCore from Qt 5
 
-The story on Windows is a little more involved, which is why I
-provide a [pre-built binary for Windows][release_zip]. On Windows,
-the plugin executable must always stay next to the libraries
-included in the ZIP. I'll try to keep updating the ZIP with each
-new release. No guarantees though.
+### Linux
+At a terminal command prompt, run
 
+    qmake
+    make
+
+in the top-level directory to build the plugin. This will produce
+the plugin executable (`protoc-gen-doc`). There's no install step,
+just copy the executable to where you want it.
+
+### Windows
+On windows, it's easiest to just use the [ZIP distribution][release_zip].
+If you want to build yourself, start a Qt/MSVC command prompt and
+set `PROTOBUF_PREFIX` to the path where you built the Protocol
+Buffers library, then run
+
+    qmake
+    nmake   
+
+in the top-level directory to build the plugin. This will produce
+the plugin executable (`releases\protoc-gen-doc.exe`). You can
+create a standalone ZIP distribution with `nmake zip`. MSVC is
+currently the only supported compiler on Windows. Building with
+MinGW should work, but the `zip` target is not available. I'll try
+to fix this in the future.
+
+### Mac OS X
+Compilation has not been tested on OS X yet, but the steps should
+be the same as on Linux and should work fine, provided that both
+libprotobuf and Qt are found. Please get back to me if you have
+tried compilation on OS X.
 
 ## Invoking the Plugin
 
@@ -71,4 +94,4 @@ outputs were built.
 [mustache]: http://mustache.github.io/ "Mustache - Logic-less templates"
 [fop]: http://xmlgraphics.apache.org/fop/ "Apache™ FOP (Formatting Objects Processor)"
 [html_preview]: https://rawgit.com/estan/protoc-gen-doc/master/examples/doc/example.html "HTML Example Output"
-[release_zip]: https://github.com/estan/protoc-gen-doc/releases/download/v0.1/protoc-gen-doc-v0.1-win32.zip "Release 0.1 for Windows"
+[release_zip]: https://github.com/estan/protoc-gen-doc/releases/download/v0.2/protoc-gen-doc-v0.2-win32.zip "Release 0.2 for Windows"
