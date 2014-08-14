@@ -30,7 +30,7 @@ Buffers library, then run
     nmake   
 
 in the top-level directory to build the plugin. This will produce
-the plugin executable (`releases\protoc-gen-doc.exe`). You can
+the plugin executable (`release\protoc-gen-doc.exe`). You can
 create a standalone ZIP distribution with `nmake zip`. MSVC is
 currently the only supported compiler on Windows. Building with
 MinGW should work, but the `zip` target is not available. I'll try
