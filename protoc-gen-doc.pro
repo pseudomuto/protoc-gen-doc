@@ -1,15 +1,55 @@
 TEMPLATE = app
-CONFIG += console link_pkgconfig c++11
+VERSION = 0.2
+
+CONFIG += debug release console c++11
 CONFIG -= app_bundle
 QT -= gui
-
-PKGCONFIG = protobuf
-QMAKE_LIBS += -lprotoc
 
 HEADERS += src/mustache.h
 SOURCES += src/mustache.cpp src/main.cpp
 RESOURCES += protoc-gen-doc.qrc
 
-!win32 {
-    QMAKE_CXXFLAGS += -Werror -Wall -Wextra -Wnon-virtual-dtor
+!win32:QMAKE_CXXFLAGS += -Werror -Wall -Wextra
+
+unix {
+    CONFIG += link_pkgconfig
+    PKGCONFIG = protobuf
+    LIBS += -lprotoc
 }
+
+win32 {
+    INCLUDEPATH += "$$(PROTOBUF_PREFIX)\src"
+
+    release:LIBS += "$$(PROTOBUF_PREFIX)\vsprojects\Release\libprotobuf.lib"
+    release:LIBS += "$$(PROTOBUF_PREFIX)\vsprojects\Release\libprotoc.lib"
+
+    debug:LIBS += "$$(PROTOBUF_PREFIX)\vsprojects\Debug\libprotobuf.lib"
+    debug:LIBS += "$$(PROTOBUF_PREFIX)\vsprojects\Debug\libprotoc.lib"
+}
+
+win32-msvc2013:release {
+    ZIP_DIR = $$shell_path($${TARGET}-$${VERSION}-win32)
+    SRC_EXE = $$shell_path(release/$${TARGET}.exe)
+    DST_EXE = $$shell_path($${ZIP_DIR}/$${TARGET}.exe)
+
+    MSVCP_DLL = $$shell_path($$(SystemRoot)/SysWOW64/msvcp120.dll)
+    MSVCR_DLL = $$shell_path($$(SystemRoot)/SysWOW64/msvcr120.dll)
+
+    WINDEPLOYQT_FLAGS = --release --no-translations --no-compiler-runtime
+
+    zip.target = zip
+    zip.depends = zipclean
+    zip.commands = md $${ZIP_DIR} && \
+                   copy $${SRC_EXE} $${ZIP_DIR} && \
+                   copy $${MSVCP_DLL} $${ZIP_DIR} && \
+                   copy $${MSVCR_DLL} $${ZIP_DIR} && \
+                   windeployqt $${WINDEPLOYQT_FLAGS} $${DST_EXE} && \
+                   7z a -r $${ZIP_DIR}.zip $${ZIP_DIR}
+
+    zipclean.target = zipclean
+    zipclean.commands = IF EXIST $${ZIP_DIR} rd /s /q $${ZIP_DIR} && \
+                        IF EXIST $${ZIP_DIR}.zip del $${ZIP_DIR}.zip
+
+    QMAKE_EXTRA_TARGETS += zip zipclean
+}
+
