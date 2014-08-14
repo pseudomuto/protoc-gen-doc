@@ -17,7 +17,7 @@ unix {
     LIBS += -lprotoc
 }
 
-win32 {
+win32-msvc* {
     INCLUDEPATH += "$$(PROTOBUF_PREFIX)\src"
 
     release:LIBS += "$$(PROTOBUF_PREFIX)\vsprojects\Release\libprotobuf.lib"
@@ -27,13 +27,19 @@ win32 {
     debug:LIBS += "$$(PROTOBUF_PREFIX)\vsprojects\Debug\libprotoc.lib"
 }
 
-win32-msvc2013:release {
+win32-msvc*:release {
     ZIP_DIR = $$shell_path($${TARGET}-$${VERSION}-win32)
     SRC_EXE = $$shell_path(release/$${TARGET}.exe)
     DST_EXE = $$shell_path($${ZIP_DIR}/$${TARGET}.exe)
 
-    MSVCP_DLL = $$shell_path($$(SystemRoot)/SysWOW64/msvcp120.dll)
-    MSVCR_DLL = $$shell_path($$(SystemRoot)/SysWOW64/msvcr120.dll)
+    win32-msvc2010:MSVCP_DLL = $$shell_path($$(SystemRoot)/SysWOW64/msvcp100.dll)
+    win32-msvc2010:MSVCR_DLL = $$shell_path($$(SystemRoot)/SysWOW64/msvcr100.dll)
+
+    win32-msvc2012:MSVCP_DLL = $$shell_path($$(SystemRoot)/SysWOW64/msvcp110.dll)
+    win32-msvc2012:MSVCR_DLL = $$shell_path($$(SystemRoot)/SysWOW64/msvcr110.dll)
+
+    win32-msvc2013:MSVCP_DLL = $$shell_path($$(SystemRoot)/SysWOW64/msvcp120.dll)
+    win32-msvc2013:MSVCR_DLL = $$shell_path($$(SystemRoot)/SysWOW64/msvcr120.dll)
 
     WINDEPLOYQT_FLAGS = --release --no-translations --no-compiler-runtime
 
