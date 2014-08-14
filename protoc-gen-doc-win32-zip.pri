@@ -19,7 +19,7 @@ FILES += "$$[QT_INSTALL_BINS]/Qt5Core.dll"
 FILES += "$$[QT_INSTALL_BINS]/icu*.dll"
 
 # Settings for the zip target.
-ZIP_DIR = $${TARGET}-$${VERSION}-win32
+ZIP_DIR = $${TARGET}-v$${VERSION}-win32
 ZIP_FILE = $${ZIP_DIR}.zip
 
 # TARGET: zip
