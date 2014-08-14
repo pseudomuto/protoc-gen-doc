@@ -1,9 +1,9 @@
-# VS_V is the NNN-format Visual C++ version number.
+# VS_V is the NNN-format Visual Studio version number.
 win32-msvc2010:VS_V = 100
 win32-msvc2012:VS_V = 110
 win32-msvc2013:VS_V = 120
 
-# Find the Visual C++ redistributable folder.
+# Find the Visual Studio redistributable folder.
 VS_TOOLS = $$getenv(VS$${VS_V}COMNTOOLS)
 VS_REDIST = $${VS_TOOLS}/../../VC/redist/x86/Microsoft.VC$${VS_V}.CRT
 
