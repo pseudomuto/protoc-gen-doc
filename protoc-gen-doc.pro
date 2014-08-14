@@ -31,7 +31,7 @@ msvc {
     debug:LIBS += "$${PROTOBUF_PREFIX}\vsprojects\Debug\libprotobuf.lib"
     debug:LIBS += "$${PROTOBUF_PREFIX}\vsprojects\Debug\libprotoc.lib"
 
-    # Maintain Windows XP compatibility, even on Qt 5.2+.
+    # Maintain Windows XP compatibility on Visual Studio 2012 and higher.
     QMAKE_LFLAGS += /SUBSYSTEM:CONSOLE,5.01
 
     # Add zip target in release mode.
