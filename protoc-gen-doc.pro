@@ -39,5 +39,5 @@ msvc {
 }
 
 
-# Increase warnings G++ / clang warnings.
+# Increase g++ / clang warnings.
 *g++*|*clang*:QMAKE_CXXFLAGS += -Werror -Wall -Wextra
