@@ -30,7 +30,7 @@ ZIP_FILE = $${ZIP_DIR}.zip
 #
 zip.target = zip
 zip.depends = first zipclean
-zip.commands = mkdir $${ZIP_DIR} $${ZIP_DIR}\platforms
+zip.commands = mkdir $${ZIP_DIR}
 for (FILE, FILES) {
     zip.commands += && copy $$shell_quote($$shell_path($${FILE})) $${ZIP_DIR}
 }
