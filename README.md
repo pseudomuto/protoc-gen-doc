@@ -22,9 +22,9 @@ just copy the executable to where you want it.
 
 ### Windows
 On windows, it's easiest to just use the [ZIP distribution][release_zip].
-If you want to build yourself, start a Qt/MSVC command prompt and
-set `PROTOBUF_PREFIX` to the path where you built the Protocol
-Buffers library, then run
+If you want to build yourself, start a Qt/MSVC command prompt,
+load `vcvarsall.bat` and set `PROTOBUF_PREFIX` to the path where you
+built the Protocol Buffers library. Then run
 
     qmake
     nmake   
