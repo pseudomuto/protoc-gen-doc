@@ -41,6 +41,7 @@ msvc {
 }
 
 mac {
+    # Add protobuf/protoc paths to INCLUDEPATH and LIBS.
     INCLUDEPATH += "$${PROTOBUF_PREFIX}/include"
     LIBS += -L$${PROTOBUF_PREFIX}/lib -lprotobuf -lprotoc
 }
