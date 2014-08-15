@@ -47,14 +47,9 @@ in the top-level directory to build the plugin. This will produce
 the plugin executable (`protoc-gen-doc`). There's no install step,
 just copy the executable to where you want it.
 
-Note that on Mac OS X, the protobuf-2.5.0 library must have been
-compiled with `clang`, e.g. in the following environment:
-
-    CC=clang
-    CXX=clang++
-    CXXFLAGS="-std=c++11 -stdlib=libc++"
-    LDFLAGS="-stdlib=libc++'
-    LIBS="-lc++ -lc++abi"
+Note that on Mac OS X, the protobuf library should be build with
+with clang (`CC=clang` and `CXX=clang++`), or you'll get linker
+errors.
 
 ## Invoking the Plugin
 
