@@ -13,8 +13,8 @@ or Markdown documentation from comments in your `.proto` files.
 ### Linux
 At a terminal command prompt, run
 
-    qmake
-    make
+    $ qmake
+    $ make
 
 in the top-level directory to build the plugin. This will produce
 the plugin executable (`protoc-gen-doc`). There's no install step,
@@ -26,8 +26,8 @@ If you want to build yourself, start a Qt/MSVC command prompt,
 load `vcvarsall.bat` and set `PROTOBUF_PREFIX` to the path where you
 built the Protocol Buffers library. Then run
 
-    qmake
-    nmake   
+    > qmake
+    > nmake   
 
 in the top-level directory to build the plugin. This will produce
 the plugin executable (`release\protoc-gen-doc.exe`). You can
