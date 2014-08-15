@@ -9,7 +9,7 @@ HEADERS += src/mustache.h
 SOURCES += src/mustache.cpp src/main.cpp
 RESOURCES += protoc-gen-doc.qrc
 
-unix {
+linux {
     # Use pkg-config to find libprotobuf.
     CONFIG += link_pkgconfig
     PKGCONFIG = protobuf
@@ -17,13 +17,15 @@ unix {
     LIBS += -lprotoc # Has no .pc, so add manually.
 }
 
-msvc {
+msvc|mac {
     # Get location of protobuf/protoc libraries.
     PROTOBUF_PREFIX = $$getenv(PROTOBUF_PREFIX)
     isEmpty(PROTOBUF_PREFIX) {
         error(You must set the PROTOBUF_PREFIX environment variable!)
     }
+}
 
+msvc {
     # Add protobuf/protoc paths to INCLUDEPATH and LIBS.
     INCLUDEPATH += "$${PROTOBUF_PREFIX}\src"
     release:LIBS += "$${PROTOBUF_PREFIX}\vsprojects\Release\libprotobuf.lib"
@@ -38,6 +40,10 @@ msvc {
     release:include(protoc-gen-doc-win32-zip.pri)
 }
 
+mac {
+    INCLUDEPATH += "$${PROTOBUF_PREFIX}/include"
+    LIBS += -L$${PROTOBUF_PREFIX}/lib -lprotobuf -lprotoc
+}
 
-# Increase g++ / clang warnings.
-*g++*|*clang*:QMAKE_CXXFLAGS += -Werror -Wall -Wextra
+# Increase g++ warnings.
+g++*:QMAKE_CXXFLAGS += -Werror -Wall -Wextra

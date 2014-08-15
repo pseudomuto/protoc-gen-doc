@@ -23,11 +23,11 @@ just copy the executable to where you want it.
 ### Windows
 On windows, it's easiest to just use the [ZIP distribution][release_zip].
 If you want to build yourself, start a Qt/MSVC command prompt,
-load `vcvarsall.bat` and set `PROTOBUF_PREFIX` to the path where you
-built the Protocol Buffers library. Then run
+load `vcvarsall.bat` and then run
 
+    > set PROTOBUF_PREFIX=/path/to/protobuf-2.5.0
     > qmake
-    > nmake   
+    > nmake
 
 in the top-level directory to build the plugin. This will produce
 the plugin executable (`release\protoc-gen-doc.exe`). You can
@@ -37,10 +37,24 @@ MinGW should work, but the `zip` target is not available. I'll try
 to fix this in the future.
 
 ### Mac OS X
-Compilation has not been tested on OS X yet, but the steps should
-be the same as on Linux and should work fine, provided that both
-libprotobuf and Qt are found. Please get back to me if you have
-tried compilation on OS X.
+At a Terminal prompt, run
+
+    $ export PROTOBUF_PREFIX=/path/to/protobuf-2.5.0
+    $ qmake
+    $ make
+
+in the top-level directory to build the plugin. This will produce
+the plugin executable (`protoc-gen-doc`). There's no install step,
+just copy the executable to where you want it.
+
+Note that on Mac OS X, the protobuf-2.5.0 library must have been
+compiled with `clang`, e.g. in the following environment:
+
+    CC=clang
+    CXX=clang++
+    CXXFLAGS="-std=c++11 -stdlib=libc++"
+    LDFLAGS="-stdlib=libc++'
+    LIBS="-lc++ -lc++abi"
 
 ## Invoking the Plugin
 
