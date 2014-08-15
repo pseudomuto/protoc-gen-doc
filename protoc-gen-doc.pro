@@ -46,4 +46,4 @@ mac {
 }
 
 # Increase g++ warnings.
-g++*:QMAKE_CXXFLAGS += -Werror -Wall -Wextra
+*g++*:QMAKE_CXXFLAGS += -Werror -Wall -Wextra
