@@ -350,7 +350,7 @@ static QStringList supportedFormats()
  * Returns the template specified by @p name.
  *
  * The @p name parameter may be either a template file name, or the name of a
- * supported format ("html", "latex", ...). If an error occured, @p is set to
+ * supported format ("html", "docbook", ...). If an error occured, @p is set to
  * point to an error message and QString() returned.
  */
 static QString readTemplate(const QString &name, std::string *error)
