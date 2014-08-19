@@ -4,10 +4,6 @@ compiler:
  - gcc
  - clang
 
-env:
- - DOCBOOK_XSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/fo/docbook.xsl
- - QMAKESPEC=linux-$([[ $CXX = "g++" ]] && echo "g++" || echo "clang")
-
 before_install:
  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
  - sudo add-apt-repository --yes ppa:chris-lea/protobuf
@@ -15,6 +11,10 @@ before_install:
  - sudo apt-get install -qq libqt5core5 qt5-qmake qt5-default
  - sudo apt-get install -qq libprotobuf-dev libprotoc-dev protobuf-compiler
  - sudo apt-get install -qq docbook-xsl fop libservlet2.4-java
+
+before_script:
+ - export DOCBOOK_XSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/fo/docbook.xsl
+ - export QMAKESPEC=linux-$([[ $CXX = "g++" ]] && echo "g++" || echo "clang")
 
 script:
  - qmake
