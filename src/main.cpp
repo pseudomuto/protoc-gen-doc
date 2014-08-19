@@ -79,9 +79,9 @@ static QString longName(const T *descriptor)
  */
 static inline bool longNameLessThan(const QVariant &v1, const QVariant &v2)
 {
-    if (v1.toHash()["message_long_name"] < v2.toHash()["message_long_name"])
+    if (v1.toHash()["message_long_name"].toString() < v2.toHash()["message_long_name"].toString())
         return true;
-    return v1.toHash()["enum_long_name"] < v2.toHash()["enum_long_name"];
+    return v1.toHash()["enum_long_name"].toString() < v2.toHash()["enum_long_name"].toString();
 }
 
 /**
