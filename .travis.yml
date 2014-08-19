@@ -6,6 +6,7 @@ compiler:
 
 env:
  - DOCBOOK_XSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/fo/docbook.xsl
+ - QMAKESPEC=linux-$([[ $CXX = "g++" ]] && echo "g++" || echo "clang")
 
 before_install:
  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
@@ -16,4 +17,12 @@ before_install:
  - sudo apt-get install -qq docbook-xsl fop libservlet2.4-java
 
 script:
- - qmake && make && cd examples && make clean && make && test -s doc/example.html -a -s doc/example.md -a -s doc/example.docbook -a -s doc/example.pdf
+ - qmake
+ - make
+ - cd examples
+ - make clean
+ - make
+ - test -s doc/example.html
+ - test -s doc/example.md
+ - test -s doc/example.docbook
+ - test -s doc/example.pdf
