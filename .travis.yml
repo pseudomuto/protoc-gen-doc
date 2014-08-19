@@ -1,5 +1,9 @@
 language: cpp
 
+compiler:
+ - gcc
+ - clang
+
 env:
  - DOCBOOK_XSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/fo/docbook.xsl
 
