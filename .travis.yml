@@ -1,0 +1,12 @@
+language: cpp
+
+before_install:
+ - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
+ - sudo add-apt-repository --yes ppa:chris-lea/protobuf
+ - sudo apt-get update -qq
+ - sudo apt-get install -qq libqt5core5 qt5-qmake qt5-default
+ - sudo apt-get install -qq libprotobuf-dev libprotoc-dev protobuf-compiler
+ - sudo apt-get install -qq fop
+
+script:
+ - qmake && make && cd examples && make clean && make
