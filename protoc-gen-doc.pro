@@ -1,5 +1,5 @@
 TEMPLATE = app
-VERSION = 0.2
+VERSION = 0.3
 
 CONFIG += console c++11
 CONFIG -= app_bundle
