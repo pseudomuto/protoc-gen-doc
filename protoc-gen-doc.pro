@@ -48,3 +48,6 @@ mac {
 
 # Increase g++ warnings.
 *g++*:QMAKE_CXXFLAGS += -Werror -Wall -Wextra
+
+# Silence clang warnings in old Qt code.
+*clang*:lessThan(QT_VERSION, 5.0.3):QMAKE_CXXFLAGS += -Wno-deprecated-register
