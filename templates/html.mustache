@@ -154,7 +154,6 @@
     <h2>Table of Contents</h2>
 
     <div id="toc-container">
-
       <ul id="toc">
         {{#files}}
         <li>
@@ -181,62 +180,52 @@
         {{/files}}
         <li><a href="#scalar-value-types">Scalar Value Types</a></li>
       </ul>
-
     </div>
 
     {{#files}}
-
-      <div class="file-heading">
-        <h2 id="{{file_name}}">{{file_name}}</h2><a href="#title">Top</a>
-      </div>
-
-      {{#file_messages}}
-        <h3 id="{{message_full_name}}">{{message_long_name}}</h3>
-
-        {{#p}}{{message_description}}{{/p}}
-
-        <table class="field-table">
-          <thead>
-            <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-          </thead>
-          <tbody>
-          {{#message_fields}}
-            <tr>
-              <td>{{field_name}}</td>
-              <td><a href="#{{field_full_type}}">{{field_long_type}}</a></td>
-              <td>{{field_label}}</td>
-              <td>{{#p}}{{field_description}}{{/p}}</td>
-            </tr>
-          {{/message_fields}}
-          </tbody>
-        </table>
-      {{/file_messages}}
-
-      {{#file_enums}}
-        <h3 id="{{enum_full_name}}">{{enum_long_name}}</h3>
-
-        {{#p}}{{enum_description}}{{/p}}
-
-        <table class="enum-table">
-          <thead>
-            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
-          </thead>
-          <tbody>
-          {{#enum_values}}
-            <tr>
-              <td>{{value_name}}</td>
-              <td>{{value_number}}</td>
-              <td>{{#p}}{{value_description}}{{/p}}</td>
-            </tr>
-          {{/enum_values}}
-          </tbody>
-        </table>
-      {{/file_enums}}
-
+    <div class="file-heading">
+      <h2 id="{{file_name}}">{{file_name}}</h2><a href="#title">Top</a>
+    </div>
+    {{#file_messages}}
+    <h3 id="{{message_full_name}}">{{message_long_name}}</h3>
+    {{#p}}{{message_description}}{{/p}}
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        {{#message_fields}}
+        <tr>
+          <td>{{field_name}}</td>
+          <td><a href="#{{field_full_type}}">{{field_long_type}}</a></td>
+          <td>{{field_label}}</td>
+          <td>{{#p}}{{field_description}}{{/p}}</td>
+        </tr>
+        {{/message_fields}}
+      </tbody>
+    </table>
+    {{/file_messages}}
+    {{#file_enums}}
+    <h3 id="{{enum_full_name}}">{{enum_long_name}}</h3>
+    {{#p}}{{enum_description}}{{/p}}
+    <table class="enum-table">
+      <thead>
+        <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        {{#enum_values}}
+        <tr>
+          <td>{{value_name}}</td>
+          <td>{{value_number}}</td>
+          <td>{{#p}}{{value_description}}{{/p}}</td>
+        </tr>
+        {{/enum_values}}
+      </tbody>
+    </table>
+    {{/file_enums}}
     {{/files}}
 
     <h2 id="scalar-value-types">Scalar Value Types</h2>
-
     <table class="scalar-value-types-table">
       <thead>
         <tr><td>.proto Type</td><td>Notes</td><td>C++ Type</td><td>Java Type</td><td>Python Type</td></tr>
@@ -255,5 +244,4 @@
     </table>
 
   </body>
-
 </html>

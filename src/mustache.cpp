@@ -127,6 +127,10 @@ bool QtVariantContext::isFalse(const QString& key) const
 		return !value.toBool();
 	case QVariant::List:
 		return value.toList().isEmpty();
+	case QVariant::Hash:
+		return value.toHash().isEmpty();
+	case QVariant::Map:
+		return value.toMap().isEmpty();
 	default:
 		return value.toString().isEmpty();
 	}
@@ -310,6 +314,12 @@ QString Renderer::render(const QString& _template, int startPos, int endPos, Con
 			break;
 		case Tag::Partial:
 		{
+			QString tagStartMarker = m_tagStartMarker;
+			QString tagEndMarker = m_tagEndMarker;
+
+			m_tagStartMarker = m_defaultTagStartMarker;
+			m_tagEndMarker = m_defaultTagEndMarker;
+
 			m_partialStack.push(tag.key);
 
 			QString partial = context->partialValue(tag.key);
@@ -317,6 +327,9 @@ QString Renderer::render(const QString& _template, int startPos, int endPos, Con
 			lastTagEnd = tag.end;
 
 			m_partialStack.pop();
+
+			m_tagStartMarker = tagStartMarker;
+			m_tagEndMarker = tagEndMarker;
 		}
 		break;
 		case Tag::SetDelimiter:
@@ -405,6 +418,10 @@ Tag Renderer::findTag(const QString& content, int pos, int endPos)
 		tag.key = readTagName(content, pos, endPos);
 	}
 
+	if (tag.type != Tag::Value) {
+		expandTag(tag, content);
+	}
+
 	return tag;
 }
 
@@ -427,9 +444,13 @@ void Renderer::readSetDelimiter(const QString& content, int pos, int endPos)
 	QString startMarker;
 	QString endMarker;
 
+	while (content.at(pos).isSpace() && pos < endPos) {
+		++pos;
+	}
+
 	while (!content.at(pos).isSpace() && pos < endPos) {
 		if (content.at(pos) == '=') {
-			setError("Custom delimiters may not contain '=' or spaces.", pos);
+			setError("Custom delimiters may not contain '='.", pos);
 			return;
 		}
 		startMarker += content.at(pos);
@@ -440,9 +461,9 @@ void Renderer::readSetDelimiter(const QString& content, int pos, int endPos)
 		++pos;
 	}
 
-	while (pos < endPos - 1) {
-		if (content.at(pos) == '=' || content.at(pos).isSpace()) {
-			setError("Custom delimiters may not contain '=' or spaces.", pos);
+	while (!content.at(pos).isSpace() && pos < endPos - 1) {
+		if (content.at(pos) == '=') {
+			setError("Custom delimiters may not contain '='.", pos);
 			return;
 		}
 		endMarker += content.at(pos);
@@ -486,3 +507,27 @@ void Renderer::setTagMarkers(const QString& startMarker, const QString& endMarke
 	m_defaultTagEndMarker = endMarker;
 }
 
+void Renderer::expandTag(Tag& tag, const QString& content)
+{
+	int start = tag.start;
+	int end = tag.end;
+
+	// Move start to beginning of line.
+	while (start > 0 && content.at(start - 1) != QLatin1Char('\n')) {
+		--start;
+		if (!content.at(start).isSpace()) {
+			return; // Not standalone.
+		}
+	}
+
+	// Move end to one past end of line.
+	while (end <= content.size() && content.at(end - 1) != QLatin1Char('\n')) {
+		if (end < content.size() && !content.at(end).isSpace()) {
+			return; // Not standalone.
+		}
+		++end;
+	}
+
+	tag.start = start;
+	tag.end = end;
+}

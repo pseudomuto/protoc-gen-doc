@@ -2,26 +2,48 @@
 <a name="top"/>
 
 ## Table of Contents
-{{#files}}* [{{file_name}}](#{{file_name}}){{#file_messages}}
- * [{{message_long_name}}](#{{message_full_name}}){{/file_messages}}
-{{/files}}* [Scalar Value Types](#scalar-value-types)
+{{#files}}
+* [{{file_name}}](#{{file_name}})
+ {{#file_messages}}
+ * [{{message_long_name}}](#{{message_full_name}})
+ {{/file_messages}}
+ {{#file_enums}}
+ * [{{enum_long_name}}](#{{enum_full_name}})
+ {{/file_enums}}
+{{/files}}
+* [Scalar Value Types](#scalar-value-types)
 
 {{#files}}
 <a name="{{file_name}}"/>
 <p align="right"><a href="#top">Top</a></p>
+
 ## {{file_name}}
+
 {{#file_messages}}
 <a name="{{message_full_name}}"/>
 ### {{message_long_name}}
-
 {{message_description}}
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-{{#message_fields}}| {{#nobr}}{{field_name}}{{/nobr}} | {{#nobr}}{{field_long_type}}{{/nobr}} | {{#nobr}}{{field_label}}{{/nobr}} | {{#nobr}}{{field_description}}{{/nobr}} |
+{{#message_fields}}
+| {{field_name}} | {{field_long_type}} | {{field_label}} | {{#nobr}}{{field_description}}{{/nobr}} |
 {{/message_fields}}
+
 {{/file_messages}}
 
+{{#file_enums}}
+<a name="{{enum_full_name}}"/>
+### {{enum_long_name}}
+{{enum_description}}
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+{{#enum_values}}
+| {{value_name}} | {{value_number}} | {{#nobr}}{{value_description}}{{/nobr}} |
+{{/enum_values}}
+
+{{/file_enums}}
 {{/files}}
 
 <a name="scalar-value-types"/>
@@ -29,5 +51,6 @@
 
 | .proto Type | Notes | C++ Type | Java Type | Python Type |
 | ----------- | ----- | -------- | --------- | ----------- |
-{{#scalar_value_types}}| {{#nobr}}{{scalar_value_proto_type}}{{/nobr}} | {{#nobr}}{{scalar_value_notes}}{{/nobr}} | {{#nobr}}{{scalar_value_cpp_type}}{{/nobr}} | {{#nobr}}{{scalar_value_java_type}}{{/nobr}} | {{#nobr}}{{scalar_value_python_type}}{{/nobr}} |
+{{#scalar_value_types}}
+| {{scalar_value_proto_type}} | {{scalar_value_notes}} | {{scalar_value_cpp_type}} | {{scalar_value_java_type}} | {{scalar_value_python_type}} |
 {{/scalar_value_types}}

@@ -13,16 +13,16 @@
  * [Model](#com.example.Model)
  * [Vehicle](#com.example.Vehicle)
  * [Vehicle.Category](#com.example.Vehicle.Category)
+ * [Manufacturer.Category](#com.example.Manufacturer.Category)
 * [Scalar Value Types](#scalar-value-types)
-
 
 <a name="Booking.proto"/>
 <p align="right"><a href="#top">Top</a></p>
+
 ## Booking.proto
 
 <a name="com.example.Booking"/>
 ### Booking
-
 Represents the booking of a vehicle.
 
 Vehicles are some cool shit. But drive carefully!
@@ -35,10 +35,8 @@ Vehicles are some cool shit. But drive carefully!
 | confirmation_sent | bool | required | Has booking confirmation been sent? |
 | payment_received | bool | required | Has payment been received? |
 
-
 <a name="com.example.BookingStatus"/>
 ### BookingStatus
-
 Represents the status of a vehicle booking.
 
 | Field | Type | Label | Description |
@@ -47,15 +45,13 @@ Represents the status of a vehicle booking.
 | description | string | required | Booking status description. E.g. &quot;Active&quot;. |
 
 
-
-
 <a name="Customer.proto"/>
 <p align="right"><a href="#top">Top</a></p>
+
 ## Customer.proto
 
 <a name="com.example.Address"/>
 ### Address
-
 Represents a mail address.
 
 | Field | Type | Label | Description |
@@ -67,10 +63,8 @@ Represents a mail address.
 | county | string | optional | Address county, if applicable. |
 | country | string | required | Address country. |
 
-
 <a name="com.example.Customer"/>
 ### Customer
-
 Represents a customer.
 
 | Field | Type | Label | Description |
@@ -84,15 +78,13 @@ Represents a customer.
 | mail_addresses | Address | repeated | Customer mail addresses, primary first. |
 
 
-
-
 <a name="Vehicle.proto"/>
 <p align="right"><a href="#top">Top</a></p>
+
 ## Vehicle.proto
 
 <a name="com.example.Manufacturer"/>
 ### Manufacturer
-
 Represents a manufacturer of cars.
 
 | Field | Type | Label | Description |
@@ -102,10 +94,8 @@ Represents a manufacturer of cars.
 | category | Manufacturer.Category | required | Manufacturer category. |
 | details | string | optional | Manufacturer details (minimum orders et.c.). |
 
-
 <a name="com.example.Model"/>
 ### Model
-
 Represents a vehicle model.
 
 | Field | Type | Label | Description |
@@ -116,10 +106,8 @@ Represents a vehicle model.
 | daily_hire_rate_dollars | sint32 | required | Dollars per day. |
 | daily_hire_rate_cents | sint32 | required | Cents per day. |
 
-
 <a name="com.example.Vehicle"/>
 ### Vehicle
-
 Represents a vehicle that can be hired.
 
 | Field | Type | Label | Description |
@@ -132,10 +120,8 @@ Represents a vehicle that can be hired.
 | daily_hire_rate_dollars | sint32 | optional | Dollars per day.Taken from model if unspecified. |
 | daily_hire_rate_cents | sint32 | optional | Cents per day.Taken from model if unspecified. |
 
-
 <a name="com.example.Vehicle.Category"/>
 ### Vehicle.Category
-
 Represents a vehicle category. E.g. &quot;Sedan&quot; or &quot;Truck&quot;.
 
 | Field | Type | Label | Description |
@@ -144,7 +130,14 @@ Represents a vehicle category. E.g. &quot;Sedan&quot; or &quot;Truck&quot;.
 | description | string | required | Category name. E.g. &quot;Sedan&quot;. |
 
 
+<a name="com.example.Manufacturer.Category"/>
+### Manufacturer.Category
+Manufacturer category. A manufacturer may be either inhouse or external.
 
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| CATEGORY_INHOUSE | 0 | The manufacturer is inhouse. |
+| CATEGORY_EXTERNAL | 1 | The manufacturer is external. |
 
 
 <a name="scalar-value-types"/>
@@ -167,4 +160,3 @@ Represents a vehicle category. E.g. &quot;Sedan&quot; or &quot;Truck&quot;.
 | bool |  | bool | boolean | boolean |
 | string | A string must always contain UTF-8 encoded or 7-bit ASCII text. | string | String | str/unicode |
 | bytes | May contain any arbitrary sequence of bytes. | string | ByteString | str |
-
