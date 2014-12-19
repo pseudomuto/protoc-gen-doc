@@ -23,7 +23,7 @@ the plugin executable (`protoc-gen-doc`). There's no install step,
 just copy the executable to where you want it.
 
 ### Windows
-On windows, it's easiest to just use the [ZIP distribution][release_zip].
+On Windows, it's easiest to just use the [ZIP distribution][release_zip].
 If you want to build yourself, start a Qt/MSVC command prompt,
 load `vcvarsall.bat` and then run
 
