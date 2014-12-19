@@ -27,7 +27,7 @@ On windows, it's easiest to just use the [ZIP distribution][release_zip].
 If you want to build yourself, start a Qt/MSVC command prompt,
 load `vcvarsall.bat` and then run
 
-    > set PROTOBUF_PREFIX=/path/to/protobuf-2.5.0
+    > set PROTOBUF_PREFIX=/path/to/protobuf-2.6.1
     > qmake
     > nmake
 
@@ -41,7 +41,7 @@ to fix this in the future.
 ### Mac OS X
 At a Terminal prompt, run
 
-    $ export PROTOBUF_PREFIX=/path/to/protobuf-2.5.0
+    $ export PROTOBUF_PREFIX=/path/to/protobuf-2.6.1
     $ qmake
     $ make
 
