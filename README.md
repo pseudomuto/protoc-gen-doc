@@ -107,4 +107,4 @@ outputs were built.
 [mustache]: http://mustache.github.io/ "Mustache - Logic-less templates"
 [fop]: http://xmlgraphics.apache.org/fop/ "Apache™ FOP (Formatting Objects Processor)"
 [html_preview]: https://rawgit.com/estan/protoc-gen-doc/master/examples/doc/example.html "HTML Example Output"
-[release_zip]: https://github.com/estan/protoc-gen-doc/releases/download/v0.3/protoc-gen-doc-v0.3-win32.zip "Release 0.3 for Windows"
+[release_zip]: https://github.com/estan/protoc-gen-doc/releases/download/v0.4/protoc-gen-doc-v0.4-win32.zip "Release 0.4 for Windows"
