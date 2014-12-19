@@ -82,8 +82,8 @@ Use `/** */` or `///` comments to document your files. Comments
 for enumerations and messages go before the message/enumeration
 definition. Comments for fields or enum values can go either
 before or after the field/value definition. If a documentation
-comment begins with `@exclude`, the message, enum or field will
-be excluded from the generated documentation.
+comment begins with `@exclude`, the message, enum, enum value or
+field will be excluded from the generated documentation.
 
 ## Output Example
 
@@ -107,4 +107,4 @@ outputs were built.
 [mustache]: http://mustache.github.io/ "Mustache - Logic-less templates"
 [fop]: http://xmlgraphics.apache.org/fop/ "Apache™ FOP (Formatting Objects Processor)"
 [html_preview]: https://rawgit.com/estan/protoc-gen-doc/master/examples/doc/example.html "HTML Example Output"
-[release_zip]: https://github.com/estan/protoc-gen-doc/releases/download/v0.4/protoc-gen-doc-v0.4-win32.zip "Release 0.4 for Windows"
+[release_zip]: https://github.com/estan/protoc-gen-doc/releases/download/v0.5/protoc-gen-doc-v0.5-win32.zip "Release 0.5 for Windows"
