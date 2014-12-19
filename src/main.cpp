@@ -245,10 +245,17 @@ static void addEnum(const gp::EnumDescriptor *enumDescriptor, QVariantList *enum
     QVariantList values;
     for (int i = 0; i < enumDescriptor->value_count(); ++i) {
         const gp::EnumValueDescriptor *valueDescriptor = enumDescriptor->value(i);
+
+        QString description = descriptionOf(valueDescriptor);
+
+        if (description.startsWith("@exclude")) {
+            continue;
+        }
+
         QVariantHash value;
         value["value_name"] = QString::fromStdString(valueDescriptor->name());
         value["value_number"] = valueDescriptor->number();
-        value["value_description"] = descriptionOf(valueDescriptor);
+        value["value_description"] = description;
         values.append(value);
     }
     enum_["enum_values"] = values;
