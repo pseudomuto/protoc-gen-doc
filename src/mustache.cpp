@@ -16,6 +16,7 @@
 
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
+#include <QtCore/QStringList>
 #include <QtCore/QTextStream>
 
 using namespace Mustache;
@@ -108,10 +109,25 @@ QVariant variantMapValue(const QVariant& value, const QString& key)
 	}
 }
 
+QVariant variantMapValueForKeyPath(const QVariant& value, const QStringList keyPath)
+{
+	if (keyPath.count() > 1) {
+		QVariant firstValue = variantMapValue(value, keyPath.first());
+		return firstValue.isNull() ? QVariant() : variantMapValueForKeyPath(firstValue, keyPath.mid(1));
+	} else if (!keyPath.isEmpty()) {
+		return variantMapValue(value, keyPath.first());
+	}
+	return QVariant();
+}
+
 QVariant QtVariantContext::value(const QString& key) const
 {
+	if (key == "." && !m_contextStack.isEmpty()) {
+		return m_contextStack.last();
+	}
+	QStringList keyPath = key.split(".");
 	for (int i = m_contextStack.count()-1; i >= 0; i--) {
-		QVariant value = variantMapValue(m_contextStack.at(i), key);
+		QVariant value = variantMapValueForKeyPath(m_contextStack.at(i), keyPath);
 		if (!value.isNull()) {
 			return value;
 		}
