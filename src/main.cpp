@@ -184,11 +184,17 @@ static QString labelName(gp::FieldDescriptor::Label label)
  */
 static void addField(const gp::FieldDescriptor *fieldDescriptor, QVariantList *fields)
 {
+    QString description = descriptionOf(fieldDescriptor);
+
+    if (description.startsWith("@exclude")) {
+        return;
+    }
+
     QVariantHash field;
 
     // Add basic info.
     field["field_name"] = QString::fromStdString(fieldDescriptor->name());
-    field["field_description"] = descriptionOf(fieldDescriptor);
+    field["field_description"] = description;
     field["field_label"] = labelName(fieldDescriptor->label());
 
     // Add type information.
@@ -221,13 +227,19 @@ static void addField(const gp::FieldDescriptor *fieldDescriptor, QVariantList *f
  */
 static void addEnum(const gp::EnumDescriptor *enumDescriptor, QVariantList *enums)
 {
+    QString description = descriptionOf(enumDescriptor);
+
+    if (description.startsWith("@exclude")) {
+        return;
+    }
+
     QVariantHash enum_;
 
     // Add basic info.
     enum_["enum_name"] = QString::fromStdString(enumDescriptor->name());
     enum_["enum_long_name"] = longName(enumDescriptor);
     enum_["enum_full_name"] = QString::fromStdString(enumDescriptor->full_name());
-    enum_["enum_description"] = descriptionOf(enumDescriptor);
+    enum_["enum_description"] = description;
 
     // Add enum values.
     QVariantList values;
@@ -254,13 +266,19 @@ static void addMessages(const gp::Descriptor *descriptor,
                         QVariantList *messages,
                         QVariantList *enums)
 {
+    QString description = descriptionOf(descriptor);
+
+    if (description.startsWith("@exclude")) {
+        return;
+    }
+
     QVariantHash message;
 
     // Add basic info.
     message["message_name"] = QString::fromStdString(descriptor->name());
     message["message_long_name"] = longName(descriptor);
     message["message_full_name"] = QString::fromStdString(descriptor->full_name());
-    message["message_description"] = descriptionOf(descriptor);
+    message["message_description"] = description;
 
     // Add fields.
     QVariantList fields;
