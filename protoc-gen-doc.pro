@@ -9,6 +9,8 @@ HEADERS += src/mustache.h
 SOURCES += src/mustache.cpp src/main.cpp
 RESOURCES += protoc-gen-doc.qrc
 
+lessThan(QT_MAJOR_VERSION, 5):error(This program requires Qt 5.x.)
+
 linux {
     # Use pkg-config to find libprotobuf.
     CONFIG += link_pkgconfig
