@@ -27,7 +27,7 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 {{#message_fields}}
-| {{field_name}} | {{field_long_type}} | {{field_label}} | {{#nobr}}{{field_description}}{{/nobr}} |
+| {{field_name}} | [{{field_long_type}}](#{{field_full_type}}) | {{field_label}} | {{#nobr}}{{field_description}}{{/nobr}} |
 {{/message_fields}}
 
 {{/file_messages}}
@@ -52,5 +52,5 @@
 | .proto Type | Notes | C++ Type | Java Type | Python Type |
 | ----------- | ----- | -------- | --------- | ----------- |
 {{#scalar_value_types}}
-| {{scalar_value_proto_type}} | {{scalar_value_notes}} | {{scalar_value_cpp_type}} | {{scalar_value_java_type}} | {{scalar_value_python_type}} |
+| <a name="{{scalar_value_proto_type}}"/> {{scalar_value_proto_type}} | {{scalar_value_notes}} | {{scalar_value_cpp_type}} | {{scalar_value_java_type}} | {{scalar_value_python_type}} |
 {{/scalar_value_types}}
