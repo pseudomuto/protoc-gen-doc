@@ -6,55 +6,18 @@ This is a documentation generator plugin for the Google Protocol
 Buffers compiler (`protoc`). The plugin can generate HTML, DocBook
 or Markdown documentation from comments in your `.proto` files.
 
-## Building the Plugin
-
-### Prerequisites
-* Protocol Buffers library from Google
-* QtCore from Qt 5
+## Installing the Plugin
 
 ### Linux
-At a terminal command prompt, run
-
-    $ qmake
-    $ make
-
-in the top-level directory to build the plugin. This will produce
-the plugin executable (`protoc-gen-doc`). There's no install step,
-just copy the executable to where you want it.
-
-Packages for Arch, Ubuntu, Fedora and openSUSE are available through
-the [Open Build Service][obs].
+Package repositories for Ubuntu, openSUSE, Fedora and Arch are
+available at the [Open Build Service][obs].
 
 ### Windows
-On Windows, it's easiest to just use the [ZIP distribution][release_zip].
-If you want to build yourself, start a Qt/MSVC command prompt,
-load `vcvarsall.bat` and then run
+Use the standalone ZIP distribution available in
+[Releases](https://github.com/estan/protoc-gen-doc/releases).
 
-    > set PROTOBUF_PREFIX=/path/to/protobuf-2.6.1
-    > qmake
-    > nmake
-
-in the top-level directory to build the plugin. This will produce
-the plugin executable (`release\protoc-gen-doc.exe`). You can
-create a standalone ZIP distribution with `nmake zip`. MSVC is
-currently the only supported compiler on Windows. Building with
-MinGW should work, but the `zip` target is not available. I'll try
-to fix this in the future.
-
-### Mac OS X
-At a Terminal prompt, run
-
-    $ export PROTOBUF_PREFIX=/path/to/protobuf-2.6.1
-    $ qmake
-    $ make
-
-in the top-level directory to build the plugin. This will produce
-the plugin executable (`protoc-gen-doc`). There's no install step,
-just copy the executable to where you want it.
-
-Note that on Mac OS X, the protobuf library should be build with
-with clang (`CC=clang` and `CXX=clang++`), or you'll get linker
-errors.
+For other platforms, see the build instructions in
+[BUILDING.md](BUILDING.md)
 
 ## Invoking the Plugin
 
@@ -106,9 +69,7 @@ the plugin gives the output
 Look in [examples/Makefile](examples/Makefile) to see how these
 outputs were built.
 
-
 [mustache]: http://mustache.github.io/ "Mustache - Logic-less templates"
 [fop]: http://xmlgraphics.apache.org/fop/ "Apache™ FOP (Formatting Objects Processor)"
-[html_preview]: https://rawgit.com/estan/protoc-gen-doc/master/examples/doc/example.html "HTML Example Output"
-[release_zip]: https://github.com/estan/protoc-gen-doc/releases/download/v0.6/protoc-gen-doc-v0.6-win32.zip "Release 0.6 for Windows"
+[html_preview]: https://rawgit.com/estan/protoc-gen-doc/master/examples/doc/example.html "HTML Example Output
 [obs]: https://software.opensuse.org/download.html?project=home%3Aestan%3Aprotoc-gen-doc&package=protoc-gen-doc
