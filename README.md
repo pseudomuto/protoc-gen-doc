@@ -17,7 +17,7 @@ Use the standalone ZIP distribution available in
 [Releases](https://github.com/estan/protoc-gen-doc/releases).
 
 For other platforms, see the build instructions in
-[BUILDING.md](BUILDING.md)
+[BUILDING.md](BUILDING.md).
 
 ## Invoking the Plugin
 
