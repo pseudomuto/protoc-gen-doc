@@ -2,6 +2,8 @@ Source: protoc-gen-doc
 Section: utils
 Maintainer: Elvis Stansvik <elvstone@gmail.com>
 Build-Depends: debhelper (>= 9), qt5-qmake, qtbase5-dev, libprotobuf-dev (>= 2.5.0)
+Homepage: https://github.com/estan/protoc-gen-doc
+
 Package: protoc-gen-doc
 Architecture: any
 Depends: ${shlibs:Depends}
