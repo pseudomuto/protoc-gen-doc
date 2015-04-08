@@ -31,7 +31,11 @@ from comments in your .proto files.
 %setup -q -n protoc-gen-doc-%{version}
 
 %build
+%if 0%{?suse_version}
 %qmake5 PREFIX=%{buildroot}/%{_prefix}
+%else
+qmake-qt5 PREFIX=%{buildroot}/%{_prefix}
+%endif
 make %{?_smp_mflags}
 
 %install
