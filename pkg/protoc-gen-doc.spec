@@ -31,11 +31,11 @@ from comments in your .proto files.
 %setup -q -n protoc-gen-doc-%{version}
 
 %build
-%qmake5
+%qmake5 PREFIX=%{buildroot}
 make %{?_smp_mflags}
 
 %install
-make install PREFIX=%{buildroot}
+make install
 
 %files
 %defattr(-,root,root)
