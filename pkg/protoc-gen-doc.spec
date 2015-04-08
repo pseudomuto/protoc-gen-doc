@@ -31,7 +31,7 @@ from comments in your .proto files.
 %setup -q -n protoc-gen-doc-%{version}
 
 %build
-%qmake5 PREFIX=%{buildroot}
+%qmake5 PREFIX=%{buildroot}/%{_prefix}
 make %{?_smp_mflags}
 
 %install
