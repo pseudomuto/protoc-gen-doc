@@ -13,12 +13,12 @@
 # published by the Open Source Initiative.
 
 Name:           protoc-gen-doc
-Version:        0.5
+Version:        0.6
 Release:        1
 Summary:        Documentation generator plugin for Google Protocol Buffers
 License:        BSD
 Url:            http://github.com/estan/protoc-gen-doc
-Source0:        https://github.com/estan/protoc-gen-doc/archive/v0.5.tar.gz
+Source0:        https://github.com/estan/protoc-gen-doc/archive/v${version}.tar.gz
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  protobuf-devel
 
@@ -42,5 +42,5 @@ make install PREFIX=%{buildroot}
 %{_bindir}/protoc-gen-doc
 
 %changelog
-* Wed Apr 8 2015 Elvis Stansvik <elvstone@gmail.com> - 0.5-1
+* Wed Apr 8 2015 Elvis Stansvik <elvstone@gmail.com> - 0.6-1
 - Initial RPM package.
