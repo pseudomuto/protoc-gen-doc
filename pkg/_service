@@ -8,5 +8,4 @@
     <param name="archive">*.tar.gz</param>
     <param name="files">*/pkg/*.spec</param>
   </service>
-  <service name="set_version"/>
 </services>
