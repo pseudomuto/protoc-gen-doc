@@ -6,6 +6,6 @@
   </service>
   <service name="extract_file">
     <param name="archive">*.tar.gz</param>
-    <param name="files">*/pkg/*.spec</param>
+    <param name="files">*/pkg/*.spec */pkg/*.dsc */pkg/debian.*</param>
   </service>
 </services>

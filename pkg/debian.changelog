@@ -1,0 +1,5 @@
+protoc-gen-doc (0.6-1) stable; urgency=low
+
+  * Initial release with Ubuntu packages.
+
+ -- Elvis Stansvik <elvstone@gmail.com>  Wed, 8 Apr 2015 18:50:38 +0100
