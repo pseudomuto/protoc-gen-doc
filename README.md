@@ -22,6 +22,9 @@ in the top-level directory to build the plugin. This will produce
 the plugin executable (`protoc-gen-doc`). There's no install step,
 just copy the executable to where you want it.
 
+Packages for Arch, Ubuntu, Fedora and openSUSE are available through
+the [Open Build Service][obs].
+
 ### Windows
 On Windows, it's easiest to just use the [ZIP distribution][release_zip].
 If you want to build yourself, start a Qt/MSVC command prompt,
@@ -107,4 +110,5 @@ outputs were built.
 [mustache]: http://mustache.github.io/ "Mustache - Logic-less templates"
 [fop]: http://xmlgraphics.apache.org/fop/ "Apache™ FOP (Formatting Objects Processor)"
 [html_preview]: https://rawgit.com/estan/protoc-gen-doc/master/examples/doc/example.html "HTML Example Output"
-[release_zip]: https://github.com/estan/protoc-gen-doc/releases/download/v0.5/protoc-gen-doc-v0.5-win32.zip "Release 0.5 for Windows"
+[release_zip]: https://github.com/estan/protoc-gen-doc/releases/download/v0.6/protoc-gen-doc-v0.6-win32.zip "Release 0.6 for Windows"
+[obs]: https://software.opensuse.org/download.html?project=home%3Aestan%3Aprotoc-gen-doc&package=protoc-gen-doc
