@@ -16,7 +16,7 @@ Name:           protoc-gen-doc
 Version:        0.6
 Release:        1%{?dist}
 Summary:        Documentation generator plugin for Google Protocol Buffers
-License:        BSD
+License:        BSD-2-Clause
 Url:            http://github.com/estan/protoc-gen-doc
 Source0:        https://github.com/estan/protoc-gen-doc/archive/v%{version}.tar.gz
 BuildRequires:  pkgconfig(Qt5Core)
