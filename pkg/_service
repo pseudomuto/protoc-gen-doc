@@ -1,0 +1,18 @@
+<services>
+  <service name="tar_scm">
+    <param name="scm">git</param>
+    <param name="url">https://github.com/estan/protoc-gen-doc.git</param>
+    <param name="filename">protoc-gen-doc</param>
+    <param name="versionprefix">0.5</param>
+    <param name="revision">v0.5</param>
+  </service>
+  <service name="extract_file">
+    <param name="archive">*.tar</param>
+    <param name="files">*/pkg/*.spec</param>
+  </service>
+  <service name="recompress">
+    <param name="file">protoc-gen-doc*.tar</param>
+    <param name="compression">gz</param>
+  </service>
+  <service name="set_version"/>
+</services>
