@@ -6,4 +6,5 @@ packages on the Open Build Services.
 
  * `debian.*` and `protoc-gen.doc.dsc` are for Ubuntu.
  * `protoc-gen-doc.spec` is for openSUSE / Fedora.
+ * `PKGBUILD` is for Arch Linux.
  * `_service` is the source services file for OBS.

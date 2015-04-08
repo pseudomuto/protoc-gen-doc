@@ -1,0 +1,23 @@
+# Maintainer: Elvis Stansvik <elvstone@gmail.com>
+pkgname=protoc-gen-doc
+pkgver=0.6
+pkgrel=1
+pkgdesc='Documentation generator plugin for Google Protocol Buffers'
+arch=('i686' 'x86_64')
+url='https://github.com/estan/protoc-gen-doc'
+license=('BSD')
+depends=('qt5-base' 'protobuf')
+makedepends=('pkg-config' 'qt5-tools')
+source=($pkgname-$pkgver.tar.gz::https://github.com/estan/protoc-gen-doc/archive/v${pkgver}.tar.gz)
+sha256sums=()
+
+build() {
+  cd $srcdir/$pkgname-$pkgver
+  qmake PREFIX=/usr
+  make
+}
+
+package() {
+  cd $pkgname-$pkgver
+  make install INSTALL_ROOT=$pkgdir
+}
