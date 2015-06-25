@@ -15,11 +15,11 @@ an x64 RPM in the [Releases](https://github.com/estan/protoc-gen-doc/releases)
 section (it requires Qt and protobuf packages from the [EPEL repository](https://fedoraproject.org/wiki/EPEL)).
 
 ### Windows
-Use the standalone ZIP distribution available in
-[Releases](https://github.com/estan/protoc-gen-doc/releases).
+Use the standalone ZIP distribution available in the
+[Releases](https://github.com/estan/protoc-gen-doc/releases) section.
 
-For other platforms, see the build instructions in
-[BUILDING.md](BUILDING.md).
+### From Source
+See the build instructions in [BUILDING.md](BUILDING.md).
 
 ## Invoking the Plugin
 
