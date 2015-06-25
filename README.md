@@ -11,8 +11,8 @@ or Markdown documentation from comments in your `.proto` files.
 ### Linux
 Package repositories for Ubuntu, openSUSE, Fedora and Arch are
 available at the [Open Build Service][obs]. For CentOS 7 there's
-an RPM in the [Releases](https://github.com/estan/protoc-gen-doc/releases)
-section.
+an x64 RPM in the [Releases](https://github.com/estan/protoc-gen-doc/releases)
+section (it requires Qt and protobuf packages from the [EPEL repository](https://fedoraproject.org/wiki/EPEL)).
 
 ### Windows
 Use the standalone ZIP distribution available in
