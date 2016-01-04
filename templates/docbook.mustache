@@ -14,6 +14,36 @@
         <tgroup cols="4">
           <colspec colwidth="*"/>
           <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Extension</entry>
+              <entry>Type</entry>
+              <entry>Base</entry>
+              <entry>Number</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            {{#message_extensions}}
+            <row>
+              <entry>{{extension_name}}</entry>
+              <entry><link linkend="{{extension_full_type}}">{{extension_long_type}}</link></entry>
+              <entry><link linkend="{{extension_containing_full_type}}">{{extension_containing_long_type}}</link></entry>
+              <entry>{{extension_number}}</entry>
+              <entry>{{#para}}{{extension_description}}{{/para}}</entry>
+            </row>
+            {{/message_extensions}}
+          </tbody>
+        </tgroup>
+      </informaltable>
+
+      <informaltable frame="all">
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
           <colspec colwidth="0.5*"/>
           <colspec colwidth="3*"/>
           <thead>
@@ -67,6 +97,14 @@
       </informaltable>
     </section>
     {{/file_enums}}
+
+    {{#file_extensions}}
+    <section {{#extension_full_name}}id="{{extension_full_name}}"{{/extension_full_name}}>
+      <title>{{extension_long_name}}</title>
+      {{#para}}{{extension_description}}{{/para}}
+      {{extension_name}}({{extension_number}}) extends {{extension_containing_long_type}}
+    </section>
+    {{/file_extensions}}
   </section>
   {{/files}}
 

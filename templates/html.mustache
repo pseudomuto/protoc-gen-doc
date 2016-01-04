@@ -80,6 +80,23 @@
         width: auto;
       }
 
+      /* Table of fields */
+      .extension-table td:nth-child(1) { /* Extension */
+        width: 10em;
+      }
+      .extension-table td:nth-child(2) { /* Type */
+        width: 10em;
+      }
+      .extension-table td:nth-child(3) { /* Base */
+        width: 10em;
+      }
+      .extension-table td:nth-child(4) { /* Number */
+        width: 5em;
+      }
+      .extension-table td:nth-child(5) { /* Description */
+        width: auto;
+      }
+
       /* Table of enum values. */
       .enum-table td:nth-child(1) { /* Name */
         width: 10em;
@@ -123,7 +140,7 @@
         display: table-cell;
       }
 
-      /* The 'M' and 'E' badges in the ToC */
+      /* The 'M','E' and 'X' badges in the ToC */
       .badge {
         width: 1.6em;
         height: 1.6em;
@@ -175,6 +192,14 @@
               </a>
             </li>
             {{/file_enums}}
+            {{#file_extensions}}
+            <li>
+              <a href="#{{extension_full_name}}">
+                <span class="badge">X</span>
+                {{extension_long_name}}
+              </a>
+            </li>
+            {{/file_extensions}}
           </ul>
         </li>
         {{/files}}
@@ -189,6 +214,23 @@
     {{#file_messages}}
     <h3 id="{{message_full_name}}">{{message_long_name}}</h3>
     {{#p}}{{message_description}}{{/p}}
+    <table class="extension-table">
+      <thead>
+        <tr><td>Extension</td><td>Type</td><td>Base</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        {{#message_extensions}}
+        <tr>
+          <td>{{extension_name}}</td>
+          <td><a href="#{{extension_full_type}}">{{extension_long_type}}</a></td>
+          <td><a href="#{{extension_containing_full_type}}">{{extension_containing_long_type}}</a></td>
+          <td>{{extension_number}}</td>
+          <td>{{#p}}{{extension_description}}{{/p}}</td>
+        </tr>
+        {{/message_extensions}}
+      </tbody>
+    </table>
+    <br>
     <table class="field-table">
       <thead>
         <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
@@ -223,6 +265,11 @@
       </tbody>
     </table>
     {{/file_enums}}
+    {{#file_extensions}}
+    <h3 id="{{extension_full_name}}">{{extension_long_name}}</h3>
+    {{#p}}{{extension_description}}{{/p}}
+    {{extension_name}}({{extension_number}}) extends {{extension_containing_long_type}}
+    {{/file_extensions}}
     {{/files}}
 
     <h2 id="scalar-value-types">Scalar Value Types</h2>
