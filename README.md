@@ -48,10 +48,11 @@ will be picked up.
 
 Use `/** */` or `///` comments to document your files. Comments
 for enumerations and messages go before the message/enumeration
-definition. Comments for fields or enum values can go either
-before or after the field/value definition. If a documentation
-comment begins with `@exclude`, the message, enum, enum value or
-field will be excluded from the generated documentation.
+definition. Comments for fields, enum values and extensions can
+go either before or after the field/value/extension definition.
+If a documentation comment begins with `@exclude`, the message,
+enum, enum value, field or extension will be excluded from the
+generated documentation.
 
 ## Output Example
 
