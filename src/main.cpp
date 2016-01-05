@@ -365,6 +365,7 @@ static void addMessages(const gp::Descriptor *descriptor,
     for (int i = 0; i < descriptor->extension_count(); ++i) {
         addExtension(descriptor->extension(i), &extensions);
     }
+    message["message_has_extensions"] = !extensions.isEmpty();
     message["message_extensions"] = extensions;
 
 
@@ -415,6 +416,7 @@ static void addFile(const gp::FileDescriptor *fileDescriptor, QVariantList *file
         addExtension(fileDescriptor->extension(i), &extensions);
     }
     std::sort(extensions.begin(), extensions.end(), &longNameLessThan);
+    file["file_has_extensions"] = !extensions.isEmpty();
     file["file_extensions"] = extensions;
 
     files->append(file);
