@@ -140,7 +140,7 @@
         display: table-cell;
       }
 
-      /* The 'M','E' and 'X' badges in the ToC */
+      /* The 'M', 'E' and 'X' badges in the ToC */
       .badge {
         width: 1.6em;
         height: 1.6em;
@@ -192,14 +192,14 @@
               </a>
             </li>
             {{/file_enums}}
-            {{#file_extensions}}
+            {{#file_has_extensions}}
             <li>
-              <a href="#{{extension_full_name}}">
+              <a href="#{{file_name}}-extensions">
                 <span class="badge">X</span>
-                {{extension_long_name}}
+                File-level Extensions
               </a>
             </li>
-            {{/file_extensions}}
+            {{/file_has_extensions}}
           </ul>
         </li>
         {{/files}}
@@ -214,6 +214,23 @@
     {{#file_messages}}
     <h3 id="{{message_full_name}}">{{message_long_name}}</h3>
     {{#p}}{{message_description}}{{/p}}
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        {{#message_fields}}
+        <tr>
+          <td>{{field_name}}</td>
+          <td><a href="#{{field_full_type}}">{{field_long_type}}</a></td>
+          <td>{{field_label}}</td>
+          <td>{{#p}}{{field_description}}{{/p}}</td>
+        </tr>
+        {{/message_fields}}
+      </tbody>
+    </table>
+    {{#message_has_extensions}}
+    <br>
     <table class="extension-table">
       <thead>
         <tr><td>Extension</td><td>Type</td><td>Base</td><td>Number</td><td>Description</td></tr>
@@ -230,22 +247,7 @@
         {{/message_extensions}}
       </tbody>
     </table>
-    <br>
-    <table class="field-table">
-      <thead>
-        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-      </thead>
-      <tbody>
-        {{#message_fields}}
-        <tr>
-          <td>{{field_name}}</td>
-          <td><a href="#{{field_full_type}}">{{field_long_type}}</a></td>
-          <td>{{field_label}}</td>
-          <td>{{#p}}{{field_description}}{{/p}}</td>
-        </tr>
-        {{/message_fields}}
-      </tbody>
-    </table>
+    {{/message_has_extensions}}
     {{/file_messages}}
     {{#file_enums}}
     <h3 id="{{enum_full_name}}">{{enum_long_name}}</h3>
@@ -265,11 +267,25 @@
       </tbody>
     </table>
     {{/file_enums}}
-    {{#file_extensions}}
-    <h3 id="{{extension_full_name}}">{{extension_long_name}}</h3>
-    {{#p}}{{extension_description}}{{/p}}
-    {{extension_name}}({{extension_number}}) extends {{extension_containing_long_type}}
-    {{/file_extensions}}
+    {{#file_has_extensions}}
+    <h3 id="{{file_name}}-extensions">File-level Extensions</h3>
+    <table class="extension-table">
+      <thead>
+        <tr><td>Extension</td><td>Type</td><td>Base</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        {{#file_extensions}}
+        <tr>
+          <td>{{extension_name}}</td>
+          <td><a href="#{{extension_full_type}}">{{extension_long_type}}</a></td>
+          <td><a href="#{{extension_containing_full_type}}">{{extension_containing_long_type}}</a></td>
+          <td>{{extension_number}}</td>
+          <td>{{#p}}{{extension_description}}{{/p}}</td>
+        </tr>
+        {{/file_extensions}}
+      </tbody>
+    </table>
+    {{/file_has_extensions}}
     {{/files}}
 
     <h2 id="scalar-value-types">Scalar Value Types</h2>
