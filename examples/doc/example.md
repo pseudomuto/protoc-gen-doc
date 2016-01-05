@@ -14,7 +14,7 @@
  * [Vehicle](#com.example.Vehicle)
  * [Vehicle.Category](#com.example.Vehicle.Category)
  * [Manufacturer.Category](#com.example.Manufacturer.Category)
- * [Manufacturer.country](#com.example.country)
+ * [File-level Extensions](#Vehicle.proto-extensions)
 * [Scalar Value Types](#scalar-value-types)
 
 <a name="Booking.proto"/>
@@ -28,10 +28,6 @@ Represents the booking of a vehicle.
 
 Vehicles are some cool shit. But drive carefully!
 
-| Extension | Type | Base | Number | Description |
-| --------- | ---- | ---- | ------ | ----------- |
-
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | vehicle_id | [int32](#int32) | required | ID of booked vehicle. |
@@ -40,18 +36,16 @@ Vehicles are some cool shit. But drive carefully!
 | confirmation_sent | [bool](#bool) | required | Has booking confirmation been sent? |
 | payment_received | [bool](#bool) | required | Has payment been received? |
 
+
 <a name="com.example.BookingStatus"/>
 ### BookingStatus
 Represents the status of a vehicle booking.
-
-| Extension | Type | Base | Number | Description |
-| --------- | ---- | ---- | ------ | ----------- |
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | id | [int32](#int32) | required | Unique booking status ID. |
 | description | [string](#string) | required | Booking status description. E.g. &quot;Active&quot;. |
+
 
 
 
@@ -65,10 +59,6 @@ Represents the status of a vehicle booking.
 ### Address
 Represents a mail address.
 
-| Extension | Type | Base | Number | Description |
-| --------- | ---- | ---- | ------ | ----------- |
-
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | address_line_1 | [string](#string) | required | First address line. |
@@ -78,13 +68,10 @@ Represents a mail address.
 | county | [string](#string) | optional | Address county, if applicable. |
 | country | [string](#string) | required | Address country. |
 
+
 <a name="com.example.Customer"/>
 ### Customer
 Represents a customer.
-
-| Extension | Type | Base | Number | Description |
-| --------- | ---- | ---- | ------ | ----------- |
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -99,6 +86,7 @@ Represents a customer.
 
 
 
+
 <a name="Vehicle.proto"/>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -108,10 +96,6 @@ Represents a customer.
 ### Manufacturer
 Represents a manufacturer of cars.
 
-| Extension | Type | Base | Number | Description |
-| --------- | ---- | ---- | ------ | ----------- |
-
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | id | [int32](#int32) | required | The unique manufacturer ID. |
@@ -119,13 +103,10 @@ Represents a manufacturer of cars.
 | category | [Manufacturer.Category](#com.example.Manufacturer.Category) | required | Manufacturer category. |
 | details | [string](#string) | optional | Manufacturer details (minimum orders et.c.). |
 
+
 <a name="com.example.Model"/>
 ### Model
 Represents a vehicle model.
-
-| Extension | Type | Base | Number | Description |
-| --------- | ---- | ---- | ------ | ----------- |
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -135,14 +116,10 @@ Represents a vehicle model.
 | daily_hire_rate_dollars | [sint32](#sint32) | required | Dollars per day. |
 | daily_hire_rate_cents | [sint32](#sint32) | required | Cents per day. |
 
+
 <a name="com.example.Vehicle"/>
 ### Vehicle
 Represents a vehicle that can be hired.
-
-| Extension | Type | Base | Number | Description |
-| --------- | ---- | ---- | ------ | ----------- |
-| series | string | Model | 100 | Vehicle model series. |
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -154,18 +131,19 @@ Represents a vehicle that can be hired.
 | daily_hire_rate_dollars | [sint32](#sint32) | optional | Dollars per day.Taken from model if unspecified. |
 | daily_hire_rate_cents | [sint32](#sint32) | optional | Cents per day.Taken from model if unspecified. |
 
+| Extension | Type | Base | Number | Description |
+| --------- | ---- | ---- | ------ | ----------- |
+| series | string | Model | 100 | Vehicle model series. |
+
 <a name="com.example.Vehicle.Category"/>
 ### Vehicle.Category
 Represents a vehicle category. E.g. &quot;Sedan&quot; or &quot;Truck&quot;.
-
-| Extension | Type | Base | Number | Description |
-| --------- | ---- | ---- | ------ | ----------- |
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | code | [string](#string) | required | Category code. E.g. &quot;S&quot;. |
 | description | [string](#string) | required | Category name. E.g. &quot;Sedan&quot;. |
+
 
 
 <a name="com.example.Manufacturer.Category"/>
@@ -178,11 +156,11 @@ Manufacturer category. A manufacturer may be either inhouse or external.
 | CATEGORY_EXTERNAL | 1 | The manufacturer is external. |
 
 
-<a name="com.example.country"/>
-### Manufacturer.country
-Manufacturer country.
-
-country extends Manufacturer at number 100
+<a name="Vehicle.proto-extensions"/>
+### File-level Extensions
+| Extension | Type | Base | Number | Description |
+| --------- | ---- | ---- | ------ | ----------- |
+| country | string | Manufacturer | 100 | Manufacturer country. |
 
 
 <a name="scalar-value-types"/>

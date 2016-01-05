@@ -10,9 +10,9 @@
  {{#file_enums}}
  * [{{enum_long_name}}](#{{enum_full_name}})
  {{/file_enums}}
- {{#file_extensions}}
- * [{{extension_long_name}}](#{{extension_full_name}})
- {{/file_extensions}}
+ {{#file_has_extensions}}
+ * [File-level Extensions](#{{file_name}}-extensions)
+ {{/file_has_extensions}}
 {{/files}}
 * [Scalar Value Types](#scalar-value-types)
 
@@ -27,18 +27,19 @@
 ### {{message_long_name}}
 {{message_description}}
 
-| Extension | Type | Base | Number | Description |
-| --------- | ---- | ---- | ------ | ----------- |
-{{#message_extensions}}
-| {{extension_name}} | {{extension_long_type}} | {{extension_containing_long_type}} | {{extension_number}} | {{#nobr}}{{extension_description}}{{/nobr}} |
-{{/message_extensions}}
-
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 {{#message_fields}}
 | {{field_name}} | [{{field_long_type}}](#{{field_full_type}}) | {{field_label}} | {{#nobr}}{{field_description}}{{/nobr}} |
 {{/message_fields}}
+
+{{#message_has_extensions}}
+| Extension | Type | Base | Number | Description |
+| --------- | ---- | ---- | ------ | ----------- |
+{{#message_extensions}}
+| {{extension_name}} | {{extension_long_type}} | {{extension_containing_long_type}} | {{extension_number}} | {{#nobr}}{{extension_description}}{{/nobr}} |
+{{/message_extensions}}
+{{/message_has_extensions}}
 
 {{/file_messages}}
 
@@ -55,13 +56,15 @@
 
 {{/file_enums}}
 
+{{#file_has_extensions}}
+<a name="{{file_name}}-extensions"/>
+### File-level Extensions
+| Extension | Type | Base | Number | Description |
+| --------- | ---- | ---- | ------ | ----------- |
 {{#file_extensions}}
-<a name="{{extension_full_name}}"/>
-### {{extension_long_name}}
-{{extension_description}}
-
-{{extension_name}} extends {{extension_containing_long_type}} at number {{extension_number}}
+| {{extension_name}} | {{extension_long_type}} | {{extension_containing_long_type}} | {{extension_number}} | {{#nobr}}{{extension_description}}{{/nobr}} |
 {{/file_extensions}}
+{{/file_has_extensions}}
 
 {{/files}}
 
