@@ -360,7 +360,7 @@ static void addMessages(const gp::Descriptor *descriptor,
     }
     message["message_fields"] = fields;
 
-    // Add inlined extensions
+    // Add nested extensions.
     QVariantList extensions;
     for (int i = 0; i < descriptor->extension_count(); ++i) {
         addExtension(descriptor->extension(i), &extensions);
