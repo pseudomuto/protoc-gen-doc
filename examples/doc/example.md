@@ -14,6 +14,7 @@
  * [Vehicle](#com.example.Vehicle)
  * [Vehicle.Category](#com.example.Vehicle.Category)
  * [Manufacturer.Category](#com.example.Manufacturer.Category)
+ * [Manufacturer.country](#com.example.country)
 * [Scalar Value Types](#scalar-value-types)
 
 <a name="Booking.proto"/>
@@ -27,6 +28,10 @@ Represents the booking of a vehicle.
 
 Vehicles are some cool shit. But drive carefully!
 
+| Extension | Type | Base | Number | Description |
+| --------- | ---- | ---- | ------ | ----------- |
+
+
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | vehicle_id | [int32](#int32) | required | ID of booked vehicle. |
@@ -39,10 +44,16 @@ Vehicles are some cool shit. But drive carefully!
 ### BookingStatus
 Represents the status of a vehicle booking.
 
+| Extension | Type | Base | Number | Description |
+| --------- | ---- | ---- | ------ | ----------- |
+
+
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | id | [int32](#int32) | required | Unique booking status ID. |
 | description | [string](#string) | required | Booking status description. E.g. &quot;Active&quot;. |
+
+
 
 
 <a name="Customer.proto"/>
@@ -53,6 +64,10 @@ Represents the status of a vehicle booking.
 <a name="com.example.Address"/>
 ### Address
 Represents a mail address.
+
+| Extension | Type | Base | Number | Description |
+| --------- | ---- | ---- | ------ | ----------- |
+
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -67,6 +82,10 @@ Represents a mail address.
 ### Customer
 Represents a customer.
 
+| Extension | Type | Base | Number | Description |
+| --------- | ---- | ---- | ------ | ----------- |
+
+
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | id | [int32](#int32) | required | Unique customer ID. |
@@ -78,6 +97,8 @@ Represents a customer.
 | mail_addresses | [Address](#com.example.Address) | repeated | Customer mail addresses, primary first. |
 
 
+
+
 <a name="Vehicle.proto"/>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -86,6 +107,10 @@ Represents a customer.
 <a name="com.example.Manufacturer"/>
 ### Manufacturer
 Represents a manufacturer of cars.
+
+| Extension | Type | Base | Number | Description |
+| --------- | ---- | ---- | ------ | ----------- |
+
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -98,6 +123,10 @@ Represents a manufacturer of cars.
 ### Model
 Represents a vehicle model.
 
+| Extension | Type | Base | Number | Description |
+| --------- | ---- | ---- | ------ | ----------- |
+
+
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | id | [string](#string) | required | The unique model ID. |
@@ -109,6 +138,11 @@ Represents a vehicle model.
 <a name="com.example.Vehicle"/>
 ### Vehicle
 Represents a vehicle that can be hired.
+
+| Extension | Type | Base | Number | Description |
+| --------- | ---- | ---- | ------ | ----------- |
+| series | string | Model | 100 | Vehicle model series. |
+
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -124,6 +158,10 @@ Represents a vehicle that can be hired.
 ### Vehicle.Category
 Represents a vehicle category. E.g. &quot;Sedan&quot; or &quot;Truck&quot;.
 
+| Extension | Type | Base | Number | Description |
+| --------- | ---- | ---- | ------ | ----------- |
+
+
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | code | [string](#string) | required | Category code. E.g. &quot;S&quot;. |
@@ -138,6 +176,13 @@ Manufacturer category. A manufacturer may be either inhouse or external.
 | ---- | ------ | ----------- |
 | CATEGORY_INHOUSE | 0 | The manufacturer is inhouse. |
 | CATEGORY_EXTERNAL | 1 | The manufacturer is external. |
+
+
+<a name="com.example.country"/>
+### Manufacturer.country
+Manufacturer country.
+
+country extends Manufacturer at number 100
 
 
 <a name="scalar-value-types"/>

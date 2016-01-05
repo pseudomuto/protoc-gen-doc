@@ -80,6 +80,23 @@
         width: auto;
       }
 
+      /* Table of fields */
+      .extension-table td:nth-child(1) { /* Extension */
+        width: 10em;
+      }
+      .extension-table td:nth-child(2) { /* Type */
+        width: 10em;
+      }
+      .extension-table td:nth-child(3) { /* Base */
+        width: 10em;
+      }
+      .extension-table td:nth-child(4) { /* Number */
+        width: 5em;
+      }
+      .extension-table td:nth-child(5) { /* Description */
+        width: auto;
+      }
+
       /* Table of enum values. */
       .enum-table td:nth-child(1) { /* Name */
         width: 10em;
@@ -123,7 +140,7 @@
         display: table-cell;
       }
 
-      /* The 'M' and 'E' badges in the ToC */
+      /* The 'M','E' and 'X' badges in the ToC */
       .badge {
         width: 1.6em;
         height: 1.6em;
@@ -222,6 +239,12 @@
                 Manufacturer.Category
               </a>
             </li>
+            <li>
+              <a href="#com.example.country">
+                <span class="badge">X</span>
+                Manufacturer.country
+              </a>
+            </li>
           </ul>
         </li>
         <li><a href="#scalar-value-types">Scalar Value Types</a></li>
@@ -233,6 +256,14 @@
     </div>
     <h3 id="com.example.Booking">Booking</h3>
     <p>Represents the booking of a vehicle.</p><p>Vehicles are some cool shit. But drive carefully!</p>
+    <table class="extension-table">
+      <thead>
+        <tr><td>Extension</td><td>Type</td><td>Base</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <br>
     <table class="field-table">
       <thead>
         <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
@@ -272,6 +303,14 @@
     </table>
     <h3 id="com.example.BookingStatus">BookingStatus</h3>
     <p>Represents the status of a vehicle booking.</p>
+    <table class="extension-table">
+      <thead>
+        <tr><td>Extension</td><td>Type</td><td>Base</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <br>
     <table class="field-table">
       <thead>
         <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
@@ -296,6 +335,14 @@
     </div>
     <h3 id="com.example.Address">Address</h3>
     <p>Represents a mail address.</p>
+    <table class="extension-table">
+      <thead>
+        <tr><td>Extension</td><td>Type</td><td>Base</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <br>
     <table class="field-table">
       <thead>
         <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
@@ -341,6 +388,14 @@
     </table>
     <h3 id="com.example.Customer">Customer</h3>
     <p>Represents a customer.</p>
+    <table class="extension-table">
+      <thead>
+        <tr><td>Extension</td><td>Type</td><td>Base</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <br>
     <table class="field-table">
       <thead>
         <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
@@ -395,6 +450,14 @@
     </div>
     <h3 id="com.example.Manufacturer">Manufacturer</h3>
     <p>Represents a manufacturer of cars.</p>
+    <table class="extension-table">
+      <thead>
+        <tr><td>Extension</td><td>Type</td><td>Base</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <br>
     <table class="field-table">
       <thead>
         <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
@@ -428,6 +491,14 @@
     </table>
     <h3 id="com.example.Model">Model</h3>
     <p>Represents a vehicle model.</p>
+    <table class="extension-table">
+      <thead>
+        <tr><td>Extension</td><td>Type</td><td>Base</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <br>
     <table class="field-table">
       <thead>
         <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
@@ -467,6 +538,21 @@
     </table>
     <h3 id="com.example.Vehicle">Vehicle</h3>
     <p>Represents a vehicle that can be hired.</p>
+    <table class="extension-table">
+      <thead>
+        <tr><td>Extension</td><td>Type</td><td>Base</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>series</td>
+          <td><a href="#string">string</a></td>
+          <td><a href="#com.example.Model">Model</a></td>
+          <td>100</td>
+          <td><p>Vehicle model series.</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
     <table class="field-table">
       <thead>
         <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
@@ -518,6 +604,14 @@
     </table>
     <h3 id="com.example.Vehicle.Category">Vehicle.Category</h3>
     <p>Represents a vehicle category. E.g. &quot;Sedan&quot; or &quot;Truck&quot;.</p>
+    <table class="extension-table">
+      <thead>
+        <tr><td>Extension</td><td>Type</td><td>Base</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <br>
     <table class="field-table">
       <thead>
         <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
@@ -556,6 +650,9 @@
         </tr>
       </tbody>
     </table>
+    <h3 id="com.example.country">Manufacturer.country</h3>
+    <p>Manufacturer country.</p>
+    country(100) extends Manufacturer
 
     <h2 id="scalar-value-types">Scalar Value Types</h2>
     <table class="scalar-value-types-table">
