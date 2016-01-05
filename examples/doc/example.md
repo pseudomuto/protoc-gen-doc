@@ -14,6 +14,7 @@
  * [Vehicle](#com.example.Vehicle)
  * [Vehicle.Category](#com.example.Vehicle.Category)
  * [Manufacturer.Category](#com.example.Manufacturer.Category)
+ * [File-level Extensions](#Vehicle.proto-extensions)
 * [Scalar Value Types](#scalar-value-types)
 
 <a name="Booking.proto"/>
@@ -35,6 +36,7 @@ Vehicles are some cool shit. But drive carefully!
 | confirmation_sent | [bool](#bool) | required | Has booking confirmation been sent? |
 | payment_received | [bool](#bool) | required | Has payment been received? |
 
+
 <a name="com.example.BookingStatus"/>
 ### BookingStatus
 Represents the status of a vehicle booking.
@@ -43,6 +45,9 @@ Represents the status of a vehicle booking.
 | ----- | ---- | ----- | ----------- |
 | id | [int32](#int32) | required | Unique booking status ID. |
 | description | [string](#string) | required | Booking status description. E.g. &quot;Active&quot;. |
+
+
+
 
 
 <a name="Customer.proto"/>
@@ -63,6 +68,7 @@ Represents a mail address.
 | county | [string](#string) | optional | Address county, if applicable. |
 | country | [string](#string) | required | Address country. |
 
+
 <a name="com.example.Customer"/>
 ### Customer
 Represents a customer.
@@ -76,6 +82,9 @@ Represents a customer.
 | email_address | [string](#string) | optional | Customer e-mail address. |
 | phone_number | [string](#string) | repeated | Customer phone numbers, primary first. |
 | mail_addresses | [Address](#com.example.Address) | repeated | Customer mail addresses, primary first. |
+
+
+
 
 
 <a name="Vehicle.proto"/>
@@ -94,6 +103,7 @@ Represents a manufacturer of cars.
 | category | [Manufacturer.Category](#com.example.Manufacturer.Category) | required | Manufacturer category. |
 | details | [string](#string) | optional | Manufacturer details (minimum orders et.c.). |
 
+
 <a name="com.example.Model"/>
 ### Model
 Represents a vehicle model.
@@ -105,6 +115,7 @@ Represents a vehicle model.
 | model_name | [string](#string) | required | The car model name, e.g. &quot;Z3&quot;. |
 | daily_hire_rate_dollars | [sint32](#sint32) | required | Dollars per day. |
 | daily_hire_rate_cents | [sint32](#sint32) | required | Cents per day. |
+
 
 <a name="com.example.Vehicle"/>
 ### Vehicle
@@ -120,6 +131,10 @@ Represents a vehicle that can be hired.
 | daily_hire_rate_dollars | [sint32](#sint32) | optional | Dollars per day.Taken from model if unspecified. |
 | daily_hire_rate_cents | [sint32](#sint32) | optional | Cents per day.Taken from model if unspecified. |
 
+| Extension | Type | Base | Number | Description |
+| --------- | ---- | ---- | ------ | ----------- |
+| series | string | Model | 100 | Vehicle model series. |
+
 <a name="com.example.Vehicle.Category"/>
 ### Vehicle.Category
 Represents a vehicle category. E.g. &quot;Sedan&quot; or &quot;Truck&quot;.
@@ -130,6 +145,7 @@ Represents a vehicle category. E.g. &quot;Sedan&quot; or &quot;Truck&quot;.
 | description | [string](#string) | required | Category name. E.g. &quot;Sedan&quot;. |
 
 
+
 <a name="com.example.Manufacturer.Category"/>
 ### Manufacturer.Category
 Manufacturer category. A manufacturer may be either inhouse or external.
@@ -138,6 +154,13 @@ Manufacturer category. A manufacturer may be either inhouse or external.
 | ---- | ------ | ----------- |
 | CATEGORY_INHOUSE | 0 | The manufacturer is inhouse. |
 | CATEGORY_EXTERNAL | 1 | The manufacturer is external. |
+
+
+<a name="Vehicle.proto-extensions"/>
+### File-level Extensions
+| Extension | Type | Base | Number | Description |
+| --------- | ---- | ---- | ------ | ----------- |
+| country | string | Manufacturer | 100 | Manufacturer country. |
 
 
 <a name="scalar-value-types"/>

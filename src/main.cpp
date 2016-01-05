@@ -81,7 +81,9 @@ static inline bool longNameLessThan(const QVariant &v1, const QVariant &v2)
 {
     if (v1.toHash()["message_long_name"].toString() < v2.toHash()["message_long_name"].toString())
         return true;
-    return v1.toHash()["enum_long_name"].toString() < v2.toHash()["enum_long_name"].toString();
+    if (v1.toHash()["enum_long_name"].toString() < v2.toHash()["enum_long_name"].toString())
+        return true;
+    return v1.toHash()["extension_long_name"].toString() < v2.toHash()["extension_long_name"].toString();
 }
 
 /**
@@ -223,6 +225,70 @@ static void addField(const gp::FieldDescriptor *fieldDescriptor, QVariantList *f
 }
 
 /**
+ * Add extension to variant list.
+ *
+ * Adds the extension described by @p fieldDescriptor to the variant list @p extensions.
+ */
+static void addExtension(const gp::FieldDescriptor *fieldDescriptor, QVariantList *extensions)
+{
+    QString description = descriptionOf(fieldDescriptor);
+
+    if (description.startsWith("@exclude")) {
+        return;
+    }
+
+    QVariantHash extension;
+
+    // Add basic info.
+    extension["extension_name"] = QString::fromStdString(fieldDescriptor->name());
+    extension["extension_full_name"] = QString::fromStdString(fieldDescriptor->full_name());
+    extension["extension_long_name"] = longName(fieldDescriptor);
+    extension["extension_description"] = description;
+    extension["extension_label"] = labelName(fieldDescriptor->label());
+    extension["extension_number"] = QString::number(fieldDescriptor->number());
+
+    if (fieldDescriptor->is_extension()) {
+        const gp::Descriptor *descriptor = fieldDescriptor->extension_scope();
+        if (descriptor != NULL) {
+            extension["extension_scope_type"] = QString::fromStdString(descriptor->name());
+            extension["extension_scope_long_type"] = longName(descriptor);
+            extension["extension_scope_full_type"] = QString::fromStdString(descriptor->full_name());
+        }
+
+        descriptor = fieldDescriptor->containing_type();
+        if (descriptor != NULL) {
+            extension["extension_containing_type"] = QString::fromStdString(descriptor->name());
+            extension["extension_containing_long_type"] = longName(descriptor);
+            extension["extension_containing_full_type"] = QString::fromStdString(descriptor->full_name());
+        }
+    }
+
+    // Add type information.
+    gp::FieldDescriptor::Type type = fieldDescriptor->type();
+    if (type == gp::FieldDescriptor::TYPE_MESSAGE || type == gp::FieldDescriptor::TYPE_GROUP) {
+        // Field is of message / group type.
+        const gp::Descriptor *descriptor = fieldDescriptor->message_type();
+        extension["extension_type"] = QString::fromStdString(descriptor->name());
+        extension["extension_long_type"] = longName(descriptor);
+        extension["extension_full_type"] = QString::fromStdString(descriptor->full_name());
+    } else if (type == gp::FieldDescriptor::TYPE_ENUM) {
+        // Field is of enum type.
+        const gp::EnumDescriptor *descriptor = fieldDescriptor->enum_type();
+        extension["extension_type"] = QString::fromStdString(descriptor->name());
+        extension["extension_long_type"] = longName(descriptor);
+        extension["extension_full_type"] = QString::fromStdString(descriptor->full_name());
+    } else {
+        // Field is of scalar type.
+        QString typeName(scalarTypeName(type));
+        extension["extension_type"] = typeName;
+        extension["extension_long_type"] = typeName;
+        extension["extension_full_type"] = typeName;
+    }
+
+    extensions->append(extension);
+}
+
+/**
  * Adds the enum described by @p enumDescriptor to the variant list @p enums.
  */
 static void addEnum(const gp::EnumDescriptor *enumDescriptor, QVariantList *enums)
@@ -294,6 +360,14 @@ static void addMessages(const gp::Descriptor *descriptor,
     }
     message["message_fields"] = fields;
 
+    // Add nested extensions.
+    QVariantList extensions;
+    for (int i = 0; i < descriptor->extension_count(); ++i) {
+        addExtension(descriptor->extension(i), &extensions);
+    }
+    message["message_has_extensions"] = !extensions.isEmpty();
+    message["message_extensions"] = extensions;
+
     messages->append(message);
 
     // Add nested messages and enums.
@@ -320,6 +394,7 @@ static void addFile(const gp::FileDescriptor *fileDescriptor, QVariantList *file
 
     QVariantList messages;
     QVariantList enums;
+    QVariantList extensions;
 
     // Add messages.
     for (int i = 0; i < fileDescriptor->message_type_count(); ++i) {
@@ -334,6 +409,14 @@ static void addFile(const gp::FileDescriptor *fileDescriptor, QVariantList *file
     }
     std::sort(enums.begin(), enums.end(), &longNameLessThan);
     file["file_enums"] = enums;
+
+    // Add file-level extensions
+    for (int i = 0; i < fileDescriptor->extension_count(); ++i) {
+        addExtension(fileDescriptor->extension(i), &extensions);
+    }
+    std::sort(extensions.begin(), extensions.end(), &longNameLessThan);
+    file["file_has_extensions"] = !extensions.isEmpty();
+    file["file_extensions"] = extensions;
 
     files->append(file);
 }

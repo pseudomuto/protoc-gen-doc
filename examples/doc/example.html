@@ -80,6 +80,23 @@
         width: auto;
       }
 
+      /* Table of extensions */
+      .extension-table td:nth-child(1) { /* Extension */
+        width: 10em;
+      }
+      .extension-table td:nth-child(2) { /* Type */
+        width: 10em;
+      }
+      .extension-table td:nth-child(3) { /* Base */
+        width: 10em;
+      }
+      .extension-table td:nth-child(4) { /* Number */
+        width: 5em;
+      }
+      .extension-table td:nth-child(5) { /* Description */
+        width: auto;
+      }
+
       /* Table of enum values. */
       .enum-table td:nth-child(1) { /* Name */
         width: 10em;
@@ -123,7 +140,7 @@
         display: table-cell;
       }
 
-      /* The 'M' and 'E' badges in the ToC */
+      /* The 'M', 'E' and 'X' badges in the ToC */
       .badge {
         width: 1.6em;
         height: 1.6em;
@@ -220,6 +237,12 @@
               <a href="#com.example.Manufacturer.Category">
                 <span class="badge">E</span>
                 Manufacturer.Category
+              </a>
+            </li>
+            <li>
+              <a href="#Vehicle.proto-extensions">
+                <span class="badge">X</span>
+                File-level Extensions
               </a>
             </li>
           </ul>
@@ -516,6 +539,21 @@
         </tr>
       </tbody>
     </table>
+    <br>
+    <table class="extension-table">
+      <thead>
+        <tr><td>Extension</td><td>Type</td><td>Base</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>series</td>
+          <td><a href="#string">string</a></td>
+          <td><a href="#com.example.Model">Model</a></td>
+          <td>100</td>
+          <td><p>Vehicle model series.</p></td>
+        </tr>
+      </tbody>
+    </table>
     <h3 id="com.example.Vehicle.Category">Vehicle.Category</h3>
     <p>Represents a vehicle category. E.g. &quot;Sedan&quot; or &quot;Truck&quot;.</p>
     <table class="field-table">
@@ -553,6 +591,21 @@
           <td>CATEGORY_EXTERNAL</td>
           <td>1</td>
           <td><p>The manufacturer is external.</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="Vehicle.proto-extensions">File-level Extensions</h3>
+    <table class="extension-table">
+      <thead>
+        <tr><td>Extension</td><td>Type</td><td>Base</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>country</td>
+          <td><a href="#string">string</a></td>
+          <td><a href="#com.example.Manufacturer">Manufacturer</a></td>
+          <td>100</td>
+          <td><p>Manufacturer country.</p></td>
         </tr>
       </tbody>
     </table>

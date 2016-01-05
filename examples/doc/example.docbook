@@ -8,7 +8,8 @@
     <section id="com.example.Booking">
       <title>Booking</title>
       <para>Represents the booking of a vehicle.</para><para>Vehicles are some cool shit. But drive carefully!</para>
-      <informaltable frame="all">
+      <table frame="all">
+        <title><classname>Booking</classname> Fields</title>
         <tgroup cols="4">
           <colspec colwidth="*"/>
           <colspec colwidth="*"/>
@@ -55,12 +56,13 @@
             </row>
           </tbody>
         </tgroup>
-      </informaltable>
+      </table>
     </section>
     <section id="com.example.BookingStatus">
       <title>BookingStatus</title>
       <para>Represents the status of a vehicle booking.</para>
-      <informaltable frame="all">
+      <table frame="all">
+        <title><classname>BookingStatus</classname> Fields</title>
         <tgroup cols="4">
           <colspec colwidth="*"/>
           <colspec colwidth="*"/>
@@ -89,15 +91,17 @@
             </row>
           </tbody>
         </tgroup>
-      </informaltable>
+      </table>
     </section>
+
   </section>
   <section>
     <title>Customer.proto</title>
     <section id="com.example.Address">
       <title>Address</title>
       <para>Represents a mail address.</para>
-      <informaltable frame="all">
+      <table frame="all">
+        <title><classname>Address</classname> Fields</title>
         <tgroup cols="4">
           <colspec colwidth="*"/>
           <colspec colwidth="*"/>
@@ -150,12 +154,13 @@
             </row>
           </tbody>
         </tgroup>
-      </informaltable>
+      </table>
     </section>
     <section id="com.example.Customer">
       <title>Customer</title>
       <para>Represents a customer.</para>
-      <informaltable frame="all">
+      <table frame="all">
+        <title><classname>Customer</classname> Fields</title>
         <tgroup cols="4">
           <colspec colwidth="*"/>
           <colspec colwidth="*"/>
@@ -214,15 +219,17 @@
             </row>
           </tbody>
         </tgroup>
-      </informaltable>
+      </table>
     </section>
+
   </section>
   <section>
     <title>Vehicle.proto</title>
     <section id="com.example.Manufacturer">
       <title>Manufacturer</title>
       <para>Represents a manufacturer of cars.</para>
-      <informaltable frame="all">
+      <table frame="all">
+        <title><classname>Manufacturer</classname> Fields</title>
         <tgroup cols="4">
           <colspec colwidth="*"/>
           <colspec colwidth="*"/>
@@ -263,12 +270,13 @@
             </row>
           </tbody>
         </tgroup>
-      </informaltable>
+      </table>
     </section>
     <section id="com.example.Model">
       <title>Model</title>
       <para>Represents a vehicle model.</para>
-      <informaltable frame="all">
+      <table frame="all">
+        <title><classname>Model</classname> Fields</title>
         <tgroup cols="4">
           <colspec colwidth="*"/>
           <colspec colwidth="*"/>
@@ -315,12 +323,13 @@
             </row>
           </tbody>
         </tgroup>
-      </informaltable>
+      </table>
     </section>
     <section id="com.example.Vehicle">
       <title>Vehicle</title>
       <para>Represents a vehicle that can be hired.</para>
-      <informaltable frame="all">
+      <table frame="all">
+        <title><classname>Vehicle</classname> Fields</title>
         <tgroup cols="4">
           <colspec colwidth="*"/>
           <colspec colwidth="*"/>
@@ -379,12 +388,41 @@
             </row>
           </tbody>
         </tgroup>
-      </informaltable>
+      </table>
+      <table frame="all">
+        <title><classname>Vehicle</classname> Nested Extensions</title>
+        <tgroup cols="5">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Extension</entry>
+              <entry>Type</entry>
+              <entry>Base</entry>
+              <entry>Number</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>series</entry>
+              <entry><link linkend="string">string</link></entry>
+              <entry><link linkend="com.example.Model">Model</link></entry>
+              <entry>100</entry>
+              <entry><para>Vehicle model series.</para></entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
     </section>
     <section id="com.example.Vehicle.Category">
       <title>Vehicle.Category</title>
       <para>Represents a vehicle category. E.g. &quot;Sedan&quot; or &quot;Truck&quot;.</para>
-      <informaltable frame="all">
+      <table frame="all">
+        <title><classname>Vehicle.Category</classname> Fields</title>
         <tgroup cols="4">
           <colspec colwidth="*"/>
           <colspec colwidth="*"/>
@@ -413,12 +451,13 @@
             </row>
           </tbody>
         </tgroup>
-      </informaltable>
+      </table>
     </section>
     <section id="com.example.Manufacturer.Category">
       <title>Manufacturer.Category</title>
       <para>Manufacturer category. A manufacturer may be either inhouse or external.</para>
-      <informaltable frame="all">
+      <table frame="all">
+        <title><classname>Manufacturer.Category</classname> Values</title>
         <tgroup cols="3">
           <colspec colwidth="*"/>
           <colspec colwidth="*"/>
@@ -440,6 +479,37 @@
               <entry>CATEGORY_EXTERNAL</entry>
               <entry>1</entry>
               <entry><para>The manufacturer is external.</para></entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
+
+    <section>
+      <title>File-level Extensions</title>
+      <informaltable frame="all">
+        <tgroup cols="5">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Extension</entry>
+              <entry>Type</entry>
+              <entry>Base</entry>
+              <entry>Number</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>country</entry>
+              <entry><link linkend="string">string</link></entry>
+              <entry><link linkend="com.example.Manufacturer">Manufacturer</link></entry>
+              <entry>100</entry>
+              <entry><para>Manufacturer country.</para></entry>
             </row>
           </tbody>
         </tgroup>

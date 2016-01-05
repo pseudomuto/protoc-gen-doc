@@ -16,6 +16,15 @@ message Manufacturer {
     required string code = 2;       /** A manufacturer code, e.g. "DKL4P". */
     required Category category = 3; /** Manufacturer category. */
     optional string details = 4;    /** Manufacturer details (minimum orders et.c.). */
+
+    extensions 100 to max;
+}
+
+// File-level extensions can also be documented:
+
+extend Manufacturer {
+    /** Manufacturer country. */
+    optional string country = 100;
 }
 
 /**
@@ -28,6 +37,8 @@ message Model {
 
     required sint32 daily_hire_rate_dollars = 4; /// Dollars per day.
     required sint32 daily_hire_rate_cents = 5;   /// Cents per day.
+
+    extensions 100 to max;
 }
 
 /**
@@ -66,4 +77,11 @@ message Vehicle {
      * Taken from model if unspecified.
      */
     optional sint32 daily_hire_rate_cents = 7;
+
+    // Nested extensions can also be documented:
+
+    extend Model {
+        /** Vehicle model series. */
+        optional string series = 100;
+    }
 }

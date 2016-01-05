@@ -10,6 +10,9 @@
  {{#file_enums}}
  * [{{enum_long_name}}](#{{enum_full_name}})
  {{/file_enums}}
+ {{#file_has_extensions}}
+ * [File-level Extensions](#{{file_name}}-extensions)
+ {{/file_has_extensions}}
 {{/files}}
 * [Scalar Value Types](#scalar-value-types)
 
@@ -30,6 +33,14 @@
 | {{field_name}} | [{{field_long_type}}](#{{field_full_type}}) | {{field_label}} | {{#nobr}}{{field_description}}{{/nobr}} |
 {{/message_fields}}
 
+{{#message_has_extensions}}
+| Extension | Type | Base | Number | Description |
+| --------- | ---- | ---- | ------ | ----------- |
+{{#message_extensions}}
+| {{extension_name}} | {{extension_long_type}} | {{extension_containing_long_type}} | {{extension_number}} | {{#nobr}}{{extension_description}}{{/nobr}} |
+{{/message_extensions}}
+{{/message_has_extensions}}
+
 {{/file_messages}}
 
 {{#file_enums}}
@@ -44,6 +55,17 @@
 {{/enum_values}}
 
 {{/file_enums}}
+
+{{#file_has_extensions}}
+<a name="{{file_name}}-extensions"/>
+### File-level Extensions
+| Extension | Type | Base | Number | Description |
+| --------- | ---- | ---- | ------ | ----------- |
+{{#file_extensions}}
+| {{extension_name}} | {{extension_long_type}} | {{extension_containing_long_type}} | {{extension_number}} | {{#nobr}}{{extension_description}}{{/nobr}} |
+{{/file_extensions}}
+{{/file_has_extensions}}
+
 {{/files}}
 
 <a name="scalar-value-types"/>
