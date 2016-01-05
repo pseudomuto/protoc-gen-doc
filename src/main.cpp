@@ -368,7 +368,6 @@ static void addMessages(const gp::Descriptor *descriptor,
     message["message_has_extensions"] = !extensions.isEmpty();
     message["message_extensions"] = extensions;
 
-
     messages->append(message);
 
     // Add nested messages and enums.
