@@ -14,7 +14,7 @@ comments in your `.proto` files.
 Package repositories for Ubuntu, openSUSE, Fedora and Arch are available at the [Open
 Build Service][obs]. For CentOS 7 there's an x64 RPM in the [Releases]
 (https://github.com/estan/protoc-gen-doc/releases) section (it requires Qt and
-protobuf packages from the [EPEL repository](https://fedoraproject.org/wiki/EPEL)).
+protobuf packages from the [EPEL repository][epel]).
 
 ### Windows
 
@@ -50,10 +50,9 @@ generate HTML documentation for all `.proto` files in the `proto` directory into
 
 The plugin executable must be in `PATH` or specified explicitly using the `--plugin`
 option in order for `protoc` to find it. If you need support for a custom output
-format, see [Custom Templates]
-(https://github.com/estan/protoc-gen-doc/wiki/Custom-Templates). If you just want to
-customize the look of the HTML output, put your CSS in `stylesheet.css` next to the
-output file and it will be picked up.
+format, see [Custom Templates][custom]. If you just want to customize the look of the
+HTML output, put your CSS in `stylesheet.css` next to the output file and it will be
+picked up.
 
 ## Output Example
 
@@ -73,7 +72,21 @@ the plugin gives the output
 Look in [examples/Makefile](examples/Makefile) to see how these
 outputs were built.
 
-[mustache]: http://mustache.github.io/ "Mustache - Logic-less templates"
-[fop]: http://xmlgraphics.apache.org/fop/ "Apache™ FOP (Formatting Objects Processor)"
-[html_preview]: https://rawgit.com/estan/protoc-gen-doc/master/examples/doc/example.html "HTML Example Output"
-[obs]: https://software.opensuse.org/download.html?project=home%3Aestan%3Aprotoc-gen-doc&package=protoc-gen-doc
+[epel]:
+    https://fedoraproject.org/wiki/EPEL
+    "EPEL repository"
+[mustache]:
+    http://mustache.github.io/
+    "Mustache - Logic-less templates"
+[custom]:
+    https://github.com/estan/protoc-gen-doc/wiki/Custom-Templates
+    "Custom templates instructions"
+[fop]:
+    http://xmlgraphics.apache.org/fop/
+    "Apache™ FOP (Formatting Objects Processor)"
+[html_preview]:
+    https://rawgit.com/estan/protoc-gen-doc/master/examples/doc/example.html
+    "HTML Example Output"
+[obs]:
+    https://software.opensuse.org/download.html?project=home%3Aestan%3Aprotoc-gen-doc&package=protoc-gen-doc
+    "Packages at Open Build Service"
