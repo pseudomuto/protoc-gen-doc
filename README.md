@@ -22,6 +22,15 @@ Use the standalone ZIP distribution available in the [Releases]
 ### From Source
 See the build instructions in [BUILDING.md](BUILDING.md).
 
+## Writing Documentation
+
+Use `/** */` or `///` comments to document your files. Comments for enumerations and
+messages go before the message/enumeration definition. Comments for fields, enum
+values and extensions can go either before or after the field/value/extension
+definition. If a documentation comment begins with `@exclude`, the message, enum,
+enum value, field or extension will be excluded from the
+generated documentation.
+
 ## Invoking the Plugin
 
 The plugin is invoked by passing the `--doc_out` option to the `protoc` compiler. The
@@ -42,15 +51,6 @@ format, see [Custom Templates]
 (https://github.com/estan/protoc-gen-doc/wiki/Custom-Templates). If you just want to
 customize the look of the HTML output, put your CSS in `stylesheet.css` next to the
 output file and it will be picked up.
-
-## Writing Documentation
-
-Use `/** */` or `///` comments to document your files. Comments for enumerations and
-messages go before the message/enumeration definition. Comments for fields, enum
-values and extensions can go either before or after the field/value/extension
-definition. If a documentation comment begins with `@exclude`, the message, enum,
-enum value, field or extension will be excluded from the
-generated documentation.
 
 ## Output Example
 
