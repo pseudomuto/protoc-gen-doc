@@ -12,14 +12,12 @@ comments in your `.proto` files.
 ### Linux
 
 Package repositories for Ubuntu, openSUSE, Fedora and Arch are available at the [Open
-Build Service][obs]. For CentOS 7 there's an x64 RPM in the [Releases]
-(https://github.com/estan/protoc-gen-doc/releases) section (it requires Qt and
-protobuf packages from the [EPEL repository][epel]).
+Build Service][obs]. For CentOS 7 there's an x64 RPM in the [Releases][releases]
+section (it requires Qt and protobuf packages from the [EPEL repository][epel]).
 
 ### Windows
 
-Use the standalone ZIP distribution available in the [Releases]
-(https://github.com/estan/protoc-gen-doc/releases) section.
+Use the standalone ZIP distribution available in the [Releases][releases] section.
 
 ### From Source
 
@@ -91,3 +89,6 @@ outputs were built.
 [obs]:
     https://software.opensuse.org/download.html?project=home%3Aestan%3Aprotoc-gen-doc&package=protoc-gen-doc
     "Packages at Open Build Service"
+[releases]:
+    https://github.com/estan/protoc-gen-doc/releases
+    "Releases for download"
