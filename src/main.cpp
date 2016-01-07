@@ -52,11 +52,12 @@ public:
 };
 
 /**
- * Returns the "long" name of the message or enum described by @p descriptor.
+ * Returns the "long" name of the message, enum, field or extension described by
+ * @p descriptor.
  *
- * The long name is the name of the message or enum itself, preceeded by the
- * names of its enclosing types, separated by dots. E.g. for "Baz" it could be
- * "Foo.Bar.Baz".
+ * The long name is the name of the message, field, enum or extension, preceeded
+ * by the names of its enclosing types, separated by dots. E.g. for "Baz" it could
+ * be "Foo.Bar.Baz".
  */
 template<typename T>
 static QString longName(const T *descriptor)
@@ -67,7 +68,20 @@ static QString longName(const T *descriptor)
         return QString::fromStdString(descriptor->name());
     }
     return longName(descriptor->containing_type()) + "." +
-            QString::fromStdString(descriptor->name());
+                QString::fromStdString(descriptor->name());
+}
+
+// Specialization for T = FieldDescriptor, since we want to follow extension_scope()
+// if it's an extension, not containing_type().
+template<>
+QString longName(const gp::FieldDescriptor *fieldDescriptor) {
+    if (fieldDescriptor->is_extension()) {
+        return longName(fieldDescriptor->extension_scope()) + "." +
+                QString::fromStdString(fieldDescriptor->name());
+    } else {
+        return longName(fieldDescriptor->containing_type()) + "." +
+                QString::fromStdString(fieldDescriptor->name());
+    }
 }
 
 /**
