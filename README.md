@@ -11,9 +11,10 @@ comments in your `.proto` files.
 
 ### Linux
 
-Package repositories for Ubuntu, openSUSE, Fedora and Arch are available at the [Open
-Build Service][obs]. For CentOS 7 there's an x64 RPM in the [Releases][releases]
-section (it requires Qt and protobuf packages from the [EPEL repository][epel]).
+Package repositories for Debian, Ubuntu, openSUSE, Fedora and Arch are available at
+the [Open Build Service][obs]. For CentOS 7 there's an x64 RPM in the [Releases]
+[releases] section (it requires Qt and protobuf packages from the [EPEL
+repository][epel]).
 
 ### Windows
 
