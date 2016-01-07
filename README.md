@@ -87,7 +87,7 @@ outputs were built.
     https://rawgit.com/estan/protoc-gen-doc/master/examples/doc/example.html
     "HTML Example Output"
 [obs]:
-    https://software.opensuse.org/download.html?project=home%3Aestan%3Aprotoc-gen-doc&package=protoc-gen-doc
+    http://tinyurl.com/protoc-gen-doc-packages
     "Packages at Open Build Service"
 [releases]:
     https://github.com/estan/protoc-gen-doc/releases
