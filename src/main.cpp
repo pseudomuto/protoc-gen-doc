@@ -1,5 +1,5 @@
 /*
-  Copyright 2014, Elvis Stansvik
+  Copyright 2014, 2015, 2016 Elvis Stansvik
 
   Redistribution and use in source and binary forms, with or without modification,
   are permitted provided that the following conditions are met:

@@ -1,7 +1,7 @@
 #
 # spec file for package protoc-gen-doc
 #
-# Copyright (c) 2015 Elvis Stansvik <elvstone@gmail.com>
+# Copyright (c) 2015, 2016 Elvis Stansvik <elvstone@gmail.com>
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
