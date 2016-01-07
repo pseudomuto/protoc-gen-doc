@@ -2,7 +2,7 @@
   <service name="download_url">
     <param name="protocol">https</param>
     <param name="host">github.com</param>
-    <param name="path">estan/protoc-gen-doc/archive/v0.6.tar.gz</param>
+    <param name="path">estan/protoc-gen-doc/archive/v0.7.tar.gz</param>
   </service>
   <service name="extract_file">
     <param name="archive">*.tar.gz</param>

@@ -1,6 +1,6 @@
 Format: 1.0
 Source: protoc-gen-doc
-Version: 0.6-1
+Version: 0.7-1
 Binary: protoc-gen-doc
 Maintainer: Elvis Stansvik <elvstone@gmail.com>
 Architecture: any
@@ -12,5 +12,5 @@ Build-Depends: debhelper (>= 9),
                libprotoc-dev (>= 2.5.0),
                pkg-config
 Files: 
- 1234 1234 protoc-gen-doc_0.6.orig.tar.gz
- 1234 1234 protoc-gen-doc_0.6-1.diff.tar.gz
+ 1234 1234 protoc-gen-doc_0.7.orig.tar.gz
+ 1234 1234 protoc-gen-doc_0.7-1.diff.tar.gz
