@@ -1,5 +1,5 @@
-Packing Files
-=============
+Packaging Files
+===============
 
 This directory contains files used for creating Linux distribution
 packages on the Open Build Service.
