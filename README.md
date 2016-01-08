@@ -12,9 +12,12 @@ comments in your `.proto` files.
 ### Linux
 
 Package repositories for Debian, Ubuntu, openSUSE, Fedora and Arch are available at
-the [Open Build Service][obs]. For CentOS 7 there's an x64 RPM in the [Releases]
-[releases] section (it requires Qt and protobuf packages from the [EPEL
-repository][epel]).
+the [Open Build Service][obs]. A separate repository (x86_64 only) is available for
+CentOS 7:
+
+    curl -o /etc/yum.repos.d/protoc-gen-doc.repo http://tinyurl.com/protoc-gen-doc-repo
+    yum install -y epel-release
+    yum install -y protoc-gen-doc
 
 ### Windows
 
