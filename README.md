@@ -7,7 +7,7 @@ This is a documentation generator plugin for the Google Protocol Buffers compile
 (`protoc`). The plugin can generate HTML, DocBook or Markdown documentation from
 comments in your `.proto` files.
 
-## Installing the Plugin
+## Installation
 
 * [Debian][obs]
 * [Ubuntu][obs]
