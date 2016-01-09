@@ -89,7 +89,8 @@ QString longName(const gp::FieldDescriptor *fieldDescriptor) {
  *
  * It is assumed that both variants contain a QVariantHash with either
  * a "message_long_name", a "message_long_name" or a "extension_long_name"
- * key. This comparator is used when sorting the message and enum lists.
+ * key. This comparator is used when sorting the message, enum and
+ * extension lists for a file.
  */
 static inline bool longNameLessThan(const QVariant &v1, const QVariant &v2)
 {
