@@ -9,23 +9,14 @@ comments in your `.proto` files.
 
 ## Installing the Plugin
 
-### Linux
-
-Package repositories for Debian, Ubuntu, openSUSE, Fedora and Arch are available at
-the [Open Build Service][obs]. A separate repository (x86_64 only) is available for
-CentOS 7:
-
-    curl -o /etc/yum.repos.d/protoc-gen-doc.repo http://tinyurl.com/protoc-gen-doc-repo
-    yum install -y epel-release
-    yum install -y protoc-gen-doc
-
-### Windows
-
-Use the standalone ZIP distribution available in the [Releases][releases] section.
-
-### From Source
-
-See the build instructions in [BUILDING.md](BUILDING.md).
+* [Debian][obs]
+* [Ubuntu][obs]
+* [openSUSE][obs]
+* [Fedora][obs]
+* [Arch Linux][obs]
+* [CentOS 7][centos] (x86_64 only)
+* [Windows][releases]
+* Or [Build From Source](BUILDING.md)
 
 ## Writing Documentation
 
@@ -96,3 +87,6 @@ outputs were built.
 [releases]:
     https://github.com/estan/protoc-gen-doc/releases
     "Releases for download"
+[centos]:
+    http://estan.github.io/protoc-gen-doc/
+    "CentOS 7 repository"
