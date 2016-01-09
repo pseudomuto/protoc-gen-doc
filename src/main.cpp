@@ -102,7 +102,7 @@ static inline bool longNameLessThan(const QVariant &v1, const QVariant &v2)
 }
 
 /**
- * Returns the description of a message, enum, enum value or field.
+ * Returns the description of a message, enum, enum value, extension or field.
  *
  * The description is taken as the leading comments followed by the trailing
  * comments. If present, a single space is removed from the start of each line.
@@ -281,19 +281,19 @@ static void addExtension(const gp::FieldDescriptor *fieldDescriptor, QVariantLis
     // Add type information.
     gp::FieldDescriptor::Type type = fieldDescriptor->type();
     if (type == gp::FieldDescriptor::TYPE_MESSAGE || type == gp::FieldDescriptor::TYPE_GROUP) {
-        // Field is of message / group type.
+        // Extension is of message / group type.
         const gp::Descriptor *descriptor = fieldDescriptor->message_type();
         extension["extension_type"] = QString::fromStdString(descriptor->name());
         extension["extension_long_type"] = longName(descriptor);
         extension["extension_full_type"] = QString::fromStdString(descriptor->full_name());
     } else if (type == gp::FieldDescriptor::TYPE_ENUM) {
-        // Field is of enum type.
+        // Extension is of enum type.
         const gp::EnumDescriptor *descriptor = fieldDescriptor->enum_type();
         extension["extension_type"] = QString::fromStdString(descriptor->name());
         extension["extension_long_type"] = longName(descriptor);
         extension["extension_full_type"] = QString::fromStdString(descriptor->full_name());
     } else {
-        // Field is of scalar type.
+        // Extension is of scalar type.
         QString typeName(scalarTypeName(type));
         extension["extension_type"] = typeName;
         extension["extension_long_type"] = typeName;
