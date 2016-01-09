@@ -44,6 +44,6 @@ executable (`protoc-gen-doc`). `PROTOBUF_PREFIX` is the path to where the protob
 library was installed. There's no install step, just copy the executable to where you
 want it.
 
-Note that on Mac OS X, the protobuf library should be build with with clang
+Note that on Mac OS X, the protobuf library should be built with with clang
 (`CC=clang` and `CXX=clang++`), or you'll get linker errors.
 
