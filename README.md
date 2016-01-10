@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/estan/protoc-gen-doc.svg?branch=master)]
-(https://travis-ci.org/estan/protoc-gen-doc)
+[![Build Status][travis-svg]][travis-ci]
 
 # Google Protocol Buffers<br>Documentation Generator
+
 
 This is a documentation generator plugin for the Google Protocol Buffers compiler
 (`protoc`). The plugin can generate HTML, DocBook or Markdown documentation from
@@ -89,3 +89,9 @@ Look in [examples/Makefile](examples/Makefile) to see how these outputs were bui
 [centos]:
     http://estan.github.io/protoc-gen-doc/
     "CentOS 7 repository"
+[travis-svg]:
+    https://travis-ci.org/estan/protoc-gen-doc.svg?branch=master
+    "Travis CI build status SVG"
+[travis-ci]:
+    https://travis-ci.org/estan/protoc-gen-doc
+    "protoc-gen-doc at Travis CI"
