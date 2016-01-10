@@ -1,4 +1,4 @@
-# Protocol Buffers Documentation Generator
+# protoc-gen-doc
 
 [![Build Status][travis-svg]][travis-ci]
 
