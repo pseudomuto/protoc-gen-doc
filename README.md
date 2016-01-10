@@ -1,4 +1,4 @@
-# Google Protocol Buffers<br>Documentation Generator
+# Protocol Buffers Documentation Generator
 
 [![Build Status][travis-svg]][travis-ci]
 
