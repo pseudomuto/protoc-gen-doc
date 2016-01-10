@@ -1,7 +1,6 @@
-[![Build Status][travis-svg]][travis-ci]
-
 # Google Protocol Buffers<br>Documentation Generator
 
+[![Build Status][travis-svg]][travis-ci]
 
 This is a documentation generator plugin for the Google Protocol Buffers compiler
 (`protoc`). The plugin can generate HTML, DocBook or Markdown documentation from
