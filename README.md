@@ -16,7 +16,7 @@ comments in your `.proto` files.
 * [Arch Linux][obs]
 * [CentOS 7][centos] (x86_64 only)
 * [Windows][releases]
-* Or [Build From Source](BUILDING.md)
+* [Build From Source](BUILDING.md)
 
 ## Writing Documentation
 
