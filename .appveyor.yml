@@ -1,9 +1,12 @@
 platform: x86
 
+init:
+  - call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\vsvars32.bat"
+
 install:
   # Build libprotobuf and libprotoc libraries
   - cd C:\
-  - curl -L -o protobuf-2.6.1.zip https://github.com/google/protobuf/releases/download/v2.6.1/protobuf-2.6.1.zip
+  - curl -L -O https://github.com/google/protobuf/releases/download/v2.6.1/protobuf-2.6.1.zip
   - 7z x protobuf-2.6.1.zip
   - cd protobuf-2.6.1\vsprojects
   - devenv protobuf.sln /Upgrade
@@ -12,7 +15,7 @@ install:
 
   # Get UPX executable packer
   - cd C:\
-  - curl -L -o upx391w.zip http://upx.sourceforge.net/download/upx391w.zip
+  - curl -L -O http://upx.sourceforge.net/download/upx391w.zip
   - 7z x upx391w.zip
   - set PATH=C:\upx391w;%PATH%
 
