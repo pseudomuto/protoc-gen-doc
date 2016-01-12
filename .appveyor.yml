@@ -1,14 +1,7 @@
 platform: x86
 
-environment:
-  PROTOBUF_PREFIX: C:\protobuf-2.6.1
-
 init:
   - call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\vsvars32.bat"
-  - set PATH=%PROTOBUF_PREFIX%\vsprojects\Release;%PATH%
-  - set PATH=C:\Qt\5.5\msvc2013\bin;%PATH%
-  - set PATH=C:\upx391w;%PATH%
-  - set PATH=C:\MinGW\msys\1.0\bin;%PATH%
 
 install:
   # Build libprotobuf, libprotoc and protoc.
@@ -18,6 +11,7 @@ install:
   - cd protobuf-2.6.1\vsprojects
   - devenv protobuf.sln /Upgrade
   - msbuild protobuf.sln /t:libprotobuf;libprotoc;protoc /p:Configuration="Release" /p:Platform="Win32" /p:BuildProjectReferences=false
+  - set PROTOBUF_PREFIX=C:\protobuf-2.6.1
 
   # Get UPX executable packer
   - cd C:\
@@ -25,11 +19,13 @@ install:
   - 7z x upx391w.zip
 
 build_script:
+  - set PATH=C:\Qt\5.5\msvc2013\bin;C:\upx391w;%PATH%
   - cd "%APPVEYOR_BUILD_FOLDER%"
   - qmake CONFIG-=debug
   - nmake zip
 
 test_script:
+  - set PATH=%PROTOBUF_PREFIX%\vsprojects\Release;C:\MinGW\msys\1.0\bin;%PATH%
   - cd "%APPVEYOR_BUILD_FOLDER%"/examples
   - nmake /F NMakefile clean
   - nmake /F NMakefile
