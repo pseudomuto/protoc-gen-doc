@@ -10,7 +10,7 @@ install:
   - 7z x protobuf-2.6.1.zip
   - cd protobuf-2.6.1\vsprojects
   - devenv protobuf.sln /Upgrade
-  - msbuild protobuf.sln /t:libprotobuf;libprotoc /p:Configuration="Release" /p:Platform="Win32" /p:BuildProjectReferences=false
+  - msbuild protobuf.sln /t:libprotobuf;libprotoc;protoc /p:Configuration="Release" /p:Platform="Win32" /p:BuildProjectReferences=false
   - set PROTOBUF_PREFIX=C:\protobuf-2.6.1
 
   # Get UPX executable packer
@@ -25,7 +25,7 @@ build_script:
   - nmake zip
 
 test_script:
-  - set PATH=C:\MinGW\msys\1.0\bin;%PATH%
+  - set PATH=%PROTOBUF_PREFIX%\vsprojects\Release;C:\MinGW\msys\1.0\bin;%PATH%
   - cd "%APPVEYOR_BUILD_FOLDER%"/examples
   - nmake /F NMakefile clean
   - nmake /F NMakefile
