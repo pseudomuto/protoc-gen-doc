@@ -1,5 +1,18 @@
 language: cpp
 
+addons:
+ apt:
+  packages:
+   - libqt5core5a
+   - qt5-qmake
+   - qt5-default
+   - libprotobuf-dev
+   - libprotoc-dev
+   - protobuf-compiler
+   - docbook-xsl
+   - fop
+   - libservlet2.4-java
+
 matrix:
  include:
   - os: linux
@@ -10,12 +23,6 @@ matrix:
     dist: trusty
     sudo: required
     compiler: clang
-
-before_install:
- - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -qq ; fi
-
-install:
- - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -qq $(cat .travis_linux_deps) ; fi
 
 before_script:
  - export DOCBOOK_XSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/fo/docbook.xsl
