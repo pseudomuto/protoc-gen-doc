@@ -29,7 +29,7 @@ artifacts:
   name: protoc-gen-doc-win32-zip
 
 deploy:
-  release: protoc-gen-doc %APPVEYOR_REPO_TAG_NAME%
+  release: protoc-gen-doc $(appveyor_repo_tag_name)
   description: 'DRAFT'
   provider: GitHub
   auth_token:
