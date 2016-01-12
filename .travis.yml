@@ -6,22 +6,20 @@ matrix:
     dist: trusty
     sudo: required
     compiler: gcc
-    env:
-     - QMAKESPEC=linux-g++
-     - DOCBOOK_XSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/fo/docbook.xsl
   - os: linux
     dist: trusty
     sudo: required
     compiler: clang
-    env:
-     - QMAKESPEC=linux-clang
-     - DOCBOOK_XSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/fo/docbook.xsl
 
 before_install:
  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -qq ; fi
 
 install:
  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -qq $(cat .travis_linux_deps) ; fi
+
+before_script:
+ - export DOCBOOK_XSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/fo/docbook.xsl
+ - export QMAKESPEC=linux-$([[ $CXX = "g++" ]] && echo "g++" || echo "clang")
 
 script:
  - qmake
