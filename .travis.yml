@@ -31,14 +31,15 @@ matrix:
      - DOCBOOK_XSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/fo/docbook.xsl
   - os: osx
     compiler: clang
+    env: DOCBOOK_XSL=/usr/local/opt/docbook-xsl/fo/docbook.xsl
 
 before_install:
  - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || brew update'
- - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || brew install qt5 protobuf fop docbook-xsl'
- - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || export PROTOBUF_PREFIX=$(brew --prefix protobuf)'
 
-before_script:
- - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || brew --prefix docbook-xsl'
+install:
+ - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || brew install qt5 protobuf fop docbook-xsl'
+ - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || brew link --force qt5 protobuf fop'
+ - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || export PROTOBUF_PREFIX=$(brew --prefix protobuf)'
 
 script:
  - qmake
