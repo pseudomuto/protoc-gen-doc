@@ -21,8 +21,12 @@ install:
 
 build_script:
   - cd "%APPVEYOR_BUILD_FOLDER%"
-  - C:\Qt\5.5\msvc2013\bin\qmake CONFIG-=debug_and_release CONFIG+=release
+  - C:\Qt\5.5\msvc2013\bin\qmake CONFIG-=debug
   - nmake zip
+
+artifacts:
+  path: *.zip
+  name: protoc-gen-doc-win32-zip
 
 deploy:
   release: protoc-gen-doc %APPVEYOR_REPO_TAG_NAME%
@@ -30,7 +34,7 @@ deploy:
   provider: GitHub
   auth_token:
     secure: JUtSd7iVOXwTUe295uQ0AL+qf3QVGwvz04eq4avhsLWorhdND+1tIXQuq99TnFd9
-  artifact: /.*\.zip/
+  artifact: protoc-gen-doc-win32-zip
   draft: true
   prerelease: false
   on:
