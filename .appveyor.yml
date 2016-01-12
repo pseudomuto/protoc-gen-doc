@@ -2,13 +2,13 @@ platform: x86
 
 environment:
   PROTOBUF_PREFIX: C:\protobuf-2.6.1
-  PATH: $(PROTOBUF_PREFIX)\vsprojects\Release;$(PATH)
-  PATH: C:\Qt\5.5\msvc2013\bin;$(PATH)
-  PATH: C:\upx391w;$(PATH)
-  PATH: C:\MinGW\msys\1.0\bin;$(PATH)
 
 init:
   - call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\vsvars32.bat"
+  - set PATH=%PROTOBUF_PREFIX%\vsprojects\Release;%PATH%
+  - set PATH=C:\Qt\5.5\msvc2013\bin;%PATH%
+  - set PATH=C:\upx391w;%PATH%
+  - set PATH=C:\MinGW\msys\1.0\bin;%PATH%
 
 install:
   # Build libprotobuf, libprotoc and protoc.
