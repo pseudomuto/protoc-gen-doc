@@ -23,10 +23,20 @@ matrix:
     dist: trusty
     sudo: required
     compiler: clang
+  - os: osx
+    compiler: clang
+
+before_install:
+  - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || brew update'
+  - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || brew install qt5 protobuf fop docbook-xsl'
+  - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || export PROTOBUF_PREFIX=$(brew --prefix protobuf)'
 
 before_script:
- - export DOCBOOK_XSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/fo/docbook.xsl
- - export QMAKESPEC=linux-$([[ $CXX = "g++" ]] && echo "g++" || echo "clang")
+ - '[[ "$TRAVIS_OS_NAME" != "linux" ]] || export DOCBOOK_XSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/fo/docbook.xsl'
+ - '[[ "$TRAVIS_OS_NAME" != "linux" ]] || export QMAKESPEC=linux'
+ - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || export DOCBOOK_XSL=$(brew --prefix docbook-xsl)/fo/docbook.xsl'
+ - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || export QMAKESPEC=macx'
+ - 'export QMAKESPEC=$(QMAKESPEC)-$([[ $CXX = "g++" ]] && echo "g++" || echo "clang")'
 
 script:
  - qmake
