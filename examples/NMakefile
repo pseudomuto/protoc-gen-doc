@@ -3,10 +3,10 @@ PATH=..\release;$(PATH)
 all: doc\example.md doc\example.html doc\example.docbook
 
 doc\example.md: proto\*.proto ..\release\protoc-gen-doc.exe
-	protoc --doc_out=markdown,example.md:doc proto\*.proto
+	protoc --doc_out=markdown,example.md:doc proto\*
 
 doc\example.html: proto\*.proto ..\release\protoc-gen-doc.exe
-	protoc --doc_out=html,example.html:doc proto\*.proto
+	protoc --doc_out=html,example.html:doc proto\*
 
 doc\example.docbook: proto\*.proto ..\release\protoc-gen-doc.exe
 	protoc --doc_out=docbook,example.docbook:doc proto\*
