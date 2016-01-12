@@ -24,6 +24,12 @@ build_script:
   - C:\Qt\5.5\msvc2013\bin\qmake CONFIG-=debug
   - nmake zip
 
+test_script:
+  - set PATH=C:\MinGW\msys\1.0\bin;%PATH%
+  - cd "%APPVEYOR_BUILD_FOLDER%"/examples
+  - make clean
+  - make doc/example.md make doc/example.html make doc/example.docbook
+
 artifacts:
   path: '*.zip'
   name: protoc-gen-doc-win32-zip
