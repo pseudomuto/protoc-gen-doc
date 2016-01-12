@@ -31,8 +31,6 @@ matrix:
      - DOCBOOK_XSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/fo/docbook.xsl
   - os: osx
     compiler: clang
-    env:
-     - QMAKESPEC=macx-clang
 
 before_install:
  - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || brew update'
