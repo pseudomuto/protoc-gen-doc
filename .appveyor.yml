@@ -27,8 +27,8 @@ build_script:
 test_script:
   - set PATH=C:\MinGW\msys\1.0\bin;%PATH%
   - cd "%APPVEYOR_BUILD_FOLDER%"/examples
-  - nmake clean
-  - nmake
+  - nmake /F NMakefile clean
+  - nmake /F NMakefile
   - test -s doc/example.html
   - test -s doc/example.md
   - test -s doc/example.docbook
