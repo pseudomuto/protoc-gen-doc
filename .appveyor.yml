@@ -27,8 +27,11 @@ build_script:
 test_script:
   - set PATH=C:\MinGW\msys\1.0\bin;%PATH%
   - cd "%APPVEYOR_BUILD_FOLDER%"/examples
-  - make clean
-  - make doc/example.md make doc/example.html make doc/example.docbook
+  - nmake clean
+  - nmake
+  - test -s doc/example.html
+  - test -s doc/example.md
+  - test -s doc/example.docbook
 
 artifacts:
   path: '*.zip'
