@@ -1,6 +1,6 @@
 PATH=..\release;$(PATH)
 
-all: doc\example.md doc\example.html doc\example.docbook doc\example.pdf
+all: doc\example.md doc\example.html doc\example.docbook
 
 doc\example.md: proto\*.proto ..\release\protoc-gen-doc
 	protoc --doc_out=markdown,example.md:doc proto\*.proto
