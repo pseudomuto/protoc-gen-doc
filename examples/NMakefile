@@ -9,7 +9,7 @@ doc\example.html: proto\*.proto ..\release\protoc-gen-doc.exe
 	protoc --doc_out=html,example.html:doc proto\*.proto
 
 doc\example.docbook: proto\*.proto ..\release\protoc-gen-doc.exe
-	protoc --doc_out=docbook,example.docbook:doc proto\*.proto
+	protoc --doc_out=docbook,example.docbook:doc proto\*
 
 clean:
 	del /Q doc\*
