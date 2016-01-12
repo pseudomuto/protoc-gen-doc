@@ -20,7 +20,8 @@ install:
   - set PATH=C:\upx391w;%PATH%
 
 build_script:
-  - C:\Qt\5.5\msvc2013\bin\qmake CONFIG-=debug CONFIG+=release
+  - echo %CD%
+  - C:\Qt\5.5\msvc2013\bin\qmake CONFIG-=debug_and_release CONFIG+=release
   - nmake zip
 
 deploy:
