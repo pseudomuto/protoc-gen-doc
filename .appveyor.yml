@@ -3,12 +3,18 @@ platform: x86
 install:
   # Build libprotobuf and libprotoc libraries
   - cd C:\
-  - curl https://github.com/google/protobuf/releases/download/v2.6.1/protobuf-2.6.1.zip
+  - curl -L https://github.com/google/protobuf/releases/download/v2.6.1/protobuf-2.6.1.zip
   - 7z x protobuf-2.6.1.zip
   - cd protobuf-2.6.1\vsprojects
   - devenv protobuf.sln /Upgrade
   - msbuild protobuf.sln /t:libprotobuf;libprotoc p:Configuration="Release" /p:Platform="Win32" /p:BuildProjectReferences=false
   - set PROTOBUF_PREFIX=C:\protobuf-2.6.1
+
+  # Get UPX executable packer
+  - cd C:\
+  - curl -L http://upx.sourceforge.net/download/upx391w.zip
+  - 7z x upx391w.zip
+  - set PATH=C:\upx391w;%PATH%
 
 build_script:
   - C:\Qt\5.5\msvc2013\bin\qmake CONFIG-=debug CONFIG+=release
