@@ -1,6 +1,7 @@
 # protoc-gen-doc
 
-[![Build Status][travis-svg]][travis-ci]
+[![Travis Build Status][travis-svg]][travis-ci]
+[![Appveyor Build Status][appveyor-svg]][appveyor-ci]
 
 This is a documentation generator plugin for the Google Protocol Buffers compiler
 (`protoc`). The plugin can generate HTML, DocBook or Markdown documentation from
@@ -94,3 +95,9 @@ Look in [examples/Makefile](examples/Makefile) to see how these outputs were bui
 [travis-ci]:
     https://travis-ci.org/estan/protoc-gen-doc
     "protoc-gen-doc at Travis CI"
+[appveyor-svg]:
+    https://ci.appveyor.com/api/projects/status/xnfgs874dp6ijjwt/branch/master?svg=true
+    "Appveyor CI build status SVG"
+[appveyor-ci]:
+    https://ci.appveyor.com/project/estan/protoc-gen-doc
+    "protoc-gen-doc at Appveyor CI"
