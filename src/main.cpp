@@ -209,8 +209,8 @@ static QString defaultValue(const gp::FieldDescriptor *fieldDescriptor)
                 if (fieldDescriptor->type() == gp::FieldDescriptor::TYPE_STRING) {
                     return QString("\"%1\"").arg(QString::fromStdString(value));
                 } else { // Assume TYPE_BYTES.
-                    return QString("0x%1").arg(
-                        QString::fromUtf8(QByteArray::fromStdString(value).toHex()));
+                    return QString("0x%1").arg(QString::fromUtf8(
+                                QByteArray(value.c_str()).toHex()));
                 }
             }
             case gp::FieldDescriptor::CPPTYPE_BOOL:
