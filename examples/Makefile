@@ -1,4 +1,4 @@
-DOCBOOK_XSL?=/usr/share/xml/docbook/xsl-stylesheets-1.78.1/fo/docbook.xsl
+DOCBOOK_XSL?=/usr/share/xml/docbook/xsl-stylesheets-1.79.1/fo/docbook.xsl
 
 export PATH := ..:$(PATH)
 
