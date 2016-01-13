@@ -100,8 +100,8 @@ Represents a manufacturer of cars.
 | ----- | ---- | ----- | ----------- |
 | id | [int32](#int32) | required | The unique manufacturer ID. |
 | code | [string](#string) | required | A manufacturer code, e.g. &quot;DKL4P&quot;. |
-| category | [Manufacturer.Category](#com.example.Manufacturer.Category) | required | Manufacturer category. |
 | details | [string](#string) | optional | Manufacturer details (minimum orders et.c.). |
+| category | [Manufacturer.Category](#com.example.Manufacturer.Category) | optional | Manufacturer category. Default: CATEGORY_EXTERNAL |
 
 
 <a name="com.example.Model"/>
@@ -128,8 +128,8 @@ Represents a vehicle that can be hired.
 | reg_number | [string](#string) | required | Vehicle registration number. |
 | mileage | [sint32](#sint32) | optional | Current vehicle mileage, if known. |
 | category | [Vehicle.Category](#com.example.Vehicle.Category) | optional | Vehicle category. |
-| daily_hire_rate_dollars | [sint32](#sint32) | optional | Dollars per day.Taken from model if unspecified. |
-| daily_hire_rate_cents | [sint32](#sint32) | optional | Cents per day.Taken from model if unspecified. |
+| daily_hire_rate_dollars | [sint32](#sint32) | optional | Dollars per day. Default: 50 |
+| daily_hire_rate_cents | [sint32](#sint32) | optional | Cents per day. |
 
 | Extension | Type | Base | Number | Description |
 | --------- | ---- | ---- | ------ | ----------- |
@@ -160,7 +160,7 @@ Manufacturer category. A manufacturer may be either inhouse or external.
 ### File-level Extensions
 | Extension | Type | Base | Number | Description |
 | --------- | ---- | ---- | ------ | ----------- |
-| country | string | Manufacturer | 100 | Manufacturer country. |
+| country | string | Manufacturer | 100 | Manufacturer country. Default: &quot;China&quot; |
 
 
 <a name="scalar-value-types"/>

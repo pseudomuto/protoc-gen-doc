@@ -224,7 +224,7 @@
           <td>{{field_name}}</td>
           <td><a href="#{{field_full_type}}">{{field_long_type}}</a></td>
           <td>{{field_label}}</td>
-          <td>{{#p}}{{field_description}}{{/p}}</td>
+          <td>{{#p}}{{field_description}}{{#field_default_value}} Default: {{field_default_value}}{{/field_default_value}}{{/p}}</td>
         </tr>
         {{/message_fields}}
       </tbody>
@@ -242,7 +242,7 @@
           <td><a href="#{{extension_full_type}}">{{extension_long_type}}</a></td>
           <td><a href="#{{extension_containing_full_type}}">{{extension_containing_long_type}}</a></td>
           <td>{{extension_number}}</td>
-          <td>{{#p}}{{extension_description}}{{/p}}</td>
+          <td>{{#p}}{{extension_description}}{{#extension_default_value}} Default: {{extension_default_value}}{{/extension_default_value}}{{/p}}</td>
         </tr>
         {{/message_extensions}}
       </tbody>
@@ -280,7 +280,7 @@
           <td><a href="#{{extension_full_type}}">{{extension_long_type}}</a></td>
           <td><a href="#{{extension_containing_full_type}}">{{extension_containing_long_type}}</a></td>
           <td>{{extension_number}}</td>
-          <td>{{#p}}{{extension_description}}{{/p}}</td>
+          <td>{{#p}}{{extension_description}}{{#extension_default_value}} Default: {{extension_default_value}}{{/extension_default_value}}{{/p}}</td>
         </tr>
         {{/file_extensions}}
       </tbody>

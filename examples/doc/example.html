@@ -436,16 +436,16 @@
           <td><p>A manufacturer code, e.g. &quot;DKL4P&quot;.</p></td>
         </tr>
         <tr>
-          <td>category</td>
-          <td><a href="#com.example.Manufacturer.Category">Manufacturer.Category</a></td>
-          <td>required</td>
-          <td><p>Manufacturer category.</p></td>
-        </tr>
-        <tr>
           <td>details</td>
           <td><a href="#string">string</a></td>
           <td>optional</td>
           <td><p>Manufacturer details (minimum orders et.c.).</p></td>
+        </tr>
+        <tr>
+          <td>category</td>
+          <td><a href="#com.example.Manufacturer.Category">Manufacturer.Category</a></td>
+          <td>optional</td>
+          <td><p>Manufacturer category. Default: CATEGORY_EXTERNAL</p></td>
         </tr>
       </tbody>
     </table>
@@ -529,13 +529,13 @@
           <td>daily_hire_rate_dollars</td>
           <td><a href="#sint32">sint32</a></td>
           <td>optional</td>
-          <td><p>Dollars per day.</p><p>Taken from model if unspecified.</p></td>
+          <td><p>Dollars per day. Default: 50</p></td>
         </tr>
         <tr>
           <td>daily_hire_rate_cents</td>
           <td><a href="#sint32">sint32</a></td>
           <td>optional</td>
-          <td><p>Cents per day.</p><p>Taken from model if unspecified.</p></td>
+          <td><p>Cents per day.</p></td>
         </tr>
       </tbody>
     </table>
@@ -605,7 +605,7 @@
           <td><a href="#string">string</a></td>
           <td><a href="#com.example.Manufacturer">Manufacturer</a></td>
           <td>100</td>
-          <td><p>Manufacturer country.</p></td>
+          <td><p>Manufacturer country. Default: &quot;China&quot;</p></td>
         </tr>
       </tbody>
     </table>

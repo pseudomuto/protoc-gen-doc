@@ -257,16 +257,16 @@
               <entry><para>A manufacturer code, e.g. &quot;DKL4P&quot;.</para></entry>
             </row>
             <row>
-              <entry>category</entry>
-              <entry><link linkend="com.example.Manufacturer.Category">Manufacturer.Category</link></entry>
-              <entry>required</entry>
-              <entry><para>Manufacturer category.</para></entry>
-            </row>
-            <row>
               <entry>details</entry>
               <entry><link linkend="string">string</link></entry>
               <entry>optional</entry>
               <entry><para>Manufacturer details (minimum orders et.c.).</para></entry>
+            </row>
+            <row>
+              <entry>category</entry>
+              <entry><link linkend="com.example.Manufacturer.Category">Manufacturer.Category</link></entry>
+              <entry>optional</entry>
+              <entry><para>Manufacturer category. Default: CATEGORY_EXTERNAL</para></entry>
             </row>
           </tbody>
         </tgroup>
@@ -378,13 +378,13 @@
               <entry>daily_hire_rate_dollars</entry>
               <entry><link linkend="sint32">sint32</link></entry>
               <entry>optional</entry>
-              <entry><para>Dollars per day.</para><para>Taken from model if unspecified.</para></entry>
+              <entry><para>Dollars per day. Default: 50</para></entry>
             </row>
             <row>
               <entry>daily_hire_rate_cents</entry>
               <entry><link linkend="sint32">sint32</link></entry>
               <entry>optional</entry>
-              <entry><para>Cents per day.</para><para>Taken from model if unspecified.</para></entry>
+              <entry><para>Cents per day.</para></entry>
             </row>
           </tbody>
         </tgroup>
@@ -509,7 +509,7 @@
               <entry><link linkend="string">string</link></entry>
               <entry><link linkend="com.example.Manufacturer">Manufacturer</link></entry>
               <entry>100</entry>
-              <entry><para>Manufacturer country.</para></entry>
+              <entry><para>Manufacturer country. Default: &quot;China&quot;</para></entry>
             </row>
           </tbody>
         </tgroup>

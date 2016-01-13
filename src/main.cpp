@@ -195,6 +195,49 @@ static QString labelName(gp::FieldDescriptor::Label label)
 }
 
 /**
+ * Returns the default value for the field described by @p fieldDescriptor.
+ *
+ * The field must be of scalar or enum type. If the field has no default value,
+ * QString() is returned.
+ */
+static QString defaultValue(const gp::FieldDescriptor *fieldDescriptor)
+{
+    if (fieldDescriptor->has_default_value()) {
+        switch (fieldDescriptor->cpp_type()) {
+            case gp::FieldDescriptor::CPPTYPE_STRING: {
+                std::string value = fieldDescriptor->default_value_string();
+                if (fieldDescriptor->type() == gp::FieldDescriptor::TYPE_STRING) {
+                    return QString("\"%1\"").arg(QString::fromStdString(value));
+                } else { // Assume TYPE_BYTES.
+                    return QString("0x%1").arg(
+                        QString::fromUtf8(QByteArray::fromStdString(value).toHex()));
+                }
+            }
+            case gp::FieldDescriptor::CPPTYPE_BOOL:
+                return fieldDescriptor->default_value_bool() ? "true" : "false";
+            case gp::FieldDescriptor::CPPTYPE_FLOAT:
+                return QString::number(fieldDescriptor->default_value_float());
+            case gp::FieldDescriptor::CPPTYPE_DOUBLE:
+                return QString::number(fieldDescriptor->default_value_double());
+            case gp::FieldDescriptor::CPPTYPE_INT32:
+                return QString::number(fieldDescriptor->default_value_int32());
+            case gp::FieldDescriptor::CPPTYPE_INT64:
+                return QString::number(fieldDescriptor->default_value_int64());
+            case gp::FieldDescriptor::CPPTYPE_UINT32:
+                return QString::number(fieldDescriptor->default_value_uint32());
+            case gp::FieldDescriptor::CPPTYPE_UINT64:
+                return QString::number(fieldDescriptor->default_value_uint64());
+            case gp::FieldDescriptor::CPPTYPE_ENUM:
+                return QString::fromStdString(fieldDescriptor->default_value_enum()->name());
+            default:
+                return "Unknown";
+        }
+    } else {
+        return QString();
+    }
+}
+
+/**
  * Add field to variant list.
  *
  * Adds the field described by @p fieldDescriptor to the variant list @p fields.
@@ -213,6 +256,7 @@ static void addField(const gp::FieldDescriptor *fieldDescriptor, QVariantList *f
     field["field_name"] = QString::fromStdString(fieldDescriptor->name());
     field["field_description"] = description;
     field["field_label"] = labelName(fieldDescriptor->label());
+    field["field_default_value"] = defaultValue(fieldDescriptor);
 
     // Add type information.
     gp::FieldDescriptor::Type type = fieldDescriptor->type();
@@ -292,12 +336,14 @@ static void addExtension(const gp::FieldDescriptor *fieldDescriptor, QVariantLis
         extension["extension_type"] = QString::fromStdString(descriptor->name());
         extension["extension_long_type"] = longName(descriptor);
         extension["extension_full_type"] = QString::fromStdString(descriptor->full_name());
+        extension["extension_default_value"] = defaultValue(fieldDescriptor);
     } else {
         // Extension is of scalar type.
         QString typeName(scalarTypeName(type));
         extension["extension_type"] = typeName;
         extension["extension_long_type"] = typeName;
         extension["extension_full_type"] = typeName;
+        extension["extension_default_value"] = defaultValue(fieldDescriptor);
     }
 
     extensions->append(extension);

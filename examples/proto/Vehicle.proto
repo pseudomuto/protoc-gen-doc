@@ -14,8 +14,10 @@ message Manufacturer {
 
     required int32 id = 1;          /** The unique manufacturer ID. */
     required string code = 2;       /** A manufacturer code, e.g. "DKL4P". */
-    required Category category = 3; /** Manufacturer category. */
-    optional string details = 4;    /** Manufacturer details (minimum orders et.c.). */
+    optional string details = 3;    /** Manufacturer details (minimum orders et.c.). */
+
+    /** Manufacturer category. */
+    optional Category category = 4 [default = CATEGORY_EXTERNAL];
 
     extensions 100 to max;
 }
@@ -24,7 +26,7 @@ message Manufacturer {
 
 extend Manufacturer {
     /** Manufacturer country. */
-    optional string country = 100;
+    optional string country = 100 [default = "China"];
 }
 
 /**
@@ -66,15 +68,11 @@ message Vehicle {
 
     /**
      * Dollars per day.
-     *
-     * Taken from model if unspecified.
      */
-    optional sint32 daily_hire_rate_dollars = 6;
+    optional sint32 daily_hire_rate_dollars = 6 [default = 50];
 
     /**
      * Cents per day.
-     *
-     * Taken from model if unspecified.
      */
     optional sint32 daily_hire_rate_cents = 7;
 

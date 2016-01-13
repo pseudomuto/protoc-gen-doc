@@ -30,14 +30,14 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 {{#message_fields}}
-| {{field_name}} | [{{field_long_type}}](#{{field_full_type}}) | {{field_label}} | {{#nobr}}{{field_description}}{{/nobr}} |
+| {{field_name}} | [{{field_long_type}}](#{{field_full_type}}) | {{field_label}} | {{#nobr}}{{field_description}}{{#field_default_value}} Default: {{field_default_value}}{{/field_default_value}}{{/nobr}} |
 {{/message_fields}}
 
 {{#message_has_extensions}}
 | Extension | Type | Base | Number | Description |
 | --------- | ---- | ---- | ------ | ----------- |
 {{#message_extensions}}
-| {{extension_name}} | {{extension_long_type}} | {{extension_containing_long_type}} | {{extension_number}} | {{#nobr}}{{extension_description}}{{/nobr}} |
+| {{extension_name}} | {{extension_long_type}} | {{extension_containing_long_type}} | {{extension_number}} | {{#nobr}}{{extension_description}}{{#extension_default_value}} Default: {{extension_default_value}}{{/extension_default_value}}{{/nobr}} |
 {{/message_extensions}}
 {{/message_has_extensions}}
 
@@ -62,7 +62,7 @@
 | Extension | Type | Base | Number | Description |
 | --------- | ---- | ---- | ------ | ----------- |
 {{#file_extensions}}
-| {{extension_name}} | {{extension_long_type}} | {{extension_containing_long_type}} | {{extension_number}} | {{#nobr}}{{extension_description}}{{/nobr}} |
+| {{extension_name}} | {{extension_long_type}} | {{extension_containing_long_type}} | {{extension_number}} | {{#nobr}}{{extension_description}}{{#extension_default_value}} Default: {{extension_default_value}}{{/extension_default_value}}{{/nobr}} |
 {{/file_extensions}}
 {{/file_has_extensions}}
 

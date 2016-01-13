@@ -31,7 +31,7 @@
               <entry>{{field_name}}</entry>
               <entry><link linkend="{{field_full_type}}">{{field_long_type}}</link></entry>
               <entry>{{field_label}}</entry>
-              <entry>{{#para}}{{field_description}}{{/para}}</entry>
+              <entry>{{#para}}{{field_description}}{{#field_default_value}} Default: {{field_default_value}}{{/field_default_value}}{{/para}}</entry>
             </row>
             {{/message_fields}}
           </tbody>
@@ -62,7 +62,7 @@
               <entry><link linkend="{{extension_full_type}}">{{extension_long_type}}</link></entry>
               <entry><link linkend="{{extension_containing_full_type}}">{{extension_containing_long_type}}</link></entry>
               <entry>{{extension_number}}</entry>
-              <entry>{{#para}}{{extension_description}}{{/para}}</entry>
+              <entry>{{#para}}{{extension_description}}{{#extension_default_value}} Default: {{extension_default_value}}{{/extension_default_value}}{{/para}}</entry>
             </row>
             {{/message_extensions}}
           </tbody>
@@ -128,7 +128,7 @@
               <entry><link linkend="{{extension_full_type}}">{{extension_long_type}}</link></entry>
               <entry><link linkend="{{extension_containing_full_type}}">{{extension_containing_long_type}}</link></entry>
               <entry>{{extension_number}}</entry>
-              <entry>{{#para}}{{extension_description}}{{/para}}</entry>
+              <entry>{{#para}}{{extension_description}}{{#extension_default_value}} Default: {{extension_default_value}}{{/extension_default_value}}{{/para}}</entry>
             </row>
             {{/file_extensions}}
           </tbody>
