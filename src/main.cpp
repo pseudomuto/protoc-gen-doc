@@ -307,6 +307,7 @@ static void addExtension(const gp::FieldDescriptor *fieldDescriptor, QVariantLis
     extension["extension_description"] = description;
     extension["extension_label"] = labelName(fieldDescriptor->label());
     extension["extension_number"] = QString::number(fieldDescriptor->number());
+    extension["extension_default_value"] = defaultValue(fieldDescriptor);
 
     if (fieldDescriptor->is_extension()) {
         const gp::Descriptor *descriptor = fieldDescriptor->extension_scope();
@@ -338,14 +339,12 @@ static void addExtension(const gp::FieldDescriptor *fieldDescriptor, QVariantLis
         extension["extension_type"] = QString::fromStdString(descriptor->name());
         extension["extension_long_type"] = longName(descriptor);
         extension["extension_full_type"] = QString::fromStdString(descriptor->full_name());
-        extension["extension_default_value"] = defaultValue(fieldDescriptor);
     } else {
         // Extension is of scalar type.
         QString typeName(scalarTypeName(type));
         extension["extension_type"] = typeName;
         extension["extension_long_type"] = typeName;
         extension["extension_full_type"] = typeName;
-        extension["extension_default_value"] = defaultValue(fieldDescriptor);
     }
 
     extensions->append(extension);
