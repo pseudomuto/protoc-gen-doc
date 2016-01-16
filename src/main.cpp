@@ -52,6 +52,9 @@ public:
     QVariantList files;     /**< List of files to render. */
 };
 
+/// Documentation generator context instance.
+static DocGeneratorContext generatorContext;
+
 /**
  * Returns the "long" name of the message, enum, field or extension described by
  * @p descriptor.
@@ -610,13 +613,10 @@ static QString readTemplate(const QString &name, std::string *error)
  * Parses the plugin parameter string.
  *
  * @param parameter Plugin parameter string.
- * @param generatorContext Documentation generator context to parse into.
  * @param error Pointer to error if parsing failed.
  * @return true on success, otherwise false.
  */
-static bool parseParameter(const std::string &parameter,
-                           DocGeneratorContext &generatorContext,
-                           std::string *error)
+static bool parseParameter(const std::string &parameter, std::string *error)
 {
     QStringList tokens = QString::fromStdString(parameter).split(",");
 
@@ -675,17 +675,14 @@ static QString nobrFilter(const QString &text, ms::Renderer* renderer, ms::Conte
 /**
  * Renders the list of files.
  *
- * Renders files in the @p generatorContext to the directory specified in
- * @p context. If an error occurred, @p error is set to point to an error
- * message and no output is written.
+ * Renders files to the directory specified in @p context. If an error occurred,
+ * @p error is set to point to an error message and no output is written.
  *
- * @param generatorContext Documentation generator context.
  * @param context Compiler generator context specifying the output directory.
  * @param error Pointer to error if rendering failed.
  * @return true on success, otherwise false.
  */
-static bool render(const DocGeneratorContext &generatorContext,
-                   gp::compiler::GeneratorContext *context, std::string *error)
+static bool render(gp::compiler::GeneratorContext *context, std::string *error)
 {
     QVariantHash args;
 
@@ -727,9 +724,6 @@ static bool render(const DocGeneratorContext &generatorContext,
     return true;
 }
 
-/// Documentation generator context instance.
-static DocGeneratorContext generatorContext;
-
 /**
  * Documentation generator class.
  */
@@ -742,26 +736,29 @@ class DocGenerator : public gp::compiler::CodeGenerator
             gp::compiler::GeneratorContext *context,
             std::string *error) const
     {
+        std::vector<const gp::FileDescriptor *> parsedFiles;
+        context->ListParsedFiles(&parsedFiles);
+        const bool isFirst = fileDescriptor == parsedFiles.front();
+        const bool isLast = fileDescriptor == parsedFiles.back();
+
+        if (isFirst) {
+            // Parse the plugin parameter.
+            if (!parseParameter(parameter, error)) {
+                return false;
+            }
+        }
+
+        // Parse the file.
         addFile(fileDescriptor, &generatorContext.files, error);
         if (!error->empty()) {
             return false;
         }
 
-        // Don't render until last file has been parsed.
-        std::vector<const gp::FileDescriptor *> parsedFiles;
-        context->ListParsedFiles(&parsedFiles);
-        if (fileDescriptor != parsedFiles.back()) {
-            return true;
-        }
-
-        // Parse the plugin parameter.
-        if (!parseParameter(parameter, generatorContext, error)) {
-            return false;
-        }
-
-        // Render files
-        if (!render(generatorContext, context, error)) {
-            return false;
+        if (isLast) {
+            // Render output.
+            if (!render(context, error)) {
+                return false;
+            }
         }
 
         return true;
