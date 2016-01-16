@@ -6,6 +6,7 @@
   {{#files}}
   <section>
     <title>{{file_name}}</title>
+    {{#file_description}}{{#para}}{{file_description}}{{/para}}{{/file_description}}
     {{#file_messages}}
     <section {{#message_full_name}}id="{{message_full_name}}"{{/message_full_name}}>
       <title>{{message_long_name}}</title>

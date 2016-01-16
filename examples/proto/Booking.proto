@@ -1,3 +1,11 @@
+/**
+ * Booking related messages.
+ *
+ * This file is really just an example. The data model is completely
+ * fictional.
+ *
+ * Author: Elvis Stansvik
+ */
 package com.example;
 
 /**

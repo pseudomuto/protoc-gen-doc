@@ -28,6 +28,7 @@
 #include <QRegularExpression>
 #include <QString>
 #include <QStringList>
+#include <QTextStream>
 #include <QVariant>
 #include <QVariantHash>
 #include <QVariantList>
@@ -133,6 +134,65 @@ static QString descriptionOf(const T *descriptor)
     }
 
     // Return trimmed result.
+    return description.trimmed();
+}
+
+/**
+ * Returns the description of the file described by @p fileDescriptor.
+ *
+ * If the first non-whitespace characters in the file is a block of consecutive
+ * single-line (///) documentation comments, or a multi-line documentation comment,
+ * the contents of that block of comments or comment is taken as the description of
+ * the file. If a line inside a multi-line comment starts with "* ", " *" or " * "
+ * then that prefix is stripped from the line before it is added to the description.
+ *
+ * If the file has no description, QString() is returned. If an error occurs,
+ * @p error is set to point to an error message and QString() is returned.
+ */
+static QString descriptionOf(const gp::FileDescriptor *fileDescriptor, std::string *error)
+{
+    // Since there's no API in gp::FileDescriptor for getting the "file
+    // level" comment, we open the file and extract this out ourselves.
+
+    // Open file.
+    const QString fileName = QString::fromStdString(fileDescriptor->name());
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly)) {
+        *error = QString("%1: %2").arg(fileName).arg(file.errorString()).toStdString();
+        return QString();
+    }
+
+    // Extract the description.
+    QTextStream stream(&file);
+    QString description;
+    while (!stream.atEnd()) {
+        QString line = stream.readLine().trimmed();
+        if (line.isEmpty()) {
+            continue;
+        } else if (line.startsWith("///")) {
+            while (!stream.atEnd() && line.startsWith("///")) {
+                description += line.mid(line.startsWith("/// ") ? 4 : 3) + '\n';
+                line = stream.readLine().trimmed();
+            }
+            description = description.left(description.size() - 1);
+        } else if (line.startsWith("/**") && !line.startsWith("/***/")) {
+            line = line.mid(2);
+            int start, end;
+            while ((end = line.indexOf("*/")) == -1) {
+                start = 0;
+                if (line.startsWith("*")) ++start;
+                if (line.startsWith("* ")) ++start;
+                description += line.mid(start) + '\n';
+                line = stream.readLine().trimmed();
+            }
+            start = 0;
+            if (line.startsWith("*") && !line.startsWith("*/")) ++start;
+            if (line.startsWith("* ")) ++start;
+            description += line.mid(start, end - start);
+        }
+        break;
+    }
+
     return description.trimmed();
 }
 
@@ -445,13 +505,22 @@ static void addMessages(const gp::Descriptor *descriptor,
  * Add file to variant list.
  *
  * Adds the file described by @p fileDescriptor to the variant list @p files.
+ * If an error occurs, @p error is set to point to an error message and the
+ * function returns immediately.
  */
-static void addFile(const gp::FileDescriptor *fileDescriptor, QVariantList *files)
+static void addFile(const gp::FileDescriptor *fileDescriptor, QVariantList *files, std::string *error)
 {
+    QString description = descriptionOf(fileDescriptor, error);
+
+    if (description.startsWith("@exclude")) {
+        return;
+    }
+
     QVariantHash file;
 
     // Add basic info.
     file["file_name"] = QFileInfo(QString::fromStdString(fileDescriptor->name())).fileName();
+    file["file_description"] = description;
     file["file_package"] = QString::fromStdString(fileDescriptor->package());
 
     QVariantList messages;
@@ -673,7 +742,10 @@ class DocGenerator : public gp::compiler::CodeGenerator
             gp::compiler::GeneratorContext *context,
             std::string *error) const
     {
-        addFile(fileDescriptor, &generatorContext.files);
+        addFile(fileDescriptor, &generatorContext.files, error);
+        if (!error->empty()) {
+            return false;
+        }
 
         // Don't render until last file has been parsed.
         std::vector<const gp::FileDescriptor *> parsedFiles;

@@ -211,6 +211,7 @@
     <div class="file-heading">
       <h2 id="{{file_name}}">{{file_name}}</h2><a href="#title">Top</a>
     </div>
+    {{#file_description}}{{#p}}{{file_description}}{{/p}}{{/file_description}}
     {{#file_messages}}
     <h3 id="{{message_full_name}}">{{message_long_name}}</h3>
     {{#p}}{{message_description}}{{/p}}

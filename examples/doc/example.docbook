@@ -5,6 +5,8 @@
   <title>Protocol Documentation</title>
   <section>
     <title>Booking.proto</title>
+    <para>Booking related messages.</para><para>This file is really just an example. The data model is completely
+fictional.</para><para>Author: Elvis Stansvik</para>
     <section id="com.example.Booking">
       <title>Booking</title>
       <para>Represents the booking of a vehicle.</para><para>Vehicles are some cool shit. But drive carefully!</para>
@@ -97,6 +99,7 @@
   </section>
   <section>
     <title>Customer.proto</title>
+    <para>This file has messages for describing a customer.</para><para>Author: Elvis Stansvik</para>
     <section id="com.example.Address">
       <title>Address</title>
       <para>Represents a mail address.</para>
@@ -225,6 +228,7 @@
   </section>
   <section>
     <title>Vehicle.proto</title>
+    <para>Messages describing manufacturers / vehicles.</para>
     <section id="com.example.Manufacturer">
       <title>Manufacturer</title>
       <para>Represents a manufacturer of cars.</para>

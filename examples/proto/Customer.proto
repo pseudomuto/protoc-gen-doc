@@ -1,3 +1,7 @@
+/// This file has messages for describing a customer.
+///
+/// Author: Elvis Stansvik
+
 package com.example;
 
 // Use /// or /** */ to document messages, fields and enums.

@@ -20,12 +20,12 @@ comments in your `.proto` files.
 
 ## Writing Documentation
 
-Use `/** */` or `///` comments to document your files. Comments for enumerations and
-messages go before the message/enumeration definition. Comments for fields, enum
-values and extensions can go either before or after the field/value/extension
-definition. If a documentation comment begins with `@exclude`, the message, enum,
-enum value, field or extension will be excluded from the
-generated documentation.
+Use `/** */` or `///` comments to document your files. Comments for files go at
+the very top of the the file. Comments for enumerations and messages go before the
+message/enumeration definition. Comments for fields, enum values and extensions can
+go either before or after the field/value/extension definition. If a documentation
+comment begins with `@exclude`, the file, message, enum, enum value, field or
+extension will be excluded from the generated documentation.
 
 ## Invoking the Plugin
 

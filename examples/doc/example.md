@@ -22,6 +22,13 @@
 
 ## Booking.proto
 
+Booking related messages.
+
+This file is really just an example. The data model is completely
+fictional.
+
+Author: Elvis Stansvik
+
 <a name="com.example.Booking"/>
 ### Booking
 Represents the booking of a vehicle.
@@ -54,6 +61,10 @@ Represents the status of a vehicle booking.
 <p align="right"><a href="#top">Top</a></p>
 
 ## Customer.proto
+
+This file has messages for describing a customer.
+
+Author: Elvis Stansvik
 
 <a name="com.example.Address"/>
 ### Address
@@ -91,6 +102,8 @@ Represents a customer.
 <p align="right"><a href="#top">Top</a></p>
 
 ## Vehicle.proto
+
+Messages describing manufacturers / vehicles.
 
 <a name="com.example.Manufacturer"/>
 ### Manufacturer
