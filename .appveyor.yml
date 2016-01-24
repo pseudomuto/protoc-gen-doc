@@ -8,7 +8,7 @@ init:
 
 install:
   # Build libprotobuf, libprotoc and protoc.
-  - ps: >-
+  - cmd: >-
       if (!(Test-Path -Path C:\protobuf-2.6.1)) {
         cd C:\
         curl -L -O https://github.com/google/protobuf/releases/download/v2.6.1/protobuf-2.6.1.zip
