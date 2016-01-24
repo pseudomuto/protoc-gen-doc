@@ -7,7 +7,7 @@ init:
   - call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\vsvars32.bat"
 
 install:
-  # Build libprotobuf, libprotoc and protoc.
+  # Download and build libprotobuf/libprotoc/protoc, if not cached.
   - if not exist C:\protobuf-2.6.1 (
       cd C:\ &&
       curl -L -O https://github.com/google/protobuf/releases/download/v2.6.1/protobuf-2.6.1.zip &&
