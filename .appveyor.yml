@@ -18,6 +18,11 @@ install:
   - curl -L -O http://upx.sourceforge.net/download/upx391w.zip
   - 7z x upx391w.zip
 
+  # Replace Qt ICU DLLs with minimal ones.
+  - cd C:\Qt\5.5\msvc2013\bin
+  - curl -L -O https://github.com/estan/minimal-icu/releases/download/minimal-icu-54.1/minimal-icu-54.1-msvc2013-x86.zip
+  - 7z x minimal-icu-54.1-msvc2013-x86.zip
+
 build_script:
   - set PATH=C:\Qt\5.5\msvc2013\bin;C:\upx391w;%PATH%
   - cd "%APPVEYOR_BUILD_FOLDER%"
