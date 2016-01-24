@@ -2,6 +2,7 @@ platform: x86
 
 cache:
   - C:\protobuf-2.6.1 -> .appveyor.yml
+  - C:\upx391w -> .appveyor.yml
 
 init:
   - call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\vsvars32.bat"
@@ -17,10 +18,11 @@ install:
       msbuild protobuf.sln /t:libprotobuf;libprotoc;protoc /p:Configuration="Release" /p:Platform="Win32" /p:BuildProjectReferences=false)
   - set PROTOBUF_PREFIX=C:\protobuf-2.6.1
 
-  # Get UPX executable packer
-  - cd C:\
-  - curl -L -O http://upx.sourceforge.net/download/upx391w.zip
-  - 7z x upx391w.zip
+  # Get UPX executable packer, if not cached.
+  - if not exist C:\upx391w (
+      cd C:\ &&
+      curl -L -O http://upx.sourceforge.net/download/upx391w.zip &&
+      7z x upx391w.zip)
 
   # Replace Qt ICU DLLs with minimal ones.
   - cd C:\Qt\5.5\msvc2013\bin
