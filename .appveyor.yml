@@ -1,7 +1,7 @@
 platform: x86
 
 cache:
-  - C:\protobuf-2.6.1
+  - C:\protobuf-2.6.1 -> .appveyor.yml
 
 init:
   - call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\vsvars32.bat"
