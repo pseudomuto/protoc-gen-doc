@@ -64,7 +64,6 @@ the plugin gives the output
 
 Look in [examples/Makefile](examples/Makefile) to see how these outputs were built.
 
-
 [epel]:
     https://fedoraproject.org/wiki/EPEL
     "EPEL repository"
