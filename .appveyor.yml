@@ -1,11 +1,15 @@
 platform: x86
 
 cache:
-  - C:\protobuf-2.6.1 -> .appveyor.yml
-  - C:\upx391w -> .appveyor.yml
+  - C:\protobuf-2.6.1
+  - C:\upx391w
 
 init:
-  - call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\vsvars32.bat"
+  - call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" x86
+  - set PROTOBUF_PREFIX=C:\protobuf-2.6.1
+  - set PATH=%PROTOBUF_PREFIX%\vsprojects\Release;%PATH%
+  - set PATH=C:\Qt\5.5\msvc2013\bin;%PATH%
+  - set PATH=C:\upx391w;%PATH%
 
 install:
   # Download and build libprotobuf/libprotoc/protoc, if not cached.
@@ -16,33 +20,25 @@ install:
       cd protobuf-2.6.1\vsprojects &&
       devenv protobuf.sln /Upgrade &&
       msbuild protobuf.sln /t:libprotobuf;libprotoc;protoc /p:Configuration="Release" /p:Platform="Win32" /p:BuildProjectReferences=false)
-  - set PROTOBUF_PREFIX=C:\protobuf-2.6.1
 
-  # Get UPX executable packer, if not cached.
+  # Download and extract UPX executable packer, if not cached.
   - if not exist C:\upx391w (
       cd C:\ &&
       curl -L -O http://upx.sourceforge.net/download/upx391w.zip &&
       7z x upx391w.zip)
 
-  # Replace Qt ICU DLLs with minimal ones.
-  - cd C:\Qt\5.5\msvc2013\bin
-  - curl -L -O https://github.com/estan/minimal-icu/releases/download/minimal-icu-54.1/minimal-icu-54.1-msvc2013-x86.zip
-  - 7z x minimal-icu-54.1-msvc2013-x86.zip -aoa
-
 build_script:
-  - set PATH=C:\Qt\5.5\msvc2013\bin;C:\upx391w;%PATH%
   - cd "%APPVEYOR_BUILD_FOLDER%"
   - qmake CONFIG-=debug
   - nmake zip
 
 test_script:
-  - set PATH=%PROTOBUF_PREFIX%\vsprojects\Release;C:\MinGW\msys\1.0\bin;%PATH%
   - cd "%APPVEYOR_BUILD_FOLDER%"/examples
   - nmake /F NMakefile clean
   - nmake /F NMakefile
-  - test -s doc/example.html
-  - test -s doc/example.md
-  - test -s doc/example.docbook
+  - C:\MinGW\msys\1.0\bin\test -s doc/example.html
+  - C:\MinGW\msys\1.0\bin\test -s doc/example.md
+  - C:\MinGW\msys\1.0\bin\test -s doc/example.docbook
 
 artifacts:
   path: '*.zip'

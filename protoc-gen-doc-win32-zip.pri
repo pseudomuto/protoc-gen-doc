@@ -16,7 +16,6 @@ FILES += "release/$${TARGET}.exe"
 FILES += "$${VS_REDIST}/msvcr$${VS_V}.dll"
 FILES += "$${VS_REDIST}/msvcp$${VS_V}.dll"
 FILES += "$$[QT_INSTALL_BINS]/Qt5Core.dll"
-FILES += "$$[QT_INSTALL_BINS]/icu*.dll"
 
 # Settings for the zip target.
 GIT_VERSION=$$system(git \
