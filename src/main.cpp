@@ -505,6 +505,59 @@ static void addMessages(const gp::Descriptor *descriptor,
 }
 
 /**
+ * Add services to variant list.
+ *
+ * Adds the service described by @p serviceDescriptor and all its methods to the
+ * variant list @p services.
+ */
+static void addService(const gp::ServiceDescriptor *serviceDescriptor, QVariantList *services)
+{
+    QString description = descriptionOf(serviceDescriptor);
+    
+    if (description.startsWith("@exclude")) {
+        return;
+    }
+    
+    QVariantHash service;
+    
+    // Add basic info.
+    service["service_name"] = QString::fromStdString(serviceDescriptor->name());
+    service["service_full_name"] = QString::fromStdString(serviceDescriptor->full_name());
+    service["service_description"] = description;
+    
+    // Add methods.
+    QVariantList methods;
+    for (int i = 0; i < serviceDescriptor->method_count(); ++i) {
+        const gp::MethodDescriptor *methodDescriptor = serviceDescriptor->method(i);
+        
+        QString description = descriptionOf(methodDescriptor);
+        
+        if (description.startsWith("@exclude")) {
+            continue;
+        }
+        
+        QVariantHash method;
+        method["method_name"] = QString::fromStdString(methodDescriptor->name());
+        method["method_description"] = description;
+        
+        // Add type for method input
+        method["method_request_type"] = QString::fromStdString(methodDescriptor->input_type()->name());
+        method["method_request_full_type"] = QString::fromStdString(methodDescriptor->input_type()->full_name());
+        method["method_request_long_type"] = longName(methodDescriptor->input_type());
+        
+        // Add type for method output
+        method["method_response_type"] = QString::fromStdString(methodDescriptor->output_type()->name());
+        method["method_response_full_type"] = QString::fromStdString(methodDescriptor->output_type()->full_name());
+        method["method_response_long_type"] = longName(methodDescriptor->output_type());
+        
+        methods.append(method);
+    }
+    service["service_methods"] = methods;
+    
+    services->append(service);
+}
+
+/**
  * Add file to variant list.
  *
  * Adds the file described by @p fileDescriptor to the variant list @p files.
@@ -528,6 +581,7 @@ static void addFile(const gp::FileDescriptor *fileDescriptor, QVariantList *file
 
     QVariantList messages;
     QVariantList enums;
+    QVariantList services;
     QVariantList extensions;
 
     // Add messages.
@@ -544,6 +598,14 @@ static void addFile(const gp::FileDescriptor *fileDescriptor, QVariantList *file
     std::sort(enums.begin(), enums.end(), &longNameLessThan);
     file["file_enums"] = enums;
 
+    // Add services.
+    for (int i = 0; i < fileDescriptor->service_count(); ++i) {
+        addService(fileDescriptor->service(i), &services);
+    }
+    std::sort(services.begin(), services.end(), &longNameLessThan);
+    file["file_has_services"] = !services.isEmpty();
+    file["file_services"] = services;
+    
     // Add file-level extensions
     for (int i = 0; i < fileDescriptor->extension_count(); ++i) {
         addExtension(fileDescriptor->extension(i), &extensions);

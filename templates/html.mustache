@@ -200,6 +200,14 @@
               </a>
             </li>
             {{/file_has_extensions}}
+            {{#file_services}}
+            <li>
+              <a href="#{{service_full_name}}">
+                <span class="badge">S</span>
+                {{service_name}}
+              </a>
+            </li>
+            {{/file_services}}
           </ul>
         </li>
         {{/files}}
@@ -287,6 +295,25 @@
       </tbody>
     </table>
     {{/file_has_extensions}}
+    {{#file_services}}
+    <h3 id="{{service_full_name}}">{{service_name}}</h3>
+    {{#p}}{{service_description}}{{/p}}
+    <table class="enum-table">
+      <thead>
+        <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        {{#service_methods}}
+        <tr>
+          <td>{{method_name}}</td>
+          <td><a href="#{{method_request_full_type}}">{{method_request_long_type}}</a></td>
+          <td><a href="#{{method_response_full_type}}">{{method_response_long_type}}</a></td>
+          <td>{{#p}}{{method_description}}{{/p}}</td>
+        </tr>
+        {{/service_methods}}
+      </tbody>
+    </table>
+    {{/file_services}}
     {{/files}}
 
     <h2 id="scalar-value-types">Scalar Value Types</h2>

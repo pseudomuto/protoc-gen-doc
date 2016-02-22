@@ -13,6 +13,9 @@
  {{#file_has_extensions}}
  * [File-level Extensions](#{{file_name}}-extensions)
  {{/file_has_extensions}}
+ {{#file_services}}
+ * [{{service_name}}](#{{service_full_name}})
+ {{/file_services}}
 {{/files}}
 * [Scalar Value Types](#scalar-value-types)
 
@@ -67,6 +70,19 @@
 | {{extension_name}} | {{extension_long_type}} | {{extension_containing_long_type}} | {{extension_number}} | {{#nobr}}{{extension_description}}{{#extension_default_value}} Default: {{extension_default_value}}{{/extension_default_value}}{{/nobr}} |
 {{/file_extensions}}
 {{/file_has_extensions}}
+
+{{#file_services}}
+<a name="{{service_full_name}}"/>
+### {{service_name}}
+{{service_description}}
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+{{#service_methods}}
+| {{method_name}} | [{{method_request_long_type}}](#{{method_request_full_type}}) | [{{method_response_long_type}}](#{{method_response_full_type}}) | {{#nobr}}{{method_description}}{{/nobr}} |
+{{/service_methods}}
+
+{{/file_services}}
 
 {{/files}}
 
