@@ -37,5 +37,5 @@ message Booking {
  * Service for handling vehicle bookings.
  */
 service BookingService {
-	rpc BookVehicle (Booking) returns (BookingStatus); /// Used to book a vehicle. Pass in a Booking and a Booking Status will be returned
+    rpc BookVehicle (Booking) returns (BookingStatus); /// Used to book a vehicle. Pass in a Booking and a Booking Status will be returned
 }
