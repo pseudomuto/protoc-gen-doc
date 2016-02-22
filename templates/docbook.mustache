@@ -137,6 +137,40 @@
       </informaltable>
     </section>
     {{/file_has_extensions}}
+
+    {{#file_services}}
+    <section {{#service_full_name}}id="{{service_full_name}}"{{/service_full_name}}>
+      <title>{{service_name}}</title>
+      {{#para}}{{service_description}}{{/para}}
+      <table frame="all">
+        <title><classname>{{service_name}}</classname> Methods</title>
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Method Name</entry>
+              <entry>Request Type</entry>
+              <entry>Response Type</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            {{#service_methods}}
+            <row>
+              <entry>{{method_name}}</entry>
+              <entry><link linkend="{{method_request_full_type}}">{{method_request_long_type}}</link></entry>
+              <entry><link linkend="{{method_response_full_type}}">{{method_response_long_type}}</link></entry>
+              <entry>{{#para}}{{method_description}}{{/para}}</entry>
+            </row>
+            {{/service_methods}}
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
+    {{/file_services}}
   </section>
   {{/files}}
 
