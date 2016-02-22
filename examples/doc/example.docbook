@@ -120,7 +120,7 @@ fictional.</para><para>Author: Elvis Stansvik</para>
               <entry>BookVehicle</entry>
               <entry><link linkend="com.example.Booking">Booking</link></entry>
               <entry><link linkend="com.example.BookingStatus">BookingStatus</link></entry>
-              <entry><para>Used to book a vehicle. Pass in a Booking and a Booking Status will be returned.</para></entry>
+              <entry><para>Used to book a vehicle. Pass in a Booking and a BookingStatus will be returned.</para></entry>
             </row>
           </tbody>
         </tgroup>
