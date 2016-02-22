@@ -96,6 +96,36 @@ fictional.</para><para>Author: Elvis Stansvik</para>
       </table>
     </section>
 
+
+    <section id="com.example.BookingService">
+      <title>BookingService</title>
+      <para>Service for handling vehicle bookings.</para>
+      <table frame="all">
+        <title><classname>BookingService</classname> Methods</title>
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Method Name</entry>
+              <entry>Request Type</entry>
+              <entry>Response Type</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>BookVehicle</entry>
+              <entry><link linkend="com.example.Booking">Booking</link></entry>
+              <entry><link linkend="com.example.BookingStatus">BookingStatus</link></entry>
+              <entry><para>Used to book a vehicle. Pass in a Booking and a Booking Status will be returned</para></entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
   </section>
   <section>
     <title>Customer.proto</title>
@@ -224,6 +254,7 @@ fictional.</para><para>Author: Elvis Stansvik</para>
         </tgroup>
       </table>
     </section>
+
 
   </section>
   <section>
@@ -519,6 +550,7 @@ fictional.</para><para>Author: Elvis Stansvik</para>
         </tgroup>
       </informaltable>
     </section>
+
   </section>
 
   <section>

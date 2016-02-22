@@ -5,6 +5,7 @@
 * [Booking.proto](#Booking.proto)
  * [Booking](#com.example.Booking)
  * [BookingStatus](#com.example.BookingStatus)
+ * [BookingService](#com.example.BookingService)
 * [Customer.proto](#Customer.proto)
  * [Address](#com.example.Address)
  * [Customer](#com.example.Customer)
@@ -57,6 +58,15 @@ Represents the status of a vehicle booking.
 
 
 
+<a name="com.example.BookingService"/>
+### BookingService
+Service for handling vehicle bookings.
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| BookVehicle | [Booking](#com.example.Booking) | [BookingStatus](#com.example.BookingStatus) | Used to book a vehicle. Pass in a Booking and a Booking Status will be returned |
+
+
 <a name="Customer.proto"/>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -93,6 +103,7 @@ Represents a customer.
 | email_address | [string](#string) | optional | Customer e-mail address. |
 | phone_number | [string](#string) | repeated | Customer phone numbers, primary first. |
 | mail_addresses | [Address](#com.example.Address) | repeated | Customer mail addresses, primary first. |
+
 
 
 
@@ -174,6 +185,7 @@ Manufacturer category. A manufacturer may be either inhouse or external.
 | Extension | Type | Base | Number | Description |
 | --------- | ---- | ---- | ------ | ----------- |
 | country | string | Manufacturer | 100 | Manufacturer country. Default: &quot;China&quot; |
+
 
 
 <a name="scalar-value-types"/>
