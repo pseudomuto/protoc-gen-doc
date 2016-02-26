@@ -9,3 +9,9 @@ protoc-gen-doc (0.7-1) stable; urgency=low
   * Update to version 0.7.
 
  -- Elvis Stansvik <elvstone@gmail.com>  Thu, 7 Jan 2016 17:22:04 +0100
+
+protoc-gen-doc (0.8-1) stable; urgency=low
+
+  * Update to version 0.8.
+
+ -- Elvis Stansvik <elvstone@gmail.com>  Fri, 26 Feb 2016 11:05:10 +0100

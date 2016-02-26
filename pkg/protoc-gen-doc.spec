@@ -13,7 +13,7 @@
 # published by the Open Source Initiative.
 
 Name:           protoc-gen-doc
-Version:        0.7
+Version:        0.8
 Release:        1%{?dist}
 Summary:        Documentation generator plugin for Google Protocol Buffers
 License:        BSD-2-Clause
@@ -46,6 +46,8 @@ make install
 %{_bindir}/protoc-gen-doc
 
 %changelog
+* Fri Feb 26 2016 Elvis Stansvik <elvstone@gmail.com> - 0.8-1
+- Update to version 0.8.
 * Thu Jan 7 2016 Elvis Stansvik <elvstone@gmail.com> - 0.7-1
 - Update to version 0.7.
 * Wed Apr 8 2015 Elvis Stansvik <elvstone@gmail.com> - 0.6-1
