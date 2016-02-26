@@ -32,7 +32,7 @@ from the generated documentation.
 The plugin is invoked by passing the `--doc_out` option to the `protoc` compiler. The
 option has the following format:
 
-    --doc_out=docbook|html|markdown|<TEMPLATE_FILENAME>,<OUT_FILENAME>:<OUT_DIR>
+    --doc_out=docbook|html|markdown|<TEMPLATE_FILENAME>,<OUT_FILENAME>[,no-exclude]:<OUT_DIR>
 
 The format may be one of the built-in ones ( `docbook`, `html` or `markdown`) or the
 name of a file containing a custom [Mustache][mustache] template. For example, to
@@ -45,7 +45,8 @@ The plugin executable must be in `PATH` or specified explicitly using the `--plu
 option in order for `protoc` to find it. If you need support for a custom output
 format, see [Custom Templates][custom]. If you just want to customize the look of the
 HTML output, put your CSS in `stylesheet.css` next to the output file and it will be
-picked up.
+picked up. If the optional `no-exclude` flag is given, all `@exclude` directives are
+ignored.
 
 ## Output Example
 

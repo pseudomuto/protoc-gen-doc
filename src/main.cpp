@@ -49,6 +49,7 @@ class DocGeneratorContext {
 public:
     QString template_;      /**< Mustache template. */
     QString outputFileName; /**< Output filename. */
+    bool noExclude;         /**< Ignore @exclude directives? */
     QVariantList files;     /**< List of files to render. */
 };
 
@@ -106,14 +107,20 @@ static inline bool longNameLessThan(const QVariant &v1, const QVariant &v2)
 }
 
 /**
- * Returns the description of a message, enum, enum value, extension or field.
+ * Returns the description of the item described by @p descriptor.
+ *
+ * The item can be a message, enum, enum value, extension, field, service or
+ * service method.
  *
  * The description is taken as the leading comments followed by the trailing
  * comments. If present, a single space is removed from the start of each line.
  * Whitespace is trimmed from the final result before it is returned.
+ * 
+ * If the described item should be excluded from the generated documentation,
+ * @p exclude is set to true. Otherwise it is set to false.
  */
 template<typename T>
-static QString descriptionOf(const T *descriptor)
+static QString descriptionOf(const T *descriptor, bool &excluded)
 {
     QString description;
 
@@ -136,8 +143,15 @@ static QString descriptionOf(const T *descriptor)
         description += trailing;
     }
 
-    // Return trimmed result.
-    return description.trimmed();
+    // Check if item should be excluded.
+    description = description.trimmed();
+    excluded = false;
+    if (description.startsWith("@exclude")) {
+        description = description.mid(8);
+        excluded = !generatorContext.noExclude;
+    }
+
+    return description;
 }
 
 /**
@@ -151,8 +165,11 @@ static QString descriptionOf(const T *descriptor)
  *
  * If the file has no description, QString() is returned. If an error occurs,
  * @p error is set to point to an error message and QString() is returned.
+ * 
+ * If the described file should be excluded from the generated documentation,
+ * @p exclude is set to true. Otherwise it is set to false.
  */
-static QString descriptionOf(const gp::FileDescriptor *fileDescriptor, std::string *error)
+static QString descriptionOf(const gp::FileDescriptor *fileDescriptor, std::string *error, bool &excluded)
 {
     // Since there's no API in gp::FileDescriptor for getting the "file
     // level" comment, we open the file and extract this out ourselves.
@@ -196,7 +213,15 @@ static QString descriptionOf(const gp::FileDescriptor *fileDescriptor, std::stri
         break;
     }
 
-    return description.trimmed();
+    // Check if the file should be excluded.
+    description = description.trimmed();
+    excluded = false;
+    if (description.startsWith("@exclude")) {
+        description = description.mid(8);
+        excluded = !generatorContext.noExclude;
+    }
+
+    return description;
 }
 
 /**
@@ -309,9 +334,10 @@ static QString defaultValue(const gp::FieldDescriptor *fieldDescriptor)
  */
 static void addField(const gp::FieldDescriptor *fieldDescriptor, QVariantList *fields)
 {
-    QString description = descriptionOf(fieldDescriptor);
+    bool excluded = false;
+    QString description = descriptionOf(fieldDescriptor, excluded);
 
-    if (description.startsWith("@exclude")) {
+    if (excluded) {
         return;
     }
 
@@ -355,9 +381,10 @@ static void addField(const gp::FieldDescriptor *fieldDescriptor, QVariantList *f
  */
 static void addExtension(const gp::FieldDescriptor *fieldDescriptor, QVariantList *extensions)
 {
-    QString description = descriptionOf(fieldDescriptor);
+    bool excluded = false;
+    QString description = descriptionOf(fieldDescriptor, excluded);
 
-    if (description.startsWith("@exclude")) {
+    if (excluded) {
         return;
     }
 
@@ -418,9 +445,10 @@ static void addExtension(const gp::FieldDescriptor *fieldDescriptor, QVariantLis
  */
 static void addEnum(const gp::EnumDescriptor *enumDescriptor, QVariantList *enums)
 {
-    QString description = descriptionOf(enumDescriptor);
+    bool excluded = false;
+    QString description = descriptionOf(enumDescriptor, excluded);
 
-    if (description.startsWith("@exclude")) {
+    if (excluded) {
         return;
     }
 
@@ -437,9 +465,10 @@ static void addEnum(const gp::EnumDescriptor *enumDescriptor, QVariantList *enum
     for (int i = 0; i < enumDescriptor->value_count(); ++i) {
         const gp::EnumValueDescriptor *valueDescriptor = enumDescriptor->value(i);
 
-        QString description = descriptionOf(valueDescriptor);
+        bool excluded = false;
+        QString description = descriptionOf(valueDescriptor, excluded);
 
-        if (description.startsWith("@exclude")) {
+        if (excluded) {
             continue;
         }
 
@@ -464,9 +493,10 @@ static void addMessages(const gp::Descriptor *descriptor,
                         QVariantList *messages,
                         QVariantList *enums)
 {
-    QString description = descriptionOf(descriptor);
+    bool excluded = false;
+    QString description = descriptionOf(descriptor, excluded);
 
-    if (description.startsWith("@exclude")) {
+    if (excluded) {
         return;
     }
 
@@ -512,9 +542,10 @@ static void addMessages(const gp::Descriptor *descriptor,
  */
 static void addService(const gp::ServiceDescriptor *serviceDescriptor, QVariantList *services)
 {
-    QString description = descriptionOf(serviceDescriptor);
+    bool excluded = false;
+    QString description = descriptionOf(serviceDescriptor, excluded);
     
-    if (description.startsWith("@exclude")) {
+    if (excluded) {
         return;
     }
     
@@ -530,9 +561,10 @@ static void addService(const gp::ServiceDescriptor *serviceDescriptor, QVariantL
     for (int i = 0; i < serviceDescriptor->method_count(); ++i) {
         const gp::MethodDescriptor *methodDescriptor = serviceDescriptor->method(i);
         
-        QString description = descriptionOf(methodDescriptor);
+        bool excluded = false;
+        QString description = descriptionOf(methodDescriptor, excluded);
         
-        if (description.startsWith("@exclude")) {
+        if (excluded) {
             continue;
         }
         
@@ -566,9 +598,10 @@ static void addService(const gp::ServiceDescriptor *serviceDescriptor, QVariantL
  */
 static void addFile(const gp::FileDescriptor *fileDescriptor, QVariantList *files, std::string *error)
 {
-    QString description = descriptionOf(fileDescriptor, error);
+    bool excluded = false;
+    QString description = descriptionOf(fileDescriptor, error, excluded);
 
-    if (description.startsWith("@exclude")) {
+    if (excluded) {
         return;
     }
 
@@ -651,6 +684,16 @@ static QStringList supportedFormats()
 }
 
 /**
+ * Returns a usage help string.
+ */
+static QString usage()
+{
+    return QString(
+        "Usage: --doc_out=%1|<TEMPLATE_FILENAME>,<OUT_FILENAME>[,no-exclude]:<OUT_DIR>")
+        .arg(supportedFormats().join("|"));
+}
+
+/**
  * Returns the template specified by @p name.
  *
  * The @p name parameter may be either a template file name, or the name of a
@@ -682,13 +725,24 @@ static bool parseParameter(const std::string &parameter, std::string *error)
 {
     QStringList tokens = QString::fromStdString(parameter).split(",");
 
-    if (tokens.size() != 2) {
-        QString usage("Usage: --doc_out=%1|<TEMPLATE_FILENAME>,<OUT_FILENAME>:<OUT_DIR>");
-        *error = QString(usage).arg(supportedFormats().join("|")).toStdString();
+    if (tokens.size() != 2 && tokens.size() != 3) {
+        *error = usage().toStdString();
         return false;
     }
+
+    bool noExclude = false;
+    if (tokens.size() == 3) {
+        if (tokens.at(2) == "no-exclude") {
+            noExclude = true;
+        } else {
+            *error = usage().toStdString();
+            return false;
+        }
+    }
+
     generatorContext.template_ = readTemplate(tokens.at(0), error);
     generatorContext.outputFileName = tokens.at(1);
+    generatorContext.noExclude = noExclude;
 
     return true;
 }
