@@ -36,6 +36,7 @@
 #include <google/protobuf/compiler/plugin.h>
 #include <google/protobuf/compiler/code_generator.h>
 #include <google/protobuf/descriptor.h>
+#include <google/protobuf/descriptor.pb.h>
 #include <google/protobuf/io/zero_copy_stream.h>
 #include <google/protobuf/io/printer.h>
 
@@ -115,7 +116,7 @@ static inline bool longNameLessThan(const QVariant &v1, const QVariant &v2)
  * The description is taken as the leading comments followed by the trailing
  * comments. If present, a single space is removed from the start of each line.
  * Whitespace is trimmed from the final result before it is returned.
- * 
+ *
  * If the described item should be excluded from the generated documentation,
  * @p exclude is set to true. Otherwise it is set to false.
  */
@@ -155,6 +156,47 @@ static QString descriptionOf(const T *descriptor, bool &excluded)
 }
 
 /**
+ * Modifies the description if there are deprecation tags "@deprecated=<version>" or
+ * "@deprecated=<version>|@replacedBy=<your replacement>" to show the deprecation status in the resulting
+ * doc.
+ *
+ * If the field option is set on a proto field AND no deprecation tags are set then the description will
+ * simply be overwritten with "DEPRECATED". To get more info on the deprecation use the deprecation tags.
+ */
+static void handleDeprecationInDescription(QString *description, const gp::FieldDescriptor *fieldDescriptor = NULL) {
+    if (description == NULL) {
+        return;
+    }
+
+    const QString deprecatedKeyword("@deprecated=<");
+    if (description->startsWith(deprecatedKeyword)) {
+        QString deprecatedDescription("DEPRECATED in ");
+
+        // The last relevant '>' character index.
+        int indexOfLastClose = -1;
+
+        const QString replaceKeyword("|@replacedBy=<");
+        const int indexOfReplace = description->indexOf(replaceKeyword);
+        if (indexOfReplace != -1) {
+            indexOfLastClose = description->indexOf(QString(">"), indexOfReplace);
+            deprecatedDescription +=
+                QString(description->mid(deprecatedKeyword.length(), indexOfReplace - deprecatedKeyword.length() - 1) +
+                QString(", REPLACED BY: ") +
+                description->mid(indexOfReplace + replaceKeyword.length(),
+                    indexOfLastClose - indexOfReplace - replaceKeyword.length()));
+        } else {
+            indexOfLastClose = description->indexOf(QString(">"));
+            deprecatedDescription += description->mid(deprecatedKeyword.length(),
+                indexOfLastClose - deprecatedKeyword.length());
+        }
+
+        *description = QString(deprecatedDescription + QString(" -- ") + description->mid(indexOfLastClose + 1));
+    } else if (fieldDescriptor != NULL && fieldDescriptor->options().has_deprecated()) {
+        *description = QString((QString("DEPRECATED -- ") + *description));
+    }
+}
+
+/**
  * Returns the description of the file described by @p fileDescriptor.
  *
  * If the first non-whitespace characters in the file is a block of consecutive
@@ -165,7 +207,7 @@ static QString descriptionOf(const T *descriptor, bool &excluded)
  *
  * If the file has no description, QString() is returned. If an error occurs,
  * @p error is set to point to an error message and QString() is returned.
- * 
+ *
  * If the described file should be excluded from the generated documentation,
  * @p exclude is set to true. Otherwise it is set to false.
  */
@@ -337,6 +379,9 @@ static void addField(const gp::FieldDescriptor *fieldDescriptor, QVariantList *f
     bool excluded = false;
     QString description = descriptionOf(fieldDescriptor, excluded);
 
+    // Let's handle any possible deprecations.
+    handleDeprecationInDescription(&description, fieldDescriptor);
+
     if (excluded) {
         return;
     }
@@ -383,6 +428,9 @@ static void addExtension(const gp::FieldDescriptor *fieldDescriptor, QVariantLis
 {
     bool excluded = false;
     QString description = descriptionOf(fieldDescriptor, excluded);
+
+    // Let's handle any possible deprecations.
+    handleDeprecationInDescription(&description, fieldDescriptor);
 
     if (excluded) {
         return;
@@ -448,6 +496,9 @@ static void addEnum(const gp::EnumDescriptor *enumDescriptor, QVariantList *enum
     bool excluded = false;
     QString description = descriptionOf(enumDescriptor, excluded);
 
+    // Let's handle any possible deprecations.
+    handleDeprecationInDescription(&description);
+
     if (excluded) {
         return;
     }
@@ -495,6 +546,9 @@ static void addMessages(const gp::Descriptor *descriptor,
 {
     bool excluded = false;
     QString description = descriptionOf(descriptor, excluded);
+
+    // Let's handle any possible deprecations.
+    handleDeprecationInDescription(&description);
 
     if (excluded) {
         return;
@@ -544,48 +598,51 @@ static void addService(const gp::ServiceDescriptor *serviceDescriptor, QVariantL
 {
     bool excluded = false;
     QString description = descriptionOf(serviceDescriptor, excluded);
-    
+
+    // Let's handle any possible deprecations.
+    handleDeprecationInDescription(&description);
+
     if (excluded) {
         return;
     }
-    
+
     QVariantHash service;
-    
+
     // Add basic info.
     service["service_name"] = QString::fromStdString(serviceDescriptor->name());
     service["service_full_name"] = QString::fromStdString(serviceDescriptor->full_name());
     service["service_description"] = description;
-    
+
     // Add methods.
     QVariantList methods;
     for (int i = 0; i < serviceDescriptor->method_count(); ++i) {
         const gp::MethodDescriptor *methodDescriptor = serviceDescriptor->method(i);
-        
+
         bool excluded = false;
         QString description = descriptionOf(methodDescriptor, excluded);
-        
+
         if (excluded) {
             continue;
         }
-        
+
         QVariantHash method;
         method["method_name"] = QString::fromStdString(methodDescriptor->name());
         method["method_description"] = description;
-        
+
         // Add type for method input
         method["method_request_type"] = QString::fromStdString(methodDescriptor->input_type()->name());
         method["method_request_full_type"] = QString::fromStdString(methodDescriptor->input_type()->full_name());
         method["method_request_long_type"] = longName(methodDescriptor->input_type());
-        
+
         // Add type for method output
         method["method_response_type"] = QString::fromStdString(methodDescriptor->output_type()->name());
         method["method_response_full_type"] = QString::fromStdString(methodDescriptor->output_type()->full_name());
         method["method_response_long_type"] = longName(methodDescriptor->output_type());
-        
+
         methods.append(method);
     }
     service["service_methods"] = methods;
-    
+
     services->append(service);
 }
 
@@ -600,6 +657,9 @@ static void addFile(const gp::FileDescriptor *fileDescriptor, QVariantList *file
 {
     bool excluded = false;
     QString description = descriptionOf(fileDescriptor, error, excluded);
+
+    // Let's handle any possible deprecations.
+    handleDeprecationInDescription(&description);
 
     if (excluded) {
         return;
@@ -638,7 +698,7 @@ static void addFile(const gp::FileDescriptor *fileDescriptor, QVariantList *file
     std::sort(services.begin(), services.end(), &longNameLessThan);
     file["file_has_services"] = !services.isEmpty();
     file["file_services"] = services;
-    
+
     // Add file-level extensions
     for (int i = 0; i < fileDescriptor->extension_count(); ++i) {
         addExtension(fileDescriptor->extension(i), &extensions);
