@@ -5,6 +5,10 @@
 * Protocol Buffers library from Google
 * QtCore from Qt 5
 
+On Debian/Ubuntu, these packages can be installed with:
+
+    apt install qt5-qmake qt5-default libprotobuf-dev protobuf-compiler libprotoc-dev
+
 ## Linux and BSD
 
 At a terminal command prompt, run
