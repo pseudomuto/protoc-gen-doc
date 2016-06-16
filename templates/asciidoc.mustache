@@ -1,0 +1,43 @@
+= Machinetalk Protobuf Documentation
+:toc:
+
+{{#files}}
+
+== {{file_name}}
+
+{{#file_messages}}
+
+=== {{message_long_name}}
+{{message_description}}
+
+|===========================================
+|*Field* |*Type* |*Label* |*Description*
+{{#message_fields}}
+|{{field_name}} | <<{{field_long_type}},{{field_long_type}}>> |{{field_label}} |{{#nobr}}{{field_description}}{{/nobr}}
+{{/message_fields}}
+|===========================================
+{{/file_messages}}
+
+{{#file_enums}}
+
+[[{{enum_long_name}}]]
+=== {{enum_long_name}}
+{{enum_description}}
+
+|=====================================
+|*Name* |*Number* |*Description*
+{{#enum_values}}
+|{{value_name}} |{{value_number}} |{{#nobr}}{{value_description}}{{/nobr}}
+{{/enum_values}}
+|=====================================
+{{/file_enums}}
+{{/files}}
+
+== Scalar Value Types
+
+|==============================================================
+|*.proto Type* |*Notes* |*C++ Type* |*Java Type* |*Python Type*
+{{#scalar_value_types}}
+|[[{{scalar_value_proto_type}}]] ((({{scalar_value_proto_type}}))) {{scalar_value_proto_type}} |{{scalar_value_notes}} |{{scalar_value_cpp_type}} |{{scalar_value_java_type}} |{{scalar_value_python_type}}
+{{/scalar_value_types}}
+|==============================================================
