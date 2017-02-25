@@ -6,6 +6,7 @@
  *
  * Author: Elvis Stansvik
  */
+syntax = "proto2";
 package com.example;
 
 /**

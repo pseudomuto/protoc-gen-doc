@@ -3,3 +3,7 @@ protoc-gen-doc
 *.o
 *.pro.user*
 qrc_*
+
+.DS_Store
+.qmake.cache
+.qmake.stash

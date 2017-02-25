@@ -38,22 +38,28 @@ future.
 ## Mac OS X
 
 ### Install Build Tools
+First, you need to have Xcode and Xcode Command Line Tools installed. You can follow [this instruction](https://railsapps.github.io/xcode-command-line-tools.html) to install both.
 
-If you do not have Homebrew, install it first, see [here](http://brew.sh) for instructions.
+Then, you need to install Homebrew, the mighty package manager on macos, see [Homebrew site](http://brew.sh) for instructions.
 
-Then, at a Terminal prompt, run:
+Finally, at a Terminal prompt, run:
 ```
 brew update
-brew install qt5 protobuf
+brew install qt5 protobuf fop docbook-xsl
 brew link --force qt5
 export PROTOBUF_PREFIX=$(brew --prefix protobuf)
 git clone git@github.com:estan/protoc-gen-doc.git
 cd protoc-gen-doc
 qmake
 make
+cd examples
+make clean
+make
 ```
+Basically, this installed packages required to build `protoc-gen-doc`, then clone the master git repo (or you can use your own fork) and build from the source. Finally, it generates the doc from example protobuf files.
 
-in the top-level directory to build the plugin. This will produce the plugin
+
+In the top-level directory to build the plugin. This will produce the plugin
 executable (`protoc-gen-doc`). `PROTOBUF_PREFIX` is the path to where the protobuf
 library was installed. There's no install step, just copy the executable to where you
 want it, or specify the path to `protoc-gen-doc` with --plugin.

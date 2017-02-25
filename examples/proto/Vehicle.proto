@@ -1,5 +1,5 @@
 /** Messages describing manufacturers / vehicles. */
-
+syntax = "proto2";
 package com.example;
 
 /**

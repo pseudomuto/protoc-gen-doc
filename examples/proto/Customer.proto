@@ -1,7 +1,7 @@
 /// This file has messages for describing a customer.
 ///
 /// Author: Elvis Stansvik
-
+syntax = "proto2";
 package com.example;
 
 // Use /// or /** */ to document messages, fields and enums.
