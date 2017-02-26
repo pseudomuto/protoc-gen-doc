@@ -27,6 +27,8 @@ Documentation generator plugin for the Google Protocol Buffers compiler
 (protoc). The plugin can generate HTML, DocBook or Markdown documentation
 from comments in your .proto files.
 
+%global debug_package %{nil}
+
 %prep
 %setup -q -n protoc-gen-doc-%{version}
 
