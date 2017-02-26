@@ -1,6 +1,6 @@
 # Maintainer: Elvis Stansvik <elvstone@gmail.com>
 pkgname=protoc-gen-doc
-pkgver=0.8
+pkgver=0.9
 pkgrel=1
 pkgdesc='Documentation generator plugin for Google Protocol Buffers'
 arch=('i686' 'x86_64')
