@@ -51,3 +51,4 @@ script:
  - test -s doc/example.md
  - test -s doc/example.docbook
  - test -s doc/example.pdf
+ - test -s doc/example.json

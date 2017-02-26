@@ -39,6 +39,7 @@ test_script:
   - C:\MinGW\msys\1.0\bin\test -s doc/example.html
   - C:\MinGW\msys\1.0\bin\test -s doc/example.md
   - C:\MinGW\msys\1.0\bin\test -s doc/example.docbook
+  - C:\MinGW\msys\1.0\bin\test -s doc/example.json
 
 artifacts:
   path: '*.zip'
