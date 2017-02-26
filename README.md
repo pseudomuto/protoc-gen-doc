@@ -4,8 +4,8 @@
 [![Appveyor Build Status][appveyor-svg]][appveyor-ci]
 
 This is a documentation generator plugin for the Google Protocol Buffers compiler
-(`protoc`). The plugin can generate HTML, DocBook or Markdown documentation from
-comments in your `.proto` files.
+(`protoc`). The plugin can generate HTML, DocBook and Markdown documentation from
+comments in your `.proto` files, as well as a raw JSON representation.
 
 ## Installation
 
@@ -32,11 +32,11 @@ from the generated documentation.
 The plugin is invoked by passing the `--doc_out` option to the `protoc` compiler. The
 option has the following format:
 
-    --doc_out=docbook|html|markdown|<TEMPLATE_FILENAME>,<OUT_FILENAME>[,no-exclude]:<OUT_DIR>
+    --doc_out=docbook|html|markdown|json|<TEMPLATE_FILENAME>,<OUT_FILENAME>[,no-exclude]:<OUT_DIR>
 
-The format may be one of the built-in ones ( `docbook`, `html` or `markdown`) or the
-name of a file containing a custom [Mustache][mustache] template. For example, to
-generate HTML documentation for all `.proto` files in the `proto` directory into
+The format may be one of the built-in ones ( `docbook`, `html`, `markdown` or `json`)
+or the name of a file containing a custom [Mustache][mustache] template. For example,
+to generate HTML documentation for all `.proto` files in the `proto` directory into
 `doc/index.html`, type:
 
     protoc --doc_out=html,index.html:doc proto/*.proto
@@ -62,6 +62,7 @@ the plugin gives the output
 * [HTML][html_preview]
 * [DocBook](examples/doc/example.docbook)
 * [PDF](examples/doc/example.pdf?raw=true) (Using [Apache FOP][fop])
+* [JSON](examples/doc/example.json)
 
 Look in [examples/Makefile](examples/Makefile) to see how these outputs were built.
 

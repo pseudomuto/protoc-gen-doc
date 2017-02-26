@@ -2,7 +2,7 @@ DOCBOOK_XSL?=/usr/share/xml/docbook/xsl-stylesheets-1.79.1/fo/docbook.xsl
 
 export PATH := ..:$(PATH)
 
-all: doc/example.md doc/example.html doc/example.docbook doc/example.pdf
+all: doc/example.md doc/example.html doc/example.docbook doc/example.pdf doc/example.json
 
 doc/example.md: proto/*.proto ../protoc-gen-doc
 	protoc --doc_out=markdown,example.md:doc proto/*.proto
@@ -21,6 +21,9 @@ doc/example.pdf: doc/example.docbook
 		-param paper.type A4 \
 		-param page.orientation landscape \
 		-pdf doc/example.pdf
+
+doc/example.json: proto/*.proto ../protoc-gen-doc
+	protoc --doc_out=json,example.json:doc proto/*.proto
 
 clean:
 	-rm doc/*

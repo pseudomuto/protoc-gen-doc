@@ -2,7 +2,7 @@ PATH=..\release;$(PATH)
 
 INPUT=proto\Booking.proto proto\Customer.proto proto\Vehicle.proto
 
-all: doc\example.md doc\example.html doc\example.docbook
+all: doc\example.md doc\example.html doc\example.docbook doc\example.json
 
 doc\example.md: $(INPUT) ..\release\protoc-gen-doc.exe
 	protoc --doc_out=markdown,example.md:doc $(INPUT)
@@ -12,6 +12,9 @@ doc\example.html: $(INPUT) ..\release\protoc-gen-doc.exe
 
 doc\example.docbook: $(INPUT) ..\release\protoc-gen-doc.exe
 	protoc --doc_out=docbook,example.docbook:doc $(INPUT)
+
+doc\example.json: $(INPUT) ..\release\protoc-gen-doc.exe
+	protoc --doc_out=json,example.json:doc $(INPUT)
 
 clean:
 	del /Q doc\*

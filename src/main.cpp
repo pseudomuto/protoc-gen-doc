@@ -47,7 +47,7 @@ namespace ms = Mustache;
  */
 class DocGeneratorContext {
 public:
-    QString template_;      /**< Mustache template. */
+    QString template_;      /**< Mustache template, or QString() for raw JSON output */
     QString outputFileName; /**< Output filename. */
     bool noExclude;         /**< Ignore @exclude directives? */
     QVariantList files;     /**< List of files to render. */
@@ -740,7 +740,9 @@ static bool parseParameter(const std::string &parameter, std::string *error)
         }
     }
 
-    generatorContext.template_ = readTemplate(tokens.at(0), error);
+    if (tokens.at(0) != "json") {
+        generatorContext.template_ = readTemplate(tokens.at(0), error);
+    }
     generatorContext.outputFileName = tokens.at(1);
     generatorContext.noExclude = noExclude;
 
@@ -801,34 +803,47 @@ static QString nobrFilter(const QString &text, ms::Renderer* renderer, ms::Conte
 static bool render(gp::compiler::GeneratorContext *context, std::string *error)
 {
     QVariantHash args;
+    QString result;
 
-    // Add filters.
-    args["p"] = QVariant::fromValue(ms::QtVariantContext::fn_t(pFilter));
-    args["para"] = QVariant::fromValue(ms::QtVariantContext::fn_t(paraFilter));
-    args["nobr"] = QVariant::fromValue(ms::QtVariantContext::fn_t(nobrFilter));
+    if (generatorContext.template_.isEmpty()) {
+        // Raw JSON output.
+        QJsonDocument document = QJsonDocument::fromVariant(generatorContext.files);
+        if (document.isNull()) {
+            *error = "Failed to create JSON document";
+            return false;
+        }
+        result = QString(document.toJson());
+    } else {
+        // Render using template.
 
-    // Add files list.
-    args["files"] = generatorContext.files;
+        // Add filters.
+        args["p"] = QVariant::fromValue(ms::QtVariantContext::fn_t(pFilter));
+        args["para"] = QVariant::fromValue(ms::QtVariantContext::fn_t(paraFilter));
+        args["nobr"] = QVariant::fromValue(ms::QtVariantContext::fn_t(nobrFilter));
 
-    // Add scalar value types table.
-    QString fileName(":/templates/scalar_value_types.json");
-    QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly)) {
-        *error = QString("%1: %2").arg(fileName).arg(file.errorString()).toStdString();
-        return false;
-    }
-    QJsonDocument document(QJsonDocument::fromJson(file.readAll()));
-    args["scalar_value_types"] = document.array().toVariantList();
+        // Add files list.
+        args["files"] = generatorContext.files;
 
-    // Render template.
-    ms::Renderer renderer;
-    ms::QtVariantContext variantContext(args);
-    QString result = renderer.render(generatorContext.template_, &variantContext);
+        // Add scalar value types table.
+        QString fileName(":/templates/scalar_value_types.json");
+        QFile file(fileName);
+        if (!file.open(QIODevice::ReadOnly)) {
+            *error = QString("%1: %2").arg(fileName).arg(file.errorString()).toStdString();
+            return false;
+        }
+        QJsonDocument document(QJsonDocument::fromJson(file.readAll()));
+        args["scalar_value_types"] = document.array().toVariantList();
 
-    // Check for errors.
-    if (!renderer.error().isEmpty()) {
-        *error = formattedError(generatorContext.template_, renderer);
-        return false;
+        // Render template.
+        ms::Renderer renderer;
+        ms::QtVariantContext variantContext(args);
+        result = renderer.render(generatorContext.template_, &variantContext);
+
+        // Check for errors.
+        if (!renderer.error().isEmpty()) {
+            *error = formattedError(generatorContext.template_, renderer);
+            return false;
+        }
     }
 
     // Write output.
