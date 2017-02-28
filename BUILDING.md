@@ -35,12 +35,15 @@ zip`. MSVC is currently the only supported compiler on Windows. Building with Mi
 should work, but the `zip` target is not available. I'll try to fix this in the
 future.
 
-## Mac OS X
+## macOS
 
 ### Install Build Tools
-First, you need to have Xcode and Xcode Command Line Tools installed. You can follow [this instruction](https://railsapps.github.io/xcode-command-line-tools.html) to install both.
+First, you need to have Xcode and Xcode Command Line Tools installed. You can follow 
+[this instruction](https://railsapps.github.io/xcode-command-line-tools.html) to 
+install both.
 
-Then, you need to install Homebrew, the mighty package manager on macos, see [Homebrew site](http://brew.sh) for instructions.
+Then, you need to install Homebrew, the mighty package manager on macOS, see 
+[Homebrew site](http://brew.sh) for instructions.
 
 Finally, at a Terminal prompt, run:
 ```
@@ -52,12 +55,10 @@ git clone git@github.com:estan/protoc-gen-doc.git
 cd protoc-gen-doc
 qmake
 make
-cd examples
-make clean
-make
 ```
-Basically, this installed packages required to build `protoc-gen-doc`, then clone the master git repo (or you can use your own fork) and build from the source. Finally, it generates the doc from example protobuf files.
-
+Basically, this installed packages required to build `protoc-gen-doc`, then clone 
+the master git repo (or you can use your own fork) and build from the source. 
+Finally, it generates the doc from example protobuf files.
 
 In the top-level directory to build the plugin. This will produce the plugin
 executable (`protoc-gen-doc`). `PROTOBUF_PREFIX` is the path to where the protobuf
@@ -67,5 +68,26 @@ want it, or specify the path to `protoc-gen-doc` with --plugin.
 Note that on Mac OS X, the protobuf library should be built with with clang
 (`CC=clang` and `CXX=clang++`), or you'll get linker errors.
 
-If you need even more detailed instructions, you can look at the Travis build file (https://github.com/estan/protoc-gen-doc/blob/master/.travis.yml). The tool is built and tested regularly on Mac OS X, and that file contains the exact steps.
+If you need even more detailed instructions, you can look at the [Travis build file] (https://github.com/estan/protoc-gen-doc/blob/master/.travis.yml). 
+The tool is built and tested regularly on Mac OS X, and that file contains 
+the exact steps.
 
+# Building the Examples
+
+To get you started, you can try the examples:
+```
+cd examples
+make clean
+make
+```
+
+Please note that you need to set `DOCBOOK_XSL` based on your OS and the version of `docbook-sxl` package:
+```
+Default: 
+/usr/share/xml/docbook/xsl-stylesheets-1.79.1/fo/docbook.xsl
+
+macOS docbook-xsl installed by Homebrew:
+DOCBOOK_XSL?=/usr/local/Cellar/docbook-xsl/1.79.1/docbook-xsl-ns/fo/docbook.xsl
+```
+
+This would generate `docbook`, `html`, `md` and `pdf` documents in `examples/doc`.

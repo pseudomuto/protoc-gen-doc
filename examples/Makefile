@@ -1,12 +1,4 @@
-UNAME := $(shell uname)
-ifeq ($(UNAME), Darwin)
-	# macos, assuming docbook and docbook-xsl are installed using Homebrew to the default path
-	DOCBOOK_XSL?=/usr/local/Cellar/docbook-xsl/1.79.1/docbook-xsl-ns/fo/docbook.xsl
-else
-	# non-macos
-	DOCBOOK_XSL?=/usr/share/xml/docbook/xsl-stylesheets-1.79.1/fo/docbook.xsl
-endif
-
+DOCBOOK_XSL?=/usr/share/xml/docbook/xsl-stylesheets-1.79.1/fo/docbook.xsl
 export PATH := ..:$(PATH)
 
 all: doc/example.md doc/example.html doc/example.docbook doc/example.pdf
