@@ -1,0 +1,11 @@
+/**
+ * Special cases for testing
+ *
+ * This is of course entirely fictional/useless model.
+ */
+package com.example;
+
+/**
+ * Represents a message with no fields
+ */
+message Empty {}
