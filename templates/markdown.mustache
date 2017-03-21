@@ -29,6 +29,7 @@
 
 {{#file_messages}}
 <a name="{{message_full_name}}"/>
+
 ### {{message_long_name}}
 {{& message_description}}
 
@@ -50,6 +51,7 @@
 
 {{#file_enums}}
 <a name="{{enum_full_name}}"/>
+
 ### {{enum_long_name}}
 {{& enum_description}}
 
@@ -63,6 +65,7 @@
 
 {{#file_has_extensions}}
 <a name="{{file_name}}-extensions"/>
+
 ### File-level Extensions
 | Extension | Type | Base | Number | Description |
 | --------- | ---- | ---- | ------ | ----------- |
@@ -73,6 +76,7 @@
 
 {{#file_services}}
 <a name="{{service_full_name}}"/>
+
 ### {{service_name}}
 {{& service_description}}
 
@@ -87,6 +91,7 @@
 {{/files}}
 
 <a name="scalar-value-types"/>
+
 ## Scalar Value Types
 
 | .proto Type | Notes | C++ Type | Java Type | Python Type |
