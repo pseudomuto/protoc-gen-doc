@@ -223,6 +223,7 @@
     {{#file_messages}}
     <h3 id="{{message_full_name}}">{{message_long_name}}</h3>
     {{#p}}{{message_description}}{{/p}}
+    {{#message_has_fields}}
     <table class="field-table">
       <thead>
         <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
@@ -238,6 +239,7 @@
         {{/message_fields}}
       </tbody>
     </table>
+    {{/message_has_fields}}
     {{#message_has_extensions}}
     <br>
     <table class="extension-table">

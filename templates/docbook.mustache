@@ -9,6 +9,7 @@
     <section {{#message_full_name}}id="{{message_full_name}}"{{/message_full_name}}>
       <title>{{message_long_name}}</title>
       {{#para}}{{message_description}}{{/para}}
+      {{#message_has_fields}}
       <table frame="all">
         <title><classname>{{message_long_name}}</classname> Fields</title>
         <tgroup cols="4">
@@ -36,6 +37,7 @@
           </tbody>
         </tgroup>
       </table>
+      {{/message_has_fields}}
       {{#message_has_extensions}}
       <table frame="all">
         <title><classname>{{message_long_name}}</classname> Nested Extensions</title>

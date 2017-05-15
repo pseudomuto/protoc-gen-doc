@@ -32,11 +32,13 @@
 ### {{message_long_name}}
 {{& message_description}}
 
+{{#message_has_fields}}
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 {{#message_fields}}
 | {{field_name}} | [{{field_long_type}}](#{{field_full_type}}) | {{field_label}} | {{#nobr}}{{& field_description}}{{#field_default_value}} Default: {{field_default_value}}{{/field_default_value}}{{/nobr}} |
 {{/message_fields}}
+{{/message_has_fields}}
 
 {{#message_has_extensions}}
 | Extension | Type | Base | Number | Description |
