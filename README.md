@@ -1,32 +1,3 @@
-
-# PROJECT UNMAINTAINED - SEEKING MAINTAINER
-
-```
-To all users of `protoc-gen-doc`: This project is now unmaintained and
-seeking a new maintainer. The reason for this is two-fold:
-
-1. I'm not using Protocol Buffers myself anymore, and haven't done so
-   for years.
-
-2. I'm too busy with work and other projects to keep developing
-   the tool, deal with feature requests and PRs.
-
-Too all those who have outstanding pull requests and/or issues filed:
-I'm really sorry, and thank you so much for your contributions, but I
-simply don't have time for the project anymore, even if it is quite
-low-maintenance.
-
-Are you a user of `protoc-gen-doc` who feel you could take over? Great!
-Please get in touch with me privately and we can discuss how to best
-proceed (GitHub forking and transferring of Travis CI / AppVeyor / Open
-Build Service accounts). The code is quite simple and only moderate C++
-skills and some familiarity with Qt is needed.
-
-Again, to all users: I'm sorry for this inconvenience, but it would be
-dishonest of me to continue claiming maintainership of this project
-when I don't have the time anymore.
-```
-
 # protoc-gen-doc
 
 [![Travis Build Status][travis-svg]][travis-ci]
@@ -102,32 +73,32 @@ Look in [examples/Makefile](examples/Makefile) to see how these outputs were bui
     http://mustache.github.io/
     "Mustache - Logic-less templates"
 [custom]:
-    https://github.com/estan/protoc-gen-doc/wiki/Custom-Templates
+    https://github.com/pseudomuto/protoc-gen-doc/wiki/Custom-Templates
     "Custom templates instructions"
 [fop]:
     http://xmlgraphics.apache.org/fop/
     "Apache™ FOP (Formatting Objects Processor)"
 [html_preview]:
-    https://rawgit.com/estan/protoc-gen-doc/master/examples/doc/example.html
+    https://rawgit.com/pseudomuto/protoc-gen-doc/master/examples/doc/example.html
     "HTML Example Output"
 [obs]:
     http://tinyurl.com/protoc-gen-doc-packages
     "Packages at Open Build Service"
 [releases]:
-    https://github.com/estan/protoc-gen-doc/releases
+    https://github.com/pseudomuto/protoc-gen-doc/releases
     "Releases for download"
 [centos]:
     http://estan.github.io/protoc-gen-doc/
     "CentOS 7 repository"
 [travis-svg]:
-    https://travis-ci.org/estan/protoc-gen-doc.svg?branch=master
+    https://travis-ci.org/pseudomuto/protoc-gen-doc.svg?branch=master
     "Travis CI build status SVG"
 [travis-ci]:
-    https://travis-ci.org/estan/protoc-gen-doc
+    https://travis-ci.org/pseudomuto/protoc-gen-doc
     "protoc-gen-doc at Travis CI"
 [appveyor-svg]:
-    https://ci.appveyor.com/api/projects/status/xnfgs874dp6ijjwt/branch/master?svg=true
+    https://ci.appveyor.com/api/projects/status/ukg7t5qwql70rpmo?svg=true
     "Appveyor CI build status SVG"
 [appveyor-ci]:
-    https://ci.appveyor.com/project/estan/protoc-gen-doc
+    https://ci.appveyor.com/project/pseudomuto/protoc-gen-doc
     "protoc-gen-doc at Appveyor CI"
