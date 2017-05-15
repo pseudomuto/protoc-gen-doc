@@ -3,3 +3,4 @@ protoc-gen-doc
 *.o
 *.pro.user*
 qrc_*
+.qmake.stash
