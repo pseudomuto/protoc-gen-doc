@@ -1,3 +1,32 @@
+
+# PROJECT UNMAINTAINED - SEEKING MAINTAINER
+
+```
+To all users of `protoc-gen-doc`: This project is now unmaintained and
+seeking a new maintainer. The reason for this is two-fold:
+
+1. I'm not using Protocol Buffers myself anymore, and haven't done so
+   for years.
+
+2. I'm too busy with work and other projects to keep developing
+   the tool, deal with feature requests and PRs.
+
+Too all those who have outstanding pull requests and/or issues filed:
+I'm really sorry, and thank you so much for your contributions, but I
+simply don't have time for the project anymore, even if it is quite
+low-maintenance.
+
+Are you a user of `protoc-gen-doc` who feel you could take over? Great!
+Please get in touch with me privately and we can discuss how to best
+proceed (GitHub forking and transferring of Travis CI / AppVeyor / Open
+Build Service accounts). The code is quite simple and only moderate C++
+skills and some familiarity with Qt is needed.
+
+Again, to all users: I'm sorry for this inconvenience, but it would be
+dishonest of me to continue claiming maintainership of this project
+when I don't have the time anymore.
+```
+
 # protoc-gen-doc
 
 [![Travis Build Status][travis-svg]][travis-ci]
