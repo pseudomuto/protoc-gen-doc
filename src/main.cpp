@@ -513,6 +513,7 @@ static void addMessages(const gp::Descriptor *descriptor,
     for (int i = 0; i < descriptor->field_count(); ++i) {
         addField(descriptor->field(i), &fields);
     }
+    message["message_has_fields"] = !fields.isEmpty();
     message["message_fields"] = fields;
 
     // Add nested extensions.

@@ -254,9 +254,17 @@ fictional.</para><para>Author: Elvis Stansvik</para>
         </tgroup>
       </table>
     </section>
-
-
   </section>
+
+  <section>
+    <title>SpecialCases.proto</title>
+    <para>Special cases for testing</para><para>This is of course entirely fictional/useless model.</para>
+    <section id="com.example.Empty">
+      <title>Empty</title>
+      <para>Represents a message with no fields</para>
+    </section>
+  </section>
+
   <section>
     <title>Vehicle.proto</title>
     <para>Messages describing manufacturers / vehicles.</para>
