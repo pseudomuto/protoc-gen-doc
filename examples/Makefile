@@ -2,7 +2,7 @@ DOCBOOK_XSL?=/usr/share/xml/docbook/xsl-stylesheets-1.79.1/fo/docbook.xsl
 
 export PATH := ..:$(PATH)
 
-all: doc/example.md doc/example.html doc/example.docbook doc/example.pdf doc/example.json
+all: doc/example.md doc/example.html doc/example.docbook doc/example.pdf doc/example.json doc/example_types.md
 
 doc/example.md: proto/*.proto ../protoc-gen-doc
 	protoc --doc_out=markdown,example.md:doc proto/*.proto
@@ -24,6 +24,9 @@ doc/example.pdf: doc/example.docbook
 
 doc/example.json: proto/*.proto ../protoc-gen-doc
 	protoc --doc_out=json,example.json:doc proto/*.proto
+
+doc/example_types.md: proto/*.proto ../protoc-gen-doc
+	protoc --doc_out=./templates/example_types.mustache,example_types.md:doc proto/*.proto
 
 clean:
 	-rm doc/*
