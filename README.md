@@ -1,7 +1,6 @@
 # protoc-gen-doc
 
 [![Travis Build Status][travis-svg]][travis-ci]
-[![Appveyor Build Status][appveyor-svg]][appveyor-ci]
 
 This is a documentation generator plugin for the Google Protocol Buffers compiler
 (`protoc`). The plugin can generate HTML, DocBook and Markdown documentation from
@@ -9,14 +8,7 @@ comments in your `.proto` files, as well as a raw JSON representation.
 
 ## Installation
 
-* [Debian][obs]
-* [Ubuntu][obs]
-* [openSUSE][obs]
-* [Fedora][obs]
-* [Arch Linux][obs]
-* [CentOS 7][centos] (x86_64 only)
-* [Windows][releases]
-* [Build From Source](BUILDING.md)
+`go get -u github.com/pseudomuto/protoc-gen-doc`
 
 ## Writing Documentation
 
@@ -96,9 +88,3 @@ Look in [examples/Makefile](examples/Makefile) to see how these outputs were bui
 [travis-ci]:
     https://travis-ci.org/pseudomuto/protoc-gen-doc
     "protoc-gen-doc at Travis CI"
-[appveyor-svg]:
-    https://ci.appveyor.com/api/projects/status/ukg7t5qwql70rpmo?svg=true
-    "Appveyor CI build status SVG"
-[appveyor-ci]:
-    https://ci.appveyor.com/project/pseudomuto/protoc-gen-doc
-    "protoc-gen-doc at Appveyor CI"

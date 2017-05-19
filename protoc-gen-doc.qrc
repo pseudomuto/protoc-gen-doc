@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>templates/html.mustache</file>
-        <file>templates/docbook.mustache</file>
-        <file>templates/markdown.mustache</file>
-        <file>templates/scalar_value_types.json</file>
-    </qresource>
-</RCC>

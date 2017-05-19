@@ -1,54 +1,15 @@
-language: cpp
+language: go
+sudo: false
 
-addons:
- apt:
-  packages:
-   - libqt5core5a
-   - qt5-qmake
-   - qt5-default
-   - libprotobuf-dev
-   - libprotoc-dev
-   - protobuf-compiler
-   - docbook-xsl
-   - fop
-   - libservlet2.4-java
-
-matrix:
- include:
-  - os: linux
-    dist: trusty
-    sudo: required
-    compiler: gcc
-    env:
-     - QMAKESPEC=linux-g++
-     - DOCBOOK_XSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/fo/docbook.xsl
-  - os: linux
-    dist: trusty
-    sudo: required
-    compiler: clang
-    env:
-     - QMAKESPEC=linux-clang
-     - DOCBOOK_XSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/fo/docbook.xsl
-  - os: osx
-    compiler: clang
-    env: DOCBOOK_XSL=/usr/local/opt/docbook-xsl/docbook-xsl/fo/docbook.xsl
-
-before_install:
- - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || brew update'
+go:
+  - 1.8.x
+  - master
 
 install:
- - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || brew install qt5 protobuf fop docbook-xsl'
- - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || brew link --force qt5'
- - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || export PROTOBUF_PREFIX=$(brew --prefix protobuf)'
+  - curl https://glide.sh/get | sh
 
 script:
- - qmake
- - make
- - cd examples
- - make clean
- - make
- - test -s doc/example.html
- - test -s doc/example.md
- - test -s doc/example.docbook
- - test -s doc/example.pdf
- - test -s doc/example.json
+  - make test
+
+notifications:
+  email: false

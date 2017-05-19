@@ -1,6 +1,2 @@
-protoc-gen-doc
-/Makefile
-*.o
-*.pro.user*
-qrc_*
-.qmake.stash
+/protoc-gen-doc
+/vendor
