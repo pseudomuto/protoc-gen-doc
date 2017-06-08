@@ -1,4 +1,5 @@
 protoc-gen-doc
+.qmake.stash
 /Makefile
 *.o
 *.pro.user*
