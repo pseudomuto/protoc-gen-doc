@@ -1,4 +1,7 @@
-.PHONY: test
+.PHONY: generate test
 
-test:
-	@go test -v -cover .
+generate:
+	@go generate
+
+test: generate
+	@go test -cover $(shell go list ./... | grep -v -E 'test|tools|vendor')

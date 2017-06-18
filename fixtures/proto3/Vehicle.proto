@@ -1,0 +1,104 @@
+/**
+ * Messages describing manufacturers / vehicles.
+ */
+syntax = "proto3";
+
+package com.example;
+
+/**
+ * The vehicle service.
+ *
+ * Manages vehicles and such...
+ */
+service VehicleService {
+  // Returns the set of models.
+  rpc GetModels(EmptyMessage) returns (stream Model);
+
+  rpc AddModels(stream Model) returns (stream Model); // creates models
+
+  /**
+   * Looks up a vehicle by id.
+   */
+  rpc GetVehicle(FindVehicleById) returns (Vehicle);
+}
+
+/**
+ * A request message for finding vehicles.
+ */
+message FindVehicleById {
+  int32 id = 1; // The id of the vehicle to find.
+}
+
+/**
+ * Represents a vehicle model.
+ */
+message Model {
+  string id         = 1; // The unique model ID.
+  string model_code = 2; // The car model code, e.g. "PZ003".
+  string model_name = 3; // The car model name, e.g. "Z3".
+
+  sint32 daily_hire_rate_dollars = 4; // Dollars per day.
+  sint32 daily_hire_rate_cents   = 5; // Cents per day.
+
+  Type type = 6; // The type of this model
+}
+
+// An empty message.
+message EmptyMessage {
+}
+
+// The type of model.
+enum Type {
+  COUPE = 0; // The type is coupe.
+  SEDAN = 1; // The type is sedan.
+}
+
+/**
+ * Represents a manufacturer of cars.
+ */
+message Manufacturer {
+  /**
+   * Manufacturer category. A manufacturer may be either inhouse or external.
+   */
+  enum Category {
+    CATEGORY_INHOUSE  = 0; // The manufacturer is inhouse.
+    CATEGORY_EXTERNAL = 1; // The manufacturer is external.
+  }
+
+  int32 id       = 1; /** The unique manufacturer ID. */
+  string code    = 2; // A manufacturer code, e.g. "DKL4P".
+  string details = 3; // Manufacturer details (minimum orders etc.).
+
+  /** Manufacturer category. */
+  Category category = 4;
+}
+
+/**
+ * Represents a vehicle that can be hired.
+ */
+message Vehicle {
+  /**
+   * Represents a vehicle category. E.g. "Sedan" or "Truck".
+   */
+  message Category {
+    string code        = 1; /// Category code. E.g. "S".
+    string description = 2; /// Category name. E.g. "Sedan".
+  }
+
+  int32 id          = 1; /** Unique vehicle ID. */
+  Model model       = 2; /** Vehicle model. */
+  string reg_number = 3; /** Vehicle registration number. */
+  sint32 mileage    = 4; /** Current vehicle mileage, if known. */
+  Category category = 5; /** Vehicle category. */
+
+  // Doc comments for fields can come before or
+  // after the field definition. And just like
+  // comments for messages / enums, they can be
+  // multi-paragraph:
+
+
+  // rates
+  repeated sint32 rates = 6;
+
+  map<string, string> properties = 7; // bag of properties related to the vehicle.
+}
