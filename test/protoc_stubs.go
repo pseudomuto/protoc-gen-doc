@@ -4,10 +4,15 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/protoc-gen-go/plugin"
 	"io/ioutil"
+	"path"
+	"runtime"
 )
 
 func MakeCodeGeneratorRequest() (*plugin_go.CodeGeneratorRequest, error) {
-	data, err := ioutil.ReadFile("../fixtures/generator_request.dat")
+	_, filename, _, _ := runtime.Caller(0)
+	filepath := path.Join(path.Dir(filename), "../fixtures/generator_request.dat")
+
+	data, err := ioutil.ReadFile(filepath)
 	if err != nil {
 		return nil, err
 	}

@@ -111,7 +111,7 @@ func (assert *Proto2ParserTest) TestMessageProperties() {
 	assert.Equal(3, len(msg.Fields))
 
 	assert.field(msg.Fields[0], "id", "Unique booking status ID.", "int32", "required")
-	assert.field(msg.Fields[2], "status_code", "The status of this status?", "BookingStatus.StatusCode", "optional")
+	assert.field(msg.Fields[2], "status_code", "The status of this status?", "com.example.BookingStatus.StatusCode", "optional")
 }
 
 func (assert *Proto2ParserTest) TestMessageExtensionProperties() {

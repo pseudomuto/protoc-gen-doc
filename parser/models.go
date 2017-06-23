@@ -140,6 +140,7 @@ type Field struct {
 
 type Extension struct {
 	Field
+	Label          string
 	Number         int32
 	ContainingType string
 	ScopeType      string

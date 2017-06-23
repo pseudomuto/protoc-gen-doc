@@ -1,0 +1,221 @@
+package protoc_gen_doc_test
+
+import (
+	"github.com/pseudomuto/protoc-gen-doc"
+	"github.com/pseudomuto/protoc-gen-doc/parser"
+	"github.com/pseudomuto/protoc-gen-doc/test"
+	"github.com/stretchr/testify/suite"
+	"testing"
+)
+
+var (
+	template    *protoc_gen_doc.Template
+	bookingFile *protoc_gen_doc.File
+	vehicleFile *protoc_gen_doc.File
+)
+
+type TemplateTest struct {
+	suite.Suite
+}
+
+func TestTemplate(t *testing.T) {
+	suite.Run(t, new(TemplateTest))
+}
+
+func (assert *TemplateTest) SetupSuite() {
+	codeGenRequest, err := test.MakeCodeGeneratorRequest()
+	assert.Nil(err)
+
+	result := parser.ParseCodeRequest(codeGenRequest)
+	template = protoc_gen_doc.NewTemplate(result)
+	bookingFile = template.Files[0]
+	vehicleFile = template.Files[1]
+}
+
+func (assert *TemplateTest) TestTemplateProperties() {
+	assert.Equal(2, len(template.Files))
+}
+
+func (assert *TemplateTest) TestFileProperties() {
+	assert.Equal("Booking.proto", bookingFile.Name)
+	assert.Equal("Booking related messages.\n\nThis file is really just an example. The data model is completely\nfictional.", bookingFile.Description)
+	assert.Equal("com.example", bookingFile.Package)
+	assert.True(bookingFile.HasEnums)
+	assert.True(bookingFile.HasExtensions)
+	assert.True(bookingFile.HasMessages)
+	assert.True(bookingFile.HasServices)
+}
+
+func (assert *TemplateTest) TestFileExtensionProperties() {
+	ext := findExtension("BookingStatus.country", bookingFile)
+	assert.Equal("country", ext.Name)
+	assert.Equal("BookingStatus.country", ext.LongName)
+	assert.Equal("com.example.BookingStatus.country", ext.FullName)
+	assert.Equal("The country the booking occurred in.", ext.Description)
+	assert.Equal("optional", ext.Label)
+	assert.Equal("string", ext.Type)
+	assert.Equal("string", ext.LongType)
+	assert.Equal("string", ext.FullType)
+	assert.Equal(100, ext.Number)
+	assert.Equal("china", ext.DefaultValue)
+	assert.Equal("BookingStatus", ext.ContainingType)
+	assert.Equal("BookingStatus", ext.ContainingLongType)
+	assert.Equal("com.example.BookingStatus", ext.ContainingFullType)
+}
+
+func (assert *TemplateTest) TestMessageProperties() {
+	msg := findMessage("Vehicle", vehicleFile)
+	assert.Equal("Vehicle", msg.Name)
+	assert.Equal("Vehicle", msg.LongName)
+	assert.Equal("com.example.Vehicle", msg.FullName)
+	assert.Equal("Represents a vehicle that can be hired.", msg.Description)
+	assert.False(msg.HasExtensions)
+	assert.True(msg.HasFields)
+}
+
+func (assert *TemplateTest) TestNestedMessageProperties() {
+	msg := findMessage("Vehicle.Category", vehicleFile)
+	assert.Equal("Category", msg.Name)
+	assert.Equal("Vehicle.Category", msg.LongName)
+	assert.Equal("com.example.Vehicle.Category", msg.FullName)
+	assert.Equal("Represents a vehicle category. E.g. \"Sedan\" or \"Truck\".", msg.Description)
+	assert.False(msg.HasExtensions)
+	assert.True(msg.HasFields)
+}
+
+func (assert *TemplateTest) TestMessageExtensionProperties() {
+	msg := findMessage("Booking", bookingFile)
+	assert.Equal(1, len(msg.Extensions))
+
+	ext := msg.Extensions[0]
+	assert.Equal("optional_field_1", ext.Name)
+	assert.Equal("BookingStatus.optional_field_1", ext.LongName)
+	assert.Equal("com.example.BookingStatus.optional_field_1", ext.FullName)
+	assert.Equal("An optional field to be used however you please.", ext.Description)
+	assert.Equal("optional", ext.Label)
+	assert.Equal("string", ext.Type)
+	assert.Equal("string", ext.LongType)
+	assert.Equal("string", ext.FullType)
+	assert.Equal(101, ext.Number)
+	assert.Equal("", ext.DefaultValue)
+	assert.Equal("BookingStatus", ext.ContainingType)
+	assert.Equal("BookingStatus", ext.ContainingLongType)
+	assert.Equal("com.example.BookingStatus", ext.ContainingFullType)
+	assert.Equal("Booking", ext.ScopeType)
+	assert.Equal("Booking", ext.ScopeLongType)
+	assert.Equal("com.example.Booking", ext.ScopeFullType)
+}
+
+func (assert *TemplateTest) TestFieldProperties() {
+	msg := findMessage("BookingStatus", bookingFile)
+
+	field := findField("id", msg)
+	assert.Equal("id", field.Name)
+	assert.Equal("Unique booking status ID.", field.Description)
+	assert.Equal("required", field.Label)
+	assert.Equal("int32", field.Type)
+	assert.Equal("int32", field.LongType)
+	assert.Equal("int32", field.FullType)
+	assert.Equal("", field.DefaultValue)
+
+	field = findField("status_code", msg)
+	assert.Equal("status_code", field.Name)
+	assert.Equal("The status of this status?", field.Description)
+	assert.Equal("optional", field.Label)
+	assert.Equal("StatusCode", field.Type)
+	assert.Equal("BookingStatus.StatusCode", field.LongType)
+	assert.Equal("com.example.BookingStatus.StatusCode", field.FullType)
+	assert.Equal("", field.DefaultValue)
+
+	field = findField("category", findMessage("Vehicle", vehicleFile))
+	assert.Equal("category", field.Name)
+	assert.Equal("Vehicle category.", field.Description)
+	assert.Equal("", field.Label) // proto3, neither required, nor optional are valid
+	assert.Equal("Category", field.Type)
+	assert.Equal("Vehicle.Category", field.LongType)
+	assert.Equal("com.example.Vehicle.Category", field.FullType)
+	assert.Equal("", field.DefaultValue)
+}
+
+func (assert *TemplateTest) TestServiceProperties() {
+	service := findService("VehicleService", vehicleFile)
+	assert.Equal("VehicleService", service.Name)
+	assert.Equal("VehicleService", service.LongName)
+	assert.Equal("com.example.VehicleService", service.FullName)
+	assert.Equal("The vehicle service.\n\nManages vehicles and such...", service.Description)
+	assert.Equal(3, len(service.Methods))
+}
+
+func (assert *TemplateTest) TestServiceMethodProperties() {
+	service := findService("VehicleService", vehicleFile)
+
+	method := findServiceMethod("AddModels", service)
+	assert.Equal("AddModels", method.Name)
+	assert.Equal("creates models", method.Description)
+	assert.Equal("Model", method.RequestType)
+	assert.Equal("Model", method.RequestLongType)
+	assert.Equal("com.example.Model", method.RequestFullType)
+	assert.Equal("Model", method.ResponseType)
+	assert.Equal("Model", method.ResponseLongType)
+	assert.Equal("com.example.Model", method.ResponseFullType)
+
+	method = findServiceMethod("GetVehicle", service)
+	assert.Equal("GetVehicle", method.Name)
+	assert.Equal("Looks up a vehicle by id.", method.Description)
+	assert.Equal("FindVehicleById", method.RequestType)
+	assert.Equal("FindVehicleById", method.RequestLongType)
+	assert.Equal("com.example.FindVehicleById", method.RequestFullType)
+	assert.Equal("Vehicle", method.ResponseType)
+	assert.Equal("Vehicle", method.ResponseLongType)
+	assert.Equal("com.example.Vehicle", method.ResponseFullType)
+}
+
+func findService(name string, f *protoc_gen_doc.File) *protoc_gen_doc.Service {
+	for _, s := range f.Services {
+		if s.Name == name {
+			return s
+		}
+	}
+
+	return nil
+}
+
+func findServiceMethod(name string, s *protoc_gen_doc.Service) *protoc_gen_doc.ServiceMethod {
+	for _, m := range s.Methods {
+		if m.Name == name {
+			return m
+		}
+	}
+
+	return nil
+}
+
+func findExtension(name string, f *protoc_gen_doc.File) *protoc_gen_doc.FileExtension {
+	for _, ext := range f.Extensions {
+		if ext.LongName == name {
+			return ext
+		}
+	}
+
+	return nil
+}
+
+func findMessage(name string, f *protoc_gen_doc.File) *protoc_gen_doc.Message {
+	for _, m := range f.Messages {
+		if m.LongName == name {
+			return m
+		}
+	}
+
+	return nil
+}
+
+func findField(name string, m *protoc_gen_doc.Message) *protoc_gen_doc.MessageField {
+	for _, f := range m.Fields {
+		if f.Name == name {
+			return f
+		}
+	}
+
+	return nil
+}
