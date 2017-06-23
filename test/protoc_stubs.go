@@ -7,7 +7,7 @@ import (
 )
 
 func MakeCodeGeneratorRequest() (*plugin_go.CodeGeneratorRequest, error) {
-	data, err := ioutil.ReadFile("../fixtures/proto3_generator_request.dat")
+	data, err := ioutil.ReadFile("../fixtures/generator_request.dat")
 	if err != nil {
 		return nil, err
 	}

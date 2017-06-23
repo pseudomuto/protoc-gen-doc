@@ -27,14 +27,19 @@ func (po *parsedObject) FullName() string {
 
 type File struct {
 	parsedObject
-	Enums    []*Enum
-	Messages []*Message
-	Services []*Service
+	Enums      []*Enum
+	Extensions []*Extension
+	Messages   []*Message
+	Services   []*Service
 }
 
 func (pf *File) getCommentContainers() []commentContainer {
 	containers := []commentContainer{}
 	containers = append(containers, pf)
+
+	for _, ext := range pf.Extensions {
+		containers = append(containers, ext)
+	}
 
 	for _, enum := range pf.Enums {
 		containers = append(containers, enum)
@@ -47,6 +52,10 @@ func (pf *File) getCommentContainers() []commentContainer {
 		containers = append(containers, msg)
 		for _, field := range msg.Fields {
 			containers = append(containers, field)
+		}
+
+		for _, ext := range msg.Extensions {
+			containers = append(containers, ext)
 		}
 	}
 
@@ -117,8 +126,9 @@ type ServiceMethod struct {
 
 type Message struct {
 	parsedObject
-	Fields []*Field
-	enums  []*descriptor.EnumDescriptorProto
+	Extensions []*Extension
+	Fields     []*Field
+	enums      []*descriptor.EnumDescriptorProto
 }
 
 type Field struct {
@@ -126,6 +136,17 @@ type Field struct {
 	Type         string
 	Label        string
 	DefaultValue string
+}
+
+type Extension struct {
+	Field
+	Number         int32
+	ContainingType string
+	ScopeType      string
+}
+
+func (ext *Extension) FullName() string {
+	return fmt.Sprintf("%s.%s", ext.ContainingType, ext.Name)
 }
 
 type Enum struct {

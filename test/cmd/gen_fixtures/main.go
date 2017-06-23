@@ -17,5 +17,5 @@ func main() {
 		log.Fatalf("Could not read contents from stdin")
 	}
 
-	ioutil.WriteFile("fixtures/proto3_generator_request.dat", data, 0666)
+	ioutil.WriteFile("fixtures/generator_request.dat", data, 0666)
 }
