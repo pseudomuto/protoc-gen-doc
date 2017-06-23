@@ -99,12 +99,12 @@ func (assert *Proto3ParserTest) TestMessageProperties() {
 	assert.Equal(0, len(msg.Extensions))
 
 	assert.field(msg.Fields[0], "id", "Unique vehicle ID.", "int32", "")
-	assert.field(msg.Fields[1], "model", "Vehicle model.", "Model", "")
-	assert.field(msg.Fields[4], "category", "Vehicle category.", "Vehicle.Category", "")
+	assert.field(msg.Fields[1], "model", "Vehicle model.", "com.example.Model", "")
+	assert.field(msg.Fields[4], "category", "Vehicle category.", "com.example.Vehicle.Category", "")
 	assert.field(msg.Fields[5], "rates", "rates", "sint32", "repeated")
 
 	// maps are just repeated "<Name>Entry" fields
-	assert.field(msg.Fields[6], "properties", "bag of properties related to the vehicle.", "Vehicle.PropertiesEntry", "repeated")
+	assert.field(msg.Fields[6], "properties", "bag of properties related to the vehicle.", "com.example.Vehicle.PropertiesEntry", "repeated")
 }
 
 func (assert *Proto3ParserTest) TestNestedMessageProperties() {

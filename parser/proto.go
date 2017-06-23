@@ -184,14 +184,6 @@ func (pp *protoFileParser) parseDescriptor(sl []*Message, d *descriptor.Descript
 }
 
 func (pp *protoFileParser) parseFields(fdp []*descriptor.FieldDescriptorProto, basePath string) []*Field {
-	typeName := func(name string) string {
-		if strings.HasPrefix(name, ".") {
-			return strings.TrimPrefix(name, fmt.Sprintf(".%s.", pp.Package()))
-		}
-
-		return strings.ToLower(strings.TrimPrefix(name, "TYPE_"))
-	}
-
 	fields := make([]*Field, 0, len(fdp))
 
 	for idx, field := range fdp {
@@ -203,17 +195,25 @@ func (pp *protoFileParser) parseFields(fdp []*descriptor.FieldDescriptorProto, b
 				path:     fmt.Sprintf("%s,%d,%d", basePath, messageFieldPath, idx),
 			},
 			Label: pp.labelName(field.GetLabel()),
-			Type:  typeName(field.GetTypeName()),
+			Type:  fmt.Sprintf("%s.%s", pp.Package(), pp.typeName(field.GetTypeName())),
 		})
 
 		f := fields[len(fields)-1]
 
-		if f.Type == "" {
-			f.Type = typeName(field.GetType().String())
+		if f.Type == pp.Package()+"." {
+			f.Type = pp.typeName(field.GetType().String())
 		}
 	}
 
 	return fields
+}
+
+func (pp *protoFileParser) typeName(name string) string {
+	if strings.HasPrefix(name, ".") {
+		return strings.TrimPrefix(name, fmt.Sprintf(".%s.", pp.Package()))
+	}
+
+	return strings.ToLower(strings.TrimPrefix(name, "TYPE_"))
 }
 
 func (pp *protoFileParser) parseExtensions(ec extensionContainer, scopeType, basePath string) []*Extension {
@@ -230,11 +230,18 @@ func (pp *protoFileParser) parseExtensions(ec extensionContainer, scopeType, bas
 					path:     fmt.Sprintf("%s,%d", basePath, idx),
 				},
 				DefaultValue: ext.GetDefaultValue(),
+				Type:         pp.typeName(ext.GetTypeName()),
 			},
 			ContainingType: strings.TrimPrefix(ext.GetExtendee(), "."),
 			ScopeType:      scopeType,
+			Label:          pp.labelName(ext.GetLabel()),
 			Number:         ext.GetNumber(),
 		})
+
+		e := extensions[len(extensions)-1]
+		if e.Type == "" {
+			e.Type = pp.typeName(ext.GetType().String())
+		}
 	}
 
 	return extensions
