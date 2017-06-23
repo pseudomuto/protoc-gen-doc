@@ -7,7 +7,8 @@ import (
 )
 
 type Template struct {
-	Files []*File `json:"files"`
+	Files   []*File        `json:"files"`
+	Scalars []*ScalarValue `json:"scalar_value_types"`
 }
 
 func NewTemplate(pr *parser.ParseResult) *Template {
@@ -39,7 +40,7 @@ func NewTemplate(pr *parser.ParseResult) *Template {
 		files = append(files, file)
 	}
 
-	return &Template{Files: files}
+	return &Template{Files: files, Scalars: makeScalars()}
 }
 
 type File struct {
@@ -137,6 +138,18 @@ type ServiceMethod struct {
 	ResponseFullType string `json:"method_response_full_type"`
 }
 
+type ScalarValue struct {
+	ProtoType  string `json:"scalar_value_proto_type"`
+	Notes      string `json:"scalar_value_notes"`
+	CppType    string `json:"scalar_value_cpp_type"`
+	CSharp     string `json:"scalar_value_cs_type"`
+	GoType     string `json:"scalar_value_go_type"`
+	JavaType   string `json:"scalar_value_java_type"`
+	PhpType    string `json:"scalar_value_php_type"`
+	PythonType string `json:"scalar_value_python_type"`
+	RubyType   string `json:"scalar_value_ruby_type"`
+}
+
 func parseFileExtension(pe *parser.Extension) *FileExtension {
 	return &FileExtension{
 		Name:               baseName(pe.Name),
@@ -228,4 +241,174 @@ func parseServiceMethod(pm *parser.ServiceMethod) *ServiceMethod {
 func baseName(name string) string {
 	parts := strings.Split(name, ".")
 	return parts[len(parts)-1]
+}
+
+func makeScalars() []*ScalarValue {
+	return []*ScalarValue{
+		{
+			"double",
+			"",
+			"double",
+			"double",
+			"float64",
+			"double",
+			"float",
+			"float",
+			"Float",
+		},
+		{
+			"float",
+			"",
+			"float",
+			"float",
+			"float32",
+			"float",
+			"float",
+			"float",
+			"Float",
+		},
+		{
+			"int32",
+			"Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+			"int32",
+			"int",
+			"int32",
+			"int",
+			"integer",
+			"int",
+			"Bignum or Fixnum (as required)",
+		},
+		{
+			"int64",
+			"Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+			"int64",
+			"long",
+			"int64",
+			"long",
+			"integer/string",
+			"int/long",
+			"Bignum",
+		},
+		{
+			"uint32",
+			"Uses variable-length encoding.",
+			"uint32",
+			"uint",
+			"uint32",
+			"int",
+			"integer",
+			"int/long",
+			"Bignum or Fixnum (as required)",
+		},
+		{
+			"uint64",
+			"Uses variable-length encoding.",
+			"uint64",
+			"ulong",
+			"uint64",
+			"long",
+			"integer/string",
+			"int/long",
+			"Bignum or Fixnum (as required)",
+		},
+		{
+			"sint32",
+			"Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+			"int32",
+			"int",
+			"int32",
+			"int",
+			"integer",
+			"int",
+			"Bignum or Fixnum (as required)",
+		},
+		{
+			"sint64",
+			"Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+			"int64",
+			"long",
+			"int64",
+			"long",
+			"integer/string",
+			"int/long",
+			"Bignum",
+		},
+		{
+			"fixed32",
+			"Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+			"uint32",
+			"uint",
+			"uint32",
+			"int",
+			"integer",
+			"int",
+			"Bignum or Fixnum (as required)",
+		},
+		{
+			"fixed64",
+			"Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+			"uint64",
+			"ulong",
+			"uint64",
+			"long",
+			"integer/string",
+			"int/long",
+			"Bignum",
+		},
+		{
+			"sfixed32",
+			"Always four bytes.",
+			"int32",
+			"int",
+			"int32",
+			"int",
+			"integer",
+			"int",
+			"Bignum or Fixnum (as required)",
+		},
+		{
+			"sfixed64",
+			"Always eight bytes.",
+			"int64",
+			"long",
+			"int64",
+			"long",
+			"integer/string",
+			"int/long",
+			"Bignum",
+		},
+		{
+			"bool",
+			"",
+			"bool",
+			"bool",
+			"bool",
+			"boolean",
+			"boolean",
+			"boolean",
+			"TrueClass/FalseClass",
+		},
+		{
+			"string",
+			"A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+			"string",
+			"string",
+			"string",
+			"String",
+			"string",
+			"str/unicode",
+			"String (UTF-8)",
+		},
+		{
+			"bytes",
+			"May contain any arbitrary sequence of bytes.",
+			"string",
+			"ByteString",
+			"[]byte",
+			"ByteString",
+			"string",
+			"str",
+			"String (ASCII-8BIT)",
+		},
+	}
 }
