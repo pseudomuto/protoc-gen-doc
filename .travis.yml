@@ -12,6 +12,7 @@ install:
 
 script:
   - make test
+  - make bench
 
 notifications:
   email: false
