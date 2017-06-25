@@ -1,13 +1,23 @@
 language: go
 sudo: false
 
+env:
+  - PROTOC_RELEASE="https://github.com/google/protobuf/releases/download/v3.2.0/protoc-3.2.0-linux-x86_64.zip"
+  - PROTOC_TARGET="${HOME}/protoc"
+
+cache:
+  - "${HOME}/protoc"
+  - "${HOME}/gopath/src/github.com/pseudomuto/protoc-gen-doc/vendor"
+
 go:
   - 1.8.x
   - master
 
 install:
-  - go get -v github.com/Masterminds/glide
+  - if [ ! -d "${PROTOC_TARGET}" ]; then curl -fsSL "$PROTOC_RELEASE" > "${PROTOC_TARGET}.zip"; fi
+  - if [ -f "${PROTOC_TARGET}.zip" ]; then unzip "${PROTOC_TARGET}.zip" -d "${PROTOC_TARGET}"; fi
   - go get -u github.com/golang/protobuf/{proto,protoc-gen-go}
+  - go get -u github.com/Masterminds/glide
   - cd $GOPATH/src/github.com/Masterminds/glide && git checkout tags/v0.12.3 && go install && cd -
   - glide install
 
