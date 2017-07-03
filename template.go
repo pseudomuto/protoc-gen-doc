@@ -25,6 +25,10 @@ func NewTemplate(pr *parser.ParseResult) *Template {
 			HasServices:   len(f.Services) > 0,
 		}
 
+		for _, e := range f.Enums {
+			file.Enums = append(file.Enums, parseEnum(e))
+		}
+
 		for _, e := range f.Extensions {
 			file.Extensions = append(file.Extensions, parseFileExtension(e))
 		}
@@ -107,10 +111,11 @@ type MessageExtension struct {
 }
 
 type Enum struct {
-	Name        string `json:"enum_name"`
-	LongName    string `json:"enum_long_name"`
-	FullName    string `json:"enum_full_name"`
-	Description string `json:"enum_description"`
+	Name        string       `json:"enum_name"`
+	LongName    string       `json:"enum_long_name"`
+	FullName    string       `json:"enum_full_name"`
+	Description string       `json:"enum_description"`
+	Values      []*EnumValue `json:"enum_values"`
 }
 
 type EnumValue struct {
@@ -148,6 +153,25 @@ type ScalarValue struct {
 	PhpType    string `json:"scalar_value_php_type"`
 	PythonType string `json:"scalar_value_python_type"`
 	RubyType   string `json:"scalar_value_ruby_type"`
+}
+
+func parseEnum(pe *parser.Enum) *Enum {
+	enum := &Enum{
+		Name:        baseName(pe.Name),
+		LongName:    strings.TrimPrefix(pe.FullName(), pe.Package+"."),
+		FullName:    pe.FullName(),
+		Description: pe.Comment,
+	}
+
+	for _, val := range pe.Values {
+		enum.Values = append(enum.Values, &EnumValue{
+			Name:        val.Name,
+			Number:      fmt.Sprint(val.Number),
+			Description: val.Comment,
+		})
+	}
+
+	return enum
 }
 
 func parseFileExtension(pe *parser.Extension) *FileExtension {

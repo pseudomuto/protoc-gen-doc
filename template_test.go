@@ -46,6 +46,24 @@ func (assert *TemplateTest) TestFileProperties() {
 	assert.True(bookingFile.HasServices)
 }
 
+func (assert *TemplateTest) TestFileEnumProperties() {
+	enum := findEnum("BookingStatus.StatusCode", bookingFile)
+	assert.Equal("StatusCode", enum.Name)
+	assert.Equal("BookingStatus.StatusCode", enum.LongName)
+	assert.Equal("com.example.BookingStatus.StatusCode", enum.FullName)
+	assert.Equal("A flag for the status result.", enum.Description)
+	assert.Equal(2, len(enum.Values))
+
+	expectedValues := []*protoc_gen_doc.EnumValue{
+		{Name: "OK", Number: "200", Description: "OK result."},
+		{Name: "BAD_REQUEST", Number: "400", Description: "BAD result."},
+	}
+
+	for idx, value := range enum.Values {
+		assert.Equal(expectedValues[idx], value)
+	}
+}
+
 func (assert *TemplateTest) TestFileExtensionProperties() {
 	ext := findExtension("BookingStatus.country", bookingFile)
 	assert.Equal("country", ext.Name)
@@ -184,6 +202,16 @@ func findServiceMethod(name string, s *protoc_gen_doc.Service) *protoc_gen_doc.S
 	for _, m := range s.Methods {
 		if m.Name == name {
 			return m
+		}
+	}
+
+	return nil
+}
+
+func findEnum(name string, f *protoc_gen_doc.File) *protoc_gen_doc.Enum {
+	for _, enum := range f.Enums {
+		if enum.LongName == name {
+			return enum
 		}
 	}
 
