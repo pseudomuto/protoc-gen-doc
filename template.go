@@ -3,6 +3,7 @@ package protoc_gen_doc
 import (
 	"fmt"
 	"github.com/pseudomuto/protoc-gen-doc/parser"
+	"sort"
 	"strings"
 )
 
@@ -41,6 +42,11 @@ func NewTemplate(pr *parser.ParseResult) *Template {
 			file.Services = append(file.Services, parseService(s))
 		}
 
+		sort.Sort(file.Enums)
+		sort.Sort(file.Extensions)
+		sort.Sort(file.Messages)
+		sort.Sort(file.Services)
+
 		files = append(files, file)
 	}
 
@@ -57,10 +63,10 @@ type File struct {
 	HasMessages   bool `json:"file_has_messages"`
 	HasServices   bool `json:"file_has_services"`
 
-	Enums      []*Enum          `json:"file_enums"`
-	Extensions []*FileExtension `json:"file_extensions"`
-	Messages   []*Message       `json:"file_messages"`
-	Services   []*Service       `json:"file_services"`
+	Enums      orderedEnums      `json:"file_enums"`
+	Extensions orderedExtensions `json:"file_extensions"`
+	Messages   orderedMessages   `json:"file_messages"`
+	Services   orderedServices   `json:"file_services"`
 }
 
 type FileExtension struct {
@@ -436,3 +442,27 @@ func makeScalars() []*ScalarValue {
 		},
 	}
 }
+
+type orderedEnums []*Enum
+
+func (oe orderedEnums) Len() int           { return len(oe) }
+func (oe orderedEnums) Swap(i, j int)      { oe[i], oe[j] = oe[j], oe[i] }
+func (oe orderedEnums) Less(i, j int) bool { return oe[i].LongName < oe[j].LongName }
+
+type orderedExtensions []*FileExtension
+
+func (oe orderedExtensions) Len() int           { return len(oe) }
+func (oe orderedExtensions) Swap(i, j int)      { oe[i], oe[j] = oe[j], oe[i] }
+func (oe orderedExtensions) Less(i, j int) bool { return oe[i].LongName < oe[j].LongName }
+
+type orderedMessages []*Message
+
+func (om orderedMessages) Len() int           { return len(om) }
+func (om orderedMessages) Swap(i, j int)      { om[i], om[j] = om[j], om[i] }
+func (om orderedMessages) Less(i, j int) bool { return om[i].LongName < om[j].LongName }
+
+type orderedServices []*Service
+
+func (os orderedServices) Len() int           { return len(os) }
+func (os orderedServices) Swap(i, j int)      { os[i], os[j] = os[j], os[i] }
+func (os orderedServices) Less(i, j int) bool { return os[i].LongName < os[j].LongName }
