@@ -1,8 +1,6 @@
-hash: be2dc3c8df5a9b9438a9d286680627d2cf561e7cb544bf1815ccc720d4785da6
-updated: 2017-06-26T10:13:22.128548248-04:00
+hash: c932df53d468fd90b3d4bbd3e1a2787f1133945e8bad773e5e42502b7a5775d5
+updated: 2017-07-03T21:32:05.577813669-04:00
 imports:
-- name: github.com/cbroglie/mustache
-  version: 6857e4b493bdb8d4b1931446eb41704aeb4c28cb
 - name: github.com/golang/protobuf
   version: c9c7427a2a70d2eb3bafa0ab2dc163e45f143317
   subpackages:
