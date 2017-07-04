@@ -18,6 +18,12 @@ const (
 	RenderTypeMarkdown
 )
 
+var funcMap = map[string]interface{}{
+	"p":    PFilter,
+	"para": ParaFilter,
+	"nobr": NoBrFilter,
+}
+
 type Processor interface {
 	Apply(template *Template) ([]byte, error)
 }
@@ -64,7 +70,7 @@ type textRenderer struct {
 }
 
 func (mr *textRenderer) Apply(template *Template) ([]byte, error) {
-	tmpl, err := text_template.New("Text Template").Parse(mr.inputTemplate)
+	tmpl, err := text_template.New("Text Template").Funcs(funcMap).Parse(mr.inputTemplate)
 	if err != nil {
 		return nil, err
 	}
@@ -82,7 +88,7 @@ type htmlRenderer struct {
 }
 
 func (mr *htmlRenderer) Apply(template *Template) ([]byte, error) {
-	tmpl, err := html_template.New("Text Template").Parse(mr.inputTemplate)
+	tmpl, err := html_template.New("Text Template").Funcs(funcMap).Parse(mr.inputTemplate)
 	if err != nil {
 		return nil, err
 	}

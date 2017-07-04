@@ -4,11 +4,11 @@
   {{range .Files}}
   <section>
     <title>{{.Name}}</title>
-    <para>{{.Description}}</para>
+    {{para .Description}}
     {{range .Messages}}
     <section id="{{.FullName}}">
       <title>{{.LongName}}</title>
-      <para>{{.Description}}</para>
+      {{para .Description}}
       {{if .HasFields}}
       <table frame="all">
         <title><classname>{{.LongName}}</classname> Fields</title>
@@ -31,7 +31,7 @@
               <entry>{{.Name}}</entry>
               <entry><link linkend="{{.FullType}}">{{.LongType}}</link></entry>
               <entry>{{.Label}}</entry>
-              <entry>{{.Description}}{{if .DefaultValue}} Default: {{.DefaultValue}}{{end}}</entry>
+              <entry>{{para .Description}}{{if .DefaultValue}}<para>Default: {{.DefaultValue}}</para>{{end}}</entry>
             </row>
             {{end}}
           </tbody>
@@ -63,7 +63,7 @@
               <entry><link linkend="{{.FullType}}">{{.LongType}}</link></entry>
               <entry><link linkend="{{.ContainingFullType}}">{{.ContainingLongType}}</link></entry>
               <entry>{{.Number}}</entry>
-              <entry><para>{{.Description}}{{if .DefaultValue}} Default: {{.DefaultValue}}{{end}}</para></entry>
+              <entry>{{para .Description}}{{if .DefaultValue}}<para>Default: {{.DefaultValue}}</para>{{end}}</entry>
             </row>
             {{end}}
           </tbody>
@@ -75,7 +75,7 @@
     {{range .Enums}}
     <section id="{{.FullName}}">
       <title>{{.LongName}}</title>
-      <para>{{.Description}}</para>
+      {{para .Description}}
       <table frame="all">
         <title><classname>{{.LongName}}</classname> Values</title>
         <tgroup cols="3">
@@ -94,7 +94,7 @@
             <row>
               <entry>{{.Name}}</entry>
               <entry>{{.Number}}</entry>
-              <entry><para>{{.Description}}</para></entry>
+              <entry>{{para .Description}}</entry>
             </row>
             {{end}}
           </tbody>
@@ -129,7 +129,7 @@
               <entry><link linkend="{{.FullType}}">{{.LongType}}</link></entry>
               <entry><link linkend="{{.ContainingFullType}}">{{.ContainingLongType}}</link></entry>
               <entry>{{.Number}}</entry>
-              <entry><para>{{.Description}}{{if .DefaultValue}} Default: {{.DefaultValue}}{{end}}</para></entry>
+              <entry>{{para .Description}}{{if .DefaultValue}}<para>Default: {{.DefaultValue}}</para>{{end}}</entry>
             </row>
             {{end}}
           </tbody>
@@ -141,7 +141,7 @@
     {{range .Services}}
     <section id="{{.FullName}}">
       <title>{{.Name}}</title>
-      <para>{{.Description}}</para>
+      {{para .Description}}
       <table frame="all">
         <title><classname>{{.Name}}</classname> Methods</title>
         <tgroup cols="4">
@@ -163,7 +163,7 @@
               <entry>{{.Name}}</entry>
               <entry><link linkend="{{.RequestFullType}}">{{.RequestLongType}}</link></entry>
               <entry><link linkend="{{.ResponseFullType}}">{{.ResponseLongType}}</link></entry>
-              <entry><para>{{.Description}}</para></entry>
+              <entry>{{para .Description}}</entry>
             </row>
             {{end}}
           </tbody>
