@@ -3,4 +3,3 @@ import:
 - package: github.com/golang/protobuf
   subpackages:
   - protoc-gen-go
-- package: github.com/cbroglie/mustache
