@@ -209,11 +209,11 @@
       <div class="file-heading">
         <h2 id="{{.Name}}">{{.Name}}</h2><a href="#title">Top</a>
       </div>
-      <p>{{.Description}}</p>
+      {{p .Description}}
 
       {{range .Messages}}
         <h3 id="{{.FullName}}">{{.LongName}}</h3>
-        <p>{{.Description}}</p>
+        {{p .Description}}
 
         {{if .HasFields}}
           <table class="field-table">
@@ -226,7 +226,7 @@
                   <td>{{.Name}}</td>
                   <td><a href="#{{.FullType}}">{{.LongType}}</a></td>
                   <td>{{.Label}}</td>
-                  <td><p>{{.Description}} {{if .DefaultValue}}Default: {{.DefaultValue}}{{end}}</p>
+                  <td><p>{{.Description}} {{if .DefaultValue}}Default: {{.DefaultValue}}{{end}}</p></td>
                 </tr>
               {{end}}
             </tbody>
@@ -256,7 +256,7 @@
 
       {{range .Enums}}
         <h3 id="{{.FullName}}">{{.LongName}}</h3>
-        <p>{{.Description}}</p>
+        {{p .Description}}
         <table class="enum-table">
           <thead>
             <tr><td>Name</td><td>Number</td><td>Description</td></tr>
@@ -295,7 +295,7 @@
 
       {{range .Services}}
         <h3 id="{{.FullName}}">{{.Name}}</h3>
-        <p>{{.Description}}</p>
+        {{p .Description}}
         <table class="enum-table">
           <thead>
             <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
