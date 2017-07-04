@@ -2,3 +2,4 @@
 /protoc-gen-doc
 /test/*.dat
 /vendor
+/tmp/

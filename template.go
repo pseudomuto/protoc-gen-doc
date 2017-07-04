@@ -52,15 +52,15 @@ type File struct {
 	Description string `json:"file_description"`
 	Package     string `json:"file_package"`
 
-	Enums      []*Enum          `json:"file_enums"`
-	Extensions []*FileExtension `json:"file_extensions"`
-	Messages   []*Message       `json:"file_messages"`
-	Services   []*Service       `json:"file_services"`
-
 	HasEnums      bool `json:"file_has_enums"`
 	HasExtensions bool `json:"file_has_extensions"`
 	HasMessages   bool `json:"file_has_messages"`
 	HasServices   bool `json:"file_has_services"`
+
+	Enums      []*Enum          `json:"file_enums"`
+	Extensions []*FileExtension `json:"file_extensions"`
+	Messages   []*Message       `json:"file_messages"`
+	Services   []*Service       `json:"file_services"`
 }
 
 type FileExtension struct {
@@ -85,11 +85,11 @@ type Message struct {
 	FullName    string `json:"message_full_name"`
 	Description string `json:"message_description"`
 
-	Extensions []*MessageExtension `json:"message_extensions"`
-	Fields     []*MessageField     `json:"message_fields"`
-
 	HasExtensions bool `json:"message_has_extensions"`
 	HasFields     bool `json:"message_has_extensions"`
+
+	Extensions []*MessageExtension `json:"message_extensions"`
+	Fields     []*MessageField     `json:"message_fields"`
 }
 
 type MessageField struct {
