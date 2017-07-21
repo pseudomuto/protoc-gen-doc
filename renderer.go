@@ -78,7 +78,12 @@ type Processor interface {
 	Apply(template *Template) ([]byte, error)
 }
 
-func RenderTemplate(kind RenderType, template *Template) ([]byte, error) {
+func RenderTemplate(kind RenderType, template *Template, inputTemplate string) ([]byte, error) {
+	if inputTemplate != "" {
+		processor := &textRenderer{inputTemplate}
+		return processor.Apply(template)
+	}
+
 	processor, err := kind.renderer()
 	if err != nil {
 		return nil, err

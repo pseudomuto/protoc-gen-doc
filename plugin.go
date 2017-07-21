@@ -5,6 +5,7 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/pseudomuto/protoc-gen-doc/parser"
+	"io/ioutil"
 	"path"
 	"strings"
 )
@@ -58,7 +59,18 @@ func RunPlugin(request *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGenerato
 		return nil, err
 	}
 
-	output, err := RenderTemplate(options.Type, template)
+	customTemplate := ""
+
+	if options.TemplateFile != "" {
+		data, err := ioutil.ReadFile(options.TemplateFile)
+		if err != nil {
+			return nil, err
+		}
+
+		customTemplate = string(data)
+	}
+
+	output, err := RenderTemplate(options.Type, template, customTemplate)
 	if err != nil {
 		return nil, err
 	}

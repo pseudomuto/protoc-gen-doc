@@ -1,545 +1,539 @@
 [
-    {
-        "file_description": "Booking related messages.\n\nThis file is really just an example. The data model is completely\nfictional.\n\nAuthor: Elvis Stansvik",
-        "file_enums": [
-        ],
-        "file_extensions": [
-        ],
-        "file_has_extensions": false,
-        "file_has_services": true,
-        "file_messages": [
-            {
-                "message_description": "Represents the booking of a vehicle.\n\nVehicles are some cool shit. But drive carefully!",
-                "message_extensions": [
-                ],
-                "message_fields": [
-                    {
-                        "field_default_value": "",
-                        "field_description": "ID of booked vehicle.",
-                        "field_full_type": "int32",
-                        "field_label": "required",
-                        "field_long_type": "int32",
-                        "field_name": "vehicle_id",
-                        "field_type": "int32"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Customer that booked the vehicle.",
-                        "field_full_type": "int32",
-                        "field_label": "required",
-                        "field_long_type": "int32",
-                        "field_name": "customer_id",
-                        "field_type": "int32"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Status of the booking.",
-                        "field_full_type": "com.example.BookingStatus",
-                        "field_label": "required",
-                        "field_long_type": "BookingStatus",
-                        "field_name": "status",
-                        "field_type": "BookingStatus"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Has booking confirmation been sent?",
-                        "field_full_type": "bool",
-                        "field_label": "required",
-                        "field_long_type": "bool",
-                        "field_name": "confirmation_sent",
-                        "field_type": "bool"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Has payment been received?",
-                        "field_full_type": "bool",
-                        "field_label": "required",
-                        "field_long_type": "bool",
-                        "field_name": "payment_received",
-                        "field_type": "bool"
-                    }
-                ],
-                "message_full_name": "com.example.Booking",
-                "message_has_extensions": false,
-                "message_long_name": "Booking",
-                "message_name": "Booking"
-            },
-            {
-                "message_description": "Represents the status of a vehicle booking.",
-                "message_extensions": [
-                ],
-                "message_fields": [
-                    {
-                        "field_default_value": "",
-                        "field_description": "Unique booking status ID.",
-                        "field_full_type": "int32",
-                        "field_label": "required",
-                        "field_long_type": "int32",
-                        "field_name": "id",
-                        "field_type": "int32"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Booking status description. E.g. \"Active\".",
-                        "field_full_type": "string",
-                        "field_label": "required",
-                        "field_long_type": "string",
-                        "field_name": "description",
-                        "field_type": "string"
-                    }
-                ],
-                "message_full_name": "com.example.BookingStatus",
-                "message_has_extensions": false,
-                "message_long_name": "BookingStatus",
-                "message_name": "BookingStatus"
-            }
-        ],
-        "file_name": "Booking.proto",
-        "file_package": "com.example",
-        "file_services": [
-            {
-                "service_description": "Service for handling vehicle bookings.",
-                "service_full_name": "com.example.BookingService",
-                "service_methods": [
-                    {
-                        "method_description": "Used to book a vehicle. Pass in a Booking and a BookingStatus will be returned.",
-                        "method_name": "BookVehicle",
-                        "method_request_full_type": "com.example.Booking",
-                        "method_request_long_type": "Booking",
-                        "method_request_type": "Booking",
-                        "method_response_full_type": "com.example.BookingStatus",
-                        "method_response_long_type": "BookingStatus",
-                        "method_response_type": "BookingStatus"
-                    }
-                ],
-                "service_name": "BookingService"
-            }
+  {
+    "file_name": "Booking.proto",
+    "file_description": "Booking related messages.\n\nThis file is really just an example. The data model is completely\nfictional.",
+    "file_package": "com.example",
+    "file_has_enums": false,
+    "file_has_extensions": false,
+    "file_has_messages": true,
+    "file_has_services": true,
+    "file_enums": null,
+    "file_extensions": null,
+    "file_messages": [
+      {
+        "message_name": "Booking",
+        "message_long_name": "Booking",
+        "message_full_name": "com.example.Booking",
+        "message_description": "Represents the booking of a vehicle.\n\nVehicles are some cool shit. But drive carefully!",
+        "message_extensions": null,
+        "message_fields": [
+          {
+            "field_name": "vehicle_id",
+            "field_description": "ID of booked vehicle.",
+            "field_label": "",
+            "field_type": "int32",
+            "field_long_type": "int32",
+            "field_full_type": "int32",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "customer_id",
+            "field_description": "Customer that booked the vehicle.",
+            "field_label": "",
+            "field_type": "int32",
+            "field_long_type": "int32",
+            "field_full_type": "int32",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "status",
+            "field_description": "Status of the booking.",
+            "field_label": "",
+            "field_type": "BookingStatus",
+            "field_long_type": "BookingStatus",
+            "field_full_type": "com.example.BookingStatus",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "confirmation_sent",
+            "field_description": "Has booking confirmation been sent?",
+            "field_label": "",
+            "field_type": "bool",
+            "field_long_type": "bool",
+            "field_full_type": "bool",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "payment_received",
+            "field_description": "Has payment been received?",
+            "field_label": "",
+            "field_type": "bool",
+            "field_long_type": "bool",
+            "field_full_type": "bool",
+            "field_default_value": ""
+          }
         ]
-    },
-    {
-        "file_description": "This file has messages for describing a customer.\n\nAuthor: Elvis Stansvik",
-        "file_enums": [
-        ],
-        "file_extensions": [
-        ],
-        "file_has_extensions": false,
-        "file_has_services": false,
-        "file_messages": [
-            {
-                "message_description": "Represents a mail address.",
-                "message_extensions": [
-                ],
-                "message_fields": [
-                    {
-                        "field_default_value": "",
-                        "field_description": "First address line.",
-                        "field_full_type": "string",
-                        "field_label": "required",
-                        "field_long_type": "string",
-                        "field_name": "address_line_1",
-                        "field_type": "string"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Second address line.",
-                        "field_full_type": "string",
-                        "field_label": "optional",
-                        "field_long_type": "string",
-                        "field_name": "address_line_2",
-                        "field_type": "string"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Second address line.",
-                        "field_full_type": "string",
-                        "field_label": "optional",
-                        "field_long_type": "string",
-                        "field_name": "address_line_3",
-                        "field_type": "string"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Address town.",
-                        "field_full_type": "string",
-                        "field_label": "required",
-                        "field_long_type": "string",
-                        "field_name": "town",
-                        "field_type": "string"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Address county, if applicable.",
-                        "field_full_type": "string",
-                        "field_label": "optional",
-                        "field_long_type": "string",
-                        "field_name": "county",
-                        "field_type": "string"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Address country.",
-                        "field_full_type": "string",
-                        "field_label": "required",
-                        "field_long_type": "string",
-                        "field_name": "country",
-                        "field_type": "string"
-                    }
-                ],
-                "message_full_name": "com.example.Address",
-                "message_has_extensions": false,
-                "message_long_name": "Address",
-                "message_name": "Address"
-            },
-            {
-                "message_description": "Represents a customer.",
-                "message_extensions": [
-                ],
-                "message_fields": [
-                    {
-                        "field_default_value": "",
-                        "field_description": "Unique customer ID.",
-                        "field_full_type": "int32",
-                        "field_label": "required",
-                        "field_long_type": "int32",
-                        "field_name": "id",
-                        "field_type": "int32"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Customer first name.",
-                        "field_full_type": "string",
-                        "field_label": "required",
-                        "field_long_type": "string",
-                        "field_name": "first_name",
-                        "field_type": "string"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Customer last name.",
-                        "field_full_type": "string",
-                        "field_label": "required",
-                        "field_long_type": "string",
-                        "field_name": "last_name",
-                        "field_type": "string"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Customer details.",
-                        "field_full_type": "string",
-                        "field_label": "optional",
-                        "field_long_type": "string",
-                        "field_name": "details",
-                        "field_type": "string"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Customer e-mail address.",
-                        "field_full_type": "string",
-                        "field_label": "optional",
-                        "field_long_type": "string",
-                        "field_name": "email_address",
-                        "field_type": "string"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Customer phone numbers, primary first.",
-                        "field_full_type": "string",
-                        "field_label": "repeated",
-                        "field_long_type": "string",
-                        "field_name": "phone_number",
-                        "field_type": "string"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Customer mail addresses, primary first.",
-                        "field_full_type": "com.example.Address",
-                        "field_label": "repeated",
-                        "field_long_type": "Address",
-                        "field_name": "mail_addresses",
-                        "field_type": "Address"
-                    }
-                ],
-                "message_full_name": "com.example.Customer",
-                "message_has_extensions": false,
-                "message_long_name": "Customer",
-                "message_name": "Customer"
-            }
-        ],
-        "file_name": "Customer.proto",
-        "file_package": "com.example",
-        "file_services": [
+      },
+      {
+        "message_name": "BookingStatus",
+        "message_long_name": "BookingStatus",
+        "message_full_name": "com.example.BookingStatus",
+        "message_description": "Represents the status of a vehicle booking.",
+        "message_extensions": null,
+        "message_fields": [
+          {
+            "field_name": "id",
+            "field_description": "Unique booking status ID.",
+            "field_label": "",
+            "field_type": "int32",
+            "field_long_type": "int32",
+            "field_full_type": "int32",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "description",
+            "field_description": "Booking status description. E.g. \"Active\".",
+            "field_label": "",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          }
         ]
-    },
-    {
-        "file_description": "Messages describing manufacturers / vehicles.",
-        "file_enums": [
-            {
-                "enum_description": "Manufacturer category. A manufacturer may be either inhouse or external.",
-                "enum_full_name": "com.example.Manufacturer.Category",
-                "enum_long_name": "Manufacturer.Category",
-                "enum_name": "Category",
-                "enum_values": [
-                    {
-                        "value_description": "The manufacturer is inhouse.",
-                        "value_name": "CATEGORY_INHOUSE",
-                        "value_number": 0
-                    },
-                    {
-                        "value_description": "The manufacturer is external.",
-                        "value_name": "CATEGORY_EXTERNAL",
-                        "value_number": 1
-                    }
-                ]
-            }
-        ],
-        "file_extensions": [
-            {
-                "extension_containing_full_type": "com.example.Manufacturer",
-                "extension_containing_long_type": "Manufacturer",
-                "extension_containing_type": "Manufacturer",
-                "extension_default_value": "\"China\"",
-                "extension_description": "Manufacturer country.",
-                "extension_full_name": "com.example.country",
-                "extension_full_type": "string",
-                "extension_label": "optional",
-                "extension_long_name": ".country",
-                "extension_long_type": "string",
-                "extension_name": "country",
-                "extension_number": "100",
-                "extension_type": "string"
-            }
-        ],
-        "file_has_extensions": true,
-        "file_has_services": false,
-        "file_messages": [
-            {
-                "message_description": "Represents a manufacturer of cars.",
-                "message_extensions": [
-                ],
-                "message_fields": [
-                    {
-                        "field_default_value": "",
-                        "field_description": "The unique manufacturer ID.",
-                        "field_full_type": "int32",
-                        "field_label": "required",
-                        "field_long_type": "int32",
-                        "field_name": "id",
-                        "field_type": "int32"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "A manufacturer code, e.g. \"DKL4P\".",
-                        "field_full_type": "string",
-                        "field_label": "required",
-                        "field_long_type": "string",
-                        "field_name": "code",
-                        "field_type": "string"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Manufacturer details (minimum orders et.c.).",
-                        "field_full_type": "string",
-                        "field_label": "optional",
-                        "field_long_type": "string",
-                        "field_name": "details",
-                        "field_type": "string"
-                    },
-                    {
-                        "field_default_value": "CATEGORY_EXTERNAL",
-                        "field_description": "Manufacturer category.",
-                        "field_full_type": "com.example.Manufacturer.Category",
-                        "field_label": "optional",
-                        "field_long_type": "Manufacturer.Category",
-                        "field_name": "category",
-                        "field_type": "Category"
-                    }
-                ],
-                "message_full_name": "com.example.Manufacturer",
-                "message_has_extensions": false,
-                "message_long_name": "Manufacturer",
-                "message_name": "Manufacturer"
-            },
-            {
-                "message_description": "Represents a vehicle model.",
-                "message_extensions": [
-                ],
-                "message_fields": [
-                    {
-                        "field_default_value": "",
-                        "field_description": "The unique model ID.",
-                        "field_full_type": "string",
-                        "field_label": "required",
-                        "field_long_type": "string",
-                        "field_name": "id",
-                        "field_type": "string"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "The car model code, e.g. \"PZ003\".",
-                        "field_full_type": "string",
-                        "field_label": "required",
-                        "field_long_type": "string",
-                        "field_name": "model_code",
-                        "field_type": "string"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "The car model name, e.g. \"Z3\".",
-                        "field_full_type": "string",
-                        "field_label": "required",
-                        "field_long_type": "string",
-                        "field_name": "model_name",
-                        "field_type": "string"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Dollars per day.",
-                        "field_full_type": "sint32",
-                        "field_label": "required",
-                        "field_long_type": "sint32",
-                        "field_name": "daily_hire_rate_dollars",
-                        "field_type": "sint32"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Cents per day.",
-                        "field_full_type": "sint32",
-                        "field_label": "required",
-                        "field_long_type": "sint32",
-                        "field_name": "daily_hire_rate_cents",
-                        "field_type": "sint32"
-                    }
-                ],
-                "message_full_name": "com.example.Model",
-                "message_has_extensions": false,
-                "message_long_name": "Model",
-                "message_name": "Model"
-            },
-            {
-                "message_description": "Represents a vehicle that can be hired.",
-                "message_extensions": [
-                    {
-                        "extension_containing_full_type": "com.example.Model",
-                        "extension_containing_long_type": "Model",
-                        "extension_containing_type": "Model",
-                        "extension_default_value": "",
-                        "extension_description": "Vehicle model series.",
-                        "extension_full_name": "com.example.Vehicle.series",
-                        "extension_full_type": "string",
-                        "extension_label": "optional",
-                        "extension_long_name": "Vehicle.series",
-                        "extension_long_type": "string",
-                        "extension_name": "series",
-                        "extension_number": "100",
-                        "extension_scope_full_type": "com.example.Vehicle",
-                        "extension_scope_long_type": "Vehicle",
-                        "extension_scope_type": "Vehicle",
-                        "extension_type": "string"
-                    }
-                ],
-                "message_fields": [
-                    {
-                        "field_default_value": "",
-                        "field_description": "Unique vehicle ID.",
-                        "field_full_type": "int32",
-                        "field_label": "required",
-                        "field_long_type": "int32",
-                        "field_name": "id",
-                        "field_type": "int32"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Vehicle model.",
-                        "field_full_type": "com.example.Model",
-                        "field_label": "required",
-                        "field_long_type": "Model",
-                        "field_name": "model",
-                        "field_type": "Model"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Vehicle registration number.",
-                        "field_full_type": "string",
-                        "field_label": "required",
-                        "field_long_type": "string",
-                        "field_name": "reg_number",
-                        "field_type": "string"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Current vehicle mileage, if known.",
-                        "field_full_type": "sint32",
-                        "field_label": "optional",
-                        "field_long_type": "sint32",
-                        "field_name": "mileage",
-                        "field_type": "sint32"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Vehicle category.",
-                        "field_full_type": "com.example.Vehicle.Category",
-                        "field_label": "optional",
-                        "field_long_type": "Vehicle.Category",
-                        "field_name": "category",
-                        "field_type": "Category"
-                    },
-                    {
-                        "field_default_value": "50",
-                        "field_description": "Dollars per day.",
-                        "field_full_type": "sint32",
-                        "field_label": "optional",
-                        "field_long_type": "sint32",
-                        "field_name": "daily_hire_rate_dollars",
-                        "field_type": "sint32"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Cents per day.",
-                        "field_full_type": "sint32",
-                        "field_label": "optional",
-                        "field_long_type": "sint32",
-                        "field_name": "daily_hire_rate_cents",
-                        "field_type": "sint32"
-                    }
-                ],
-                "message_full_name": "com.example.Vehicle",
-                "message_has_extensions": true,
-                "message_long_name": "Vehicle",
-                "message_name": "Vehicle"
-            },
-            {
-                "message_description": "Represents a vehicle category. E.g. \"Sedan\" or \"Truck\".",
-                "message_extensions": [
-                ],
-                "message_fields": [
-                    {
-                        "field_default_value": "",
-                        "field_description": "Category code. E.g. \"S\".",
-                        "field_full_type": "string",
-                        "field_label": "required",
-                        "field_long_type": "string",
-                        "field_name": "code",
-                        "field_type": "string"
-                    },
-                    {
-                        "field_default_value": "",
-                        "field_description": "Category name. E.g. \"Sedan\".",
-                        "field_full_type": "string",
-                        "field_label": "required",
-                        "field_long_type": "string",
-                        "field_name": "description",
-                        "field_type": "string"
-                    }
-                ],
-                "message_full_name": "com.example.Vehicle.Category",
-                "message_has_extensions": false,
-                "message_long_name": "Vehicle.Category",
-                "message_name": "Category"
-            }
-        ],
-        "file_name": "Vehicle.proto",
-        "file_package": "com.example",
-        "file_services": [
+      },
+      {
+        "message_name": "EmptyBookingMessage",
+        "message_long_name": "EmptyBookingMessage",
+        "message_full_name": "com.example.EmptyBookingMessage",
+        "message_description": "An empty message for testing",
+        "message_extensions": null,
+        "message_fields": null
+      }
+    ],
+    "file_services": [
+      {
+        "service_name": "BookingService",
+        "service_long_name": "BookingService",
+        "service_full_name": "com.example.BookingService",
+        "service_description": "Service for handling vehicle bookings.",
+        "service_methods": [
+          {
+            "method_name": "BookVehicle",
+            "method_description": "Used to book a vehicle. Pass in a Booking and a BookingStatus will be returned.",
+            "method_request_type": "Booking",
+            "method_request_long_type": "Booking",
+            "method_request_full_type": "com.example.Booking",
+            "method_response_type": "BookingStatus",
+            "method_response_long_type": "BookingStatus",
+            "method_response_full_type": "com.example.BookingStatus"
+          }
         ]
-    }
+      }
+    ]
+  },
+  {
+    "file_name": "Customer.proto",
+    "file_description": "This file has messages for describing a customer.",
+    "file_package": "com.example",
+    "file_has_enums": false,
+    "file_has_extensions": false,
+    "file_has_messages": true,
+    "file_has_services": false,
+    "file_enums": null,
+    "file_extensions": null,
+    "file_messages": [
+      {
+        "message_name": "Address",
+        "message_long_name": "Address",
+        "message_full_name": "com.example.Address",
+        "message_description": "Represents a mail address.",
+        "message_extensions": null,
+        "message_fields": [
+          {
+            "field_name": "address_line_1",
+            "field_description": "First address line.",
+            "field_label": "required",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "address_line_2",
+            "field_description": "Second address line.",
+            "field_label": "optional",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "address_line_3",
+            "field_description": "Second address line.",
+            "field_label": "optional",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "town",
+            "field_description": "Address town.",
+            "field_label": "required",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "county",
+            "field_description": "Address county, if applicable.",
+            "field_label": "optional",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "country",
+            "field_description": "Address country.",
+            "field_label": "required",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          }
+        ]
+      },
+      {
+        "message_name": "Customer",
+        "message_long_name": "Customer",
+        "message_full_name": "com.example.Customer",
+        "message_description": "Represents a customer.",
+        "message_extensions": null,
+        "message_fields": [
+          {
+            "field_name": "id",
+            "field_description": "Unique customer ID.",
+            "field_label": "required",
+            "field_type": "int32",
+            "field_long_type": "int32",
+            "field_full_type": "int32",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "first_name",
+            "field_description": "Customer first name.",
+            "field_label": "required",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "last_name",
+            "field_description": "Customer last name.",
+            "field_label": "required",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "details",
+            "field_description": "Customer details.",
+            "field_label": "optional",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "email_address",
+            "field_description": "Customer e-mail address.",
+            "field_label": "optional",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "phone_number",
+            "field_description": "Customer phone numbers, primary first.",
+            "field_label": "repeated",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "mail_addresses",
+            "field_description": "Customer mail addresses, primary first.",
+            "field_label": "repeated",
+            "field_type": "Address",
+            "field_long_type": "Address",
+            "field_full_type": "com.example.Address",
+            "field_default_value": ""
+          }
+        ]
+      }
+    ],
+    "file_services": null
+  },
+  {
+    "file_name": "Vehicle.proto",
+    "file_description": "Messages describing manufacturers / vehicles.",
+    "file_package": "com.example",
+    "file_has_enums": true,
+    "file_has_extensions": true,
+    "file_has_messages": true,
+    "file_has_services": false,
+    "file_enums": [
+      {
+        "enum_name": "Category",
+        "enum_long_name": "Manufacturer.Category",
+        "enum_full_name": "com.example.Manufacturer.Category",
+        "enum_description": "Manufacturer category. A manufacturer may be either inhouse or external.",
+        "enum_values": [
+          {
+            "value_name": "CATEGORY_INHOUSE",
+            "value_number": "0",
+            "value_description": "The manufacturer is inhouse."
+          },
+          {
+            "value_name": "CATEGORY_EXTERNAL",
+            "value_number": "1",
+            "value_description": "The manufacturer is external."
+          }
+        ]
+      }
+    ],
+    "file_extensions": [
+      {
+        "extension_name": "country",
+        "extension_long_name": "Manufacturer.country",
+        "extension_full_name": "com.example.Manufacturer.country",
+        "extension_description": "Manufacturer country.",
+        "extension_label": "optional",
+        "extension_type": "string",
+        "extension_long_type": "string",
+        "extension_full_type": "string",
+        "extension_number": 100,
+        "extension_default_value": "China",
+        "extension_containing_type": "Manufacturer",
+        "extension_containing_long_type": "Manufacturer",
+        "extension_containing_full_type": "com.example.Manufacturer"
+      }
+    ],
+    "file_messages": [
+      {
+        "message_name": "Manufacturer",
+        "message_long_name": "Manufacturer",
+        "message_full_name": "com.example.Manufacturer",
+        "message_description": "Represents a manufacturer of cars.",
+        "message_extensions": null,
+        "message_fields": [
+          {
+            "field_name": "id",
+            "field_description": "The unique manufacturer ID.",
+            "field_label": "required",
+            "field_type": "int32",
+            "field_long_type": "int32",
+            "field_full_type": "int32",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "code",
+            "field_description": "A manufacturer code, e.g. \"DKL4P\".",
+            "field_label": "required",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "details",
+            "field_description": "Manufacturer details (minimum orders et.c.).",
+            "field_label": "optional",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "category",
+            "field_description": "Manufacturer category.",
+            "field_label": "optional",
+            "field_type": "Category",
+            "field_long_type": "Manufacturer.Category",
+            "field_full_type": "com.example.Manufacturer.Category",
+            "field_default_value": ""
+          }
+        ]
+      },
+      {
+        "message_name": "Model",
+        "message_long_name": "Model",
+        "message_full_name": "com.example.Model",
+        "message_description": "Represents a vehicle model.",
+        "message_extensions": null,
+        "message_fields": [
+          {
+            "field_name": "id",
+            "field_description": "The unique model ID.",
+            "field_label": "required",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "model_code",
+            "field_description": "The car model code, e.g. \"PZ003\".",
+            "field_label": "required",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "model_name",
+            "field_description": "The car model name, e.g. \"Z3\".",
+            "field_label": "required",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "daily_hire_rate_dollars",
+            "field_description": "Dollars per day.",
+            "field_label": "required",
+            "field_type": "sint32",
+            "field_long_type": "sint32",
+            "field_full_type": "sint32",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "daily_hire_rate_cents",
+            "field_description": "Cents per day.",
+            "field_label": "required",
+            "field_type": "sint32",
+            "field_long_type": "sint32",
+            "field_full_type": "sint32",
+            "field_default_value": ""
+          }
+        ]
+      },
+      {
+        "message_name": "Vehicle",
+        "message_long_name": "Vehicle",
+        "message_full_name": "com.example.Vehicle",
+        "message_description": "Represents a vehicle that can be hired.",
+        "message_extensions": [
+          {
+            "extension_name": "series",
+            "extension_long_name": "Model.series",
+            "extension_full_name": "com.example.Model.series",
+            "extension_description": "Vehicle model series.",
+            "extension_label": "optional",
+            "extension_type": "string",
+            "extension_long_type": "string",
+            "extension_full_type": "string",
+            "extension_number": 100,
+            "extension_default_value": "",
+            "extension_containing_type": "Model",
+            "extension_containing_long_type": "Model",
+            "extension_containing_full_type": "com.example.Model",
+            "extension_scope_type": "Vehicle",
+            "extension_scope_long_type": "Vehicle",
+            "extension_scope_full_type": "com.example.Vehicle"
+          }
+        ],
+        "message_fields": [
+          {
+            "field_name": "id",
+            "field_description": "Unique vehicle ID.",
+            "field_label": "required",
+            "field_type": "int32",
+            "field_long_type": "int32",
+            "field_full_type": "int32",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "model",
+            "field_description": "Vehicle model.",
+            "field_label": "required",
+            "field_type": "Model",
+            "field_long_type": "Model",
+            "field_full_type": "com.example.Model",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "reg_number",
+            "field_description": "Vehicle registration number.",
+            "field_label": "required",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "mileage",
+            "field_description": "Current vehicle mileage, if known.",
+            "field_label": "optional",
+            "field_type": "sint32",
+            "field_long_type": "sint32",
+            "field_full_type": "sint32",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "category",
+            "field_description": "Vehicle category.",
+            "field_label": "optional",
+            "field_type": "Category",
+            "field_long_type": "Vehicle.Category",
+            "field_full_type": "com.example.Vehicle.Category",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "daily_hire_rate_dollars",
+            "field_description": "Dollars per day.",
+            "field_label": "optional",
+            "field_type": "sint32",
+            "field_long_type": "sint32",
+            "field_full_type": "sint32",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "daily_hire_rate_cents",
+            "field_description": "Cents per day.",
+            "field_label": "optional",
+            "field_type": "sint32",
+            "field_long_type": "sint32",
+            "field_full_type": "sint32",
+            "field_default_value": ""
+          }
+        ]
+      },
+      {
+        "message_name": "Category",
+        "message_long_name": "Vehicle.Category",
+        "message_full_name": "com.example.Vehicle.Category",
+        "message_description": "Represents a vehicle category. E.g. \"Sedan\" or \"Truck\".",
+        "message_extensions": null,
+        "message_fields": [
+          {
+            "field_name": "code",
+            "field_description": "Category code. E.g. \"S\".",
+            "field_label": "required",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          },
+          {
+            "field_name": "description",
+            "field_description": "Category name. E.g. \"Sedan\".",
+            "field_label": "required",
+            "field_type": "string",
+            "field_long_type": "string",
+            "field_full_type": "string",
+            "field_default_value": ""
+          }
+        ]
+      }
+    ],
+    "file_services": null
+  }
 ]
