@@ -32,22 +32,22 @@ func (assert *RendererTest) SetupSuite() {
 }
 
 func (assert *RendererTest) TestDocBookRenderer() {
-	_, err := protoc_gen_doc.RenderTemplate(protoc_gen_doc.RenderTypeDocBook, renderTemplate)
+	_, err := protoc_gen_doc.RenderTemplate(protoc_gen_doc.RenderTypeDocBook, renderTemplate, "")
 	assert.Nil(err)
 }
 
 func (assert *RendererTest) TestHtmlRenderer() {
-	_, err := protoc_gen_doc.RenderTemplate(protoc_gen_doc.RenderTypeHtml, renderTemplate)
+	_, err := protoc_gen_doc.RenderTemplate(protoc_gen_doc.RenderTypeHtml, renderTemplate, "")
 	assert.Nil(err)
 }
 
 func (assert *RendererTest) TestJsonRenderer() {
-	_, err := protoc_gen_doc.RenderTemplate(protoc_gen_doc.RenderTypeJson, renderTemplate)
+	_, err := protoc_gen_doc.RenderTemplate(protoc_gen_doc.RenderTypeJson, renderTemplate, "")
 	assert.Nil(err)
 }
 
 func (assert *RendererTest) TestMarkdownRenderer() {
-	_, err := protoc_gen_doc.RenderTemplate(protoc_gen_doc.RenderTypeMarkdown, renderTemplate)
+	_, err := protoc_gen_doc.RenderTemplate(protoc_gen_doc.RenderTypeMarkdown, renderTemplate, "")
 	assert.Nil(err)
 }
 
