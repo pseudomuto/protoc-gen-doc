@@ -32,41 +32,44 @@ func (assert *RendererTest) SetupSuite() {
 }
 
 func (assert *RendererTest) TestDocBookRenderer() {
-	err := protoc_gen_doc.RenderTemplate(
-		protoc_gen_doc.RenderTypeDocBook,
-		renderTemplate,
-		tempTestDir+"/output.docbook",
-	)
-
+	_, err := protoc_gen_doc.RenderTemplate(protoc_gen_doc.RenderTypeDocBook, renderTemplate)
 	assert.Nil(err)
 }
 
 func (assert *RendererTest) TestHtmlRenderer() {
-	err := protoc_gen_doc.RenderTemplate(
-		protoc_gen_doc.RenderTypeHtml,
-		renderTemplate,
-		tempTestDir+"/output.html",
-	)
-
+	_, err := protoc_gen_doc.RenderTemplate(protoc_gen_doc.RenderTypeHtml, renderTemplate)
 	assert.Nil(err)
 }
 
 func (assert *RendererTest) TestJsonRenderer() {
-	err := protoc_gen_doc.RenderTemplate(
-		protoc_gen_doc.RenderTypeJson,
-		renderTemplate,
-		tempTestDir+"/output.json",
-	)
-
+	_, err := protoc_gen_doc.RenderTemplate(protoc_gen_doc.RenderTypeJson, renderTemplate)
 	assert.Nil(err)
 }
 
 func (assert *RendererTest) TestMarkdownRenderer() {
-	err := protoc_gen_doc.RenderTemplate(
-		protoc_gen_doc.RenderTypeMarkdown,
-		renderTemplate,
-		tempTestDir+"/output.md",
-	)
-
+	_, err := protoc_gen_doc.RenderTemplate(protoc_gen_doc.RenderTypeMarkdown, renderTemplate)
 	assert.Nil(err)
+}
+
+func (assert *RendererTest) TestNewRenderType() {
+	expected := []protoc_gen_doc.RenderType{
+		protoc_gen_doc.RenderTypeDocBook,
+		protoc_gen_doc.RenderTypeHtml,
+		protoc_gen_doc.RenderTypeJson,
+		protoc_gen_doc.RenderTypeMarkdown,
+	}
+
+	supplied := []string{"docbook", "html", "json", "markdown"}
+
+	for idx, input := range supplied {
+		rt, err := protoc_gen_doc.NewRenderType(input)
+		assert.Nil(err)
+		assert.Equal(expected[idx], rt)
+	}
+}
+
+func (assert *RendererTest) TestNewRenderTypeUnknown() {
+	rt, err := protoc_gen_doc.NewRenderType("/some/template.tmpl")
+	assert.Zero(rt)
+	assert.NotNil(err)
 }
