@@ -10,7 +10,7 @@ import (
 
 func MakeCodeGeneratorRequest() (*plugin_go.CodeGeneratorRequest, error) {
 	_, filename, _, _ := runtime.Caller(0)
-	filepath := path.Join(path.Dir(filename), "../fixtures/generator_request.dat")
+	filepath := path.Join(path.Dir(filename), "../test/fixtures/generator_request.dat")
 
 	data, err := ioutil.ReadFile(filepath)
 	if err != nil {
