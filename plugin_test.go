@@ -83,7 +83,7 @@ func (assert *PluginTest) TestRunPluginForBuiltinTemplate() {
 
 func (assert *PluginTest) TestRunPluginForCustomTemplate() {
 	req := new(plugin_go.CodeGeneratorRequest)
-	req.Parameter = proto.String("templates/html.tmpl,/base/name/only/output.html")
+	req.Parameter = proto.String("resources/html.tmpl,/base/name/only/output.html")
 
 	resp, err := protoc_gen_doc.RunPlugin(req)
 	assert.Nil(err)

@@ -131,5 +131,5 @@ func (mr *htmlRenderer) Apply(template *Template) ([]byte, error) {
 type jsonRenderer struct{}
 
 func (r *jsonRenderer) Apply(template *Template) ([]byte, error) {
-	return json.MarshalIndent(template.Files, "", "  ")
+	return json.MarshalIndent(template, "", "  ")
 }
