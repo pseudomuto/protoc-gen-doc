@@ -60,7 +60,7 @@ import (
 	w.WriteString("var embeddedResources = map[string]string{\n")
 
 	for _, file := range files {
-		if path.Ext(file.Name()) != ".tmpl" {
+		if file.Name() != "scalars.json" && path.Ext(file.Name()) != ".tmpl" {
 			continue
 		}
 

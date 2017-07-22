@@ -556,7 +556,7 @@
       "services": []
     }
   ],
-  "scalar_value_types": [
+  "scalarValueTypes": [
     {
       "protoType": "double",
       "notes": "",
