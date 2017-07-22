@@ -24,14 +24,14 @@
 {{$file_name := .Name}}
 <a name="{{.Name}}"/>
 <p align="right"><a href="#top">Top</a></p>
-## {{.Name}}
 
+## {{.Name}}
 {{.Description}}
 
 {{range .Messages}}
 <a name="{{.FullName}}"/>
-### {{.LongName}}
 
+### {{.LongName}}
 {{.Description}}
 
 {{if .HasFields}}
@@ -54,8 +54,8 @@
 
 {{range .Enums}}
 <a name="{{.FullName}}"/>
-### {{.LongName}}
 
+### {{.LongName}}
 {{.Description}}
 
 | Name | Number | Description |
@@ -68,8 +68,8 @@
 
 {{if .HasExtensions}}
 <a name="{{$file_name}}-extensions"/>
-### File-level Extensions
 
+### File-level Extensions
 | Extension | Type | Base | Number | Description |
 | --------- | ---- | ---- | ------ | ----------- |
 {{range .Extensions -}}
@@ -79,8 +79,8 @@
 
 {{range .Services}}
 <a name="{{.FullName}}"/>
-### {{.Name}}
 
+### {{.Name}}
 {{.Description}}
 
 | Method Name | Request Type | Response Type | Description |
@@ -91,7 +91,6 @@
 {{end}} <!-- end services -->
 
 {{end}}
-
 
 ## Scalar Value Types
 
