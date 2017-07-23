@@ -10,13 +10,19 @@ import (
 	"strings"
 )
 
-// <docbook|html|json|markdown|TEMPLATE_FILE>,<OUTPUT>
+// PluginOptions encapsulates options for the plugin. The type of renderer, template file, and the name of the output
+// file are included.
 type PluginOptions struct {
 	Type         RenderType
 	TemplateFile string
 	OutputFile   string
 }
 
+// ParseOptions parses plugin options from a CodeGeneratorRequest. It does this by splitting the `Parameter` field from
+// the request object and parsing out the type of renderer to use and the name of the file to be generated.
+//
+// The parameter (`--doc_opt`) must be of the format <TYPE|TEMPLATE_FILE>,<OUTPUT_FILE>. The file will be written to the
+// directory specified with the `--doc_out` argument to protoc.
 func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 	options := &PluginOptions{
 		Type:         RenderTypeHtml,
@@ -50,6 +56,8 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 	return options, nil
 }
 
+// RunPlugin compiles the documentation and generates the CodeGeneratorResponse to send back to protoc. It does this
+// by rendering a template based on the options parsed from the CodeGeneratorRequest.
 func RunPlugin(request *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGeneratorResponse, error) {
 	result := parser.ParseCodeRequest(request)
 	template := NewTemplate(result)

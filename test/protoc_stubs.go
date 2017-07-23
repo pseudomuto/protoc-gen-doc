@@ -1,3 +1,4 @@
+// Utilities used for testing purposes only.
 package test
 
 import (
@@ -8,6 +9,8 @@ import (
 	"runtime"
 )
 
+// MakeCodeGeneratorRequest loads the request fixture from disk and creates a CodeGenerator request from it. This is
+// useful for testing methods/functions that work with the input from protoc.
 func MakeCodeGeneratorRequest() (*plugin_go.CodeGeneratorRequest, error) {
 	_, filename, _, _ := runtime.Caller(0)
 	filepath := path.Join(path.Dir(filename), "../test/fixtures/generator_request.dat")

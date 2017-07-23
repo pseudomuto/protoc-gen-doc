@@ -8,8 +8,10 @@ import (
 	text_template "text/template"
 )
 
+// An "Enum" for which type of renderer to use.
 type RenderType int8
 
+// Available render types.
 const (
 	_ RenderType = iota
 	RenderTypeDocBook
@@ -18,6 +20,8 @@ const (
 	RenderTypeMarkdown
 )
 
+// NewRenderType creates a RenderType from the supplied string. If the type is not known, (0, error) is returned. It is
+// assumed (by the plugin) that invalid render type simply means that the path to a custom template was supplied.
 func NewRenderType(renderType string) (RenderType, error) {
 	switch renderType {
 	case "docbook":
@@ -74,10 +78,19 @@ var funcMap = map[string]interface{}{
 	"nobr": NoBrFilter,
 }
 
+// Processor is an interface that is satisfied by all built-in processors (text, html, and json).
 type Processor interface {
 	Apply(template *Template) ([]byte, error)
 }
 
+// RenderTemplate renders the template based on the render type. It supports overriding the default input templates by
+// supplying a non-empty string as the last parameter.
+//
+// Example: generating an HTML template (assuming you've got a Template object)
+//     data, err := RenderTemplate(RenderTypeHtml, &template, "")
+//
+// Example: generating a custom template (assuming you've got a Template object)
+//     data, err := RenderTemplate(RenderTypeHtml, &template, "{{range .Files}}{{.Name}}{{end}}")
 func RenderTemplate(kind RenderType, template *Template, inputTemplate string) ([]byte, error) {
 	if inputTemplate != "" {
 		processor := &textRenderer{inputTemplate}
