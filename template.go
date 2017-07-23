@@ -8,11 +8,16 @@ import (
 	"strings"
 )
 
+// Template is a type for encapsulating all the parsed files, messages, fields, enums, services, extensions, etc. into
+// an object that will be supplied to a go template.
 type Template struct {
-	Files   []*File        `json:"files"`
+	// The files that were parsed
+	Files []*File `json:"files"`
+	// Details about the scalar values and their respective types in supported languages.
 	Scalars []*ScalarValue `json:"scalarValueTypes"`
 }
 
+// NewTemplate creates a Template object from the ParseResult.
 func NewTemplate(pr *parser.ParseResult) *Template {
 	files := make([]*File, 0, len(pr.Files))
 
@@ -67,6 +72,11 @@ func makeScalars() []*ScalarValue {
 	return scalars
 }
 
+// File wraps all the relevant parsed info about a proto file. File objects guarantee that their top-level enums,
+// extensions, messages, and services are sorted alphabetically based on their "long name". Other values (enum values,
+// fields, service methods) will be in the order that they're defined within their respective proto files.
+//
+// In the case of proto3 files, HasExtensions will always be false, and Extensions will be empty.
 type File struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
@@ -83,6 +93,7 @@ type File struct {
 	Services   orderedServices   `json:"services"`
 }
 
+// FileExtension contains details about top-level extensions within a proto(2) file.
 type FileExtension struct {
 	Name               string `json:"name"`
 	LongName           string `json:"longName"`
@@ -99,6 +110,9 @@ type FileExtension struct {
 	ContainingFullType string `json:"containingFullType"`
 }
 
+// Message contains details about a protobuf message.
+//
+// In the case of proto3 files, HasExtensions will always be false, and Extensions will be empty.
 type Message struct {
 	Name        string `json:"name"`
 	LongName    string `json:"longName"`
@@ -112,6 +126,10 @@ type Message struct {
 	Fields     []*MessageField     `json:"fields"`
 }
 
+// MessageField contains details about an individual field within a message.
+//
+// In the case of proto3 files, DefaultValue will always be empty. Similarly, label will be empty unless the field is
+// repeated (in which case it'll be "repeated").
 type MessageField struct {
 	Name         string `json:"name"`
 	Description  string `json:"description"`
@@ -122,6 +140,7 @@ type MessageField struct {
 	DefaultValue string `json:"defaultValue"`
 }
 
+// MessageExtension contains details about message-scoped extensions in proto(2) files.
 type MessageExtension struct {
 	FileExtension
 
@@ -130,6 +149,7 @@ type MessageExtension struct {
 	ScopeFullType string `json:"scopeFullType"`
 }
 
+// Enum contains details about enumerations. These can be either top level enums, or nested (defined within a message).
 type Enum struct {
 	Name        string       `json:"name"`
 	LongName    string       `json:"longName"`
@@ -138,12 +158,14 @@ type Enum struct {
 	Values      []*EnumValue `json:"values"`
 }
 
+// EnumValue contains details about an individual value within an enumeration.
 type EnumValue struct {
 	Name        string `json:"name"`
 	Number      string `json:"number"`
 	Description string `json:"description"`
 }
 
+// Service contains details about a service definition within a proto file.
 type Service struct {
 	Name        string           `json:"name"`
 	LongName    string           `json:"longName"`
@@ -152,6 +174,7 @@ type Service struct {
 	Methods     []*ServiceMethod `json:"methods"`
 }
 
+// ServiceMethod contains details about an individual method within a service.
 type ServiceMethod struct {
 	Name             string `json:"name"`
 	Description      string `json:"description"`
@@ -163,6 +186,11 @@ type ServiceMethod struct {
 	ResponseFullType string `json:"responseFullType"`
 }
 
+// ScalarValue contains information about scalar value types in protobuf. The common use case for this type is to know
+// which language specific type maps to the protobuf type.
+//
+// For example, the protobuf type `int64` maps to `long` in C#, and `Bignum` in Ruby. For the full list, take a look at
+// https://developers.google.com/protocol-buffers/docs/proto3#scalar
 type ScalarValue struct {
 	ProtoType  string `json:"protoType"`
 	Notes      string `json:"notes"`
