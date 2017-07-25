@@ -65,7 +65,8 @@ The plugin executable must be in `PATH` for this to work.
 
 Alternatively, you can specify a pre-built/not in `PATH` binary using the `--plugin` option.
 
-    protoc --plugin=protoc-gen-doc=./protoc-gen-doc \
+    protoc \
+      --plugin=protoc-gen-doc=./protoc-gen-doc \
       --doc_out=./doc \
       --doc_opt=html,index.html \
       proto/*.proto
