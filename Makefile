@@ -1,4 +1,4 @@
-.PHONY: bench test build
+.PHONY: bench test build dist
 
 generate:
 	@go generate
@@ -19,3 +19,6 @@ examples: build
 	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=json,example.json examples/proto/*.proto
 	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=markdown,example.md examples/proto/*.proto
 	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=examples/templates/asciidoc.tmpl,example.txt examples/proto/*.proto
+
+dist:
+	@./dist.sh
