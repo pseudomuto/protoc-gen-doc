@@ -9,7 +9,7 @@ It supports proto2 and proto3, and can handle having both in the same context (s
 
 ## Installation
 
-There is a docker image available (`protoc-gen-doc`) that has everything you need to generate documentation from your
+There is a docker image available (`pseudomuto/protoc-gen-doc`) that has everything you need to generate documentation from your
 protos.
 
 If you'd like to install this locally, you can `go get` it.
@@ -37,7 +37,7 @@ You could generate html docs for the examples by running the following:
 docker run --rm \
   -v $(pwd)/examples/doc:/out \
   -v $(pwd)/examples/proto:/protos \
-  protoc-gen-doc
+  pseudomuto/protoc-gen-doc
 ```
 
 By default html documentation is generated in `/out/index.html`. This can be changed by passing the `--doc_opt`
@@ -49,7 +49,7 @@ For example, to generate markdown for the examples:
 docker run --rm \
   -v $(pwd)/examples/doc:/out \
   -v $(pwd)/examples/proto:/protos \
-  protoc-gen-doc --doc_opt=md,docs.md
+  pseudomuto/protoc-gen-doc --doc_opt=md,docs.md
 ```
 
 ### Simple Usage
