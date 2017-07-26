@@ -1,5 +1,5 @@
 FROM debian:jessie-slim
-LABEL maintainer="david.muto@gmail.com" version="1.0.0"
+LABEL maintainer="pseudomuto <david.muto@gmail.com>" protoc_version="3.3.0"
 
 WORKDIR /
 
@@ -8,8 +8,9 @@ RUN apt-get -q -y update && \
   apt-get -q -y install unzip && \
   unzip protoc-3.3.0-linux-x86_64.zip -d ./usr/local && \
   rm protoc-3.3.0-linux-x86_64.zip && \
-  apt-get purge -y unzip && \
-  apt-get autoremove
+  apt-get remove --purge -y unzip && \
+  apt-get autoremove && \
+  rm -rf /var/lib/apt/lists/*
 
 ADD dist/protoc-gen-doc /usr/local/bin/
 ADD script/entrypoint.sh ./
