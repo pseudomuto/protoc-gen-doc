@@ -24,5 +24,4 @@ dist:
 	@script/dist.sh
 
 docker:
-	@GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="-s -w" -o dist/protoc-gen-doc ./cmd/...
-	@docker build -t protoc-gen-doc .
+	@script/push_to_docker.sh
