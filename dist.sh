@@ -29,6 +29,7 @@ build_dist() {
     go build -ldflags="-s -w" -o "${build}/${target}/protoc-gen-doc${ext}" ./cmd/... || exit 1
 
   package_dist "${build}" "${target}"
+  rm -rf "${build}"
   echo "done."
 }
 
@@ -36,7 +37,7 @@ main() {
   rm -rf "${DIR}/dist"
   mkdir -p "${DIR}/dist"
 
-  local app_version=$(cat ${DIR}/version.go | grep "const VERSION" | awk '{print $NF}' | sed 's/"//g')
+  local app_version=$(grep "const VERSION" "${DIR}/version.go" | awk '{print $NF }' | tr -d '"')
   local go_version=$(go version | awk '{print $3}')
 
   for target in windows linux darwin; do
