@@ -11,11 +11,8 @@ RUN apt-get -q -y update && \
   apt-get purge -y unzip && \
   apt-get autoremove
 
+ADD dist/protoc-gen-doc /usr/local/bin/
 ADD script/entrypoint.sh ./
-
-ADD dist/protoc-gen-doc-1.0.0.linux-amd64.go1.8.1.tar.gz ./
-RUN mv ./protoc-gen-doc-1.0.0.linux-amd64.go1.8.1/protoc-gen-doc /usr/local/bin && \
-  rm -rf ./protoc-gen-doc-*
 
 VOLUME ["/out", "/protos"]
 
