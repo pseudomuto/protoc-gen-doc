@@ -21,4 +21,7 @@ examples: build
 	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=examples/templates/asciidoc.tmpl,example.txt examples/proto/*.proto
 
 dist:
-	@./dist.sh
+	@script/dist.sh
+
+docker: dist
+	@docker build -t protoc-gen-doc .
