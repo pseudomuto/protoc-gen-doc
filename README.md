@@ -9,7 +9,7 @@ It supports proto2 and proto3, and can handle having both in the same context (s
 
 ## Installation
 
-There is a docker image available (`pseudomuto/protoc-gen-doc`) that has everything you need to generate documentation from your
+There is a Docker image available (`pseudomuto/protoc-gen-doc`) that has everything you need to generate documentation from your
 protos.
 
 If you'd like to install this locally, you can `go get` it.
@@ -31,7 +31,7 @@ or the name of a file containing a custom [Go template][gotemplate].
 The docker image has two volumes: `/out` and `/protos` which are the directory to write the documentation to and the
 directory containing your proto files.
 
-You could generate html docs for the examples by running the following:
+You could generate HTML docs for the examples by running the following:
 
 ```
 docker run --rm \
@@ -40,10 +40,10 @@ docker run --rm \
   pseudomuto/protoc-gen-doc
 ```
 
-By default html documentation is generated in `/out/index.html`. This can be changed by passing the `--doc_opt`
+By default HTML documentation is generated in `/out/index.html`. This can be changed by passing the `--doc_opt`
 parameter to the container.
 
-For example, to generate markdown for the examples:
+For example, to generate Markdown for the examples:
 
 ```
 docker run --rm \
