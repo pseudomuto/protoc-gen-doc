@@ -9,7 +9,76 @@ It supports proto2 and proto3, and can handle having both in the same context (s
 
 ## Installation
 
+There is a Docker image available (`pseudomuto/protoc-gen-doc`) that has everything you need to generate documentation from your
+protos.
+
+If you'd like to install this locally, you can `go get` it.
+
 `go get -u github.com/pseudomuto/protoc-gen-doc`
+
+## Invoking the Plugin
+
+The plugin is invoked by passing the `--doc_out`, and `--doc_opt` options to the `protoc` compiler. The option has the
+following format:
+
+    --doc_opt=<FORMAT>|<TEMPLATE_FILENAME>,<OUT_FILENAME>
+
+The format may be one of the built-in ones ( `docbook`, `html`, `markdown` or `json`)
+or the name of a file containing a custom [Go template][gotemplate].
+
+### Using the Docker Image (Recommended)
+
+The docker image has two volumes: `/out` and `/protos` which are the directory to write the documentation to and the
+directory containing your proto files.
+
+You could generate HTML docs for the examples by running the following:
+
+```
+docker run --rm \
+  -v $(pwd)/examples/doc:/out \
+  -v $(pwd)/examples/proto:/protos \
+  pseudomuto/protoc-gen-doc
+```
+
+By default HTML documentation is generated in `/out/index.html`. This can be changed by passing the `--doc_opt`
+parameter to the container.
+
+For example, to generate Markdown for the examples:
+
+```
+docker run --rm \
+  -v $(pwd)/examples/doc:/out \
+  -v $(pwd)/examples/proto:/protos \
+  pseudomuto/protoc-gen-doc --doc_opt=md,docs.md
+```
+
+### Simple Usage
+
+For example, to generate HTML documentation for all `.proto` files in the `proto` directory into `doc/index.html`, type:
+
+    protoc --doc_out=./doc --doc_opt=html,index.html proto/*.proto
+
+The plugin executable must be in `PATH` for this to work. 
+
+### With a Custom Build
+
+Alternatively, you can specify a pre-built/not in `PATH` binary using the `--plugin` option.
+
+    protoc \
+      --plugin=protoc-gen-doc=./protoc-gen-doc \
+      --doc_out=./doc \
+      --doc_opt=html,index.html \
+      proto/*.proto
+
+### With a Custom Template
+
+If you'd like to use your own template, simply use the path to the template file rather than the type.
+
+    protoc --doc_out=./doc --doc_opt=/path/to/template.tmpl,index.txt proto/*.proto
+
+For information about the available template arguments and functions, see [Custom Templates][custom]. If you just want
+to customize the look of the HTML output, put your CSS in `stylesheet.css` next to the output file and it will be picked
+up.
 
 ## Writing Documentation
 
@@ -41,45 +110,9 @@ enum MyEnum {
 }
 ```
 
+**File level comments should be leading comments on the syntax directive.**
+
 Check out the [example protos](examples/proto) to see all the options.
-
-## Invoking the Plugin
-
-The plugin is invoked by passing the `--doc_out`, and `--doc_opt` options to the `protoc` compiler. The option has the
-following format:
-
-    --doc_opt=<FORMAT>|<TEMPLATE_FILENAME>,<OUT_FILENAME>
-
-The format may be one of the built-in ones ( `docbook`, `html`, `markdown` or `json`)
-or the name of a file containing a custom [Go template][gotemplate].
-
-### Simple Usage
-
-For example, to generate HTML documentation for all `.proto` files in the `proto` directory into `doc/index.html`, type:
-
-    protoc --doc_out=./doc --doc_opt=html,index.html proto/*.proto
-
-The plugin executable must be in `PATH` for this to work. 
-
-### With a Custom Build
-
-Alternatively, you can specify a pre-built/not in `PATH` binary using the `--plugin` option.
-
-    protoc \
-      --plugin=protoc-gen-doc=./protoc-gen-doc \
-      --doc_out=./doc \
-      --doc_opt=html,index.html \
-      proto/*.proto
-
-### With a Custom Template
-
-If you'd like to use your own template, simply use the path to the template file rather than the type.
-
-    protoc --doc_out=./doc --doc_opt=/path/to/template.tmpl,index.txt proto/*.proto
-
-For information about the available template arguments and functions, see [Custom Templates][custom]. If you just want
-to customize the look of the HTML output, put your CSS in `stylesheet.css` next to the output file and it will be picked
-up.
 
 ## Output Example
 

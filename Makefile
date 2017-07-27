@@ -1,4 +1,4 @@
-.PHONY: bench test build dist
+.PHONY: bench test build dist docker
 
 generate:
 	@go generate
@@ -21,4 +21,7 @@ examples: build
 	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=examples/templates/asciidoc.tmpl,example.txt examples/proto/*.proto
 
 dist:
-	@./dist.sh
+	@script/dist.sh
+
+docker:
+	@script/push_to_docker.sh
