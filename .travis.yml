@@ -1,5 +1,8 @@
 language: go
-sudo: false
+sudo: required
+
+services:
+  - docker
 
 env:
   global:
@@ -14,7 +17,6 @@ cache:
 
 go:
   - 1.8.x
-  - master
 
 install:
   - if [ ! -d "${PROTOC_TARGET}" ]; then curl -fsSL "$PROTOC_RELEASE" > "${PROTOC_TARGET}.zip"; fi
