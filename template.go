@@ -24,7 +24,7 @@ func NewTemplate(pr *parser.ParseResult) *Template {
 	for _, f := range pr.Files {
 		file := &File{
 			Name:          f.Name,
-			Description:   f.Comment,
+			Description:   description(f.Comment),
 			Package:       f.Package,
 			HasEnums:      len(f.Enums) > 0,
 			HasExtensions: len(f.Extensions) > 0,
@@ -208,14 +208,14 @@ func parseEnum(pe *parser.Enum) *Enum {
 		Name:        baseName(pe.Name),
 		LongName:    strings.TrimPrefix(pe.FullName(), pe.Package+"."),
 		FullName:    pe.FullName(),
-		Description: pe.Comment,
+		Description: description(pe.Comment),
 	}
 
 	for _, val := range pe.Values {
 		enum.Values = append(enum.Values, &EnumValue{
 			Name:        val.Name,
 			Number:      fmt.Sprint(val.Number),
-			Description: val.Comment,
+			Description: description(val.Comment),
 		})
 	}
 
@@ -227,7 +227,7 @@ func parseFileExtension(pe *parser.Extension) *FileExtension {
 		Name:               baseName(pe.Name),
 		LongName:           strings.TrimPrefix(pe.FullName(), pe.Package+"."),
 		FullName:           pe.FullName(),
-		Description:        pe.Comment,
+		Description:        description(pe.Comment),
 		Label:              pe.Label,
 		Type:               baseName(pe.Type),
 		LongType:           strings.TrimPrefix(pe.Type, pe.Package+"."),
@@ -245,7 +245,7 @@ func parseMessage(pm *parser.Message) *Message {
 		Name:          baseName(pm.Name),
 		LongName:      pm.Name,
 		FullName:      pm.FullName(),
-		Description:   pm.Comment,
+		Description:   description(pm.Comment),
 		HasExtensions: len(pm.Extensions) > 0,
 		HasFields:     len(pm.Fields) > 0,
 		Extensions:    make([]*MessageExtension, 0, len(pm.Extensions)),
@@ -275,7 +275,7 @@ func parseMessageExtension(pe *parser.Extension) *MessageExtension {
 func parseMessageField(pf *parser.Field) *MessageField {
 	return &MessageField{
 		Name:         pf.Name,
-		Description:  pf.Comment,
+		Description:  description(pf.Comment),
 		Label:        pf.Label,
 		Type:         baseName(pf.Type),
 		LongType:     strings.TrimPrefix(pf.Type, pf.Package+"."),
@@ -289,7 +289,7 @@ func parseService(ps *parser.Service) *Service {
 		Name:        ps.Name,
 		LongName:    ps.Name,
 		FullName:    fmt.Sprintf("%s.%s", ps.Package, ps.Name),
-		Description: ps.Comment,
+		Description: description(ps.Comment),
 	}
 
 	for _, sm := range ps.Methods {
@@ -302,7 +302,7 @@ func parseService(ps *parser.Service) *Service {
 func parseServiceMethod(pm *parser.ServiceMethod) *ServiceMethod {
 	return &ServiceMethod{
 		Name:             pm.Name,
-		Description:      pm.Comment,
+		Description:      description(pm.Comment),
 		RequestType:      baseName(pm.RequestType),
 		RequestLongType:  strings.TrimPrefix(pm.RequestType, pm.Package+"."),
 		RequestFullType:  pm.RequestType,
@@ -315,6 +315,14 @@ func parseServiceMethod(pm *parser.ServiceMethod) *ServiceMethod {
 func baseName(name string) string {
 	parts := strings.Split(name, ".")
 	return parts[len(parts)-1]
+}
+
+func description(comment string) string {
+	if strings.HasPrefix(comment, "@exclude") {
+		return ""
+	}
+
+	return comment
 }
 
 type orderedEnums []*Enum
