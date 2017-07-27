@@ -1,4 +1,4 @@
-package protoc_gen_doc_test
+package gendoc_test
 
 import (
 	"github.com/golang/protobuf/proto"
@@ -28,10 +28,10 @@ func (assert *PluginTest) TestParseOptionsForBuiltinTemplates() {
 		req := new(plugin_go.CodeGeneratorRequest)
 		req.Parameter = proto.String(kind + "," + file)
 
-		options, err := protoc_gen_doc.ParseOptions(req)
+		options, err := gendoc.ParseOptions(req)
 		assert.Nil(err)
 
-		renderType, err := protoc_gen_doc.NewRenderType(kind)
+		renderType, err := gendoc.NewRenderType(kind)
 		assert.Nil(err)
 
 		assert.Equal(renderType, options.Type)
@@ -44,10 +44,10 @@ func (assert *PluginTest) TestParseOptionsForCustomTemplate() {
 	req := new(plugin_go.CodeGeneratorRequest)
 	req.Parameter = proto.String("/path/to/template.tmpl,/base/name/only/output.md")
 
-	options, err := protoc_gen_doc.ParseOptions(req)
+	options, err := gendoc.ParseOptions(req)
 	assert.Nil(err)
 
-	assert.Equal(protoc_gen_doc.RenderTypeHtml, options.Type)
+	assert.Equal(gendoc.RenderTypeHTML, options.Type)
 	assert.Equal("/path/to/template.tmpl", options.TemplateFile)
 	assert.Equal("output.md", options.OutputFile)
 }
@@ -64,7 +64,7 @@ func (assert *PluginTest) TestParseOptionsWithInvalidValues() {
 		req := new(plugin_go.CodeGeneratorRequest)
 		req.Parameter = proto.String(value)
 
-		_, err := protoc_gen_doc.ParseOptions(req)
+		_, err := gendoc.ParseOptions(req)
 		assert.NotNil(err)
 	}
 }
@@ -73,7 +73,7 @@ func (assert *PluginTest) TestRunPluginForBuiltinTemplate() {
 	req := new(plugin_go.CodeGeneratorRequest)
 	req.Parameter = proto.String("markdown,/base/name/only/output.md")
 
-	resp, err := protoc_gen_doc.RunPlugin(req)
+	resp, err := gendoc.RunPlugin(req)
 	assert.Nil(err)
 
 	assert.Equal(1, len(resp.File))
@@ -85,7 +85,7 @@ func (assert *PluginTest) TestRunPluginForCustomTemplate() {
 	req := new(plugin_go.CodeGeneratorRequest)
 	req.Parameter = proto.String("resources/html.tmpl,/base/name/only/output.html")
 
-	resp, err := protoc_gen_doc.RunPlugin(req)
+	resp, err := gendoc.RunPlugin(req)
 	assert.Nil(err)
 
 	assert.Equal(1, len(resp.File))
@@ -97,6 +97,6 @@ func (assert *PluginTest) TestRunPluginWithInvalidOptions() {
 	req := new(plugin_go.CodeGeneratorRequest)
 	req.Parameter = proto.String("html")
 
-	_, err := protoc_gen_doc.RunPlugin(req)
+	_, err := gendoc.RunPlugin(req)
 	assert.NotNil(err)
 }

@@ -1,4 +1,4 @@
-package protoc_gen_doc_test
+package gendoc_test
 
 import (
 	"github.com/pseudomuto/protoc-gen-doc"
@@ -25,7 +25,7 @@ func (assert *FilterTest) TestPFilter() {
 	}
 
 	for input, output := range tests {
-		assert.Equal(html.HTML(output), protoc_gen_doc.PFilter(input))
+		assert.Equal(html.HTML(output), gendoc.PFilter(input))
 	}
 }
 
@@ -39,7 +39,7 @@ func (assert *FilterTest) TestParaFilter() {
 	}
 
 	for input, output := range tests {
-		assert.Equal(output, protoc_gen_doc.ParaFilter(input))
+		assert.Equal(output, gendoc.ParaFilter(input))
 	}
 }
 
@@ -51,6 +51,6 @@ func (assert *FilterTest) TestNoBrFilter() {
 	}
 
 	for input, output := range tests {
-		assert.Equal(output, protoc_gen_doc.NoBrFilter(input))
+		assert.Equal(output, gendoc.NoBrFilter(input))
 	}
 }

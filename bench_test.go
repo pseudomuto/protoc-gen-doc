@@ -1,4 +1,4 @@
-package protoc_gen_doc_test
+package gendoc_test
 
 import (
 	"github.com/pseudomuto/protoc-gen-doc/parser"

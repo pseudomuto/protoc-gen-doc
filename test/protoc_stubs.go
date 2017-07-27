@@ -1,4 +1,4 @@
-// Utilities used for testing purposes only.
+// Package test container utilities used for testing purposes only.
 package test
 
 import (
