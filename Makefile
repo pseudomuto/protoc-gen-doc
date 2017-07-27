@@ -1,7 +1,18 @@
 .PHONY: bench test build dist docker
 
+EXAMPLE_DIR=$(shell pwd)/examples
+DOCS_DIR=$(EXAMPLE_DIR)/doc
+PROTOS_DIR=$(EXAMPLE_DIR)/proto
+
 generate:
 	@go generate
+
+lint:
+	@golint -set_exit_status ./build/... && \
+		golint -set_exit_status ./cmd/... && \
+		golint -set_exit_status ./parser/... && \
+		golint -set_exit_status ./test/... && \
+		golint -set_exit_status .
 
 test: generate
 	@go test -cover $(shell go list ./... | grep -v -E 'build|cmd|test|tools|vendor')
@@ -25,3 +36,15 @@ dist:
 
 docker:
 	@script/push_to_docker.sh
+
+docker_test: docker
+	@rm -f examples/doc/*
+	@docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro pseudomuto/protoc-gen-doc --doc_opt=docbook,example.docbook
+	@docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro pseudomuto/protoc-gen-doc --doc_opt=html,example.html
+	@docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro pseudomuto/protoc-gen-doc --doc_opt=json,example.json
+	@docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro pseudomuto/protoc-gen-doc --doc_opt=markdown,example.md
+	@docker run --rm \
+		-v $(DOCS_DIR):/out:rw \
+		-v $(PROTOS_DIR):/protos:ro \
+		-v $(EXAMPLE_DIR)/templates:/templates:ro \
+		pseudomuto/protoc-gen-doc --doc_opt=/templates/asciidoc.tmpl,example.txt

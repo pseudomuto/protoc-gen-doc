@@ -1,4 +1,4 @@
-package protoc_gen_doc
+package gendoc
 
 import (
 	"fmt"
@@ -25,7 +25,7 @@ type PluginOptions struct {
 // directory specified with the `--doc_out` argument to protoc.
 func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 	options := &PluginOptions{
-		Type:         RenderTypeHtml,
+		Type:         RenderTypeHTML,
 		TemplateFile: "",
 		OutputFile:   "index.html",
 	}

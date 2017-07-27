@@ -33,7 +33,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	resp, err := protoc_gen_doc.RunPlugin(req)
+	resp, err := gendoc.RunPlugin(req)
 	if err != nil {
 		log.Fatal(err)
 	}

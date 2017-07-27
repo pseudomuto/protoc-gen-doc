@@ -1,4 +1,4 @@
-package protoc_gen_doc
+package gendoc
 
 import (
 	"encoding/json"
@@ -66,7 +66,7 @@ func NewTemplate(pr *parser.ParseResult) *Template {
 func makeScalars() []*ScalarValue {
 	data, _ := fetchResource("scalars.json")
 
-	scalars := make([]*ScalarValue, 0)
+	var scalars []*ScalarValue
 	json.Unmarshal(data, &scalars)
 
 	return scalars

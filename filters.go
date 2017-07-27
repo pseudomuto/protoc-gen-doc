@@ -1,4 +1,4 @@
-package protoc_gen_doc
+package gendoc
 
 import (
 	"fmt"

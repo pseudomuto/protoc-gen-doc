@@ -1,4 +1,4 @@
-package protoc_gen_doc
+package gendoc
 
 import (
 	"bytes"
@@ -8,15 +8,15 @@ import (
 	text_template "text/template"
 )
 
-// An "Enum" for which type of renderer to use.
+// RenderType is an "enum" for which type of renderer to use.
 type RenderType int8
 
 // Available render types.
 const (
 	_ RenderType = iota
 	RenderTypeDocBook
-	RenderTypeHtml
-	RenderTypeJson
+	RenderTypeHTML
+	RenderTypeJSON
 	RenderTypeMarkdown
 )
 
@@ -27,9 +27,9 @@ func NewRenderType(renderType string) (RenderType, error) {
 	case "docbook":
 		return RenderTypeDocBook, nil
 	case "html":
-		return RenderTypeHtml, nil
+		return RenderTypeHTML, nil
 	case "json":
-		return RenderTypeJson, nil
+		return RenderTypeJSON, nil
 	case "markdown":
 		return RenderTypeMarkdown, nil
 	}
@@ -46,9 +46,9 @@ func (rt RenderType) renderer() (Processor, error) {
 	switch rt {
 	case RenderTypeDocBook:
 		return &textRenderer{string(tmpl)}, nil
-	case RenderTypeHtml:
+	case RenderTypeHTML:
 		return &htmlRenderer{string(tmpl)}, nil
-	case RenderTypeJson:
+	case RenderTypeJSON:
 		return new(jsonRenderer), nil
 	case RenderTypeMarkdown:
 		return &htmlRenderer{string(tmpl)}, nil
@@ -61,9 +61,9 @@ func (rt RenderType) template() ([]byte, error) {
 	switch rt {
 	case RenderTypeDocBook:
 		return fetchResource("docbook.tmpl")
-	case RenderTypeHtml:
+	case RenderTypeHTML:
 		return fetchResource("html.tmpl")
-	case RenderTypeJson:
+	case RenderTypeJSON:
 		return nil, nil
 	case RenderTypeMarkdown:
 		return fetchResource("markdown.tmpl")
@@ -87,10 +87,10 @@ type Processor interface {
 // supplying a non-empty string as the last parameter.
 //
 // Example: generating an HTML template (assuming you've got a Template object)
-//     data, err := RenderTemplate(RenderTypeHtml, &template, "")
+//     data, err := RenderTemplate(RenderTypeHTML, &template, "")
 //
 // Example: generating a custom template (assuming you've got a Template object)
-//     data, err := RenderTemplate(RenderTypeHtml, &template, "{{range .Files}}{{.Name}}{{end}}")
+//     data, err := RenderTemplate(RenderTypeHTML, &template, "{{range .Files}}{{.Name}}{{end}}")
 func RenderTemplate(kind RenderType, template *Template, inputTemplate string) ([]byte, error) {
 	if inputTemplate != "" {
 		processor := &textRenderer{inputTemplate}
