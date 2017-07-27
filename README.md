@@ -99,6 +99,8 @@ message SomeMessage {
 }
 ```
 
+> NOTE: File level comments should be leading comments on the syntax directive.
+
 **Trailing comments**
 
 Fields, Service Methods, Enum Values and Extensions support trailing comments.
@@ -110,7 +112,26 @@ enum MyEnum {
 }
 ```
 
-**File level comments should be leading comments on the syntax directive.**
+**Excluding comments**
+
+If you want to have some comment in your proto files, but don't want them to be part of the docs, you can simply prefix
+the comment with `@exclude`. 
+
+Example: include only the comment for the `id` field
+
+```protobuf
+/**
+ * @exclude
+ * This comment won't be rendered
+ */
+message ExcludedMessage {
+  string id   = 1; // the id of this message.
+  string name = 2; // @exclude the name of this message
+
+  /* @exclude the value of this message. */
+  int32 value = 3;
+}
+```
 
 Check out the [example protos](examples/proto) to see all the options.
 
