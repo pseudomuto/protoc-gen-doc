@@ -188,6 +188,16 @@ func (assert *TemplateTest) TestServiceMethodProperties() {
 	assert.Equal("com.example.Vehicle", method.ResponseFullType)
 }
 
+func (assert *TemplateTest) TestExcludedComments() {
+	message := findMessage("ExcludedMessage", vehicleFile)
+	assert.Empty(message.Description)
+	assert.Empty(findField("name", message).Description)
+	assert.Empty(findField("value", message).Description)
+
+	// just checking that it doesn't exclude everything
+	assert.Equal("the id of this message.", findField("id", message).Description)
+}
+
 func findService(name string, f *protoc_gen_doc.File) *protoc_gen_doc.Service {
 	for _, s := range f.Services {
 		if s.Name == name {
