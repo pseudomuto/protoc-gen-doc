@@ -47,7 +47,7 @@ brew update
 brew install qt5 protobuf
 brew link --force qt5
 export PROTOBUF_PREFIX=$(brew --prefix protobuf)
-git clone git@github.com:estan/protoc-gen-doc.git
+git clone https://github.com/estan/protoc-gen-doc.git
 cd protoc-gen-doc
 qmake
 make
