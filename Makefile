@@ -17,10 +17,13 @@ lint:
 test: generate
 	@go test -cover $(shell go list ./... | grep -v -E 'build|cmd|test|tools|vendor')
 
+dependencies:
+	@glide install
+
 bench:
 	@go test -bench=.
 
-build: generate
+build: dependencies
 	@go build ./cmd/...
 
 examples: build
