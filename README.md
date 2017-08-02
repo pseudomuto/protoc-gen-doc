@@ -40,10 +40,10 @@ docker run --rm \
   pseudomuto/protoc-gen-doc
 ```
 
-By default HTML documentation is generated in `/out/index.html`. This can be changed by passing the `--doc_opt`
-parameter to the container.
+By default HTML documentation is generated in `/out/index.html` for all `.proto` files in the `/protos` volume. This can
+be changed by passing the `--doc_opt` parameter to the container.
 
-For example, to generate Markdown for the examples:
+For example, to generate Markdown for all the examples:
 
 ```
 docker run --rm \
@@ -51,6 +51,21 @@ docker run --rm \
   -v $(pwd)/examples/proto:/protos \
   pseudomuto/protoc-gen-doc --doc_opt=md,docs.md
 ```
+
+You can also generate documentation for a single file. This can be done by passing the file(s) to the command:
+
+```
+docker run --rm \
+  -v $(pwd)/examples/doc:/out \
+  -v $(pwd)/examples/proto:/protos \
+  pseudomuto/protoc-gen-doc --doc_opt=md,docs.md /protos/Booking.proto [OPTIONALLY LIST MORE FILES]
+```
+
+_**Remember**_: Paths should be from within the container, not the host!
+
+> NOTE: Due to the way wildcard expansion works with docker you cannot use a wildcard path (e.g. `protos/*.proto`) in
+the file list. To get around this, if no files are passed, the container will generate docs for `protos/*.proto`, which
+can be changed by mounting different volumes.
 
 ### Simple Usage
 
