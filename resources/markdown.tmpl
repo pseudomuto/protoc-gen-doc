@@ -3,22 +3,17 @@
 
 ## Table of Contents
 {{range .Files}}
-{{$file_name := .Name}}
-* [{{.Name}}](#{{.Name}})
-  {{range .Messages}}
-    * [{{.LongName}}](#{{.FullName}})
+{{$file_name := .Name}}- [{{.Name}}](#{{.Name}})
+  {{range .Messages}}  - [{{.LongName}}](#{{.FullName}})
   {{end}}
-  {{range .Enums}}
-    * [{{.LongName}}](#{{.FullName}})
+  {{range .Enums}}  - [{{.LongName}}](#{{.FullName}})
   {{end}}
-  {{range .Extensions}}
-    * [File-level Extensions](#{{$file_name}}-extensions)
+  {{range .Extensions}}  - [File-level Extensions](#{{$file_name}}-extensions)
   {{end}}
-  {{range .Services}}
-    * [{{.Name}}](#{{.FullName}})
+  {{range .Services}}  - [{{.Name}}](#{{.FullName}})
   {{end}}
 {{end}}
-* [Scalar Value Types](#scalar-value-types)
+- [Scalar Value Types](#scalar-value-types)
 
 {{range .Files}}
 {{$file_name := .Name}}
