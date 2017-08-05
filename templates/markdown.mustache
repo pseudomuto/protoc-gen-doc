@@ -30,6 +30,7 @@
 {{#file_messages}}
 <a name="{{message_full_name}}"/>
 ### {{message_long_name}}
+
 {{& message_description}}
 
 {{#message_has_fields}}
@@ -53,6 +54,7 @@
 {{#file_enums}}
 <a name="{{enum_full_name}}"/>
 ### {{enum_long_name}}
+
 {{& enum_description}}
 
 | Name | Number | Description |
@@ -66,6 +68,7 @@
 {{#file_has_extensions}}
 <a name="{{file_name}}-extensions"/>
 ### File-level Extensions
+
 | Extension | Type | Base | Number | Description |
 | --------- | ---- | ---- | ------ | ----------- |
 {{#file_extensions}}
@@ -76,6 +79,7 @@
 {{#file_services}}
 <a name="{{service_full_name}}"/>
 ### {{service_name}}
+
 {{& service_description}}
 
 | Method Name | Request Type | Response Type | Description |
