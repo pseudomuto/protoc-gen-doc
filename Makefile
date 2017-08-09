@@ -23,7 +23,7 @@ dependencies:
 bench:
 	@go test -bench=.
 
-build: dependencies
+build: dependencies generate
 	@go build ./cmd/...
 
 examples: build

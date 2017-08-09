@@ -3,52 +3,37 @@
 
 ## Table of Contents
 
-
-* [Booking.proto](#Booking.proto)
-  
-    * [Booking](#com.example.Booking)
-  
-    * [BookingStatus](#com.example.BookingStatus)
-  
-    * [EmptyBookingMessage](#com.example.EmptyBookingMessage)
+- [Booking.proto](#Booking.proto)
+    - [Booking](#com.example.Booking)
+    - [BookingStatus](#com.example.BookingStatus)
+    - [EmptyBookingMessage](#com.example.EmptyBookingMessage)
   
   
   
-  
-    * [BookingService](#com.example.BookingService)
+    - [BookingService](#com.example.BookingService)
   
 
-
-* [Customer.proto](#Customer.proto)
-  
-    * [Address](#com.example.Address)
-  
-    * [Customer](#com.example.Customer)
+- [Customer.proto](#Customer.proto)
+    - [Address](#com.example.Address)
+    - [Customer](#com.example.Customer)
   
   
   
   
 
-
-* [Vehicle.proto](#Vehicle.proto)
+- [Vehicle.proto](#Vehicle.proto)
+    - [Manufacturer](#com.example.Manufacturer)
+    - [Model](#com.example.Model)
+    - [Vehicle](#com.example.Vehicle)
+    - [Vehicle.Category](#com.example.Vehicle.Category)
   
-    * [Manufacturer](#com.example.Manufacturer)
+    - [Manufacturer.Category](#com.example.Manufacturer.Category)
   
-    * [Model](#com.example.Model)
-  
-    * [Vehicle](#com.example.Vehicle)
-  
-    * [Vehicle.Category](#com.example.Vehicle.Category)
-  
-  
-    * [Manufacturer.Category](#com.example.Manufacturer.Category)
-  
-  
-    * [File-level Extensions](#Vehicle.proto-extensions)
+    - [File-level Extensions](#Vehicle.proto-extensions)
   
   
 
-* [Scalar Value Types](#scalar-value-types)
+- [Scalar Value Types](#scalar-value-types)
 
 
 
