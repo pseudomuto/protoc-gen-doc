@@ -345,6 +345,7 @@ static void addField(const gp::FieldDescriptor *fieldDescriptor, QVariantList *f
 
     // Add basic info.
     field["field_name"] = QString::fromStdString(fieldDescriptor->name());
+    field["field_json_name"] = QString::fromStdString(fieldDescriptor->json_name());
     field["field_description"] = description;
     field["field_label"] = labelName(fieldDescriptor->label());
     field["field_default_value"] = defaultValue(fieldDescriptor);
