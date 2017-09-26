@@ -1,3 +1,36 @@
+# v1.0.0 - September 26, 2017
+
+This is the tenth official release. (However, it's the first 1.x release!!)
+
+**New things**
+
+* Support for both proto2 and proto3!
+* Application is now dockerized, no need to install it (unless you want to of course)
+* Ported to Go and precompiled for Linux, OSX, and Windows
+* Added test coverage to ensure functionality and prevent regressions
+* Ignore comments starting with `@exclude`
+* Added (and backfilled) CHANGELOG.md
+* Added CONTRIBUTING.md
+
+**Bug fixes**
+
+* Message enums no longer included in file enums (#288)
+* Added top-level `files` key for JSON output and _camelCased_ all fields (#289)
+* Fixed issue with TOC in Markdown not nesting correctly (#293)
+* No need to worry about expiring apt keys (#295)
+* Extra slashes in comment prefix no longer show up in output (#298)
+* Added field details for templates (#300)
+* Markdown headers include new line so they render correctly (#303)
+
+**Breaking changes**
+
+* File-level comments are now attached to the syntax directive
+* JSON fields are now _camelCased_
+* Mustache templates replaced with golang templates
+* Dropped direct support for PDF generation (still possible with FOP)
+* `doc_out` flag removed in favor of `doc_opt`
+
+
 # v0.9 - February 26, 2017
 
 This is the ninth official release.
