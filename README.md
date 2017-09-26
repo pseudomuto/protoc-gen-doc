@@ -9,12 +9,12 @@ It supports proto2 and proto3, and can handle having both in the same context (s
 
 ## Installation
 
-There is a Docker image available (`pseudomuto/protoc-gen-doc`) that has everything you need to generate documentation from your
-protos.
+There is a Docker image available (`docker pull pseudomuto/protoc-gen-doc`) that has everything you need to generate
+documentation from your protos.
 
 If you'd like to install this locally, you can `go get` it.
 
-`go get -u github.com/pseudomuto/protoc-gen-doc`
+`go get -u github.com/pseudomuto/protoc-gen-doc/cmd/...`
 
 ## Invoking the Plugin
 
