@@ -1,54 +1,41 @@
-language: cpp
+language: go
+sudo: required
 
-addons:
- apt:
-  packages:
-   - libqt5core5a
-   - qt5-qmake
-   - qt5-default
-   - libprotobuf-dev
-   - libprotoc-dev
-   - protobuf-compiler
-   - docbook-xsl
-   - fop
-   - libservlet2.4-java
+services:
+  - docker
 
-matrix:
- include:
-  - os: linux
-    dist: trusty
-    sudo: required
-    compiler: gcc
-    env:
-     - QMAKESPEC=linux-g++
-     - DOCBOOK_XSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/fo/docbook.xsl
-  - os: linux
-    dist: trusty
-    sudo: required
-    compiler: clang
-    env:
-     - QMAKESPEC=linux-clang
-     - DOCBOOK_XSL=/usr/share/xml/docbook/stylesheet/docbook-xsl/fo/docbook.xsl
-  - os: osx
-    compiler: clang
-    env: DOCBOOK_XSL=/usr/local/opt/docbook-xsl/docbook-xsl/fo/docbook.xsl
+env:
+  global:
+    - PROTOC_RELEASE="https://github.com/google/protobuf/releases/download/v3.2.0/protoc-3.2.0-linux-x86_64.zip"
+    - PROTOC_TARGET="${HOME}/protoc"
+    - PATH="${PROTOC_TARGET}/bin:${PATH}"
+    - secure: Tbet2rxD8QgjthAo+bxt41qbF2wUPTx0difGK5p4yQISK/njTuT5cqcxnOa4GIbyKtNtx0EgGnyVcQJiQkmZiF6Sabf0mtqU/CQ4PmVV76e9bHwA/CrTtudibMn16ozxuuxvhNxFOMQEhwcQOkW93M/Q9FZUEw9/CGpRGFfSzuA=
 
-before_install:
- - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || brew update'
+cache:
+  - "${HOME}/protoc"
+  - "${HOME}/gopath/src/github.com/pseudomuto/protoc-gen-doc/vendor"
+
+go:
+  - 1.8.x
 
 install:
- - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || brew install qt5 protobuf fop docbook-xsl'
- - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || brew link --force qt5'
- - '[[ "$TRAVIS_OS_NAME" != "osx" ]] || export PROTOBUF_PREFIX=$(brew --prefix protobuf)'
+  - if [ ! -d "${PROTOC_TARGET}" ]; then curl -fsSL "$PROTOC_RELEASE" > "${PROTOC_TARGET}.zip"; fi
+  - if [ -f "${PROTOC_TARGET}.zip" ]; then unzip "${PROTOC_TARGET}.zip" -d "${PROTOC_TARGET}"; fi
+  - go get -u github.com/golang/protobuf/{proto,protoc-gen-go}
+  - go get -u github.com/Masterminds/glide
+  - cd $GOPATH/src/github.com/Masterminds/glide && git checkout tags/v0.12.3 && go install && cd -
+  - glide install
 
 script:
- - qmake
- - make
- - cd examples
- - make clean
- - make
- - test -s doc/example.html
- - test -s doc/example.md
- - test -s doc/example.docbook
- - test -s doc/example.pdf
- - test -s doc/example.json
+  - make test
+  - make bench
+
+deploy:
+  provider: script
+  script: script/push_to_docker.sh
+  on:
+    tags: true
+    all_branches: true
+
+notifications:
+  email: false

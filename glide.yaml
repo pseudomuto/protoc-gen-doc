@@ -1,0 +1,5 @@
+package: github.com/pseudomuto/protoc-gen-doc
+import:
+- package: github.com/golang/protobuf
+  subpackages:
+  - protoc-gen-go
