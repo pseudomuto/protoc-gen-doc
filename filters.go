@@ -7,7 +7,10 @@ import (
 	"strings"
 )
 
-var paraPattern = regexp.MustCompile("(\\n|\\r|\\r\\n)\\s*")
+var (
+	paraPattern  = regexp.MustCompile("(\\n|\\r|\\r\\n)\\s*")
+	spacePattern = regexp.MustCompile("( )+")
+)
 
 // PFilter splits the content by new lines and wraps each one in a <p> tag.
 func PFilter(content string) template.HTML {
@@ -23,8 +26,8 @@ func ParaFilter(content string) string {
 
 // NoBrFilter removes CR and LF from content
 func NoBrFilter(content string) string {
-	withoutCR := strings.Replace(content, "\r", "", -1)
-	withoutLF := strings.Replace(withoutCR, "\n", "", -1)
+	withoutCR := strings.Replace(content, "\r", " ", -1)
+	withoutLF := strings.Replace(withoutCR, "\n", " ", -1)
 
-	return strings.Replace(withoutLF, "\r\n", "", -1)
+	return spacePattern.ReplaceAllString(withoutLF, " ")
 }
