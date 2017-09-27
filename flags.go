@@ -6,6 +6,19 @@ import (
 	"io"
 )
 
+const helpMessage = `
+This is a protoc plugin that is used to generate documentation from your protobuf files. Invocation is controlled by
+using the doc_opt and doc_out options for protoc.
+
+EXAMPLE: Generate HTML docs
+protoc --doc_out=. --doc_opt=html,index.html protos/*.proto
+
+EXAMPLE: Use a custom template
+protoc --doc_out=. --doc_opt=custom.tmpl,docs.txt protos/*.proto
+
+See https://github.com/pseudomuto/protoc-gen-doc for more details.
+`
+
 // Flags contains details about the CLI invocation of protoc-gen-doc
 type Flags struct {
 	appName     string
@@ -43,7 +56,8 @@ func (f *Flags) ShowVersion() bool {
 
 // PrintHelp prints the usage string including all flags to the `io.Writer` that was supplied to the `Flags` object.
 func (f *Flags) PrintHelp() {
-	fmt.Fprintf(f.writer, "Usage of %s:\n\n", f.appName)
+	fmt.Fprintf(f.writer, "Usage of %s:\n", f.appName)
+	fmt.Fprintf(f.writer, "%s\n", helpMessage)
 	fmt.Fprintf(f.writer, "FLAGS\n")
 	f.flagSet.PrintDefaults()
 }
