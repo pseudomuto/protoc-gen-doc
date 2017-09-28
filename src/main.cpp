@@ -36,8 +36,10 @@
 #include <google/protobuf/compiler/plugin.h>
 #include <google/protobuf/compiler/code_generator.h>
 #include <google/protobuf/descriptor.h>
+#include <google/protobuf/descriptor.pb.h>
 #include <google/protobuf/io/zero_copy_stream.h>
 #include <google/protobuf/io/printer.h>
+#include <google/protobuf/unknown_field_set.h>
 
 namespace gp = google::protobuf;
 namespace ms = Mustache;
@@ -477,6 +479,13 @@ static void addEnum(const gp::EnumDescriptor *enumDescriptor, QVariantList *enum
         value["value_name"] = QString::fromStdString(valueDescriptor->name());
         value["value_number"] = valueDescriptor->number();
         value["value_description"] = description;
+        if (valueDescriptor->options().unknown_fields().field_count() > 0) {
+            gp::UnknownField unknownField = valueDescriptor->options().unknown_fields().field(0);
+            // 60000 is reserved for json_name extension in EnumValueOptions
+            if (unknownField.number() == 60000) {
+                value["value_json_name"] = QString::fromStdString(valueDescriptor->options().unknown_fields().field(0).length_delimited());
+            }
+        }
         values.append(value);
     }
     enum_["enum_values"] = values;
