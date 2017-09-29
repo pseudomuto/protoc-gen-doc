@@ -90,6 +90,9 @@ func (assert *TemplateTest) TestMessageProperties() {
 	assert.Equal("Represents a vehicle that can be hired.", msg.Description)
 	assert.False(msg.HasExtensions)
 	assert.True(msg.HasFields)
+
+	msg = findMessage("SecretBookingStatus", bookingFile)
+	assert.Nil(msg)
 }
 
 func (assert *TemplateTest) TestNestedMessageProperties() {
@@ -154,6 +157,9 @@ func (assert *TemplateTest) TestFieldProperties() {
 	assert.Equal("Vehicle.Category", field.LongType)
 	assert.Equal("com.example.Vehicle.Category", field.FullType)
 	assert.Equal("", field.DefaultValue)
+
+	field = findField("secret", msg)
+	assert.Nil(field)
 }
 
 func (assert *TemplateTest) TestServiceProperties() {

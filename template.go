@@ -3,9 +3,11 @@ package gendoc
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/pseudomuto/protoc-gen-doc/parser"
+	"os"
 	"sort"
 	"strings"
+
+	"github.com/pseudomuto/protoc-gen-doc/parser"
 )
 
 // Template is a type for encapsulating all the parsed files, messages, fields, enums, services, extensions, etc. into
@@ -22,6 +24,10 @@ func NewTemplate(pr *parser.ParseResult) *Template {
 	files := make([]*File, 0, len(pr.Files))
 
 	for _, f := range pr.Files {
+		if hidden(f.Comment) {
+			continue
+		}
+
 		file := &File{
 			Name:          f.Name,
 			Description:   description(f.Comment),
@@ -37,19 +43,27 @@ func NewTemplate(pr *parser.ParseResult) *Template {
 		}
 
 		for _, e := range f.Enums {
-			file.Enums = append(file.Enums, parseEnum(e))
+			if !hidden(e.Comment) {
+				file.Enums = append(file.Enums, parseEnum(e))
+			}
 		}
 
 		for _, e := range f.Extensions {
-			file.Extensions = append(file.Extensions, parseFileExtension(e))
+			if !hidden(e.Comment) {
+				file.Extensions = append(file.Extensions, parseFileExtension(e))
+			}
 		}
 
 		for _, m := range f.Messages {
-			file.Messages = append(file.Messages, parseMessage(m))
+			if !hidden(m.Comment) {
+				file.Messages = append(file.Messages, parseMessage(m))
+			}
 		}
 
 		for _, s := range f.Services {
-			file.Services = append(file.Services, parseService(s))
+			if !hidden(s.Comment) {
+				file.Services = append(file.Services, parseService(s))
+			}
 		}
 
 		sort.Sort(file.Enums)
@@ -212,6 +226,9 @@ func parseEnum(pe *parser.Enum) *Enum {
 	}
 
 	for _, val := range pe.Values {
+		if hidden(val.Comment) {
+			continue
+		}
 		enum.Values = append(enum.Values, &EnumValue{
 			Name:        val.Name,
 			Number:      fmt.Sprint(val.Number),
@@ -257,7 +274,9 @@ func parseMessage(pm *parser.Message) *Message {
 	}
 
 	for _, f := range pm.Fields {
-		msg.Fields = append(msg.Fields, parseMessageField(f))
+		if !hidden(f.Comment) {
+			msg.Fields = append(msg.Fields, parseMessageField(f))
+		}
 	}
 
 	return msg
@@ -293,7 +312,9 @@ func parseService(ps *parser.Service) *Service {
 	}
 
 	for _, sm := range ps.Methods {
-		service.Methods = append(service.Methods, parseServiceMethod(sm))
+		if !hidden(sm.Comment) {
+			service.Methods = append(service.Methods, parseServiceMethod(sm))
+		}
 	}
 
 	return service
@@ -317,12 +338,22 @@ func baseName(name string) string {
 	return parts[len(parts)-1]
 }
 
+// Returns comment, unless it starts with @exclude, in which case it returns the
+// empty string. Intended for fields and messages which are included in the docs
+// but with no description.
 func description(comment string) string {
 	if strings.HasPrefix(comment, "@exclude") {
 		return ""
 	}
 
 	return comment
+}
+
+// Returns true if comment starts with @hidden. Intended for fields and messages
+// which are completely left out of the docs.
+func hidden(comment string) bool {
+	return strings.HasPrefix(comment, "@hidden") &&
+		os.Getenv("PROTOC_GEN_DOC_INCLUDE_HIDDEN") == ""
 }
 
 type orderedEnums []*Enum

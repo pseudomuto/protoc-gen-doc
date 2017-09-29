@@ -33,7 +33,14 @@ message BookingStatus {
   optional StatusCode status_code = 3; /// The status of this status?
 
   extensions 100 to max;
+
+  // @hidden
+  optional string secret = 8;
 }
+
+// @hidden
+// A whole secret message
+message SecretBookingStatus {}
 
 extend BookingStatus {
   /** The country the booking occurred in. */

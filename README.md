@@ -140,7 +140,12 @@ enum MyEnum {
 **Excluding comments**
 
 If you want to have some comment in your proto files, but don't want them to be part of the docs, you can simply prefix
-the comment with `@exclude`. 
+the comment with `@exclude`.
+
+To entirely leave the commented item out of the docs, start the comment with
+`@hidden`. (You can add them back in by setting the environment variable
+`PROTOC_GEN_DOC_INCLUDE_HIDDEN` though that will include the `@hidden` text in
+the docs.)
 
 Example: include only the comment for the `id` field
 
