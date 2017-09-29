@@ -49,6 +49,7 @@ func (assert *FilterTest) TestNoBrFilter() {
 		"My content \r\nHere.":           "My content Here.",
 		"My\n content\r right\r\n here.": "My content right here.",
 		"My\ncontent\rright\r\nhere.":    "My content right here.",
+		"My content.\n\nMore content.":   "My content.\n\nMore content.",
 	}
 
 	for input, output := range tests {
