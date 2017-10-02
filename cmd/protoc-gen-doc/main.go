@@ -23,6 +23,20 @@ import (
 )
 
 func main() {
+	flags := gendoc.ParseFlags(os.Stdout, os.Args)
+
+	if flags.HasMatch() {
+		if flags.ShowHelp() {
+			flags.PrintHelp()
+		}
+
+		if flags.ShowVersion() {
+			flags.PrintVersion()
+		}
+
+		os.Exit(flags.Code())
+	}
+
 	input, err := ioutil.ReadAll(os.Stdin)
 	if err != nil {
 		log.Fatalf("Could not read contents from stdin")
