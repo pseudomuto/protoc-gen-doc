@@ -8,8 +8,9 @@ import (
 )
 
 var (
-	paraPattern  = regexp.MustCompile("(\\n|\\r|\\r\\n)\\s*")
-	spacePattern = regexp.MustCompile("( )+")
+	paraPattern         = regexp.MustCompile("(\\n|\\r|\\r\\n)\\s*")
+	spacePattern        = regexp.MustCompile("( )+")
+	multiNewlinePattern = regexp.MustCompile(`(\r\n|\r|\n){2,}`)
 )
 
 // PFilter splits the content by new lines and wraps each one in a <p> tag.
@@ -24,10 +25,14 @@ func ParaFilter(content string) string {
 	return fmt.Sprintf("<para>%s</para>", strings.Join(paragraphs, "</para><para>"))
 }
 
-// NoBrFilter removes CR and LF from content
+// NoBrFilter removes single CR and LF from content.
 func NoBrFilter(content string) string {
-	withoutCR := strings.Replace(content, "\r", " ", -1)
-	withoutLF := strings.Replace(withoutCR, "\n", " ", -1)
-
-	return spacePattern.ReplaceAllString(withoutLF, " ")
+	normalized := strings.Replace(content, "\r\n", "\n", -1)
+	paragraphs := multiNewlinePattern.Split(normalized, -1)
+	for i, p := range paragraphs {
+		withoutCR := strings.Replace(p, "\r", " ", -1)
+		withoutLF := strings.Replace(withoutCR, "\n", " ", -1)
+		paragraphs[i] = spacePattern.ReplaceAllString(withoutLF, " ")
+	}
+	return strings.Join(paragraphs, "\n\n")
 }

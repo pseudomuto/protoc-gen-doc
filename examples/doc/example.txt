@@ -8,7 +8,9 @@
 
 
 === Booking
-Represents the booking of a vehicle. Vehicles are some cool shit. But drive carefully!
+Represents the booking of a vehicle.
+
+Vehicles are some cool shit. But drive carefully!
 
 
 |===========================================
