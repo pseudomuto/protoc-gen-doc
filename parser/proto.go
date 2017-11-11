@@ -10,7 +10,6 @@ import (
 
 const (
 	// tag numbers in FileDescriptorProto
-	packagePath   = 2  // package
 	messagePath   = 4  // message_type
 	enumPath      = 5  // enum_type
 	servicePath   = 6  // service

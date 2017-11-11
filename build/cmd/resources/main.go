@@ -15,8 +15,6 @@ import (
 	"path"
 )
 
-const chunkSize = 80
-
 var (
 	inputDir    string
 	outputFile  string
@@ -130,5 +128,5 @@ func format(b *bytes.Buffer) string {
 	bw.Write(b.Bytes())
 	bw.Close()
 
-	return string(bBuf.Bytes())
+	return bBuf.String()
 }

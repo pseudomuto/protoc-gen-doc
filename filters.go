@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	paraPattern         = regexp.MustCompile("(\\n|\\r|\\r\\n)\\s*")
+	paraPattern         = regexp.MustCompile(`(\n|\r|\r\n)\s*`)
 	spacePattern        = regexp.MustCompile("( )+")
 	multiNewlinePattern = regexp.MustCompile(`(\r\n|\r|\n){2,}`)
 )
