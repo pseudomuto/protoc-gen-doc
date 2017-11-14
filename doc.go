@@ -7,6 +7,10 @@
 //
 //     protoc --doc_out=. --doc_opt=html,index.html protos/*.proto
 //
+// Example: exclude patterns
+//
+//     protoc --doc_out=. --doc_opt=html,index.html:google/*,somedir/* protos/*.proto
+//
 // Example: use a custom template
 //
 //     protoc --doc_out=. --doc_opt=custom.tmpl,docs.txt protos/*.proto
