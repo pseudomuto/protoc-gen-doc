@@ -34,15 +34,9 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 	}
 
 	params := req.GetParameter()
-	if params == "" {
-		return options, nil
-	}
 	if strings.Contains(params, ":") {
 		// Parse out exclude patterns if any
 		parts := strings.Split(params, ":")
-		if len(parts) != 2 {
-			return nil, fmt.Errorf("Invalid parameter: %s", params)
-		}
 		for _, pattern := range strings.Split(parts[1], ",") {
 			r, err := regexp.Compile(pattern)
 			if err != nil {
@@ -52,6 +46,9 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 		}
 		// The first part is parsed below
 		params = parts[0]
+	}
+	if params == "" {
+		return options, nil
 	}
 
 	if !strings.Contains(params, ",") {

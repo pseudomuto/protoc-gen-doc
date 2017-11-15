@@ -1,10 +1,11 @@
 package parser_test
 
 import (
+	"testing"
+
 	"github.com/pseudomuto/protoc-gen-doc/parser"
 	"github.com/pseudomuto/protoc-gen-doc/test"
 	"github.com/stretchr/testify/suite"
-	"testing"
 )
 
 var file *parser.File
@@ -22,7 +23,7 @@ func (assert *ModelsTest) SetupSuite() {
 	codeGenRequest, err = test.MakeCodeGeneratorRequest()
 	assert.Nil(err)
 
-	file = parser.ParseCodeRequest(codeGenRequest).GetFile("Vehicle.proto")
+	file = parser.ParseCodeRequest(codeGenRequest, nil).GetFile("Vehicle.proto")
 	assert.NotNil(file)
 }
 

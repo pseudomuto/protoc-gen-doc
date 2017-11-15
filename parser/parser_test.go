@@ -1,16 +1,19 @@
 package parser_test
 
 import (
+	"regexp"
+	"testing"
+
 	"github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/pseudomuto/protoc-gen-doc/parser"
 	"github.com/pseudomuto/protoc-gen-doc/test"
 	"github.com/stretchr/testify/suite"
-	"testing"
 )
 
 var (
-	codeGenRequest *plugin_go.CodeGeneratorRequest
-	subject        *parser.ParseResult
+	codeGenRequest             *plugin_go.CodeGeneratorRequest
+	subject                    *parser.ParseResult
+	subjectWithExcludePatterns *parser.ParseResult
 )
 
 type ParserTest struct {
@@ -26,7 +29,9 @@ func (assert *ParserTest) SetupSuite() {
 	codeGenRequest, err = test.MakeCodeGeneratorRequest()
 	assert.Nil(err)
 
-	subject = parser.ParseCodeRequest(codeGenRequest)
+	subject = parser.ParseCodeRequest(codeGenRequest, nil)
+	excludePattern, _ := regexp.Compile("Booking*")
+	subjectWithExcludePatterns = parser.ParseCodeRequest(codeGenRequest, []*regexp.Regexp{excludePattern})
 }
 
 func (assert *ParserTest) TestGetFile() {
@@ -39,4 +44,13 @@ func (assert *ParserTest) TestGetFile() {
 	assert.False(file.IsProto3)
 
 	assert.Nil(subject.GetFile("Unknown.proto"))
+}
+
+func (assert *ParserTest) TestGetFileExcluded() {
+	file := subjectWithExcludePatterns.GetFile("Vehicle.proto")
+	assert.NotNil(file)
+	assert.True(file.IsProto3)
+
+	// Booking* excluded
+	assert.Nil(subjectWithExcludePatterns.GetFile("Booking.proto"))
 }

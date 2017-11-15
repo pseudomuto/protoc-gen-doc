@@ -1,11 +1,13 @@
 package gendoc_test
 
 import (
+	"regexp"
+	"testing"
+
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/pseudomuto/protoc-gen-doc"
 	"github.com/stretchr/testify/suite"
-	"testing"
 )
 
 type PluginTest struct {
@@ -50,6 +52,20 @@ func (assert *PluginTest) TestParseOptionsForCustomTemplate() {
 	assert.Equal(gendoc.RenderTypeHTML, options.Type)
 	assert.Equal("/path/to/template.tmpl", options.TemplateFile)
 	assert.Equal("output.md", options.OutputFile)
+}
+
+func (assert *PluginTest) TestParseOptionsForExcludePatterns() {
+	req := new(plugin_go.CodeGeneratorRequest)
+	req.Parameter = proto.String(":google/*,notgoogle/*")
+
+	options, err := gendoc.ParseOptions(req)
+	assert.Nil(err)
+
+	assert.Equal(2, len(options.ExcludePatterns))
+	pattern0, _ := regexp.Compile("google/*")
+	pattern1, _ := regexp.Compile("notgoogle/*")
+	assert.Equal(pattern0, options.ExcludePatterns[0])
+	assert.Equal(pattern1, options.ExcludePatterns[1])
 }
 
 func (assert *PluginTest) TestParseOptionsWithInvalidValues() {
