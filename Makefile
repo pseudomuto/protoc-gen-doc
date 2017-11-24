@@ -28,11 +28,11 @@ build: dependencies generate
 
 examples: build
 	@rm -f examples/doc/*
-	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=docbook,example.docbook examples/proto/*.proto
-	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=html,example.html examples/proto/*.proto
-	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=json,example.json examples/proto/*.proto
-	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=markdown,example.md examples/proto/*.proto
-	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=examples/templates/asciidoc.tmpl,example.txt examples/proto/*.proto
+	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=docbook,example.docbook:Ignore* examples/proto/*.proto
+	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=html,example.html:Ignore* examples/proto/*.proto
+	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=json,example.json:Ignore* examples/proto/*.proto
+	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=markdown,example.md:Ignore* examples/proto/*.proto
+	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=examples/templates/asciidoc.tmpl,example.txt:Ignore* examples/proto/*.proto
 
 dist:
 	@script/dist.sh
@@ -42,12 +42,12 @@ docker:
 
 docker_test: docker
 	@rm -f examples/doc/*
-	@docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro pseudomuto/protoc-gen-doc --doc_opt=docbook,example.docbook
-	@docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro pseudomuto/protoc-gen-doc --doc_opt=html,example.html
-	@docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro pseudomuto/protoc-gen-doc --doc_opt=json,example.json
-	@docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro pseudomuto/protoc-gen-doc --doc_opt=markdown,example.md
+	@docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro pseudomuto/protoc-gen-doc --doc_opt=docbook,example.docbook:Ignore*
+	@docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro pseudomuto/protoc-gen-doc --doc_opt=html,example.html:Ignore*
+	@docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro pseudomuto/protoc-gen-doc --doc_opt=json,example.json:Ignore*
+	@docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro pseudomuto/protoc-gen-doc --doc_opt=markdown,example.md:Ignore*
 	@docker run --rm \
 		-v $(DOCS_DIR):/out:rw \
 		-v $(PROTOS_DIR):/protos:ro \
 		-v $(EXAMPLE_DIR)/templates:/templates:ro \
-		pseudomuto/protoc-gen-doc --doc_opt=/templates/asciidoc.tmpl,example.txt
+		pseudomuto/protoc-gen-doc --doc_opt=/templates/asciidoc.tmpl,example.txt:Ignore*

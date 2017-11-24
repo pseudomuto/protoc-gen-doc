@@ -32,7 +32,7 @@ parseLoop:
 	for _, file := range req.GetProtoFile() {
 		for _, pattern := range excludePatterns {
 			// Skip all files that match pattern
-			if pattern.MatchString(*file.Name) {
+			if pattern.MatchString(file.GetName()) {
 				continue parseLoop
 			}
 		}
