@@ -61,6 +61,16 @@ docker run --rm \
   pseudomuto/protoc-gen-doc --doc_opt=md,docs.md /protos/Booking.proto [OPTIONALLY LIST MORE FILES]
 ```
 
+You can also exclude proto files that match specific path expressions. This is done by passing a second option delimited by `:`.
+For example, you can pass any number of comma separated patterns as the second option:
+
+```
+docker run --rm \
+  -v $(pwd)/examples/doc:/out \
+  -v $(pwd)/examples/proto:/protos \
+  pseudomuto/protoc-gen-doc --doc_opt=:google/*,somepath/*
+```
+
 _**Remember**_: Paths should be from within the container, not the host!
 
 > NOTE: Due to the way wildcard expansion works with docker you cannot use a wildcard path (e.g. `protos/*.proto`) in

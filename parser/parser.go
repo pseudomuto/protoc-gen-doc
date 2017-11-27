@@ -1,6 +1,8 @@
 package parser
 
 import (
+	"regexp"
+
 	"github.com/golang/protobuf/protoc-gen-go/plugin"
 )
 
@@ -23,10 +25,17 @@ func (pr *ParseResult) GetFile(name string) *File {
 
 // ParseCodeRequest iterates through all the proto files in the code gen request, parses them, and finally adds them to
 // the returned ParseResult
-func ParseCodeRequest(req *plugin_go.CodeGeneratorRequest) *ParseResult {
+func ParseCodeRequest(req *plugin_go.CodeGeneratorRequest, excludePatterns []*regexp.Regexp) *ParseResult {
 	result := new(ParseResult)
 
+parseLoop:
 	for _, file := range req.GetProtoFile() {
+		for _, pattern := range excludePatterns {
+			// Skip all files that match pattern
+			if pattern.MatchString(file.GetName()) {
+				continue parseLoop
+			}
+		}
 		result.Files = append(result.Files, parseProtoFile(file))
 	}
 

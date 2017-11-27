@@ -13,6 +13,9 @@ using the doc_opt and doc_out options for protoc.
 EXAMPLE: Generate HTML docs
 protoc --doc_out=. --doc_opt=html,index.html protos/*.proto
 
+EXAMPLE: Exclude file patterns
+protoc --doc_out=. --doc_opt=html,index.html:google/*,somedir/* protos/*.proto
+
 EXAMPLE: Use a custom template
 protoc --doc_out=. --doc_opt=custom.tmpl,docs.txt protos/*.proto
 

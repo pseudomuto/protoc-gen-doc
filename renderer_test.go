@@ -1,12 +1,13 @@
 package gendoc_test
 
 import (
+	"os"
+	"testing"
+
 	"github.com/pseudomuto/protoc-gen-doc"
 	"github.com/pseudomuto/protoc-gen-doc/parser"
 	"github.com/pseudomuto/protoc-gen-doc/test"
 	"github.com/stretchr/testify/suite"
-	"os"
-	"testing"
 )
 
 const tempTestDir = "./tmp"
@@ -27,7 +28,7 @@ func (assert *RendererTest) SetupSuite() {
 
 	os.Mkdir(tempTestDir, os.ModePerm)
 
-	result := parser.ParseCodeRequest(codeGenRequest)
+	result := parser.ParseCodeRequest(codeGenRequest, nil)
 	renderTemplate = gendoc.NewTemplate(result)
 }
 
