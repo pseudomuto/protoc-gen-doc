@@ -49,7 +49,7 @@ For example, to generate Markdown for all the examples:
 docker run --rm \
   -v $(pwd)/examples/doc:/out \
   -v $(pwd)/examples/proto:/protos \
-  pseudomuto/protoc-gen-doc --doc_opt=md,docs.md
+  pseudomuto/protoc-gen-doc --doc_opt=markdown,docs.md
 ```
 
 You can also generate documentation for a single file. This can be done by passing the file(s) to the command:
@@ -58,7 +58,7 @@ You can also generate documentation for a single file. This can be done by passi
 docker run --rm \
   -v $(pwd)/examples/doc:/out \
   -v $(pwd)/examples/proto:/protos \
-  pseudomuto/protoc-gen-doc --doc_opt=md,docs.md /protos/Booking.proto [OPTIONALLY LIST MORE FILES]
+  pseudomuto/protoc-gen-doc --doc_opt=markdown,docs.md /protos/Booking.proto [OPTIONALLY LIST MORE FILES]
 ```
 
 You can also exclude proto files that match specific path expressions. This is done by passing a second option delimited by `:`.
