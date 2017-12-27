@@ -3,3 +3,5 @@ import:
 - package: github.com/golang/protobuf
   subpackages:
   - protoc-gen-go
+- package: gopkg.in/russross/blackfriday.v2
+  version: v2.0.0
