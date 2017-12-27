@@ -53,7 +53,7 @@ func scrubComment(s string) string {
 	re := regexp.MustCompile(`[/*]* (.*)$`)
 	for idx, line := range lines {
 		if re.MatchString(line) {
-			lines[idx] = re.ReplaceAllString(line, "$1")
+			lines[idx] = strings.TrimRight(re.ReplaceAllString(line, "$1"), " ")
 		} else {
 			lines[idx] = ""
 		}

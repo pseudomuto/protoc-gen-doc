@@ -42,5 +42,6 @@ func NoBrFilter(content string) string {
 // MdFilter treats the content as Markdown and output as HTML.
 func MdFilter(content string) template.HTML {
 	html := blackfriday.Run([]byte(content))
-	return template.HTML(fmt.Sprintf("<div>%s</div>", html))
+	trimedHtml := strings.Trim(string(html), "\n")
+	return template.HTML(trimedHtml)
 }
