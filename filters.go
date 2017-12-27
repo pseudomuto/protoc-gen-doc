@@ -5,6 +5,8 @@ import (
 	"html/template"
 	"regexp"
 	"strings"
+
+	"gopkg.in/russross/blackfriday.v2"
 )
 
 var (
@@ -35,4 +37,10 @@ func NoBrFilter(content string) string {
 		paragraphs[i] = spacePattern.ReplaceAllString(withoutLF, " ")
 	}
 	return strings.Join(paragraphs, "\n\n")
+}
+
+// MdFilter treats the content as Markdown and output as HTML.
+func MdFilter(content string) template.HTML {
+	html := blackfriday.Run([]byte(content))
+	return template.HTML(fmt.Sprintf("<div>%s</div>", html))
 }

@@ -2,6 +2,7 @@ package parser
 
 import (
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -49,9 +50,13 @@ func (ce *commentExtractor) commentForPath(path string) string {
 
 func scrubComment(s string) string {
 	lines := strings.Split(s, "\n")
-
+	re := regexp.MustCompile(`[/*]* (.*)$`)
 	for idx, line := range lines {
-		lines[idx] = strings.Trim(line, " /\n*")
+		if re.MatchString(line) {
+			lines[idx] = re.ReplaceAllString(line, "$1")
+		} else {
+			lines[idx] = ""
+		}
 	}
 
 	return strings.Trim(strings.Join(lines, "\n"), "\n")

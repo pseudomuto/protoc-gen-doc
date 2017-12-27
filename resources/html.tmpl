@@ -158,6 +158,13 @@
         border: 1px solid #fbfbfb;
         border-radius: 1ex;
       }
+
+      /* For codes. */
+      tt, code, kbd, samp {
+        font-family: monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+      }
     </style>
 
     <!-- User custom CSS -->
@@ -209,11 +216,11 @@
       <div class="file-heading">
         <h2 id="{{.Name}}">{{.Name}}</h2><a href="#title">Top</a>
       </div>
-      {{p .Description}}
+      {{md .Description}}
 
       {{range .Messages}}
         <h3 id="{{.FullName}}">{{.LongName}}</h3>
-        {{p .Description}}
+        {{md .Description}}
 
         {{if .HasFields}}
           <table class="field-table">
@@ -256,7 +263,7 @@
 
       {{range .Enums}}
         <h3 id="{{.FullName}}">{{.LongName}}</h3>
-        {{p .Description}}
+        {{md .Description}}
         <table class="enum-table">
           <thead>
             <tr><td>Name</td><td>Number</td><td>Description</td></tr>
@@ -295,7 +302,7 @@
 
       {{range .Services}}
         <h3 id="{{.FullName}}">{{.Name}}</h3>
-        {{p .Description}}
+        {{md .Description}}
         <table class="enum-table">
           <thead>
             <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
