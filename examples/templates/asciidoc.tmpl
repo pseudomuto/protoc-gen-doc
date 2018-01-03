@@ -14,7 +14,7 @@
 |===========================================
 |*Field* |*Type* |*Label* |*Description*
 {{range .Fields}}
-|{{.Name}} | <<{{.FullType}},{{.LongType}}>> |{{.Label}} |{{.Description}}
+|{{.Name}} | <<{{.FullType}},{{.LongType}}>> |{{.Label}}{{if .OneOf}} (oneOf: {{.OneOf}}){{end}} |{{.Description}}
 {{end}}
 |===========================================
 {{end}}

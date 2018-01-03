@@ -138,6 +138,7 @@ type MessageField struct {
 	LongType     string `json:"longType"`
 	FullType     string `json:"fullType"`
 	DefaultValue string `json:"defaultValue"`
+	OneOf        string `json:"oneOf"`
 }
 
 // MessageExtension contains details about message-scoped extensions in proto(2) files.
@@ -281,6 +282,7 @@ func parseMessageField(pf *parser.Field) *MessageField {
 		LongType:     strings.TrimPrefix(pf.Type, pf.Package+"."),
 		FullType:     pf.Type,
 		DefaultValue: pf.DefaultValue,
+		OneOf:        pf.OneOf,
 	}
 }
 

@@ -225,7 +225,7 @@
                 <tr>
                   <td>{{.Name}}</td>
                   <td><a href="#{{.FullType}}">{{.LongType}}</a></td>
-                  <td>{{.Label}}</td>
+                  <td>{{.Label}}{{if .OneOf}} (oneOf: {{.OneOf}}){{end}}</td>
                   <td><p>{{.Description}} {{if .DefaultValue}}Default: {{.DefaultValue}}{{end}}</p></td>
                 </tr>
               {{end}}

@@ -30,7 +30,7 @@
             <row>
               <entry>{{.Name}}</entry>
               <entry><link linkend="{{.FullType}}">{{.LongType}}</link></entry>
-              <entry>{{.Label}}</entry>
+              <entry>{{.Label}}{{if .OneOf}} (oneOf: {{.OneOf}}){{end}}</entry>
               <entry>{{para .Description}}{{if .DefaultValue}}<para>Default: {{.DefaultValue}}</para>{{end}}</entry>
             </row>
             {{end}}

@@ -64,6 +64,12 @@ message Booking {
   /** Has payment been received? */
   optional bool payment_received = 5 [default = false];
 
+  // Payment types
+   oneof payment {
+    string creditCardNo = 6; // Debit Card Number
+    string debitCardNo = 7; // Credit Card Number
+  }
+
   // Nested extentions are also a thing.
 
   extend BookingStatus {

@@ -62,6 +62,20 @@
               <entry><para>Has payment been received?</para></entry>
             </row>
             
+            <row>
+              <entry>creditCardNo</entry>
+              <entry><link linkend="string">string</link></entry>
+              <entry> (oneOf: payment)</entry>
+              <entry><para>Debit Card Number</para></entry>
+            </row>
+            
+            <row>
+              <entry>debitCardNo</entry>
+              <entry><link linkend="string">string</link></entry>
+              <entry> (oneOf: payment)</entry>
+              <entry><para>Credit Card Number</para></entry>
+            </row>
+            
           </tbody>
         </tgroup>
       </table>

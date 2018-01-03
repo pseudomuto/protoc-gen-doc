@@ -24,6 +24,10 @@ Represents the booking of a vehicle. Vehicles are some cool shit. But drive care
 
 |payment_received | <<bool,bool>> | |Has payment been received?
 
+|creditCardNo | <<string,string>> | (oneOf: payment) |Debit Card Number
+
+|debitCardNo | <<string,string>> | (oneOf: payment) |Credit Card Number
+
 |===========================================
 
 

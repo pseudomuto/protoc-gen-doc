@@ -147,6 +147,7 @@ type Field struct {
 	Type         string
 	Label        string
 	DefaultValue string
+	OneOf		 string
 }
 
 // An Extension object to encapsulate extension details.

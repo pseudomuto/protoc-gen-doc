@@ -172,7 +172,7 @@ func (pp *protoFileParser) parseDescriptor(sl []*Message, d *descriptor.Descript
 		this.path = fmt.Sprintf("%s,%d,%d", p.path, messageMessagePath, idx)
 	}
 
-	this.Fields = pp.parseFields(d.GetField(), this.path)
+	this.Fields = pp.parseFields(d, d.GetField(), this.path)
 	this.Extensions = pp.parseExtensions(d, this.FullName(), fmt.Sprintf("%s,%d", this.path, messageExtensionPath))
 
 	// parse nested message types
@@ -183,7 +183,7 @@ func (pp *protoFileParser) parseDescriptor(sl []*Message, d *descriptor.Descript
 	return sl
 }
 
-func (pp *protoFileParser) parseFields(fdp []*descriptor.FieldDescriptorProto, basePath string) []*Field {
+func (pp *protoFileParser) parseFields(fc *descriptor.DescriptorProto, fdp []*descriptor.FieldDescriptorProto, basePath string) []*Field {
 	fields := make([]*Field, 0, len(fdp))
 
 	for idx, field := range fdp {
@@ -200,6 +200,10 @@ func (pp *protoFileParser) parseFields(fdp []*descriptor.FieldDescriptorProto, b
 
 		f := fields[len(fields)-1]
 
+		if(field.OneofIndex != nil){
+			f.OneOf = fc.GetOneofDecl()[(*field.OneofIndex)].GetName()
+		}
+
 		if f.Type == pp.Package()+"." {
 			f.Type = pp.typeName(field.GetType().String())
 		}
@@ -207,6 +211,7 @@ func (pp *protoFileParser) parseFields(fdp []*descriptor.FieldDescriptorProto, b
 
 	return fields
 }
+
 
 func (pp *protoFileParser) typeName(name string) string {
 	if strings.HasPrefix(name, ".") {
