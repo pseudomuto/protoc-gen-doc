@@ -278,8 +278,8 @@ func parseMessageField(pf *parser.Field) *MessageField {
 		Description:  description(pf.Comment),
 		Label:        pf.Label,
 		Type:         baseName(pf.Type),
-		LongType:     strings.TrimPrefix(pf.Type, pf.Package+"."),
-		FullType:     pf.Type,
+		LongType:     longType(pf),
+		FullType:     fullType(pf.Type),
 		DefaultValue: pf.DefaultValue,
 	}
 }
@@ -315,6 +315,21 @@ func parseServiceMethod(pm *parser.ServiceMethod) *ServiceMethod {
 func baseName(name string) string {
 	parts := strings.Split(name, ".")
 	return parts[len(parts)-1]
+}
+
+func fullType(name string) string {
+	if strings.Contains(name, "..") {
+		return strings.SplitAfterN(name, "..", 2)[1]
+	}
+	return name
+}
+
+func longType(pf *parser.Field) string {
+	longType := strings.TrimPrefix(pf.Type, pf.Package+".")
+	if strings.HasPrefix(longType, ".") {
+		return strings.TrimPrefix(longType, ".")
+	}
+	return longType
 }
 
 func description(comment string) string {
