@@ -28,7 +28,8 @@
               "longType": "int32",
               "fullType": "int32",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "customer_id",
@@ -38,7 +39,8 @@
               "longType": "int32",
               "fullType": "int32",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "status",
@@ -48,7 +50,8 @@
               "longType": "BookingStatus",
               "fullType": "com.example.BookingStatus",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "confirmation_sent",
@@ -58,7 +61,8 @@
               "longType": "bool",
               "fullType": "bool",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "payment_received",
@@ -68,7 +72,8 @@
               "longType": "bool",
               "fullType": "bool",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "creditCardNo",
@@ -78,7 +83,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": "payment"
+              "oneOf": "payment",
+              "oneOfDesc": "Payment types"
             },
             {
               "name": "debitCardNo",
@@ -88,7 +94,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": "payment"
+              "oneOf": "payment",
+              "oneOfDesc": "Payment types"
             }
           ]
         },
@@ -109,7 +116,8 @@
               "longType": "int32",
               "fullType": "int32",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "description",
@@ -119,7 +127,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             }
           ]
         },
@@ -183,7 +192,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "address_line_2",
@@ -193,7 +203,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "address_line_3",
@@ -203,7 +214,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "town",
@@ -213,7 +225,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "county",
@@ -223,7 +236,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "country",
@@ -233,7 +247,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             }
           ]
         },
@@ -254,7 +269,8 @@
               "longType": "int32",
               "fullType": "int32",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "first_name",
@@ -264,7 +280,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "last_name",
@@ -274,7 +291,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "details",
@@ -284,7 +302,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "email_address",
@@ -294,7 +313,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "phone_number",
@@ -304,7 +324,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "mail_addresses",
@@ -314,7 +335,8 @@
               "longType": "Address",
               "fullType": "com.example.Address",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             }
           ]
         }
@@ -384,7 +406,8 @@
               "longType": "int32",
               "fullType": "int32",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "code",
@@ -394,7 +417,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "details",
@@ -404,7 +428,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "category",
@@ -414,7 +439,8 @@
               "longType": "Manufacturer.Category",
               "fullType": "com.example.Manufacturer.Category",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             }
           ]
         },
@@ -435,7 +461,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "model_code",
@@ -445,7 +472,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "model_name",
@@ -455,7 +483,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "daily_hire_rate_dollars",
@@ -465,7 +494,8 @@
               "longType": "sint32",
               "fullType": "sint32",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "daily_hire_rate_cents",
@@ -475,7 +505,8 @@
               "longType": "sint32",
               "fullType": "sint32",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             }
           ]
         },
@@ -515,7 +546,8 @@
               "longType": "int32",
               "fullType": "int32",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "model",
@@ -525,7 +557,8 @@
               "longType": "Model",
               "fullType": "com.example.Model",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "reg_number",
@@ -535,7 +568,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "mileage",
@@ -545,7 +579,8 @@
               "longType": "sint32",
               "fullType": "sint32",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "category",
@@ -555,7 +590,8 @@
               "longType": "Vehicle.Category",
               "fullType": "com.example.Vehicle.Category",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "daily_hire_rate_dollars",
@@ -565,7 +601,8 @@
               "longType": "sint32",
               "fullType": "sint32",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "daily_hire_rate_cents",
@@ -575,7 +612,8 @@
               "longType": "sint32",
               "fullType": "sint32",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             }
           ]
         },
@@ -596,7 +634,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "description",
@@ -606,7 +645,8 @@
               "longType": "string",
               "fullType": "string",
               "defaultValue": "",
-              "oneOf": ""
+              "oneOf": "",
+              "oneOfDesc": ""
             }
           ]
         }

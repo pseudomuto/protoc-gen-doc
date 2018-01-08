@@ -94,9 +94,11 @@ func (assert *TemplateTest) TestMessageProperties() {
 func (assert *TemplateTest) TestMessageOneOf() {
 	field1 := findField("creditCardNo", findMessage("Booking", bookingFile))
 	assert.Equal("payment", field1.OneOf)
+	assert.Equal("Payment types", field1.OneOfDesc)
 
 	field2 := findField("payment_received", findMessage("Booking", bookingFile))
 	assert.Equal("", field2.OneOf)
+	assert.Equal("", field2.OneOfDesc)
 }
 
 func (assert *TemplateTest) TestNestedMessageProperties() {

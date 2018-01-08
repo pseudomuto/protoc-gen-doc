@@ -53,6 +53,9 @@ func (pf *File) getCommentContainers() []commentContainer {
 		containers = append(containers, msg)
 		for _, field := range msg.Fields {
 			containers = append(containers, field)
+			if (field.OneOf != nil){
+				containers = append(containers, field.OneOf)
+			}		
 		}
 
 		for _, ext := range msg.Extensions {
@@ -147,8 +150,14 @@ type Field struct {
 	Type         string
 	Label        string
 	DefaultValue string
-	OneOf		 string
+	OneOf		 *OneOf
 }
+
+// A Field object to encapsulate message oneOf details.
+type OneOf struct {
+	parsedObject
+}
+
 
 // An Extension object to encapsulate extension details.
 type Extension struct {

@@ -22,6 +22,7 @@ const (
 	messageMessagePath   = 3 // nested_type
 	messageEnumPath      = 4 // enum_type
 	messageExtensionPath = 6 // extension
+	messageOneOfPath     = 8 // oneOf
 
 	// tag numbers in EnumDescriptorProto
 	enumValuePath = 2 // value
@@ -201,7 +202,14 @@ func (pp *protoFileParser) parseFields(fc *descriptor.DescriptorProto, fdp []*de
 		f := fields[len(fields)-1]
 
 		if(field.OneofIndex != nil){
-			f.OneOf = fc.GetOneofDecl()[(*field.OneofIndex)].GetName()
+			f.OneOf = &OneOf{
+				parsedObject: parsedObject{
+					Name:     fc.GetOneofDecl()[(*field.OneofIndex)].GetName(),
+					Package:  pp.Package(),
+					IsProto3: pp.IsProto3(),
+					path:     fmt.Sprintf("%s,%d,%d", basePath, messageOneOfPath, *field.OneofIndex),
+				},
+			}
 		}
 
 		if f.Type == pp.Package()+"." {
