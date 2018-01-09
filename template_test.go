@@ -12,6 +12,7 @@ var (
 	template    *gendoc.Template
 	bookingFile *gendoc.File
 	vehicleFile *gendoc.File
+	dateFile    *gendoc.File
 )
 
 type TemplateTest struct {
@@ -30,6 +31,7 @@ func (assert *TemplateTest) SetupSuite() {
 	template = gendoc.NewTemplate(result)
 	bookingFile = template.Files[0]
 	vehicleFile = template.Files[1]
+	dateFile = template.Files[2]
 }
 
 func (assert *TemplateTest) TestTemplateProperties() {
@@ -196,6 +198,14 @@ func (assert *TemplateTest) TestExcludedComments() {
 
 	// just checking that it doesn't exclude everything
 	assert.Equal("the id of this message.", findField("id", message).Description)
+}
+
+func (assert *TemplateTest) TestCrossPackage() {
+	message := findMessage("DateTimeModifier", dateFile)
+	field := findField("date_range", message)
+
+	assert.Equal("com.example.schema.bar.DateRange", field.LongType)
+	assert.Equal("com.example.schema.bar.DateRange", field.FullType)
 }
 
 func findService(name string, f *gendoc.File) *gendoc.Service {

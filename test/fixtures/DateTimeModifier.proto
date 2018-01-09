@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package com.example.schema.foo;
+
+import "test/fixtures/DateRange.proto";
+
+message DateTimeModifier {
+	// Date range is found in the "bar" package
+    bar.DateRange date_range = 1;
+}

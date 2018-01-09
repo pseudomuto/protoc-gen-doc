@@ -1,0 +1,10 @@
+syntax = "proto3";
+package com.example.schema.bar;
+
+/**
+ * Represents a vehicle model.
+ */
+message DateRange {
+  string startDate   = 1; // The start Date
+  string endDate      = 2; // The end Date
+}
