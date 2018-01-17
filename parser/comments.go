@@ -48,6 +48,18 @@ func (ce *commentExtractor) commentForPath(path string) string {
 	return scrubComment(ce.comments[path])
 }
 
+//
+// SourceCodeInfo_Location already strips out standard comment markers.
+// This function is used to remove additional comment decorations
+// at the beginning and end of each line.
+// 
+// 1) Remove Line Start plus any / or * followed by line end 
+//    that is a complete comment decoration line
+// 2) Remove Line Start plus any / or * followed by whitepace 
+//    that is a comment decoration at start of line
+// 3) Remove Whitespace plus any / or * followed by line end 
+//    that is a comment decoration at end of line
+//
 func scrubComment(s string) string {
 	var rePrefix = regexp.MustCompile(`^/*(\**|/*)(\s+|$)`)
 	var reSuffix = regexp.MustCompile(`\s+(\**|/*)$`)
