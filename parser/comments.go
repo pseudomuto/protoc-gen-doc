@@ -4,6 +4,7 @@ import (
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
 	"strconv"
 	"strings"
+	"regexp"
 )
 
 type commentContainer interface {
@@ -48,10 +49,15 @@ func (ce *commentExtractor) commentForPath(path string) string {
 }
 
 func scrubComment(s string) string {
+	var rePrefix = regexp.MustCompile(`^/*(\**|/*)(\s+|$)`)
+	var reSuffix = regexp.MustCompile(`\s+(\**|/*)$`)
 	lines := strings.Split(s, "\n")
 
 	for idx, line := range lines {
-		lines[idx] = strings.Trim(line, " /\n*")
+		line = strings.TrimRight(line, " /\n")
+		line = rePrefix.ReplaceAllString(line, "")
+		line = reSuffix.ReplaceAllString(line, "")
+		lines[idx] = strings.TrimLeft(line, " \n")
 	}
 
 	return strings.Trim(strings.Join(lines, "\n"), "\n")

@@ -21,6 +21,18 @@
   
   
 
+- [Markdown.proto](#Markdown.proto)
+    - [BoldMessageCpp](#com.example.BoldMessageCpp)
+    - [BoldMessageJava](#com.example.BoldMessageJava)
+    - [ListMessageCpp](#com.example.ListMessageCpp)
+    - [ListMessageJava](#com.example.ListMessageJava)
+    - [PlainMessageCpp](#com.example.PlainMessageCpp)
+    - [PlainMessageJava](#com.example.PlainMessageJava)
+  
+  
+  
+  
+
 - [Vehicle.proto](#Vehicle.proto)
     - [Manufacturer](#com.example.Manufacturer)
     - [Model](#com.example.Model)
@@ -155,6 +167,203 @@ Represents a customer.
 | email_address | [string](#string) | optional | Customer e-mail address. |
 | phone_number | [string](#string) | repeated | Customer phone numbers, primary first. |
 | mail_addresses | [Address](#com.example.Address) | repeated | Customer mail addresses, primary first. |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+<a name="Markdown.proto"/>
+<p align="right"><a href="#top">Top</a></p>
+
+## Markdown.proto
+Markdown markup messages
+
+This file is just showing various forms of Markdown
+in the comments, the output shows support for the following:
+
+* List Item support
+* **bold** text
+* *italic* text
+
+
+<a name="com.example.BoldMessageCpp"/>
+
+### BoldMessageCpp
+C&#43;&#43; Comments
+
+*Italic Text1*
+*Italic Text2*
+*Italic Text3*
+*Italic Text4*
+
+**Bold Text**
+
+* *Bold List Item1*
+* *Bold* List Item2
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| doubleSlash | [int32](#int32) |  | *Italic Text* |
+| tripleSlash | [int32](#int32) |  | *Italic Text* |
+| asterisk | [int32](#int32) |  | *Italic Text* |
+| doubleAsterisk | [int32](#int32) |  | *Italic Text* |
+| noGap1 | [int32](#int32) |  | *Italic Text* |
+| noGap2 | [int32](#int32) |  | **Bold Text** |
+
+
+
+
+
+
+<a name="com.example.BoldMessageJava"/>
+
+### BoldMessageJava
+Javadoc Comments with whitespace
+
+*Italic Text1*
+*Italic Text2*
+*Italic Text3*
+*Italic Text4*
+*Italic Text5*
+
+**Bold Text***
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| doubleSlash | [int32](#int32) |  | *Italic Text* |
+| tripleSlash | [int32](#int32) |  | *Italic Text* |
+| asterisk | [int32](#int32) |  | *Italic Text* |
+| doubleAsterisk | [int32](#int32) |  | *Italic Text* |
+| noGapAsterisk | [int32](#int32) |  | *Italic Text* |
+| noGapDoubleAsterisk | [int32](#int32) |  | **Bold Text** |
+
+
+
+
+
+
+<a name="com.example.ListMessageCpp"/>
+
+### ListMessageCpp
+C&#43;&#43; Comments with leading characters
+
+* List Item1
+* List Item2
+* List Item3
+* List Item4
+* List Item5
+
+- List Item6
+- List Item7
+- List Item8
+- List Item9
+- List Item10
+
+Plain Text
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| doubleSlash | [int32](#int32) |  | * List Item |
+| tripleSlash | [int32](#int32) |  | * List Item |
+| asterisk | [int32](#int32) |  | * List Item |
+| doubleAsterisk | [int32](#int32) |  | * List Item |
+| noGapDash | [int32](#int32) |  | - List Item |
+| noGapAsterisk | [int32](#int32) |  | Plain Text |
+
+
+
+
+
+
+<a name="com.example.ListMessageJava"/>
+
+### ListMessageJava
+Javadoc Comments with odd indentation
+
+* List Item1
+* List Item2
+* List Item3
+* List Item4
+* List Item5
+
+- List Item6
+- List Item7
+- List Item8
+- List Item9
+- List Item10
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| doubleSlash | [int32](#int32) |  | * List Item |
+| tripleSlash | [int32](#int32) |  | * List Item |
+| asterisk | [int32](#int32) |  | * List Item |
+| doubleAsterisk | [int32](#int32) |  | * List Item |
+| noGapDash | [int32](#int32) |  | - List Item |
+| noGapAsterisk | [int32](#int32) |  | Plain Text |
+
+
+
+
+
+
+<a name="com.example.PlainMessageCpp"/>
+
+### PlainMessageCpp
+C&#43;&#43; Comments with poor indentation
+
+Plain Text1
+Plain Text2
+Plain Text3
+Plain Text4
+Plain Text5
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| doubleSlash | [int32](#int32) |  | Plain Text |
+| tripleSlash | [int32](#int32) |  | Plain Text |
+| asterisk | [int32](#int32) |  | Plain Text |
+| doubleAsterisk | [int32](#int32) |  | Plain Text |
+| noGap | [int32](#int32) |  | Plain Text |
+
+
+
+
+
+
+<a name="com.example.PlainMessageJava"/>
+
+### PlainMessageJava
+Javadoc Comments with poor indentation
+
+Plain Text1
+Plain Text2
+Plain Text3
+Plain Text4
+Plain Text5
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| doubleSlash | [int32](#int32) |  | Plain Text |
+| tripleSlash | [int32](#int32) |  | Plain Text |
+| asterisk | [int32](#int32) |  | Plain Text |
+| doubleAsterisk | [int32](#int32) |  | Plain Text |
+| noGap | [int32](#int32) |  | Plain Text |
 
 
 

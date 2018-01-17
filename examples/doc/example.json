@@ -27,7 +27,9 @@
               "type": "int32",
               "longType": "int32",
               "fullType": "int32",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "customer_id",
@@ -36,7 +38,9 @@
               "type": "int32",
               "longType": "int32",
               "fullType": "int32",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "status",
@@ -45,7 +49,9 @@
               "type": "BookingStatus",
               "longType": "BookingStatus",
               "fullType": "com.example.BookingStatus",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "confirmation_sent",
@@ -54,7 +60,9 @@
               "type": "bool",
               "longType": "bool",
               "fullType": "bool",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "payment_received",
@@ -63,7 +71,9 @@
               "type": "bool",
               "longType": "bool",
               "fullType": "bool",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             }
           ]
         },
@@ -83,7 +93,9 @@
               "type": "int32",
               "longType": "int32",
               "fullType": "int32",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "description",
@@ -92,7 +104,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             }
           ]
         },
@@ -155,7 +169,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "address_line_2",
@@ -164,7 +180,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "address_line_3",
@@ -173,7 +191,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "town",
@@ -182,7 +202,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "county",
@@ -191,7 +213,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "country",
@@ -200,7 +224,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             }
           ]
         },
@@ -220,7 +246,9 @@
               "type": "int32",
               "longType": "int32",
               "fullType": "int32",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "first_name",
@@ -229,7 +257,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "last_name",
@@ -238,7 +268,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "details",
@@ -247,7 +279,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "email_address",
@@ -256,7 +290,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "phone_number",
@@ -265,7 +301,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "mail_addresses",
@@ -274,7 +312,463 @@
               "type": "Address",
               "longType": "Address",
               "fullType": "com.example.Address",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            }
+          ]
+        }
+      ],
+      "services": []
+    },
+    {
+      "name": "Markdown.proto",
+      "description": "Markdown markup messages\n\nThis file is just showing various forms of Markdown\nin the comments, the output shows support for the following:\n\n* List Item support\n* **bold** text\n* *italic* text",
+      "package": "com.example",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": false,
+      "enums": [],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "BoldMessageCpp",
+          "longName": "BoldMessageCpp",
+          "fullName": "com.example.BoldMessageCpp",
+          "description": "C++ Comments\n\n*Italic Text1*\n*Italic Text2*\n*Italic Text3*\n*Italic Text4*\n\n**Bold Text**\n\n* *Bold List Item1*\n* *Bold* List Item2",
+          "hasExtensions": false,
+          "hasFields": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "doubleSlash",
+              "description": "*Italic Text*",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "tripleSlash",
+              "description": "*Italic Text*",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "asterisk",
+              "description": "*Italic Text*",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "doubleAsterisk",
+              "description": "*Italic Text*",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "noGap1",
+              "description": "*Italic Text*",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "noGap2",
+              "description": "**Bold Text**",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            }
+          ]
+        },
+        {
+          "name": "BoldMessageJava",
+          "longName": "BoldMessageJava",
+          "fullName": "com.example.BoldMessageJava",
+          "description": "Javadoc Comments with whitespace\n\n*Italic Text1*\n*Italic Text2*\n*Italic Text3*\n*Italic Text4*\n*Italic Text5*\n\n**Bold Text***",
+          "hasExtensions": false,
+          "hasFields": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "doubleSlash",
+              "description": "*Italic Text*",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "tripleSlash",
+              "description": "*Italic Text*",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "asterisk",
+              "description": "*Italic Text*",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "doubleAsterisk",
+              "description": "*Italic Text*",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "noGapAsterisk",
+              "description": "*Italic Text*",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "noGapDoubleAsterisk",
+              "description": "**Bold Text**",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            }
+          ]
+        },
+        {
+          "name": "ListMessageCpp",
+          "longName": "ListMessageCpp",
+          "fullName": "com.example.ListMessageCpp",
+          "description": "C++ Comments with leading characters\n\n* List Item1\n* List Item2\n* List Item3\n* List Item4\n* List Item5\n\n- List Item6\n- List Item7\n- List Item8\n- List Item9\n- List Item10\n\nPlain Text",
+          "hasExtensions": false,
+          "hasFields": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "doubleSlash",
+              "description": "* List Item",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "tripleSlash",
+              "description": "* List Item",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "asterisk",
+              "description": "* List Item",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "doubleAsterisk",
+              "description": "* List Item",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "noGapDash",
+              "description": "- List Item",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "noGapAsterisk",
+              "description": "Plain Text",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            }
+          ]
+        },
+        {
+          "name": "ListMessageJava",
+          "longName": "ListMessageJava",
+          "fullName": "com.example.ListMessageJava",
+          "description": "Javadoc Comments with odd indentation\n\n* List Item1\n* List Item2\n* List Item3\n* List Item4\n* List Item5\n\n- List Item6\n- List Item7\n- List Item8\n- List Item9\n- List Item10",
+          "hasExtensions": false,
+          "hasFields": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "doubleSlash",
+              "description": "* List Item",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "tripleSlash",
+              "description": "* List Item",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "asterisk",
+              "description": "* List Item",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "doubleAsterisk",
+              "description": "* List Item",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "noGapDash",
+              "description": "- List Item",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "noGapAsterisk",
+              "description": "Plain Text",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            }
+          ]
+        },
+        {
+          "name": "PlainMessageCpp",
+          "longName": "PlainMessageCpp",
+          "fullName": "com.example.PlainMessageCpp",
+          "description": "C++ Comments with poor indentation\n\nPlain Text1\nPlain Text2\nPlain Text3\nPlain Text4\nPlain Text5",
+          "hasExtensions": false,
+          "hasFields": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "doubleSlash",
+              "description": "Plain Text",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "tripleSlash",
+              "description": "Plain Text",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "asterisk",
+              "description": "Plain Text",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "doubleAsterisk",
+              "description": "Plain Text",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "noGap",
+              "description": "Plain Text",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            }
+          ]
+        },
+        {
+          "name": "PlainMessageJava",
+          "longName": "PlainMessageJava",
+          "fullName": "com.example.PlainMessageJava",
+          "description": "Javadoc Comments with poor indentation\n\nPlain Text1\nPlain Text2\nPlain Text3\nPlain Text4\nPlain Text5",
+          "hasExtensions": false,
+          "hasFields": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "doubleSlash",
+              "description": "Plain Text",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "tripleSlash",
+              "description": "Plain Text",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "asterisk",
+              "description": "Plain Text",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "doubleAsterisk",
+              "description": "Plain Text",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
+            },
+            {
+              "name": "noGap",
+              "description": "Plain Text",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             }
           ]
         }
@@ -343,7 +837,9 @@
               "type": "int32",
               "longType": "int32",
               "fullType": "int32",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "code",
@@ -352,7 +848,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "details",
@@ -361,7 +859,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "category",
@@ -370,7 +870,9 @@
               "type": "Category",
               "longType": "Manufacturer.Category",
               "fullType": "com.example.Manufacturer.Category",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             }
           ]
         },
@@ -390,7 +892,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "model_code",
@@ -399,7 +903,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "model_name",
@@ -408,7 +914,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "daily_hire_rate_dollars",
@@ -417,7 +925,9 @@
               "type": "sint32",
               "longType": "sint32",
               "fullType": "sint32",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "daily_hire_rate_cents",
@@ -426,7 +936,9 @@
               "type": "sint32",
               "longType": "sint32",
               "fullType": "sint32",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             }
           ]
         },
@@ -465,7 +977,9 @@
               "type": "int32",
               "longType": "int32",
               "fullType": "int32",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "model",
@@ -474,7 +988,9 @@
               "type": "Model",
               "longType": "Model",
               "fullType": "com.example.Model",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "reg_number",
@@ -483,7 +999,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "mileage",
@@ -492,7 +1010,9 @@
               "type": "sint32",
               "longType": "sint32",
               "fullType": "sint32",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "category",
@@ -501,7 +1021,9 @@
               "type": "Category",
               "longType": "Vehicle.Category",
               "fullType": "com.example.Vehicle.Category",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "daily_hire_rate_dollars",
@@ -510,7 +1032,9 @@
               "type": "sint32",
               "longType": "sint32",
               "fullType": "sint32",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "daily_hire_rate_cents",
@@ -519,7 +1043,9 @@
               "type": "sint32",
               "longType": "sint32",
               "fullType": "sint32",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             }
           ]
         },
@@ -539,7 +1065,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             },
             {
               "name": "description",
@@ -548,7 +1076,9 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "defaultValue": ""
+              "defaultValue": "",
+              "oneOf": "",
+              "oneOfDesc": ""
             }
           ]
         }

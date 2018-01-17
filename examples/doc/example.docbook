@@ -316,6 +316,423 @@
   </section>
   
   <section>
+    <title>Markdown.proto</title>
+    <para>Markdown markup messages</para><para>This file is just showing various forms of Markdown</para><para>in the comments, the output shows support for the following:</para><para>* List Item support</para><para>* **bold** text</para><para>* *italic* text</para>
+    
+    <section id="com.example.BoldMessageCpp">
+      <title>BoldMessageCpp</title>
+      <para>C++ Comments</para><para>*Italic Text1*</para><para>*Italic Text2*</para><para>*Italic Text3*</para><para>*Italic Text4*</para><para>**Bold Text**</para><para>* *Bold List Item1*</para><para>* *Bold* List Item2</para>
+      
+      <table frame="all">
+        <title><classname>BoldMessageCpp</classname> Fields</title>
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>doubleSlash</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>*Italic Text*</para></entry>
+            </row>
+            
+            <row>
+              <entry>tripleSlash</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>*Italic Text*</para></entry>
+            </row>
+            
+            <row>
+              <entry>asterisk</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>*Italic Text*</para></entry>
+            </row>
+            
+            <row>
+              <entry>doubleAsterisk</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>*Italic Text*</para></entry>
+            </row>
+            
+            <row>
+              <entry>noGap1</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>*Italic Text*</para></entry>
+            </row>
+            
+            <row>
+              <entry>noGap2</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>**Bold Text**</para></entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </table>
+      
+      
+    </section>
+    
+    <section id="com.example.BoldMessageJava">
+      <title>BoldMessageJava</title>
+      <para>Javadoc Comments with whitespace</para><para>*Italic Text1*</para><para>*Italic Text2*</para><para>*Italic Text3*</para><para>*Italic Text4*</para><para>*Italic Text5*</para><para>**Bold Text***</para>
+      
+      <table frame="all">
+        <title><classname>BoldMessageJava</classname> Fields</title>
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>doubleSlash</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>*Italic Text*</para></entry>
+            </row>
+            
+            <row>
+              <entry>tripleSlash</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>*Italic Text*</para></entry>
+            </row>
+            
+            <row>
+              <entry>asterisk</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>*Italic Text*</para></entry>
+            </row>
+            
+            <row>
+              <entry>doubleAsterisk</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>*Italic Text*</para></entry>
+            </row>
+            
+            <row>
+              <entry>noGapAsterisk</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>*Italic Text*</para></entry>
+            </row>
+            
+            <row>
+              <entry>noGapDoubleAsterisk</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>**Bold Text**</para></entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </table>
+      
+      
+    </section>
+    
+    <section id="com.example.ListMessageCpp">
+      <title>ListMessageCpp</title>
+      <para>C++ Comments with leading characters</para><para>* List Item1</para><para>* List Item2</para><para>* List Item3</para><para>* List Item4</para><para>* List Item5</para><para>- List Item6</para><para>- List Item7</para><para>- List Item8</para><para>- List Item9</para><para>- List Item10</para><para>Plain Text</para>
+      
+      <table frame="all">
+        <title><classname>ListMessageCpp</classname> Fields</title>
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>doubleSlash</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>* List Item</para></entry>
+            </row>
+            
+            <row>
+              <entry>tripleSlash</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>* List Item</para></entry>
+            </row>
+            
+            <row>
+              <entry>asterisk</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>* List Item</para></entry>
+            </row>
+            
+            <row>
+              <entry>doubleAsterisk</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>* List Item</para></entry>
+            </row>
+            
+            <row>
+              <entry>noGapDash</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>- List Item</para></entry>
+            </row>
+            
+            <row>
+              <entry>noGapAsterisk</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>Plain Text</para></entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </table>
+      
+      
+    </section>
+    
+    <section id="com.example.ListMessageJava">
+      <title>ListMessageJava</title>
+      <para>Javadoc Comments with odd indentation</para><para>* List Item1</para><para>* List Item2</para><para>* List Item3</para><para>* List Item4</para><para>* List Item5</para><para>- List Item6</para><para>- List Item7</para><para>- List Item8</para><para>- List Item9</para><para>- List Item10</para>
+      
+      <table frame="all">
+        <title><classname>ListMessageJava</classname> Fields</title>
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>doubleSlash</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>* List Item</para></entry>
+            </row>
+            
+            <row>
+              <entry>tripleSlash</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>* List Item</para></entry>
+            </row>
+            
+            <row>
+              <entry>asterisk</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>* List Item</para></entry>
+            </row>
+            
+            <row>
+              <entry>doubleAsterisk</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>* List Item</para></entry>
+            </row>
+            
+            <row>
+              <entry>noGapDash</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>- List Item</para></entry>
+            </row>
+            
+            <row>
+              <entry>noGapAsterisk</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>Plain Text</para></entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </table>
+      
+      
+    </section>
+    
+    <section id="com.example.PlainMessageCpp">
+      <title>PlainMessageCpp</title>
+      <para>C++ Comments with poor indentation</para><para>Plain Text1</para><para>Plain Text2</para><para>Plain Text3</para><para>Plain Text4</para><para>Plain Text5</para>
+      
+      <table frame="all">
+        <title><classname>PlainMessageCpp</classname> Fields</title>
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>doubleSlash</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>Plain Text</para></entry>
+            </row>
+            
+            <row>
+              <entry>tripleSlash</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>Plain Text</para></entry>
+            </row>
+            
+            <row>
+              <entry>asterisk</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>Plain Text</para></entry>
+            </row>
+            
+            <row>
+              <entry>doubleAsterisk</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>Plain Text</para></entry>
+            </row>
+            
+            <row>
+              <entry>noGap</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>Plain Text</para></entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </table>
+      
+      
+    </section>
+    
+    <section id="com.example.PlainMessageJava">
+      <title>PlainMessageJava</title>
+      <para>Javadoc Comments with poor indentation</para><para>Plain Text1</para><para>Plain Text2</para><para>Plain Text3</para><para>Plain Text4</para><para>Plain Text5</para>
+      
+      <table frame="all">
+        <title><classname>PlainMessageJava</classname> Fields</title>
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>doubleSlash</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>Plain Text</para></entry>
+            </row>
+            
+            <row>
+              <entry>tripleSlash</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>Plain Text</para></entry>
+            </row>
+            
+            <row>
+              <entry>asterisk</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>Plain Text</para></entry>
+            </row>
+            
+            <row>
+              <entry>doubleAsterisk</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>Plain Text</para></entry>
+            </row>
+            
+            <row>
+              <entry>noGap</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>Plain Text</para></entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </table>
+      
+      
+    </section>
+    
+    
+
+    
+
+    
+  </section>
+  
+  <section>
     <title>Vehicle.proto</title>
     <para>Messages describing manufacturers / vehicles.</para>
     

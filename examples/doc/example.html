@@ -221,6 +221,41 @@
         
           
           <li>
+            <a href="#Markdown.proto">Markdown.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#com.example.BoldMessageCpp"><span class="badge">M</span>BoldMessageCpp</a>
+                </li>
+              
+                <li>
+                  <a href="#com.example.BoldMessageJava"><span class="badge">M</span>BoldMessageJava</a>
+                </li>
+              
+                <li>
+                  <a href="#com.example.ListMessageCpp"><span class="badge">M</span>ListMessageCpp</a>
+                </li>
+              
+                <li>
+                  <a href="#com.example.ListMessageJava"><span class="badge">M</span>ListMessageJava</a>
+                </li>
+              
+                <li>
+                  <a href="#com.example.PlainMessageCpp"><span class="badge">M</span>PlainMessageCpp</a>
+                </li>
+              
+                <li>
+                  <a href="#com.example.PlainMessageJava"><span class="badge">M</span>PlainMessageJava</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
             <a href="#Vehicle.proto">Vehicle.proto</a>
             <ul>
               
@@ -501,6 +536,354 @@
                   <td><a href="#com.example.Address">Address</a></td>
                   <td>repeated</td>
                   <td><p>Customer mail addresses, primary first. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="Markdown.proto">Markdown.proto</h2><a href="#title">Top</a>
+      </div>
+      <p>Markdown markup messages</p><p>This file is just showing various forms of Markdown</p><p>in the comments, the output shows support for the following:</p><p>* List Item support</p><p>* **bold** text</p><p>* *italic* text</p>
+
+      
+        <h3 id="com.example.BoldMessageCpp">BoldMessageCpp</h3>
+        <p>C++ Comments</p><p>*Italic Text1*</p><p>*Italic Text2*</p><p>*Italic Text3*</p><p>*Italic Text4*</p><p>**Bold Text**</p><p>* *Bold List Item1*</p><p>* *Bold* List Item2</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>doubleSlash</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>*Italic Text* </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tripleSlash</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>*Italic Text* </p></td>
+                </tr>
+              
+                <tr>
+                  <td>asterisk</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>*Italic Text* </p></td>
+                </tr>
+              
+                <tr>
+                  <td>doubleAsterisk</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>*Italic Text* </p></td>
+                </tr>
+              
+                <tr>
+                  <td>noGap1</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>*Italic Text* </p></td>
+                </tr>
+              
+                <tr>
+                  <td>noGap2</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>**Bold Text** </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="com.example.BoldMessageJava">BoldMessageJava</h3>
+        <p>Javadoc Comments with whitespace</p><p>*Italic Text1*</p><p>*Italic Text2*</p><p>*Italic Text3*</p><p>*Italic Text4*</p><p>*Italic Text5*</p><p>**Bold Text***</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>doubleSlash</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>*Italic Text* </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tripleSlash</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>*Italic Text* </p></td>
+                </tr>
+              
+                <tr>
+                  <td>asterisk</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>*Italic Text* </p></td>
+                </tr>
+              
+                <tr>
+                  <td>doubleAsterisk</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>*Italic Text* </p></td>
+                </tr>
+              
+                <tr>
+                  <td>noGapAsterisk</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>*Italic Text* </p></td>
+                </tr>
+              
+                <tr>
+                  <td>noGapDoubleAsterisk</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>**Bold Text** </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="com.example.ListMessageCpp">ListMessageCpp</h3>
+        <p>C++ Comments with leading characters</p><p>* List Item1</p><p>* List Item2</p><p>* List Item3</p><p>* List Item4</p><p>* List Item5</p><p>- List Item6</p><p>- List Item7</p><p>- List Item8</p><p>- List Item9</p><p>- List Item10</p><p>Plain Text</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>doubleSlash</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>* List Item </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tripleSlash</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>* List Item </p></td>
+                </tr>
+              
+                <tr>
+                  <td>asterisk</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>* List Item </p></td>
+                </tr>
+              
+                <tr>
+                  <td>doubleAsterisk</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>* List Item </p></td>
+                </tr>
+              
+                <tr>
+                  <td>noGapDash</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>- List Item </p></td>
+                </tr>
+              
+                <tr>
+                  <td>noGapAsterisk</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Plain Text </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="com.example.ListMessageJava">ListMessageJava</h3>
+        <p>Javadoc Comments with odd indentation</p><p>* List Item1</p><p>* List Item2</p><p>* List Item3</p><p>* List Item4</p><p>* List Item5</p><p>- List Item6</p><p>- List Item7</p><p>- List Item8</p><p>- List Item9</p><p>- List Item10</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>doubleSlash</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>* List Item </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tripleSlash</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>* List Item </p></td>
+                </tr>
+              
+                <tr>
+                  <td>asterisk</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>* List Item </p></td>
+                </tr>
+              
+                <tr>
+                  <td>doubleAsterisk</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>* List Item </p></td>
+                </tr>
+              
+                <tr>
+                  <td>noGapDash</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>- List Item </p></td>
+                </tr>
+              
+                <tr>
+                  <td>noGapAsterisk</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Plain Text </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="com.example.PlainMessageCpp">PlainMessageCpp</h3>
+        <p>C++ Comments with poor indentation</p><p>Plain Text1</p><p>Plain Text2</p><p>Plain Text3</p><p>Plain Text4</p><p>Plain Text5</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>doubleSlash</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Plain Text </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tripleSlash</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Plain Text </p></td>
+                </tr>
+              
+                <tr>
+                  <td>asterisk</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Plain Text </p></td>
+                </tr>
+              
+                <tr>
+                  <td>doubleAsterisk</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Plain Text </p></td>
+                </tr>
+              
+                <tr>
+                  <td>noGap</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Plain Text </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
+        <h3 id="com.example.PlainMessageJava">PlainMessageJava</h3>
+        <p>Javadoc Comments with poor indentation</p><p>Plain Text1</p><p>Plain Text2</p><p>Plain Text3</p><p>Plain Text4</p><p>Plain Text5</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>doubleSlash</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Plain Text </p></td>
+                </tr>
+              
+                <tr>
+                  <td>tripleSlash</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Plain Text </p></td>
+                </tr>
+              
+                <tr>
+                  <td>asterisk</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Plain Text </p></td>
+                </tr>
+              
+                <tr>
+                  <td>doubleAsterisk</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Plain Text </p></td>
+                </tr>
+              
+                <tr>
+                  <td>noGap</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Plain Text </p></td>
                 </tr>
               
             </tbody>
