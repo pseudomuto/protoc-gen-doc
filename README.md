@@ -85,7 +85,7 @@ For example, to generate HTML documentation for all `.proto` files in the `proto
 
 The plugin executable must be in `PATH` for this to work. 
 
-### With a Custom Build
+### Using a precompiled binary
 
 Alternatively, you can specify a pre-built/not in `PATH` binary using the `--plugin` option.
 
