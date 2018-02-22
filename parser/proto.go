@@ -2,10 +2,11 @@ package parser
 
 import (
 	"fmt"
-	"github.com/golang/protobuf/protoc-gen-go/descriptor"
 	"path"
 	"strconv"
 	"strings"
+
+	"github.com/golang/protobuf/protoc-gen-go/descriptor"
 )
 
 const (
@@ -61,16 +62,23 @@ func parseProtoFile(fd *descriptor.FileDescriptorProto) *File {
 	}
 
 	pp.Comments().extractComments(file.getCommentContainers()...)
+	pp.(*protoFileParser).fixMapTypes(file)
 
 	return file
 }
 
 type protoFileParser struct {
 	fd *descriptor.FileDescriptorProto
+	// This maps from a map type name (like "Foo.BarEntry") to a description of
+	// its type (like "map<string, string>").
+	mapTypes map[string]string
 }
 
 func newProtoParser(fd *descriptor.FileDescriptorProto) protoParser {
-	return &protoFileParser{fd: fd}
+	return &protoFileParser{
+		fd:       fd,
+		mapTypes: make(map[string]string),
+	}
 }
 
 func (pp *protoFileParser) Comments() *commentExtractor {
@@ -155,21 +163,47 @@ func (pp *protoFileParser) Messages() []*Message {
 }
 
 func (pp *protoFileParser) parseDescriptor(sl []*Message, d *descriptor.DescriptorProto, p *Message, idx int) []*Message {
+	var path, name string
+	if p != nil { // nested?
+		path = fmt.Sprintf("%s,%d,%d", p.path, messageMessagePath, idx)
+		name = fmt.Sprintf("%s.%s", p.Name, d.GetName())
+	} else {
+		path = fmt.Sprintf("%d,%d", messagePath, idx)
+		name = d.GetName()
+	}
+
+	// If this message just represents a map entry, skip it: there's no need to
+	// document it, and there's no place to write a doc comment. But we should
+	// remember its type, to use later.
+	if d.Options != nil && d.Options.GetMapEntry() {
+		fields := pp.parseFields(d.GetField(), path)
+		if len(fields) != 2 {
+			panic(fmt.Sprintf("expected map entry to have 2 fields, not %d", len(fields)))
+		}
+		keyField := fields[0]
+		valueField := fields[1]
+		if keyField.Name != "key" {
+			panic(fmt.Sprintf("expected map entry's first field to be 'key', not '%s'", keyField.Name))
+		}
+		if valueField.Name != "value" {
+			panic(fmt.Sprintf("expected map entry's first field to be 'value', not '%s'", valueField.Name))
+		}
+		fullName := fmt.Sprintf("%s.%s", pp.Package(), name)
+		pp.mapTypes[fullName] = fmt.Sprintf("map<%s, %s>", keyField.Type, valueField.Type)
+		return sl
+	}
+
 	sl = append(sl, &Message{
 		parsedObject: parsedObject{
-			Name:     d.GetName(),
+			Name:     name,
 			Package:  pp.Package(),
 			IsProto3: pp.IsProto3(),
-			path:     fmt.Sprintf("%d,%d", messagePath, idx),
+			path:     path,
 		},
 		enums: d.GetEnumType(),
 	})
 
 	this := sl[len(sl)-1]
-	if p != nil { // nested?
-		this.Name = fmt.Sprintf("%s.%s", p.Name, this.Name)
-		this.path = fmt.Sprintf("%s,%d,%d", p.path, messageMessagePath, idx)
-	}
 
 	this.Fields = pp.parseFields(d.GetField(), this.path)
 	this.Extensions = pp.parseExtensions(d, this.FullName(), fmt.Sprintf("%s,%d", this.path, messageExtensionPath))
@@ -180,6 +214,18 @@ func (pp *protoFileParser) parseDescriptor(sl []*Message, d *descriptor.Descript
 	}
 
 	return sl
+}
+
+func (pp *protoFileParser) fixMapTypes(f *File) {
+	for _, m := range f.Messages {
+		for _, f := range m.Fields {
+			if betterType, found := pp.mapTypes[f.Type]; found && f.Label == "repeated" {
+				f.Type = betterType
+				f.Label = ""
+				f.IsMap = true
+			}
+		}
+	}
 }
 
 func (pp *protoFileParser) parseFields(fdp []*descriptor.FieldDescriptorProto, basePath string) []*Field {

@@ -2,6 +2,7 @@ package parser
 
 import (
 	"fmt"
+
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
 )
 
@@ -147,6 +148,7 @@ type Field struct {
 	Type         string
 	Label        string
 	DefaultValue string
+	IsMap        bool
 }
 
 // An Extension object to encapsulate extension details.

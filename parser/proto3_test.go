@@ -104,8 +104,12 @@ func (assert *Proto3ParserTest) TestMessageProperties() {
 	assert.field(msg.Fields[4], "category", "Vehicle category.", "com.example.Vehicle.Category", "")
 	assert.field(msg.Fields[5], "rates", "rates", "sint32", "repeated")
 
-	// maps are just repeated "<Name>Entry" fields
-	assert.field(msg.Fields[6], "properties", "bag of properties related to the vehicle.", "com.example.Vehicle.PropertiesEntry", "repeated")
+	// maps are internally represented as repeated "<Name>Entry" fields, but we turn them into map<k, v>
+	assert.field(msg.Fields[6], "properties", "bag of properties related to the vehicle.", "map<string, string>", "")
+
+	// We shouldn't create a boring section for a map entry.
+	mapEntryMsg := proto3File.GetMessage("Vehicle.PropertiesEntry")
+	assert.Nil(mapEntryMsg)
 }
 
 func (assert *Proto3ParserTest) TestNestedMessageProperties() {

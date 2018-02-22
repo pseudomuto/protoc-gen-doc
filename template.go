@@ -3,9 +3,10 @@ package gendoc
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/pseudomuto/protoc-gen-doc/parser"
 	"sort"
 	"strings"
+
+	"github.com/pseudomuto/protoc-gen-doc/parser"
 )
 
 // Template is a type for encapsulating all the parsed files, messages, fields, enums, services, extensions, etc. into
@@ -137,6 +138,7 @@ type MessageField struct {
 	Type         string `json:"type"`
 	LongType     string `json:"longType"`
 	FullType     string `json:"fullType"`
+	IsMap        bool   `json:"isMap"`
 	DefaultValue string `json:"defaultValue"`
 }
 
@@ -280,6 +282,7 @@ func parseMessageField(pf *parser.Field) *MessageField {
 		Type:         baseName(pf.Type),
 		LongType:     strings.TrimPrefix(pf.Type, pf.Package+"."),
 		FullType:     pf.Type,
+		IsMap:        pf.IsMap,
 		DefaultValue: pf.DefaultValue,
 	}
 }
