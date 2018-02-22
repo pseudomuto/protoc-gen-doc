@@ -7,9 +7,10 @@ First off, glad you're here and want to contribute! :heart:
 In order to work on this project, you'll need to install a few things:
 
 1. A recent version of [Go](https://golang.org/doc/install)
-1. [Glide](https://github.com/Masterminds/glide#install) - go package manager
 1. [protoc](https://github.com/google/protobuf#protocol-compiler-installation) - The protobuf compiler
 1. [Docker](https://www.docker.com/) (only required to if you need/want to build the docker container via `make docker`)
+
+Once those are installed, running `make setup` should get you the rest of the way.
 
 When writing tests, be sure that the package in the test file is suffixed with `_test`. Eg. `protoc_gen_doc_test`. This
 ensures that you'll only be testing the public interface.
