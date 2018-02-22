@@ -1,8 +1,14 @@
-.PHONY: bench test build dist docker
+.PHONY: bench setup test build dist docker
 
 EXAMPLE_DIR=$(shell pwd)/examples
 DOCS_DIR=$(EXAMPLE_DIR)/doc
 PROTOS_DIR=$(EXAMPLE_DIR)/proto
+
+setup:
+	$(info Synching dev tools and dependencies...)
+	@if test -z $(which retool); then go get github.com/twitchtv/retool; fi
+	@retool sync
+	@retool do dep ensure
 
 generate:
 	@go generate
@@ -17,13 +23,10 @@ lint:
 test: generate
 	@go test -cover $(shell go list ./... | grep -v -E 'build|cmd|test|tools|vendor')
 
-dependencies:
-	@glide install
-
 bench:
 	@go test -bench=.
 
-build: dependencies generate
+build: setup generate
 	@go build ./cmd/...
 
 examples: build
