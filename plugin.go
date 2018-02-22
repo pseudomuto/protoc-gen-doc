@@ -1,14 +1,15 @@
 package gendoc
 
 import (
+	"github.com/golang/protobuf/proto"
+	"github.com/golang/protobuf/protoc-gen-go/plugin"
+
 	"fmt"
 	"io/ioutil"
 	"path"
 	"regexp"
 	"strings"
 
-	"github.com/golang/protobuf/proto"
-	"github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/pseudomuto/protoc-gen-doc/parser"
 )
 
@@ -19,6 +20,45 @@ type PluginOptions struct {
 	TemplateFile    string
 	OutputFile      string
 	ExcludePatterns []*regexp.Regexp
+}
+
+// Plugin describes a protoc code generate plugin. It's an implementation of Plugin from github.com/pseudomuto/protokit
+type Plugin struct{}
+
+// Generate compiles the documentation and generates the CodeGeneratorResponse to send back to protoc. It does this
+// by rendering a template based on the options parsed from the CodeGeneratorRequest.
+func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGeneratorResponse, error) {
+	options, err := ParseOptions(r)
+	if err != nil {
+		return nil, err
+	}
+
+	result := parser.ParseCodeRequest(r, options.ExcludePatterns)
+	template := NewTemplate(result)
+
+	customTemplate := ""
+
+	if options.TemplateFile != "" {
+		data, err := ioutil.ReadFile(options.TemplateFile)
+		if err != nil {
+			return nil, err
+		}
+
+		customTemplate = string(data)
+	}
+
+	output, err := RenderTemplate(options.Type, template, customTemplate)
+	if err != nil {
+		return nil, err
+	}
+
+	resp := new(plugin_go.CodeGeneratorResponse)
+	resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
+		Name:    proto.String(options.OutputFile),
+		Content: proto.String(string(output)),
+	})
+
+	return resp, nil
 }
 
 // ParseOptions parses plugin options from a CodeGeneratorRequest. It does this by splitting the `Parameter` field from
@@ -70,40 +110,4 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 	}
 
 	return options, nil
-}
-
-// RunPlugin compiles the documentation and generates the CodeGeneratorResponse to send back to protoc. It does this
-// by rendering a template based on the options parsed from the CodeGeneratorRequest.
-func RunPlugin(request *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGeneratorResponse, error) {
-	options, err := ParseOptions(request)
-	if err != nil {
-		return nil, err
-	}
-
-	result := parser.ParseCodeRequest(request, options.ExcludePatterns)
-	template := NewTemplate(result)
-
-	customTemplate := ""
-
-	if options.TemplateFile != "" {
-		data, err := ioutil.ReadFile(options.TemplateFile)
-		if err != nil {
-			return nil, err
-		}
-
-		customTemplate = string(data)
-	}
-
-	output, err := RenderTemplate(options.Type, template, customTemplate)
-	if err != nil {
-		return nil, err
-	}
-
-	resp := new(plugin_go.CodeGeneratorResponse)
-	resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
-		Name:    proto.String(options.OutputFile),
-		Content: proto.String(string(output)),
-	})
-
-	return resp, nil
 }

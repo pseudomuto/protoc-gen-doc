@@ -13,12 +13,19 @@
     "protoc-gen-go/descriptor",
     "protoc-gen-go/plugin"
   ]
-  revision = "c9c7427a2a70d2eb3bafa0ab2dc163e45f143317"
+  revision = "925541529c1fa6821df4e44ce2723319eb2be768"
+  version = "v1.0.0"
 
 [[projects]]
   name = "github.com/pmezard/go-difflib"
   packages = ["difflib"]
   revision = "d8ed2627bdf02c080bf22230dbb337003b7aba2d"
+
+[[projects]]
+  name = "github.com/pseudomuto/protokit"
+  packages = ["."]
+  revision = "c2cb350553e091d81347a0689cd73f006dc0be0c"
+  version = "v0.1.0-pre3"
 
 [[projects]]
   name = "github.com/stretchr/testify"
@@ -32,6 +39,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d19a2153b7fe66bc682364adb9a5bcef6a5972754928ad5ff36fce95244c4644"
+  inputs-digest = "740cdab34194631da394e0c98a5d02ea30f6397dd15b97c572905e48459ceb1e"
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -14,12 +14,11 @@
 package main
 
 import (
-	"io/ioutil"
+	"github.com/pseudomuto/protokit"
+
 	"log"
 	"os"
 
-	"github.com/golang/protobuf/proto"
-	"github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/pseudomuto/protoc-gen-doc"
 )
 
@@ -38,27 +37,7 @@ func main() {
 		os.Exit(flags.Code())
 	}
 
-	input, err := ioutil.ReadAll(os.Stdin)
-	if err != nil {
-		log.Fatalf("Could not read contents from stdin")
-	}
-
-	req := new(plugin_go.CodeGeneratorRequest)
-	if err = proto.Unmarshal(input, req); err != nil {
-		log.Fatal(err)
-	}
-
-	resp, err := gendoc.RunPlugin(req)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	data, err := proto.Marshal(resp)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	if _, err := os.Stdout.Write(data); err != nil {
+	if err := protokit.RunPlugin(new(gendoc.Plugin)); err != nil {
 		log.Fatal(err)
 	}
 }
