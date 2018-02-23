@@ -1,6 +1,9 @@
 # protoc-gen-doc
 
 [![Travis Build Status][travis-svg]][travis-ci]
+[![codecov][codecov-svg]][codecov-url]
+[![GoDoc][godoc-svg]][godoc-url]
+[![Go Report Card][goreport-svg]][goreport-url]
 
 This is a documentation generator plugin for the Google Protocol Buffers compiler (`protoc`). The plugin can generate
 HTML, JSON, DocBook and Markdown documentation from comments in your `.proto` files.
@@ -192,3 +195,9 @@ Check out the `examples` task in the [Makefile](Makefile) to see how these were 
 [travis-ci]:
     https://travis-ci.org/pseudomuto/protoc-gen-doc
     "protoc-gen-doc at Travis CI"
+[codecov-svg]: https://codecov.io/gh/pseudomuto/protoc-gen-doc/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/pseudomuto/protoc-gen-doc
+[godoc-svg]: https://godoc.org/github.com/pseudomuto/protoc-gen-doc?status.svg
+[godoc-url]: https://godoc.org/github.com/pseudomuto/protoc-gen-doc
+[goreport-svg]: https://goreportcard.com/badge/github.com/pseudomuto/protoc-gen-doc
+[goreport-url]: https://goreportcard.com/report/github.com/pseudomuto/protoc-gen-doc
