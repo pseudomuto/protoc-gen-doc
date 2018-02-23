@@ -2,13 +2,13 @@ package gendoc_test
 
 import (
 	"github.com/pseudomuto/protokit"
+	"github.com/pseudomuto/protokit/utils"
 	"github.com/stretchr/testify/suite"
 
 	"os"
 	"testing"
 
 	"github.com/pseudomuto/protoc-gen-doc"
-	"github.com/pseudomuto/protoc-gen-doc/test"
 )
 
 const tempTestDir = "./tmp"
@@ -24,12 +24,13 @@ func TestRenderer(t *testing.T) {
 }
 
 func (assert *RendererTest) SetupSuite() {
-	codeGenRequest, err := test.MakeCodeGeneratorRequest()
-	assert.Nil(err)
+	set, err := utils.LoadDescriptorSet("fixtures", "fileset.pb")
+	assert.NoError(err)
 
 	os.Mkdir(tempTestDir, os.ModePerm)
 
-	result := protokit.ParseCodeGenRequest(codeGenRequest)
+	req := utils.CreateGenRequest(set, "Booking.proto", "Vehicle.proto")
+	result := protokit.ParseCodeGenRequest(req)
 	renderTemplate = gendoc.NewTemplate(result)
 }
 

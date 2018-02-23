@@ -10,6 +10,14 @@ setup:
 	@retool sync
 	@retool do dep ensure
 
+resources.go: resources/*.tmpl resources/*.json
+	$(info Generating resources...)
+	@go run build/cmd/resources/main.go -in resources -out resources.go -pkg gendoc
+
+fixtures/fileset.pb: fixtures/*.proto fixtures/generate.go
+	$(info Generating fixtures...)
+	@cd fixtures && go generate
+
 generate:
 	@go generate
 
@@ -20,8 +28,8 @@ lint:
 		golint -set_exit_status ./test/... && \
 		golint -set_exit_status .
 
-test: generate
-	@go test -cover $(shell go list ./... | grep -v -E 'build|cmd|test|tools|vendor')
+test: fixtures/fileset.pb generate
+	@go test -cover ./
 
 bench:
 	@go test -bench=.

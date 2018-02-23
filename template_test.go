@@ -2,12 +2,12 @@ package gendoc_test
 
 import (
 	"github.com/pseudomuto/protokit"
+	"github.com/pseudomuto/protokit/utils"
 	"github.com/stretchr/testify/suite"
 
 	"testing"
 
 	"github.com/pseudomuto/protoc-gen-doc"
-	"github.com/pseudomuto/protoc-gen-doc/test"
 )
 
 var (
@@ -25,10 +25,11 @@ func TestTemplate(t *testing.T) {
 }
 
 func (assert *TemplateTest) SetupSuite() {
-	codeGenRequest, err := test.MakeCodeGeneratorRequest()
-	assert.Nil(err)
+	set, err := utils.LoadDescriptorSet("fixtures", "fileset.pb")
+	assert.NoError(err)
 
-	result := protokit.ParseCodeGenRequest(codeGenRequest)
+	req := utils.CreateGenRequest(set, "Booking.proto", "Vehicle.proto")
+	result := protokit.ParseCodeGenRequest(req)
 	template = gendoc.NewTemplate(result)
 	bookingFile = template.Files[0]
 	vehicleFile = template.Files[1]
