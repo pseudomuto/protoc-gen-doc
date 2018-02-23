@@ -1,8 +1,11 @@
-.PHONY: bench setup test build dist docker
+.PHONY: bench setup test build dist docker examples
 
 EXAMPLE_DIR=$(shell pwd)/examples
 DOCS_DIR=$(EXAMPLE_DIR)/doc
 PROTOS_DIR=$(EXAMPLE_DIR)/proto
+
+EXAMPLE_CMD=protoc --plugin=protoc-gen-doc -Iexamples/proto --doc_out=examples/doc
+DOCKER_CMD=docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro -v $(EXAMPLE_DIR)/templates:/templates:ro pseudomuto/protoc-gen-doc
 
 setup:
 	$(info Synching dev tools and dependencies...)
@@ -27,28 +30,25 @@ bench:
 build: setup resources.go
 	@go build ./cmd/...
 
-examples: build
-	@rm -f examples/doc/*
-	@protoc --plugin=protoc-gen-doc -Iexamples/proto --doc_out=examples/doc --doc_opt=docbook,example.docbook:Ignore* examples/proto/*.proto
-	@protoc --plugin=protoc-gen-doc -Iexamples/proto --doc_out=examples/doc --doc_opt=html,example.html:Ignore* examples/proto/*.proto
-	@protoc --plugin=protoc-gen-doc -Iexamples/proto --doc_out=examples/doc --doc_opt=json,example.json:Ignore* examples/proto/*.proto
-	@protoc --plugin=protoc-gen-doc -Iexamples/proto --doc_out=examples/doc --doc_opt=markdown,example.md:Ignore* examples/proto/*.proto
-	@protoc --plugin=protoc-gen-doc -Iexamples/proto --doc_out=examples/doc --doc_opt=examples/templates/asciidoc.tmpl,example.txt:Ignore* examples/proto/*.proto
-
 dist:
 	@script/dist.sh
 
 docker:
 	@script/push_to_docker.sh
 
-docker_test: docker
+docker_test: build docker
 	@rm -f examples/doc/*
-	@docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro pseudomuto/protoc-gen-doc --doc_opt=docbook,example.docbook:Ignore*
-	@docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro pseudomuto/protoc-gen-doc --doc_opt=html,example.html:Ignore*
-	@docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro pseudomuto/protoc-gen-doc --doc_opt=json,example.json:Ignore*
-	@docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro pseudomuto/protoc-gen-doc --doc_opt=markdown,example.md:Ignore*
-	@docker run --rm \
-		-v $(DOCS_DIR):/out:rw \
-		-v $(PROTOS_DIR):/protos:ro \
-		-v $(EXAMPLE_DIR)/templates:/templates:ro \
-		pseudomuto/protoc-gen-doc --doc_opt=/templates/asciidoc.tmpl,example.txt:Ignore*
+	@$(DOCKER_CMD) --doc_opt=docbook,example.docbook:Ignore*
+	@$(DOCKER_CMD) --doc_opt=html,example.html:Ignore*
+	@$(DOCKER_CMD) --doc_opt=json,example.json:Ignore*
+	@$(DOCKER_CMD) --doc_opt=markdown,example.md:Ignore*
+	@$(DOCKER_CMD) --doc_opt=/templates/asciidoc.tmpl,example.txt:Ignore*
+
+examples: build examples/proto/*.proto examples/templates/*.tmpl
+	$(info Making examples...)
+	@rm -f examples/doc/*
+	@$(EXAMPLE_CMD) --doc_opt=docbook,example.docbook:Ignore* examples/proto/*.proto
+	@$(EXAMPLE_CMD) --doc_opt=html,example.html:Ignore* examples/proto/*.proto
+	@$(EXAMPLE_CMD) --doc_opt=json,example.json:Ignore* examples/proto/*.proto
+	@$(EXAMPLE_CMD) --doc_opt=markdown,example.md:Ignore* examples/proto/*.proto
+	@$(EXAMPLE_CMD) --doc_opt=examples/templates/asciidoc.tmpl,example.txt:Ignore* examples/proto/*.proto
