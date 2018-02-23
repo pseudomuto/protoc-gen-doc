@@ -30,5 +30,9 @@
   unused-packages = true
 
 [[constraint]]
+  name = "github.com/golang/protobuf"
+  version = "^1.0.0"
+
+[[constraint]]
   name = "github.com/pseudomuto/protokit"
   version = "0.1.0"

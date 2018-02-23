@@ -1,11 +1,13 @@
-package gendoc_test
+package main_test
 
 import (
+	"github.com/stretchr/testify/suite"
+
 	"bytes"
 	"fmt"
-	"github.com/pseudomuto/protoc-gen-doc"
-	"github.com/stretchr/testify/suite"
 	"testing"
+
+	"github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc"
 )
 
 type FlagsTest struct {
@@ -17,47 +19,47 @@ func TestFlags(t *testing.T) {
 }
 
 func (assert *FlagsTest) TestCode() {
-	f := gendoc.ParseFlags(nil, []string{"app", "-help"})
+	f := main.ParseFlags(nil, []string{"app", "-help"})
 	assert.Equal(0, f.Code())
 
-	f = gendoc.ParseFlags(nil, []string{"app", "-whoawhoawhoa"})
+	f = main.ParseFlags(nil, []string{"app", "-whoawhoawhoa"})
 	assert.Equal(1, f.Code())
 }
 
 func (assert *FlagsTest) TestHasMatch() {
-	f := gendoc.ParseFlags(nil, []string{"app", "-help"})
+	f := main.ParseFlags(nil, []string{"app", "-help"})
 	assert.True(f.HasMatch())
 
-	f = gendoc.ParseFlags(nil, []string{"app", "-version"})
+	f = main.ParseFlags(nil, []string{"app", "-version"})
 	assert.True(f.HasMatch())
 
-	f = gendoc.ParseFlags(nil, []string{"app", "-watthewhat"})
+	f = main.ParseFlags(nil, []string{"app", "-watthewhat"})
 	assert.True(f.HasMatch())
 
-	f = gendoc.ParseFlags(nil, []string{"app"})
+	f = main.ParseFlags(nil, []string{"app"})
 	assert.False(f.HasMatch())
 }
 
 func (assert *FlagsTest) TestShowHelp() {
-	f := gendoc.ParseFlags(nil, []string{"app", "-help"})
+	f := main.ParseFlags(nil, []string{"app", "-help"})
 	assert.True(f.ShowHelp())
 
-	f = gendoc.ParseFlags(nil, []string{"app", "-version"})
+	f = main.ParseFlags(nil, []string{"app", "-version"})
 	assert.False(f.ShowHelp())
 }
 
 func (assert *FlagsTest) TestShowVersion() {
-	f := gendoc.ParseFlags(nil, []string{"app", "-version"})
+	f := main.ParseFlags(nil, []string{"app", "-version"})
 	assert.True(f.ShowVersion())
 
-	f = gendoc.ParseFlags(nil, []string{"app", "-help"})
+	f = main.ParseFlags(nil, []string{"app", "-help"})
 	assert.False(f.ShowVersion())
 }
 
 func (assert *FlagsTest) TestPrintHelp() {
 	buf := new(bytes.Buffer)
 
-	f := gendoc.ParseFlags(buf, []string{"app"})
+	f := main.ParseFlags(buf, []string{"app"})
 	f.PrintHelp()
 
 	result := buf.String()
@@ -70,18 +72,18 @@ func (assert *FlagsTest) TestPrintHelp() {
 func (assert *FlagsTest) TestPrintVersion() {
 	buf := new(bytes.Buffer)
 
-	f := gendoc.ParseFlags(buf, []string{"app"})
+	f := main.ParseFlags(buf, []string{"app"})
 	f.PrintVersion()
 
 	// Normally, I'm not a fan of using constants like this in tests. However, having this break everytime the version
 	// changes is kinda poop, so I've used VERSION here.
-	assert.Equal(fmt.Sprintf("app version %s\n", gendoc.VERSION), buf.String())
+	assert.Equal(fmt.Sprintf("app version %s\n", main.Version()), buf.String())
 }
 
 func (assert *FlagsTest) TestInvalidFlags() {
 	buf := new(bytes.Buffer)
 
-	f := gendoc.ParseFlags(buf, []string{"app", "-wat"})
+	f := main.ParseFlags(buf, []string{"app", "-wat"})
 	assert.Contains(buf.String(), "flag provided but not defined: -wat\n")
 	assert.True(f.HasMatch())
 	assert.True(f.ShowHelp())

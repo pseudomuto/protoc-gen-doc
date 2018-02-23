@@ -23,21 +23,28 @@ import (
 )
 
 func main() {
-	flags := gendoc.ParseFlags(os.Stdout, os.Args)
-
-	if flags.HasMatch() {
-		if flags.ShowHelp() {
-			flags.PrintHelp()
-		}
-
-		if flags.ShowVersion() {
-			flags.PrintVersion()
-		}
-
+	if flags := ParseFlags(os.Stdout, os.Args); HandleFlags(flags) {
 		os.Exit(flags.Code())
 	}
 
 	if err := protokit.RunPlugin(new(gendoc.Plugin)); err != nil {
 		log.Fatal(err)
 	}
+}
+
+// HandleFlags checks if there's a match and returns true if it was "handled"
+func HandleFlags(f *Flags) bool {
+	if !f.HasMatch() {
+		return false
+	}
+
+	if f.ShowHelp() {
+		f.PrintHelp()
+	}
+
+	if f.ShowVersion() {
+		f.PrintVersion()
+	}
+
+	return true
 }

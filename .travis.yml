@@ -26,7 +26,11 @@ install:
   - make setup
 
 script:
-  - make test bench
+  - retool do goverage -race -coverprofile=coverage.txt -covermode=atomic
+  - make bench
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 
 deploy:
   provider: script

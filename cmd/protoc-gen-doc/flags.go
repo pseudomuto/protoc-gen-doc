@@ -1,9 +1,11 @@
-package gendoc
+package main
 
 import (
 	"flag"
 	"fmt"
 	"io"
+
+	"github.com/pseudomuto/protoc-gen-doc"
 )
 
 const helpMessage = `
@@ -21,6 +23,11 @@ protoc --doc_out=. --doc_opt=custom.tmpl,docs.txt protos/*.proto
 
 See https://github.com/pseudomuto/protoc-gen-doc for more details.
 `
+
+// Version returns the currently running version of protoc-gen-doc
+func Version() string {
+	return gendoc.VERSION
+}
 
 // Flags contains details about the CLI invocation of protoc-gen-doc
 type Flags struct {
@@ -67,7 +74,7 @@ func (f *Flags) PrintHelp() {
 
 // PrintVersion prints the version string to the `io.Writer` that was supplied to the `Flags` object.
 func (f *Flags) PrintVersion() {
-	fmt.Fprintf(f.writer, "%s version %s\n", f.appName, VERSION)
+	fmt.Fprintf(f.writer, "%s version %s\n", f.appName, Version())
 }
 
 // ParseFlags parses the supplied options are returns a `Flags` object to the caller.
@@ -80,7 +87,7 @@ func ParseFlags(w io.Writer, args []string) *Flags {
 
 	f.flagSet = flag.NewFlagSet(args[0], flag.ContinueOnError)
 	f.flagSet.BoolVar(&f.showHelp, "help", false, "Show this help message")
-	f.flagSet.BoolVar(&f.showVersion, "version", false, fmt.Sprintf("Print the current version (%v)", VERSION))
+	f.flagSet.BoolVar(&f.showVersion, "version", false, fmt.Sprintf("Print the current version (%v)", Version()))
 	f.flagSet.SetOutput(w)
 
 	// prevent showing help on parse error
