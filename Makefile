@@ -15,7 +15,7 @@ setup:
 
 resources.go: resources/*.tmpl resources/*.json
 	$(info Generating resources...)
-	@go run build/cmd/resources/main.go -in resources -out resources.go -pkg gendoc
+	@go run resources/main.go -in resources -out resources.go -pkg gendoc
 
 fixtures/fileset.pb: fixtures/*.proto fixtures/generate.go
 	$(info Generating fixtures...)
