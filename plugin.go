@@ -3,14 +3,13 @@ package gendoc
 import (
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/protoc-gen-go/plugin"
+	"github.com/pseudomuto/protokit"
 
 	"fmt"
 	"io/ioutil"
 	"path"
 	"regexp"
 	"strings"
-
-	"github.com/pseudomuto/protoc-gen-doc/parser"
 )
 
 // PluginOptions encapsulates options for the plugin. The type of renderer, template file, and the name of the output
@@ -33,7 +32,7 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 		return nil, err
 	}
 
-	result := parser.ParseCodeRequest(r, options.ExcludePatterns)
+	result := protokit.ParseCodeGenRequest(r)
 	template := NewTemplate(result)
 
 	customTemplate := ""

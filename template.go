@@ -1,9 +1,11 @@
 package gendoc
 
 import (
+	"github.com/golang/protobuf/protoc-gen-go/descriptor"
+	"github.com/pseudomuto/protokit"
+
 	"encoding/json"
 	"fmt"
-	"github.com/pseudomuto/protoc-gen-doc/parser"
 	"sort"
 	"strings"
 )
@@ -17,15 +19,15 @@ type Template struct {
 	Scalars []*ScalarValue `json:"scalarValueTypes"`
 }
 
-// NewTemplate creates a Template object from the ParseResult.
-func NewTemplate(pr *parser.ParseResult) *Template {
-	files := make([]*File, 0, len(pr.Files))
+// NewTemplate creates a Template object from a set of descriptors.
+func NewTemplate(descs []*protokit.FileDescriptor) *Template {
+	files := make([]*File, 0, len(descs))
 
-	for _, f := range pr.Files {
+	for _, f := range descs {
 		file := &File{
-			Name:          f.Name,
-			Description:   description(f.Comment),
-			Package:       f.Package,
+			Name:          f.GetName(),
+			Description:   description(f.GetSyntaxComments().String()),
+			Package:       f.GetPackage(),
 			HasEnums:      len(f.Enums) > 0,
 			HasExtensions: len(f.Extensions) > 0,
 			HasMessages:   len(f.Messages) > 0,
@@ -46,6 +48,14 @@ func NewTemplate(pr *parser.ParseResult) *Template {
 
 		for _, m := range f.Messages {
 			file.Messages = append(file.Messages, parseMessage(m))
+
+			for _, n := range m.Messages {
+				file.Messages = append(file.Messages, parseMessage(n))
+			}
+
+			for _, e := range m.Enums {
+				file.Enums = append(file.Enums, parseEnum(e))
+			}
 		}
 
 		for _, s := range f.Services {
@@ -203,51 +213,53 @@ type ScalarValue struct {
 	RubyType   string `json:"rubyType"`
 }
 
-func parseEnum(pe *parser.Enum) *Enum {
+func parseEnum(pe *protokit.EnumDescriptor) *Enum {
 	enum := &Enum{
-		Name:        baseName(pe.Name),
-		LongName:    strings.TrimPrefix(pe.FullName(), pe.Package+"."),
-		FullName:    pe.FullName(),
-		Description: description(pe.Comment),
+		Name:        pe.GetName(),
+		LongName:    pe.GetLongName(),
+		FullName:    pe.GetFullName(),
+		Description: description(pe.GetComments().String()),
 	}
 
-	for _, val := range pe.Values {
+	for _, val := range pe.GetValues() {
 		enum.Values = append(enum.Values, &EnumValue{
-			Name:        val.Name,
-			Number:      fmt.Sprint(val.Number),
-			Description: description(val.Comment),
+			Name:        val.GetName(),
+			Number:      fmt.Sprint(val.GetNumber()),
+			Description: description(val.GetComments().String()),
 		})
 	}
 
 	return enum
 }
 
-func parseFileExtension(pe *parser.Extension) *FileExtension {
+func parseFileExtension(pe *protokit.ExtensionDescriptor) *FileExtension {
+	t, lt, ft := parseType(pe)
+
 	return &FileExtension{
-		Name:               baseName(pe.Name),
-		LongName:           strings.TrimPrefix(pe.FullName(), pe.Package+"."),
-		FullName:           pe.FullName(),
-		Description:        description(pe.Comment),
-		Label:              pe.Label,
-		Type:               baseName(pe.Type),
-		LongType:           strings.TrimPrefix(pe.Type, pe.Package+"."),
-		FullType:           pe.Type,
-		Number:             int(pe.Number),
-		DefaultValue:       pe.DefaultValue,
-		ContainingType:     baseName(pe.ContainingType),
-		ContainingLongType: strings.TrimPrefix(pe.ContainingType, pe.Package+"."),
-		ContainingFullType: pe.ContainingType,
+		Name:               pe.GetName(),
+		LongName:           pe.GetLongName(),
+		FullName:           pe.GetFullName(),
+		Description:        description(pe.GetComments().String()),
+		Label:              labelName(pe.GetLabel(), pe.IsProto3()),
+		Type:               t,
+		LongType:           lt,
+		FullType:           ft,
+		Number:             int(pe.GetNumber()),
+		DefaultValue:       pe.GetDefaultValue(),
+		ContainingType:     baseName(pe.GetExtendee()),
+		ContainingLongType: strings.TrimPrefix(pe.GetExtendee(), "."+pe.GetPackage()+"."),
+		ContainingFullType: strings.TrimPrefix(pe.GetExtendee(), "."),
 	}
 }
 
-func parseMessage(pm *parser.Message) *Message {
+func parseMessage(pm *protokit.Descriptor) *Message {
 	msg := &Message{
-		Name:          baseName(pm.Name),
-		LongName:      pm.Name,
-		FullName:      pm.FullName(),
-		Description:   description(pm.Comment),
-		HasExtensions: len(pm.Extensions) > 0,
-		HasFields:     len(pm.Fields) > 0,
+		Name:          pm.GetName(),
+		LongName:      pm.GetLongName(),
+		FullName:      pm.GetFullName(),
+		Description:   description(pm.GetComments().String()),
+		HasExtensions: len(pm.GetExtensions()) > 0,
+		HasFields:     len(pm.GetMessageFields()) > 0,
 		Extensions:    make([]*MessageExtension, 0, len(pm.Extensions)),
 		Fields:        make([]*MessageField, 0, len(pm.Fields)),
 	}
@@ -263,33 +275,35 @@ func parseMessage(pm *parser.Message) *Message {
 	return msg
 }
 
-func parseMessageExtension(pe *parser.Extension) *MessageExtension {
+func parseMessageExtension(pe *protokit.ExtensionDescriptor) *MessageExtension {
 	return &MessageExtension{
 		FileExtension: *parseFileExtension(pe),
-		ScopeType:     baseName(pe.ScopeType),
-		ScopeLongType: strings.TrimPrefix(pe.ScopeType, pe.Package+"."),
-		ScopeFullType: pe.ScopeType,
+		ScopeType:     pe.GetParent().GetName(),
+		ScopeLongType: pe.GetParent().GetLongName(),
+		ScopeFullType: pe.GetParent().GetFullName(),
 	}
 }
 
-func parseMessageField(pf *parser.Field) *MessageField {
+func parseMessageField(pf *protokit.FieldDescriptor) *MessageField {
+	t, lt, ft := parseType(pf)
+
 	return &MessageField{
-		Name:         pf.Name,
-		Description:  description(pf.Comment),
-		Label:        pf.Label,
-		Type:         baseName(pf.Type),
-		LongType:     strings.TrimPrefix(pf.Type, pf.Package+"."),
-		FullType:     pf.Type,
-		DefaultValue: pf.DefaultValue,
+		Name:         pf.GetName(),
+		Description:  description(pf.GetComments().String()),
+		Label:        labelName(pf.GetLabel(), pf.IsProto3()),
+		Type:         t,
+		LongType:     lt,
+		FullType:     ft,
+		DefaultValue: pf.GetDefaultValue(),
 	}
 }
 
-func parseService(ps *parser.Service) *Service {
+func parseService(ps *protokit.ServiceDescriptor) *Service {
 	service := &Service{
-		Name:        ps.Name,
-		LongName:    ps.Name,
-		FullName:    fmt.Sprintf("%s.%s", ps.Package, ps.Name),
-		Description: description(ps.Comment),
+		Name:        ps.GetName(),
+		LongName:    ps.GetLongName(),
+		FullName:    ps.GetFullName(),
+		Description: description(ps.GetComments().String()),
 	}
 
 	for _, sm := range ps.Methods {
@@ -299,16 +313,16 @@ func parseService(ps *parser.Service) *Service {
 	return service
 }
 
-func parseServiceMethod(pm *parser.ServiceMethod) *ServiceMethod {
+func parseServiceMethod(pm *protokit.MethodDescriptor) *ServiceMethod {
 	return &ServiceMethod{
-		Name:             pm.Name,
-		Description:      description(pm.Comment),
-		RequestType:      baseName(pm.RequestType),
-		RequestLongType:  strings.TrimPrefix(pm.RequestType, pm.Package+"."),
-		RequestFullType:  pm.RequestType,
-		ResponseType:     baseName(pm.ResponseType),
-		ResponseLongType: strings.TrimPrefix(pm.ResponseType, pm.Package+"."),
-		ResponseFullType: pm.ResponseType,
+		Name:             pm.GetName(),
+		Description:      description(pm.GetComments().String()),
+		RequestType:      baseName(pm.GetInputType()),
+		RequestLongType:  strings.TrimPrefix(pm.GetInputType(), "."+pm.GetPackage()+"."),
+		RequestFullType:  strings.TrimPrefix(pm.GetInputType(), "."),
+		ResponseType:     baseName(pm.GetOutputType()),
+		ResponseLongType: strings.TrimPrefix(pm.GetOutputType(), "."+pm.GetPackage()+"."),
+		ResponseFullType: strings.TrimPrefix(pm.GetOutputType(), "."),
 	}
 }
 
@@ -317,12 +331,39 @@ func baseName(name string) string {
 	return parts[len(parts)-1]
 }
 
-func description(comment string) string {
-	if strings.HasPrefix(comment, "@exclude") {
+func labelName(lbl descriptor.FieldDescriptorProto_Label, proto3 bool) string {
+	if proto3 && lbl != descriptor.FieldDescriptorProto_LABEL_REPEATED {
 		return ""
 	}
 
-	return comment
+	return strings.ToLower(strings.TrimPrefix(lbl.String(), "LABEL_"))
+}
+
+type typeContainer interface {
+	GetType() descriptor.FieldDescriptorProto_Type
+	GetTypeName() string
+	GetPackage() string
+}
+
+func parseType(tc typeContainer) (string, string, string) {
+	name := tc.GetTypeName()
+
+	if strings.HasPrefix(name, ".") {
+		name = strings.TrimPrefix(name, ".")
+		return baseName(name), strings.TrimPrefix(name, tc.GetPackage()+"."), name
+	}
+
+	name = strings.ToLower(strings.TrimPrefix(tc.GetType().String(), "TYPE_"))
+	return name, name, name
+}
+
+func description(comment string) string {
+	val := strings.TrimLeft(comment, "*/\n ")
+	if strings.HasPrefix(val, "@exclude") {
+		return ""
+	}
+
+	return val
 }
 
 type orderedEnums []*Enum

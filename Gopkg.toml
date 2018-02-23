@@ -31,4 +31,4 @@
 
 [[constraint]]
   name = "github.com/pseudomuto/protokit"
-  version = "0.1.0-pre3"
+  version = "0.1.0"
