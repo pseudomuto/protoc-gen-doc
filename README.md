@@ -17,7 +17,7 @@ documentation from your protos.
 
 If you'd like to install this locally, you can `go get` it.
 
-`go get -u github.com/pseudomuto/protoc-gen-doc/cmd/...`
+`go get -u github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc`
 
 ## Invoking the Plugin
 
