@@ -285,7 +285,7 @@
       "name": "Vehicle.proto",
       "description": "Messages describing manufacturers / vehicles.",
       "package": "com.example",
-      "hasEnums": true,
+      "hasEnums": false,
       "hasExtensions": true,
       "hasMessages": true,
       "hasServices": false,
@@ -370,7 +370,7 @@
               "type": "Category",
               "longType": "Manufacturer.Category",
               "fullType": "com.example.Manufacturer.Category",
-              "defaultValue": ""
+              "defaultValue": "CATEGORY_EXTERNAL"
             }
           ]
         },
@@ -510,7 +510,7 @@
               "type": "sint32",
               "longType": "sint32",
               "fullType": "sint32",
-              "defaultValue": ""
+              "defaultValue": "50"
             },
             {
               "name": "daily_hire_rate_cents",

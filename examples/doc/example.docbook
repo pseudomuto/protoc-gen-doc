@@ -365,7 +365,7 @@
               <entry>category</entry>
               <entry><link linkend="com.example.Manufacturer.Category">Manufacturer.Category</link></entry>
               <entry>optional</entry>
-              <entry><para>Manufacturer category.</para></entry>
+              <entry><para>Manufacturer category.</para><para>Default: CATEGORY_EXTERNAL</para></entry>
             </row>
             
           </tbody>
@@ -498,7 +498,7 @@
               <entry>daily_hire_rate_dollars</entry>
               <entry><link linkend="sint32">sint32</link></entry>
               <entry>optional</entry>
-              <entry><para>Dollars per day.</para></entry>
+              <entry><para>Dollars per day.</para><para>Default: 50</para></entry>
             </row>
             
             <row>

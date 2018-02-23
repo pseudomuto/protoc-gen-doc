@@ -7,11 +7,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.0.0...master)
 
+### Added
+
+* Switch to using [protokit] to handle parsing and running the plugin
+* Default values are not included in the built-in templates
+
 ### Changed
 
 * Dev tooling, now using dep and retool
 * CI setup to use go 1.10 (and master) and protoc 3.5.1
 * Docker image updated to use protoc 3.5.1 as well
+
+### Removed
+
+* The entire `parser` package (in favor of [protokit])
+
+[protokit]: https://github.com/pseudomuto/protokit
 
 # v1.0.0 - September 26, 2017
 
