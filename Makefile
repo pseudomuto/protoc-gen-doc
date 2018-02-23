@@ -18,23 +18,13 @@ fixtures/fileset.pb: fixtures/*.proto fixtures/generate.go
 	$(info Generating fixtures...)
 	@cd fixtures && go generate
 
-generate:
-	@go generate
-
-lint:
-	@golint -set_exit_status ./build/... && \
-		golint -set_exit_status ./cmd/... && \
-		golint -set_exit_status ./parser/... && \
-		golint -set_exit_status ./test/... && \
-		golint -set_exit_status .
-
-test: fixtures/fileset.pb generate
+test: fixtures/fileset.pb resources.go
 	@go test -cover ./
 
 bench:
 	@go test -bench=.
 
-build: setup generate
+build: setup resources.go
 	@go build ./cmd/...
 
 examples: build
