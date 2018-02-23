@@ -32,7 +32,7 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 		return nil, err
 	}
 
-	result := protokit.ParseCodeGenRequest(r)
+	result := excludeUnwantedProtos(protokit.ParseCodeGenRequest(r), options.ExcludePatterns)
 	template := NewTemplate(result)
 
 	customTemplate := ""
@@ -58,6 +58,23 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 	})
 
 	return resp, nil
+}
+
+func excludeUnwantedProtos(fds []*protokit.FileDescriptor, excludePatterns []*regexp.Regexp) []*protokit.FileDescriptor {
+	descs := make([]*protokit.FileDescriptor, 0)
+
+OUTER:
+	for _, d := range fds {
+		for _, p := range excludePatterns {
+			if p.MatchString(d.GetName()) {
+				continue OUTER
+			}
+		}
+
+		descs = append(descs, d)
+	}
+
+	return descs
 }
 
 // ParseOptions parses plugin options from a CodeGeneratorRequest. It does this by splitting the `Parameter` field from

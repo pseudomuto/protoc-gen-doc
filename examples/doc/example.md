@@ -188,7 +188,7 @@ Represents a manufacturer of cars.
 | id | [int32](#int32) | required | The unique manufacturer ID. |
 | code | [string](#string) | required | A manufacturer code, e.g. &#34;DKL4P&#34;. |
 | details | [string](#string) | optional | Manufacturer details (minimum orders et.c.). |
-| category | [Manufacturer.Category](#com.example.Manufacturer.Category) | optional | Manufacturer category. |
+| category | [Manufacturer.Category](#com.example.Manufacturer.Category) | optional | Manufacturer category. Default: CATEGORY_EXTERNAL |
 
 
 
@@ -227,7 +227,7 @@ Represents a vehicle that can be hired.
 | reg_number | [string](#string) | required | Vehicle registration number. |
 | mileage | [sint32](#sint32) | optional | Current vehicle mileage, if known. |
 | category | [Vehicle.Category](#com.example.Vehicle.Category) | optional | Vehicle category. |
-| daily_hire_rate_dollars | [sint32](#sint32) | optional | Dollars per day. |
+| daily_hire_rate_dollars | [sint32](#sint32) | optional | Dollars per day. Default: 50 |
 | daily_hire_rate_cents | [sint32](#sint32) | optional | Cents per day. |
 
 

@@ -31,11 +31,11 @@ build: setup generate
 
 examples: build
 	@rm -f examples/doc/*
-	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=docbook,example.docbook:Ignore* examples/proto/*.proto
-	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=html,example.html:Ignore* examples/proto/*.proto
-	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=json,example.json:Ignore* examples/proto/*.proto
-	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=markdown,example.md:Ignore* examples/proto/*.proto
-	@protoc --plugin=protoc-gen-doc --doc_out=examples/doc --doc_opt=examples/templates/asciidoc.tmpl,example.txt:Ignore* examples/proto/*.proto
+	@protoc --plugin=protoc-gen-doc -Iexamples/proto --doc_out=examples/doc --doc_opt=docbook,example.docbook:Ignore* examples/proto/*.proto
+	@protoc --plugin=protoc-gen-doc -Iexamples/proto --doc_out=examples/doc --doc_opt=html,example.html:Ignore* examples/proto/*.proto
+	@protoc --plugin=protoc-gen-doc -Iexamples/proto --doc_out=examples/doc --doc_opt=json,example.json:Ignore* examples/proto/*.proto
+	@protoc --plugin=protoc-gen-doc -Iexamples/proto --doc_out=examples/doc --doc_opt=markdown,example.md:Ignore* examples/proto/*.proto
+	@protoc --plugin=protoc-gen-doc -Iexamples/proto --doc_out=examples/doc --doc_opt=examples/templates/asciidoc.tmpl,example.txt:Ignore* examples/proto/*.proto
 
 dist:
 	@script/dist.sh
