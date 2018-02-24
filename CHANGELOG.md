@@ -11,12 +11,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * Switch to using [protokit] to handle parsing and running the plugin
 * Default values are not included in the built-in templates
+* Added the ability to ignore certain files by adding `:pattern[,pattern]` to `--doc_opt`
+* Added `-help` and `-version` flags to the binary (e.g. `./protoc-gen-doc -help`)
 
 ### Changed
 
 * Dev tooling, now using dep and retool
 * CI setup to use go 1.10 (and master) and protoc 3.5.1
 * Docker image updated to use protoc 3.5.1 as well
+
+## Fixed
+
+* Several issues with the documentation
+* `NrBr` filter was a little too aggressive
 
 ### Removed
 
