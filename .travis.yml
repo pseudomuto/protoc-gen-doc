@@ -35,6 +35,7 @@ after_success:
 deploy:
   provider: script
   script: script/push_to_docker.sh
+  skip_cleanup: true
   on:
     tags: true
     all_branches: true
