@@ -5,7 +5,9 @@ All noteworthy changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) (as of Feb 2018)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.0.0...master)
+## [Unreleased](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.1.0...master)
+
+## [v1.1.0](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.0.0...v1.1.0) - March 13, 2018
 
 ### Added
 
