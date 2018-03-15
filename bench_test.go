@@ -5,7 +5,7 @@ import (
 
 	"testing"
 
-	"github.com/pseudomuto/protoc-gen-doc"
+	"github.com/ilackarms/protoc-gen-doc"
 )
 
 func BenchmarkParseCodeRequest(b *testing.B) {

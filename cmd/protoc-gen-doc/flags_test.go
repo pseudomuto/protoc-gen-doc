@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc"
+	"github.com/ilackarms/protoc-gen-doc/cmd/protoc-gen-doc"
 )
 
 type FlagsTest struct {

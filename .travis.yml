@@ -13,7 +13,7 @@ env:
 
 cache:
   - "${HOME}/protoc"
-  - "${HOME}/gopath/src/github.com/pseudomuto/protoc-gen-doc/vendor"
+  - "${HOME}/gopath/src/github.com/ilackarms/protoc-gen-doc/vendor"
 
 go:
   - 1.10.x

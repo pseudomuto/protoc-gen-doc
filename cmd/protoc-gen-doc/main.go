@@ -10,7 +10,7 @@
 //
 //     protoc --doc_out=. --doc_opt=custom.tmpl,docs.txt protos/*.proto
 //
-// For more details, check out the README at https://github.com/pseudomuto/protoc-gen-doc
+// For more details, check out the README at https://github.com/ilackarms/protoc-gen-doc
 package main
 
 import (
@@ -19,7 +19,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/pseudomuto/protoc-gen-doc"
+	"github.com/ilackarms/protoc-gen-doc"
 )
 
 func main() {

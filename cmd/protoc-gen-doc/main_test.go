@@ -6,7 +6,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc"
+	"github.com/ilackarms/protoc-gen-doc/cmd/protoc-gen-doc"
 )
 
 type MainTest struct {

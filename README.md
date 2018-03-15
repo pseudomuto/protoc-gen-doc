@@ -17,7 +17,7 @@ documentation from your protos.
 
 If you'd like to install this locally, you can `go get` it.
 
-`go get -u github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc`
+`go get -u github.com/ilackarms/protoc-gen-doc/cmd/protoc-gen-doc`
 
 ## Invoking the Plugin
 
@@ -184,7 +184,7 @@ Check out the `examples` task in the [Makefile](Makefile) to see how these were 
     https//golang.org/pkg/text/template/
     "Template - The Go Programming Language"
 [custom]:
-    https://github.com/pseudomuto/protoc-gen-doc/wiki/Custom-Templates
+    https://github.com/ilackarms/protoc-gen-doc/wiki/Custom-Templates
     "Custom templates instructions"
 [html_preview]:
     https://rawgit.com/pseudomuto/protoc-gen-doc/master/examples/doc/example.html
@@ -197,7 +197,7 @@ Check out the `examples` task in the [Makefile](Makefile) to see how these were 
     "protoc-gen-doc at Travis CI"
 [codecov-svg]: https://codecov.io/gh/pseudomuto/protoc-gen-doc/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/pseudomuto/protoc-gen-doc
-[godoc-svg]: https://godoc.org/github.com/pseudomuto/protoc-gen-doc?status.svg
-[godoc-url]: https://godoc.org/github.com/pseudomuto/protoc-gen-doc
-[goreport-svg]: https://goreportcard.com/badge/github.com/pseudomuto/protoc-gen-doc
-[goreport-url]: https://goreportcard.com/report/github.com/pseudomuto/protoc-gen-doc
+[godoc-svg]: https://godoc.org/github.com/ilackarms/protoc-gen-doc?status.svg
+[godoc-url]: https://godoc.org/github.com/ilackarms/protoc-gen-doc
+[goreport-svg]: https://goreportcard.com/badge/github.com/ilackarms/protoc-gen-doc
+[goreport-url]: https://goreportcard.com/report/github.com/ilackarms/protoc-gen-doc
