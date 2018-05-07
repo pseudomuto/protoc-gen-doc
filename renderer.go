@@ -130,7 +130,7 @@ type htmlRenderer struct {
 }
 
 func (mr *htmlRenderer) Apply(template *Template) ([]byte, error) {
-	tmpl, err := html_template.New("Text Template").Funcs(funcMap).Parse(mr.inputTemplate)
+	tmpl, err := html_template.New("Text Template").Funcs(funcMap).Funcs(sprig.TxtFuncMap()).Parse(mr.inputTemplate)
 	if err != nil {
 		return nil, err
 	}
