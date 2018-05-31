@@ -299,6 +299,8 @@ func parseMessageField(pf *protokit.FieldDescriptor) *MessageField {
 	}
 
 	// Check if this is a map.
+	// See https://github.com/golang/protobuf/blob/master/protoc-gen-go/descriptor/descriptor.pb.go#L1556
+	// for more information
 	if m.Label == "repeated" &&
 		strings.Contains(m.LongType, ".") &&
 		strings.HasSuffix(m.Type, "Entry") &&
