@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.1.0...master)
 
+### Fixed
+
+* CI issue related to Regexp comparison on Golang master
+
 ## [v1.1.0](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.0.0...v1.1.0) - March 13, 2018
 
 ### Added

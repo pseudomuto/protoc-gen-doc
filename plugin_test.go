@@ -65,8 +65,8 @@ func (assert *PluginTest) TestParseOptionsForExcludePatterns() {
 	assert.Equal(2, len(options.ExcludePatterns))
 	pattern0, _ := regexp.Compile("google/*")
 	pattern1, _ := regexp.Compile("notgoogle/*")
-	assert.Equal(pattern0, options.ExcludePatterns[0])
-	assert.Equal(pattern1, options.ExcludePatterns[1])
+	assert.Equal(pattern0.String(), options.ExcludePatterns[0].String())
+	assert.Equal(pattern1.String(), options.ExcludePatterns[1].String())
 }
 
 func (assert *PluginTest) TestParseOptionsWithInvalidValues() {
