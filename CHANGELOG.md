@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.1.0...master)
 
+### Added
+
+* Added [Sprig](https://github.com/Masterminds/sprig) functions to renderer contexts
+* Added `IsMap` to `MessageField` objects indicating whether or not the field is a map field
+
 ### Fixed
 
 * CI issue related to Regexp comparison on Golang master
