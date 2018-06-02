@@ -22,7 +22,7 @@ fixtures/fileset.pb: fixtures/*.proto fixtures/generate.go
 	@cd fixtures && go generate
 
 test: fixtures/fileset.pb resources.go
-	@go test -cover ./ ./cmd/...
+	@go test -cover -race ./ ./cmd/...
 
 bench:
 	@go test -bench=.
