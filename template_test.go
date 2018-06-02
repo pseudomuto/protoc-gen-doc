@@ -156,6 +156,23 @@ func (assert *TemplateTest) TestFieldProperties() {
 	assert.Equal("Vehicle.Category", field.LongType)
 	assert.Equal("com.example.Vehicle.Category", field.FullType)
 	assert.Equal("", field.DefaultValue)
+
+	field = findField("properties", findMessage("Vehicle", vehicleFile))
+	assert.Equal("properties", field.Name)
+	assert.Equal("repeated", field.Label)
+	assert.Equal("PropertiesEntry", field.Type)
+	assert.Equal("Vehicle.PropertiesEntry", field.LongType)
+	assert.Equal("com.example.Vehicle.PropertiesEntry", field.FullType)
+	assert.Equal("", field.DefaultValue)
+	assert.True(field.IsMap)
+
+	field = findField("rates", findMessage("Vehicle", vehicleFile))
+	assert.Equal("rates", field.Name)
+	assert.Equal("repeated", field.Label)
+	assert.Equal("sint32", field.Type)
+	assert.Equal("sint32", field.LongType)
+	assert.Equal("sint32", field.FullType)
+	assert.False(field.IsMap)
 }
 
 func (assert *TemplateTest) TestServiceProperties() {

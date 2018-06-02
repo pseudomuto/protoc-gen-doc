@@ -4,6 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+
+	"github.com/Masterminds/sprig"
+
 	html_template "html/template"
 	text_template "text/template"
 )
@@ -110,7 +113,7 @@ type textRenderer struct {
 }
 
 func (mr *textRenderer) Apply(template *Template) ([]byte, error) {
-	tmpl, err := text_template.New("Text Template").Funcs(funcMap).Parse(mr.inputTemplate)
+	tmpl, err := text_template.New("Text Template").Funcs(funcMap).Funcs(sprig.TxtFuncMap()).Parse(mr.inputTemplate)
 	if err != nil {
 		return nil, err
 	}
@@ -128,7 +131,7 @@ type htmlRenderer struct {
 }
 
 func (mr *htmlRenderer) Apply(template *Template) ([]byte, error) {
-	tmpl, err := html_template.New("Text Template").Funcs(funcMap).Parse(mr.inputTemplate)
+	tmpl, err := html_template.New("Text Template").Funcs(funcMap).Funcs(sprig.HtmlFuncMap()).Parse(mr.inputTemplate)
 	if err != nil {
 		return nil, err
 	}
