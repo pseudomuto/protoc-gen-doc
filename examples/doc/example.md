@@ -107,7 +107,7 @@ Service for handling vehicle bookings.
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| BookVehicle | [Booking](#com.example.Booking) | [BookingStatus](#com.example.Booking) | Used to book a vehicle. Pass in a Booking and a BookingStatus will be returned. |
+| BookVehicle | [Booking](#com.example.Booking) | [BookingStatus](#com.example.BookingStatus) | Used to book a vehicle. Pass in a Booking and a BookingStatus will be returned. |
 
  
 
