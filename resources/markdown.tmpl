@@ -1,5 +1,5 @@
 # Protocol Documentation
-<a name="top"/>
+<a name="top"></a>
 
 ## Table of Contents
 {{range .Files}}
@@ -17,14 +17,14 @@
 
 {{range .Files}}
 {{$file_name := .Name}}
-<a name="{{.Name}}"/>
+<a name="{{.Name}}"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## {{.Name}}
 {{.Description}}
 
 {{range .Messages}}
-<a name="{{.FullName}}"/>
+<a name="{{.FullName}}"></a>
 
 ### {{.LongName}}
 {{.Description}}
@@ -48,7 +48,7 @@
 {{end}} <!-- end messages -->
 
 {{range .Enums}}
-<a name="{{.FullName}}"/>
+<a name="{{.FullName}}"></a>
 
 ### {{.LongName}}
 {{.Description}}
@@ -62,7 +62,7 @@
 {{end}} <!-- end enums -->
 
 {{if .HasExtensions}}
-<a name="{{$file_name}}-extensions"/>
+<a name="{{$file_name}}-extensions"></a>
 
 ### File-level Extensions
 | Extension | Type | Base | Number | Description |
@@ -73,7 +73,7 @@
 {{end}} <!-- end HasExtensions -->
 
 {{range .Services}}
-<a name="{{.FullName}}"/>
+<a name="{{.FullName}}"></a>
 
 ### {{.Name}}
 {{.Description}}

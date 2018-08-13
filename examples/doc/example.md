@@ -1,5 +1,5 @@
 # Protocol Documentation
-<a name="top"/>
+<a name="top"></a>
 
 ## Table of Contents
 
@@ -37,7 +37,7 @@
 
 
 
-<a name="Booking.proto"/>
+<a name="Booking.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## Booking.proto
@@ -47,7 +47,7 @@ This file is really just an example. The data model is completely
 fictional.
 
 
-<a name="com.example.Booking"/>
+<a name="com.example.Booking"></a>
 
 ### Booking
 Represents the booking of a vehicle.
@@ -68,7 +68,7 @@ Vehicles are some cool shit. But drive carefully!
 
 
 
-<a name="com.example.BookingStatus"/>
+<a name="com.example.BookingStatus"></a>
 
 ### BookingStatus
 Represents the status of a vehicle booking.
@@ -84,7 +84,7 @@ Represents the status of a vehicle booking.
 
 
 
-<a name="com.example.EmptyBookingMessage"/>
+<a name="com.example.EmptyBookingMessage"></a>
 
 ### EmptyBookingMessage
 An empty message for testing
@@ -100,7 +100,7 @@ An empty message for testing
  
 
 
-<a name="com.example.BookingService"/>
+<a name="com.example.BookingService"></a>
 
 ### BookingService
 Service for handling vehicle bookings.
@@ -113,14 +113,14 @@ Service for handling vehicle bookings.
 
 
 
-<a name="Customer.proto"/>
+<a name="Customer.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## Customer.proto
 This file has messages for describing a customer.
 
 
-<a name="com.example.Address"/>
+<a name="com.example.Address"></a>
 
 ### Address
 Represents a mail address.
@@ -140,7 +140,7 @@ Represents a mail address.
 
 
 
-<a name="com.example.Customer"/>
+<a name="com.example.Customer"></a>
 
 ### Customer
 Represents a customer.
@@ -170,14 +170,14 @@ Represents a customer.
 
 
 
-<a name="Vehicle.proto"/>
+<a name="Vehicle.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## Vehicle.proto
 Messages describing manufacturers / vehicles.
 
 
-<a name="com.example.Manufacturer"/>
+<a name="com.example.Manufacturer"></a>
 
 ### Manufacturer
 Represents a manufacturer of cars.
@@ -195,7 +195,7 @@ Represents a manufacturer of cars.
 
 
 
-<a name="com.example.Model"/>
+<a name="com.example.Model"></a>
 
 ### Model
 Represents a vehicle model.
@@ -214,7 +214,7 @@ Represents a vehicle model.
 
 
 
-<a name="com.example.Vehicle"/>
+<a name="com.example.Vehicle"></a>
 
 ### Vehicle
 Represents a vehicle that can be hired.
@@ -240,7 +240,7 @@ Represents a vehicle that can be hired.
 
 
 
-<a name="com.example.Vehicle.Category"/>
+<a name="com.example.Vehicle.Category"></a>
 
 ### Vehicle.Category
 Represents a vehicle category. E.g. &#34;Sedan&#34; or &#34;Truck&#34;.
@@ -258,7 +258,7 @@ Represents a vehicle category. E.g. &#34;Sedan&#34; or &#34;Truck&#34;.
  
 
 
-<a name="com.example.Manufacturer.Category"/>
+<a name="com.example.Manufacturer.Category"></a>
 
 ### Manufacturer.Category
 Manufacturer category. A manufacturer may be either inhouse or external.
@@ -272,7 +272,7 @@ Manufacturer category. A manufacturer may be either inhouse or external.
  
 
 
-<a name="Vehicle.proto-extensions"/>
+<a name="Vehicle.proto-extensions"></a>
 
 ### File-level Extensions
 | Extension | Type | Base | Number | Description |
