@@ -6,7 +6,7 @@ services:
 
 env:
   global:
-    - PROTOC_RELEASE="https://github.com/google/protobuf/releases/download/v3.5.1/protoc-3.5.1-linux-x86_64.zip"
+    - PROTOC_RELEASE="https://github.com/google/protobuf/releases/download/v3.6.1/protoc-3.6.1-linux-x86_64.zip"
     - PROTOC_TARGET="${HOME}/protoc"
     - PATH="${PROTOC_TARGET}/bin:${PATH}"
     - secure: Tbet2rxD8QgjthAo+bxt41qbF2wUPTx0difGK5p4yQISK/njTuT5cqcxnOa4GIbyKtNtx0EgGnyVcQJiQkmZiF6Sabf0mtqU/CQ4PmVV76e9bHwA/CrTtudibMn16ozxuuxvhNxFOMQEhwcQOkW93M/Q9FZUEw9/CGpRGFfSzuA=

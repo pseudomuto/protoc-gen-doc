@@ -31,8 +31,8 @@
     "protoc-gen-go/descriptor",
     "protoc-gen-go/plugin"
   ]
-  revision = "925541529c1fa6821df4e44ce2723319eb2be768"
-  version = "v1.0.0"
+  revision = "b4deda0973fb4c70b50d226b1af49f3da59f5265"
+  version = "v1.1.0"
 
 [[projects]]
   name = "github.com/google/uuid"
@@ -87,6 +87,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "91a9a1b9750bac557613efadbba5bdc9e468a6900bc6e469452d833aabe5abe7"
+  inputs-digest = "f591ccb382f677a107a28c19738729c2e935718083ad8622be0458ed1a1e85b5"
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -3,6 +3,8 @@ syntax = "proto2";
 
 package com.example;
 
+option ruby_package = "com.example.ruby";
+
 // Use // or /** */ to document messages, fields and enums.
 
 /**
