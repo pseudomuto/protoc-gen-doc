@@ -27,6 +27,7 @@
               "type": "int32",
               "longType": "int32",
               "fullType": "int32",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -36,6 +37,7 @@
               "type": "int32",
               "longType": "int32",
               "fullType": "int32",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -45,6 +47,7 @@
               "type": "BookingStatus",
               "longType": "BookingStatus",
               "fullType": "com.example.BookingStatus",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -54,6 +57,7 @@
               "type": "bool",
               "longType": "bool",
               "fullType": "bool",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -63,6 +67,7 @@
               "type": "bool",
               "longType": "bool",
               "fullType": "bool",
+              "ismap": false,
               "defaultValue": ""
             }
           ]
@@ -83,6 +88,7 @@
               "type": "int32",
               "longType": "int32",
               "fullType": "int32",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -92,6 +98,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             }
           ]
@@ -155,6 +162,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -164,6 +172,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -173,6 +182,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -182,6 +192,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -191,6 +202,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -200,6 +212,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             }
           ]
@@ -220,6 +233,7 @@
               "type": "int32",
               "longType": "int32",
               "fullType": "int32",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -229,6 +243,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -238,6 +253,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -247,6 +263,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -256,6 +273,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -265,6 +283,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -274,6 +293,7 @@
               "type": "Address",
               "longType": "Address",
               "fullType": "com.example.Address",
+              "ismap": false,
               "defaultValue": ""
             }
           ]
@@ -343,6 +363,7 @@
               "type": "int32",
               "longType": "int32",
               "fullType": "int32",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -352,6 +373,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -361,6 +383,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -370,6 +393,7 @@
               "type": "Category",
               "longType": "Manufacturer.Category",
               "fullType": "com.example.Manufacturer.Category",
+              "ismap": false,
               "defaultValue": "CATEGORY_EXTERNAL"
             }
           ]
@@ -390,6 +414,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -399,6 +424,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -408,6 +434,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -417,6 +444,7 @@
               "type": "sint32",
               "longType": "sint32",
               "fullType": "sint32",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -426,6 +454,7 @@
               "type": "sint32",
               "longType": "sint32",
               "fullType": "sint32",
+              "ismap": false,
               "defaultValue": ""
             }
           ]
@@ -465,6 +494,7 @@
               "type": "int32",
               "longType": "int32",
               "fullType": "int32",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -474,6 +504,7 @@
               "type": "Model",
               "longType": "Model",
               "fullType": "com.example.Model",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -483,6 +514,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -492,6 +524,7 @@
               "type": "sint32",
               "longType": "sint32",
               "fullType": "sint32",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -501,6 +534,7 @@
               "type": "Category",
               "longType": "Vehicle.Category",
               "fullType": "com.example.Vehicle.Category",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -510,6 +544,7 @@
               "type": "sint32",
               "longType": "sint32",
               "fullType": "sint32",
+              "ismap": false,
               "defaultValue": "50"
             },
             {
@@ -519,6 +554,7 @@
               "type": "sint32",
               "longType": "sint32",
               "fullType": "sint32",
+              "ismap": false,
               "defaultValue": ""
             }
           ]
@@ -539,6 +575,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             },
             {
@@ -548,6 +585,7 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
               "defaultValue": ""
             }
           ]
