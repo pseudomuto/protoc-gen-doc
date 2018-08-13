@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Added [Sprig](https://github.com/Masterminds/sprig) functions to renderer contexts
 * Added `IsMap` to `MessageField` objects indicating whether or not the field is a map field
 
+### Changed
+
+Bumped protobuf to 3.6.1 in docker container
+
 ### Fixed
 
 * CI issue related to Regexp comparison on Golang master
