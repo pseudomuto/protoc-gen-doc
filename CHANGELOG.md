@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 * CI issue related to Regexp comparison on Golang master
+* Markdown template was incorrectly links response types to request types
+* Markdown template anchor tags were self-closing (invalid).
 
 ## [v1.1.0](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.0.0...v1.1.0) - March 13, 2018
 
