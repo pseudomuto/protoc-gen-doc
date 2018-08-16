@@ -161,8 +161,8 @@
             {{range .Methods}}
             <row>
               <entry>{{.Name}}</entry>
-              <entry><link linkend="{{.RequestFullType}}">{{.RequestLongType}}</link></entry>
-              <entry><link linkend="{{.ResponseFullType}}">{{.ResponseLongType}}</link></entry>
+              <entry><link linkend="{{.RequestFullType}}">{{.RequestLongType}}</link>{{if .RequestStreaming}} stream{{end}}</entry>
+              <entry><link linkend="{{.ResponseFullType}}">{{.ResponseLongType}}</link>{{if .ResponseStreaming}} stream{{end}}</entry>
               <entry>{{para .Description}}</entry>
             </row>
             {{end}}
