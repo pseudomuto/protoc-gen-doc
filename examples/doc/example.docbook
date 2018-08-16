@@ -111,6 +111,41 @@
       
     </section>
     
+    <section id="com.example.BookingStatusID">
+      <title>BookingStatusID</title>
+      <para>Represents the booking status ID.</para>
+      
+      <table frame="all">
+        <title><classname>BookingStatusID</classname> Fields</title>
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>id</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>Unique booking status ID.</para></entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </table>
+      
+      
+    </section>
+    
     <section id="com.example.EmptyBookingMessage">
       <title>EmptyBookingMessage</title>
       <para>An empty message for testing</para>
@@ -148,6 +183,13 @@
               <entry><link linkend="com.example.Booking">Booking</link></entry>
               <entry><link linkend="com.example.BookingStatus">BookingStatus</link></entry>
               <entry><para>Used to book a vehicle. Pass in a Booking and a BookingStatus will be returned.</para></entry>
+            </row>
+            
+            <row>
+              <entry>BookingUpdates</entry>
+              <entry><link linkend="com.example.BookingStatusID">BookingStatusID</link></entry>
+              <entry><link linkend="com.example.BookingStatus">BookingStatus</link> stream</entry>
+              <entry><para>Used to subscribe to updates of the BookingStatus.</para></entry>
             </row>
             
           </tbody>

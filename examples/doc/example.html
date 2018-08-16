@@ -187,6 +187,10 @@
                 </li>
               
                 <li>
+                  <a href="#com.example.BookingStatusID"><span class="badge">M</span>BookingStatusID</a>
+                </li>
+              
+                <li>
                   <a href="#com.example.EmptyBookingMessage"><span class="badge">M</span>EmptyBookingMessage</a>
                 </li>
               
@@ -347,6 +351,29 @@
 
         
       
+        <h3 id="com.example.BookingStatusID">BookingStatusID</h3>
+        <p>Represents the booking status ID.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Unique booking status ID. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+
+        
+      
         <h3 id="com.example.EmptyBookingMessage">EmptyBookingMessage</h3>
         <p>An empty message for testing</p>
 
@@ -373,6 +400,13 @@
                 <td><a href="#com.example.Booking">Booking</a></td>
                 <td><a href="#com.example.BookingStatus">BookingStatus</a></td>
                 <td><p>Used to book a vehicle. Pass in a Booking and a BookingStatus will be returned.</p></td>
+              </tr>
+            
+              <tr>
+                <td>BookingUpdates</td>
+                <td><a href="#com.example.BookingStatusID">BookingStatusID</a></td>
+                <td><a href="#com.example.BookingStatus">BookingStatus</a> stream</td>
+                <td><p>Used to subscribe to updates of the BookingStatus.</p></td>
               </tr>
             
           </tbody>
