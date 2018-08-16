@@ -127,9 +127,11 @@
               "requestType": "Booking",
               "requestLongType": "Booking",
               "requestFullType": "com.example.Booking",
+              "requestStreaming": false,
               "responseType": "BookingStatus",
               "responseLongType": "BookingStatus",
-              "responseFullType": "com.example.BookingStatus"
+              "responseFullType": "com.example.BookingStatus",
+              "responseStreaming": false
             }
           ]
         }

@@ -193,9 +193,11 @@ func (assert *TemplateTest) TestServiceMethodProperties() {
 	assert.Equal("Model", method.RequestType)
 	assert.Equal("Model", method.RequestLongType)
 	assert.Equal("com.example.Model", method.RequestFullType)
+	assert.Equal(true, method.RequestStreaming)
 	assert.Equal("Model", method.ResponseType)
 	assert.Equal("Model", method.ResponseLongType)
 	assert.Equal("com.example.Model", method.ResponseFullType)
+	assert.Equal(true, method.ResponseStreaming)
 
 	method = findServiceMethod("GetVehicle", service)
 	assert.Equal("GetVehicle", method.Name)
@@ -203,9 +205,11 @@ func (assert *TemplateTest) TestServiceMethodProperties() {
 	assert.Equal("FindVehicleById", method.RequestType)
 	assert.Equal("FindVehicleById", method.RequestLongType)
 	assert.Equal("com.example.FindVehicleById", method.RequestFullType)
+	assert.Equal(false, method.RequestStreaming)
 	assert.Equal("Vehicle", method.ResponseType)
 	assert.Equal("Vehicle", method.ResponseLongType)
 	assert.Equal("com.example.Vehicle", method.ResponseFullType)
+	assert.Equal(false, method.ResponseStreaming)
 }
 
 func (assert *TemplateTest) TestExcludedComments() {
