@@ -187,14 +187,16 @@ type Service struct {
 
 // ServiceMethod contains details about an individual method within a service.
 type ServiceMethod struct {
-	Name             string `json:"name"`
-	Description      string `json:"description"`
-	RequestType      string `json:"requestType"`
-	RequestLongType  string `json:"requestLongType"`
-	RequestFullType  string `json:"requestFullType"`
-	ResponseType     string `json:"responseType"`
-	ResponseLongType string `json:"responseLongType"`
-	ResponseFullType string `json:"responseFullType"`
+	Name              string `json:"name"`
+	Description       string `json:"description"`
+	RequestType       string `json:"requestType"`
+	RequestLongType   string `json:"requestLongType"`
+	RequestFullType   string `json:"requestFullType"`
+	RequestStreaming  bool   `json:"requestStreaming"`
+	ResponseType      string `json:"responseType"`
+	ResponseLongType  string `json:"responseLongType"`
+	ResponseFullType  string `json:"responseFullType"`
+	ResponseStreaming bool   `json:"responseStreaming"`
 }
 
 // ScalarValue contains information about scalar value types in protobuf. The common use case for this type is to know
@@ -329,14 +331,16 @@ func parseService(ps *protokit.ServiceDescriptor) *Service {
 
 func parseServiceMethod(pm *protokit.MethodDescriptor) *ServiceMethod {
 	return &ServiceMethod{
-		Name:             pm.GetName(),
-		Description:      description(pm.GetComments().String()),
-		RequestType:      baseName(pm.GetInputType()),
-		RequestLongType:  strings.TrimPrefix(pm.GetInputType(), "."+pm.GetPackage()+"."),
-		RequestFullType:  strings.TrimPrefix(pm.GetInputType(), "."),
-		ResponseType:     baseName(pm.GetOutputType()),
-		ResponseLongType: strings.TrimPrefix(pm.GetOutputType(), "."+pm.GetPackage()+"."),
-		ResponseFullType: strings.TrimPrefix(pm.GetOutputType(), "."),
+		Name:              pm.GetName(),
+		Description:       description(pm.GetComments().String()),
+		RequestType:       baseName(pm.GetInputType()),
+		RequestLongType:   strings.TrimPrefix(pm.GetInputType(), "."+pm.GetPackage()+"."),
+		RequestFullType:   strings.TrimPrefix(pm.GetInputType(), "."),
+		RequestStreaming:  pm.GetClientStreaming(),
+		ResponseType:      baseName(pm.GetOutputType()),
+		ResponseLongType:  strings.TrimPrefix(pm.GetOutputType(), "."+pm.GetPackage()+"."),
+		ResponseFullType:  strings.TrimPrefix(pm.GetOutputType(), "."),
+		ResponseStreaming: pm.GetServerStreaming(),
 	}
 }
 

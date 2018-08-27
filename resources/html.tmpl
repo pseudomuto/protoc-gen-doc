@@ -304,8 +304,8 @@
             {{range .Methods}}
               <tr>
                 <td>{{.Name}}</td>
-                <td><a href="#{{.RequestFullType}}">{{.RequestLongType}}</a></td>
-                <td><a href="#{{.ResponseFullType}}">{{.ResponseLongType}}</a></td>
+                <td><a href="#{{.RequestFullType}}">{{.RequestLongType}}</a>{{if .RequestStreaming}} stream{{end}}</td>
+                <td><a href="#{{.ResponseFullType}}">{{.ResponseLongType}}</a>{{if .ResponseStreaming}} stream{{end}}</td>
                 <td><p>{{.Description}}</p></td>
               </tr>
             {{end}}

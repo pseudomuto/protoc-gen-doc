@@ -104,6 +104,27 @@
           ]
         },
         {
+          "name": "BookingStatusID",
+          "longName": "BookingStatusID",
+          "fullName": "com.example.BookingStatusID",
+          "description": "Represents the booking status ID.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "Unique booking status ID.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "EmptyBookingMessage",
           "longName": "EmptyBookingMessage",
           "fullName": "com.example.EmptyBookingMessage",
@@ -127,9 +148,23 @@
               "requestType": "Booking",
               "requestLongType": "Booking",
               "requestFullType": "com.example.Booking",
+              "requestStreaming": false,
               "responseType": "BookingStatus",
               "responseLongType": "BookingStatus",
-              "responseFullType": "com.example.BookingStatus"
+              "responseFullType": "com.example.BookingStatus",
+              "responseStreaming": false
+            },
+            {
+              "name": "BookingUpdates",
+              "description": "Used to subscribe to updates of the BookingStatus.",
+              "requestType": "BookingStatusID",
+              "requestLongType": "BookingStatusID",
+              "requestFullType": "com.example.BookingStatusID",
+              "requestStreaming": false,
+              "responseType": "BookingStatus",
+              "responseLongType": "BookingStatus",
+              "responseFullType": "com.example.BookingStatus",
+              "responseStreaming": true
             }
           ]
         }

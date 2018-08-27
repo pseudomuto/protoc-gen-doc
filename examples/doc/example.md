@@ -6,6 +6,7 @@
 - [Booking.proto](#Booking.proto)
     - [Booking](#com.example.Booking)
     - [BookingStatus](#com.example.BookingStatus)
+    - [BookingStatusID](#com.example.BookingStatusID)
     - [EmptyBookingMessage](#com.example.EmptyBookingMessage)
   
   
@@ -84,6 +85,21 @@ Represents the status of a vehicle booking.
 
 
 
+<a name="com.example.BookingStatusID"></a>
+
+### BookingStatusID
+Represents the booking status ID.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [int32](#int32) |  | Unique booking status ID. |
+
+
+
+
+
+
 <a name="com.example.EmptyBookingMessage"></a>
 
 ### EmptyBookingMessage
@@ -108,6 +124,7 @@ Service for handling vehicle bookings.
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
 | BookVehicle | [Booking](#com.example.Booking) | [BookingStatus](#com.example.BookingStatus) | Used to book a vehicle. Pass in a Booking and a BookingStatus will be returned. |
+| BookingUpdates | [BookingStatusID](#com.example.BookingStatusID) | [BookingStatus](#com.example.BookingStatus) stream | Used to subscribe to updates of the BookingStatus. |
 
  
 

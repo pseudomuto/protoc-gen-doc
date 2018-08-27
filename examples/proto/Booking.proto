@@ -9,6 +9,13 @@ syntax = "proto3";
 package com.example;
 
 /**
+ * Represents the booking status ID.
+ */
+message BookingStatusID {
+  int32 id = 1; /// Unique booking status ID.
+}
+
+/**
  * Represents the status of a vehicle booking.
  */
 message BookingStatus {
@@ -43,4 +50,7 @@ message EmptyBookingMessage {
 service BookingService {
   /// Used to book a vehicle. Pass in a Booking and a BookingStatus will be returned.
   rpc BookVehicle (Booking) returns (BookingStatus);
+
+  /// Used to subscribe to updates of the BookingStatus.
+  rpc BookingUpdates (BookingStatusID) returns (stream BookingStatus);
 }

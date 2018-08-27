@@ -81,7 +81,7 @@
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
 {{range .Methods -}}
-  | {{.Name}} | [{{.RequestLongType}}](#{{.RequestFullType}}) | [{{.ResponseLongType}}](#{{.ResponseFullType}}) | {{nobr .Description}} |
+  | {{.Name}} | [{{.RequestLongType}}](#{{.RequestFullType}}){{if .RequestStreaming}} stream{{end}} | [{{.ResponseLongType}}](#{{.ResponseFullType}}){{if .ResponseStreaming}} stream{{end}} | {{nobr .Description}} |
 {{end}}
 {{end}} <!-- end services -->
 

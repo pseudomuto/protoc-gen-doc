@@ -45,6 +45,19 @@ Represents the status of a vehicle booking.
 
 
 
+=== BookingStatusID
+Represents the booking status ID.
+
+
+|===========================================
+|*Field* |*Type* |*Label* |*Description*
+
+|id | <<int32,int32>> | |Unique booking status ID.
+
+|===========================================
+
+
+
 === EmptyBookingMessage
 An empty message for testing
 
