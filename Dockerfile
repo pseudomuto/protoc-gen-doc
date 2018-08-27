@@ -1,13 +1,13 @@
 FROM debian:jessie-slim
-LABEL maintainer="pseudomuto <david.muto@gmail.com>" protoc_version="3.5.1"
+LABEL maintainer="pseudomuto <david.muto@gmail.com>" protoc_version="3.6.1"
 
 WORKDIR /
 
-ADD https://github.com/google/protobuf/releases/download/v3.5.1/protoc-3.5.1-linux-x86_64.zip ./
+ADD https://github.com/google/protobuf/releases/download/v3.6.1/protoc-3.6.1-linux-x86_64.zip ./
 RUN apt-get -q -y update && \
   apt-get -q -y install unzip && \
-  unzip protoc-3.5.1-linux-x86_64.zip -d ./usr/local && \
-  rm protoc-3.5.1-linux-x86_64.zip && \
+  unzip protoc-3.6.1-linux-x86_64.zip -d ./usr/local && \
+  rm protoc-3.6.1-linux-x86_64.zip && \
   apt-get remove --purge -y unzip && \
   apt-get autoremove && \
   rm -rf /var/lib/apt/lists/*
