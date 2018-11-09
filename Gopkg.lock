@@ -100,9 +100,15 @@
   ]
   revision = "613d6eafa307c6881a737a3c35c0e312e8d3a8c5"
 
+[[projects]]
+  branch = "master"
+  name = "google.golang.org/genproto"
+  packages = ["googleapis/api/annotations"]
+  revision = "5fc9ac5403620be16bcdb0c8e7644b1178472c3b"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "a25c5062d0e4b7a6659db34ea3e45c7cdbada6e313647062e9d52118b33470f7"
+  inputs-digest = "f396d12561c6d2aff90fa94397e939d6648d001d3ea41907d47872442d7bf16a"
   solver-name = "gps-cdcl"
   solver-version = 1

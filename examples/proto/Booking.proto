@@ -6,6 +6,7 @@
  */
 syntax = "proto3";
 
+import "google/api/annotations.proto";
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 
 package com.example;
@@ -51,7 +52,12 @@ message EmptyBookingMessage {
  */
 service BookingService {
   /// Used to book a vehicle. Pass in a Booking and a BookingStatus will be returned.
-  rpc BookVehicle (Booking) returns (BookingStatus);
+  rpc BookVehicle (Booking) returns (BookingStatus) {
+    option (google.api.http) = {
+      post: "/api/bookings/vehicle/{vehicle_id}"
+      body: "*"
+    };
+  }
 
   /// Used to subscribe to updates of the BookingStatus.
   rpc BookingUpdates (BookingStatusID) returns (stream BookingStatus);
