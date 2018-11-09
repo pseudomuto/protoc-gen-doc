@@ -99,7 +99,13 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
-              "defaultValue": ""
+              "defaultValue": "",
+              "options": {
+                "validator.field": {
+                  "string_not_empty": true,
+                  "length_lt": 255
+                }
+              }
             }
           ]
         },

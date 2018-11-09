@@ -4,7 +4,7 @@ EXAMPLE_DIR=$(shell pwd)/examples
 DOCS_DIR=$(EXAMPLE_DIR)/doc
 PROTOS_DIR=$(EXAMPLE_DIR)/proto
 
-EXAMPLE_CMD=protoc --plugin=protoc-gen-doc -Iexamples/proto --doc_out=examples/doc
+EXAMPLE_CMD=protoc --plugin=protoc-gen-doc -Ivendor -Iexamples/proto --doc_out=examples/doc
 DOCKER_CMD=docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro -v $(EXAMPLE_DIR)/templates:/templates:ro pseudomuto/protoc-gen-doc
 
 setup:

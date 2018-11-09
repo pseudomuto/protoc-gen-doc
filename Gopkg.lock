@@ -25,6 +25,15 @@
   revision = "04cdfd42973bb9c8589fd6a731800cf222fde1a9"
 
 [[projects]]
+  name = "github.com/gogo/protobuf"
+  packages = [
+    "proto",
+    "protoc-gen-gogo/descriptor"
+  ]
+  revision = "636bf0302bc95575d69441b25a2603156ffdddf1"
+  version = "v1.1.1"
+
+[[projects]]
   name = "github.com/golang/protobuf"
   packages = [
     "proto",
@@ -51,6 +60,12 @@
   packages = ["."]
   revision = "9d5f1277e9a8ed20c3684bda8fde67c05628518c"
   version = "v0.3.4"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/mwitkow/go-proto-validators"
+  packages = ["."]
+  revision = "0950a79900071e9f3f5979b78078c599376422fd"
 
 [[projects]]
   name = "github.com/pmezard/go-difflib"
@@ -88,6 +103,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "ee4e8bf47bc2d2f39facf1560a80565e9ac1710ab8bb0ca4a0e80a0923e78256"
+  inputs-digest = "a25c5062d0e4b7a6659db34ea3e45c7cdbada6e313647062e9d52118b33470f7"
   solver-name = "gps-cdcl"
   solver-version = 1
