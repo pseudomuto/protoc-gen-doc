@@ -58,13 +58,14 @@
   revision = "d8ed2627bdf02c080bf22230dbb337003b7aba2d"
 
 [[projects]]
+  branch = "master"
   name = "github.com/pseudomuto/protokit"
   packages = [
     ".",
+    "fixtures",
     "utils"
   ]
-  revision = "7037620bf27b13fcdc10b1b17ddef82540db670b"
-  version = "v0.1.0"
+  revision = "3705a628937f38de863e0e5dd93de658caaae319"
 
 [[projects]]
   name = "github.com/stretchr/testify"
@@ -87,6 +88,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "f591ccb382f677a107a28c19738729c2e935718083ad8622be0458ed1a1e85b5"
+  inputs-digest = "ee4e8bf47bc2d2f39facf1560a80565e9ac1710ab8bb0ca4a0e80a0923e78256"
   solver-name = "gps-cdcl"
   solver-version = 1
