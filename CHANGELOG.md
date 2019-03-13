@@ -12,10 +12,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Added [Sprig](https://github.com/Masterminds/sprig) functions to renderer contexts
 * Added `IsMap` to `MessageField` objects indicating whether or not the field is a map field
 * Added `RequestStreaming` and `ResponseStreaming` to `ServiceMethod` objects indicating whether the request and/or response are streaming. Updated the templates to add "stream" indicators to method requests and responses.
+* Support for recursively adding nested enums and messages.
 
 ### Changed
 
-Bumped protobuf to 3.6.1 in docker container
+* Bumped protobuf to 3.6.1 in docker container
 
 ### Fixed
 
