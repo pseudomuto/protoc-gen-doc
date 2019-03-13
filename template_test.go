@@ -104,6 +104,11 @@ func (assert *TemplateTest) TestNestedMessageProperties() {
 	assert.True(msg.HasFields)
 }
 
+func (assert *TemplateTest) TestMultiplyNestedMessages() {
+	assert.NotNil(findEnum("Vehicle.Engine.FuelType", vehicleFile))
+	assert.NotNil(findMessage("Vehicle.Engine.Stats", vehicleFile))
+}
+
 func (assert *TemplateTest) TestMessageExtensionProperties() {
 	msg := findMessage("Booking", bookingFile)
 	assert.Equal(1, len(msg.Extensions))

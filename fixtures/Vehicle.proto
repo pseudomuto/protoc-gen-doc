@@ -97,11 +97,30 @@ message Vehicle {
     string description = 2; /// Category name. E.g. "Sedan".
   }
 
+  message Engine {
+    enum FuelType {
+      FUEL_TYPE_UNSPECIFIED = 0;
+      PETROL = 1;
+      DIESEL = 2;
+      ELECTRIC = 3;
+    }
+    message Stats {
+      sint32 mpg = 1;
+      sint32 bhp = 2;
+      double zero_to_sixty_secs = 3;
+    }
+    FuelType fuel_type = 1;
+    sint32 size_cc = 2; /** Size in cubic centimetres, if applicable. */
+    Stats stats = 3;
+  }
+
   int32 id          = 1; /** Unique vehicle ID. */
   Model model       = 2; /** Vehicle model. */
   string reg_number = 3; /** Vehicle registration number. */
   sint32 mileage    = 4; /** Current vehicle mileage, if known. */
   Category category = 5; /** Vehicle category. */
+  Engine engine     = 9; /** Vehicle engine. */
+
 
   // Doc comments for fields can come before or
   // after the field definition. And just like
