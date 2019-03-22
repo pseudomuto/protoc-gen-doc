@@ -235,7 +235,7 @@
           {{$message := .}}
           {{- range .FieldOptions}}
             {{$option := .}}
-            {{if eq . "validator.field"}}
+            {{if eq . "validator.field" "validate.rules" }}
             <h4>Validated Fields</h4>
             <table>
               <thead>
