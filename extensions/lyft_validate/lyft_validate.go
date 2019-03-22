@@ -3,6 +3,7 @@ package extensions
 import (
 	"github.com/lyft/protoc-gen-validate/validate"
 
+	"encoding/json"
 	"reflect"
 	"strings"
 
@@ -20,6 +21,9 @@ type ValidateExtension struct {
 	*validate.FieldRules
 	rules []ValidateRule // memoized so that we don't have to use reflection more than we need.
 }
+
+// MarshalJSON implements the json.Marshaler interface.
+func (v ValidateExtension) MarshalJSON() ([]byte, error) { return json.Marshal(v.Rules()) }
 
 func (v ValidateExtension) Rules() []ValidateRule {
 	if v.FieldRules == nil {

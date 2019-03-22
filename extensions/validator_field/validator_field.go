@@ -5,6 +5,7 @@ import (
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
 	validator "github.com/mwitkow/go-proto-validators"
 
+	"encoding/json"
 	"reflect"
 	"strings"
 
@@ -37,6 +38,9 @@ type ValidatorExtension struct {
 	*validator.FieldValidator
 	rules []ValidatorRule // memoized so that we don't have to use reflection more than we need.
 }
+
+// MarshalJSON implements the json.Marshaler interface.
+func (v ValidatorExtension) MarshalJSON() ([]byte, error) { return json.Marshal(v.Rules()) }
 
 // Rules returns all active rules
 func (v ValidatorExtension) Rules() []ValidatorRule {
