@@ -1,6 +1,8 @@
 /// This file has messages for describing a customer.
 syntax = "proto2";
 
+import "github.com/lyft/protoc-gen-validate/validate/validate.proto";
+
 package com.example;
 
 option ruby_package = "com.example.ruby";
@@ -11,7 +13,7 @@ option ruby_package = "com.example.ruby";
  * Represents a mail address.
  */
 message Address {
-  required string address_line_1 = 1; /** First address line. */
+  required string address_line_1 = 1 [(validate.rules).string.min_len = 2]; /** First address line. */
   optional string address_line_2 = 2; /** Second address line. */
   optional string address_line_3 = 3; /** Second address line. */
 
