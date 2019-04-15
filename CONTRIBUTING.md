@@ -69,9 +69,7 @@ Look through the new (since the last release) PRs that are included in this rele
 * Run `make docker_test` to build the image and generate the examples. There should be no diff after this.
 * Update the version in `version.go`
 * Update CHANGELOG.md. Be sure to include links to PRs and highlight new features, bug fixes, and any breaking changes.
-* Make the commit `git add CHANGELOG.md version.go && git commit -am "Bump version to <NEW_VERSION>"`
-* Tag this SHA `git tag -a v<NEW_VERSION> -m "Version <NEW_VERSION>"`
-* Finally, push to GitHub `git push && git push --tags`
+* Run `make release`
 
 Now that the tag is on GitHub, we have a couple more things to do:
 

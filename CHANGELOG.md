@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+* Support for options and extended options in files, services, methods, enums, enum values, messages and fields [#376](https://github.com/pseudomuto/protoc-gen-doc/pull/376)
+
 ### Changed
 
 ### Fixed

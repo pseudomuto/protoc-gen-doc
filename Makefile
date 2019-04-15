@@ -1,4 +1,4 @@
-.PHONY: bench setup test build dist docker examples
+.PHONY: bench setup test build dist docker examples release
 
 EXAMPLE_DIR=$(PWD)/examples
 DOCS_DIR=$(EXAMPLE_DIR)/doc
@@ -6,6 +6,8 @@ PROTOS_DIR=$(EXAMPLE_DIR)/proto
 
 EXAMPLE_CMD=protoc --plugin=protoc-gen-doc -Ivendor -Itmp/googleapis -Iexamples/proto --doc_out=examples/doc
 DOCKER_CMD=docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro -v $(EXAMPLE_DIR)/templates:/templates:ro -v $(PWD)/vendor/github.com/mwitkow:/usr/local/include/github.com/mwitkow:ro -v $(PWD)/vendor/github.com/lyft:/usr/local/include/github.com/lyft:ro -v $(PWD)/tmp/googleapis/google/api:/usr/local/include/google/api:ro pseudomuto/protoc-gen-doc
+
+VERSION = $(shell cat version.go | sed -n 's/.*const VERSION = "\(.*\)"/\1/p')
 
 setup:
 	$(info Synching dev tools and dependencies...)
@@ -56,3 +58,10 @@ examples: build tmp/googleapis examples/proto/*.proto examples/templates/*.tmpl
 	@$(EXAMPLE_CMD) --doc_opt=json,example.json:Ignore* examples/proto/*.proto
 	@$(EXAMPLE_CMD) --doc_opt=markdown,example.md:Ignore* examples/proto/*.proto
 	@$(EXAMPLE_CMD) --doc_opt=examples/templates/asciidoc.tmpl,example.txt:Ignore* examples/proto/*.proto
+
+release:
+	@echo Releasing v${VERSION}...
+	git add CHANGELOG.md version.go
+	git commit -m "Bump version to v${VERSION}"
+	git tag -m "Version ${VERSION}" "v${VERSION}"
+	git push && git push --tags
