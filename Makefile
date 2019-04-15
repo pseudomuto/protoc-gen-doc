@@ -5,7 +5,7 @@ DOCS_DIR=$(EXAMPLE_DIR)/doc
 PROTOS_DIR=$(EXAMPLE_DIR)/proto
 
 EXAMPLE_CMD=protoc --plugin=protoc-gen-doc -Ivendor -Itmp/googleapis -Iexamples/proto --doc_out=examples/doc
-DOCKER_CMD=docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro -v $(EXAMPLE_DIR)/templates:/templates:ro -v $(PWD)/vendor/github.com/mwitkow:/usr/local/include/github.com/mwitkow:ro -v $(PWD)/tmp/googleapis/google/api:/usr/local/include/google/api:ro pseudomuto/protoc-gen-doc
+DOCKER_CMD=docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro -v $(EXAMPLE_DIR)/templates:/templates:ro -v $(PWD)/vendor/github.com/mwitkow:/usr/local/include/github.com/mwitkow:ro -v $(PWD)/vendor/github.com/lyft:/usr/local/include/github.com/lyft:ro -v $(PWD)/tmp/googleapis/google/api:/usr/local/include/google/api:ro pseudomuto/protoc-gen-doc
 
 setup:
 	$(info Synching dev tools and dependencies...)
