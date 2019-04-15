@@ -6,6 +6,9 @@
  */
 syntax = "proto3";
 
+import "google/api/annotations.proto";
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+
 package com.example;
 
 /**
@@ -20,7 +23,7 @@ message BookingStatusID {
  */
 message BookingStatus {
   int32 id           = 1; /// Unique booking status ID.
-  string description = 2; /// Booking status description. E.g. "Active".
+  string description = 2 [(validator.field) = {string_not_empty: true, length_lt: 255}]; /// Booking status description. E.g. "Active".
 }
 
 /**
@@ -49,7 +52,12 @@ message EmptyBookingMessage {
  */
 service BookingService {
   /// Used to book a vehicle. Pass in a Booking and a BookingStatus will be returned.
-  rpc BookVehicle (Booking) returns (BookingStatus);
+  rpc BookVehicle (Booking) returns (BookingStatus) {
+    option (google.api.http) = {
+      post: "/api/bookings/vehicle/{vehicle_id}"
+      body: "*"
+    };
+  }
 
   /// Used to subscribe to updates of the BookingStatus.
   rpc BookingUpdates (BookingStatusID) returns (stream BookingStatus);

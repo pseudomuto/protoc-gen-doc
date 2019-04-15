@@ -24,6 +24,7 @@
 #   go-tests = true
 #   unused-packages = true
 
+required = ["github.com/pseudomuto/protokit/fixtures"]
 
 [prune]
   go-tests = true
@@ -35,4 +36,4 @@
 
 [[constraint]]
   name = "github.com/pseudomuto/protokit"
-  version = "0.1.0"
+  version = "0.2.0"

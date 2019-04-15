@@ -1,6 +1,8 @@
 package gendoc_test
 
 import (
+	"github.com/golang/protobuf/proto"
+	"github.com/golang/protobuf/protoc-gen-go/descriptor"
 	"github.com/pseudomuto/protokit"
 	"github.com/pseudomuto/protokit/utils"
 	"github.com/stretchr/testify/suite"
@@ -8,6 +10,7 @@ import (
 	"testing"
 
 	"github.com/pseudomuto/protoc-gen-doc"
+	"github.com/pseudomuto/protoc-gen-doc/extensions"
 )
 
 var (
@@ -25,6 +28,8 @@ func TestTemplate(t *testing.T) {
 }
 
 func (assert *TemplateTest) SetupSuite() {
+	registerTestExtensions()
+
 	set, err := utils.LoadDescriptorSet("fixtures", "fileset.pb")
 	assert.NoError(err)
 
@@ -33,6 +38,88 @@ func (assert *TemplateTest) SetupSuite() {
 	template = gendoc.NewTemplate(result)
 	bookingFile = template.Files[0]
 	vehicleFile = template.Files[1]
+}
+
+func identity(payload interface{}) interface{} { return payload }
+
+var E_ExtendFile = &proto.ExtensionDesc{
+	ExtendedType:  (*descriptor.FileOptions)(nil),
+	ExtensionType: (*bool)(nil),
+	Field:         20000,
+	Name:          "com.pseudomuto.protokit.v1.extend_file",
+	Tag:           "varint,20000,opt,name=extend_file,json=extendFile",
+	Filename:      "extend.proto",
+}
+
+var E_ExtendService = &proto.ExtensionDesc{
+	ExtendedType:  (*descriptor.ServiceOptions)(nil),
+	ExtensionType: (*bool)(nil),
+	Field:         20000,
+	Name:          "com.pseudomuto.protokit.v1.extend_service",
+	Tag:           "varint,20000,opt,name=extend_service,json=extendService",
+	Filename:      "extend.proto",
+}
+
+var E_ExtendMethod = &proto.ExtensionDesc{
+	ExtendedType:  (*descriptor.MethodOptions)(nil),
+	ExtensionType: (*bool)(nil),
+	Field:         20000,
+	Name:          "com.pseudomuto.protokit.v1.extend_method",
+	Tag:           "varint,20000,opt,name=extend_method,json=extendMethod",
+	Filename:      "extend.proto",
+}
+
+var E_ExtendEnum = &proto.ExtensionDesc{
+	ExtendedType:  (*descriptor.EnumOptions)(nil),
+	ExtensionType: (*bool)(nil),
+	Field:         20000,
+	Name:          "com.pseudomuto.protokit.v1.extend_enum",
+	Tag:           "varint,20000,opt,name=extend_enum,json=extendEnum",
+	Filename:      "extend.proto",
+}
+
+var E_ExtendEnumValue = &proto.ExtensionDesc{
+	ExtendedType:  (*descriptor.EnumValueOptions)(nil),
+	ExtensionType: (*bool)(nil),
+	Field:         20000,
+	Name:          "com.pseudomuto.protokit.v1.extend_enum_value",
+	Tag:           "varint,20000,opt,name=extend_enum_value,json=extendEnumValue",
+	Filename:      "extend.proto",
+}
+
+var E_ExtendMessage = &proto.ExtensionDesc{
+	ExtendedType:  (*descriptor.MessageOptions)(nil),
+	ExtensionType: (*bool)(nil),
+	Field:         20000,
+	Name:          "com.pseudomuto.protokit.v1.extend_message",
+	Tag:           "varint,20000,opt,name=extend_message,json=extendMessage",
+	Filename:      "extend.proto",
+}
+
+var E_ExtendField = &proto.ExtensionDesc{
+	ExtendedType:  (*descriptor.FieldOptions)(nil),
+	ExtensionType: (*bool)(nil),
+	Field:         20000,
+	Name:          "com.pseudomuto.protokit.v1.extend_field",
+	Tag:           "varint,20000,opt,name=extend_field,json=extendField",
+	Filename:      "extend.proto",
+}
+
+func registerTestExtensions() {
+	proto.RegisterExtension(E_ExtendFile)
+	extensions.SetTransformer(E_ExtendFile.Name, identity)
+	proto.RegisterExtension(E_ExtendService)
+	extensions.SetTransformer(E_ExtendService.Name, identity)
+	proto.RegisterExtension(E_ExtendMethod)
+	extensions.SetTransformer(E_ExtendMethod.Name, identity)
+	proto.RegisterExtension(E_ExtendEnum)
+	extensions.SetTransformer(E_ExtendEnum.Name, identity)
+	proto.RegisterExtension(E_ExtendEnumValue)
+	extensions.SetTransformer(E_ExtendEnumValue.Name, identity)
+	proto.RegisterExtension(E_ExtendMessage)
+	extensions.SetTransformer(E_ExtendMessage.Name, identity)
+	proto.RegisterExtension(E_ExtendField)
+	extensions.SetTransformer(E_ExtendField.Name, identity)
 }
 
 func (assert *TemplateTest) TestTemplateProperties() {
@@ -47,6 +134,12 @@ func (assert *TemplateTest) TestFileProperties() {
 	assert.True(bookingFile.HasExtensions)
 	assert.True(bookingFile.HasMessages)
 	assert.True(bookingFile.HasServices)
+	if assert.NotNil(bookingFile.Options) {
+		assert.NotEmpty(bookingFile.Options)
+	}
+	if assert.NotNil(bookingFile.Option(E_ExtendFile.Name)) {
+		assert.True(*bookingFile.Option(E_ExtendFile.Name).(*bool))
+	}
 }
 
 func (assert *TemplateTest) TestFileEnumProperties() {
@@ -64,6 +157,27 @@ func (assert *TemplateTest) TestFileEnumProperties() {
 
 	for idx, value := range enum.Values {
 		assert.Equal(expectedValues[idx], value)
+	}
+
+	enum = findEnum("BookingType", bookingFile)
+	if assert.NotNil(enum.Options) {
+		assert.NotEmpty(enum.Options)
+	}
+	if assert.NotNil(enum.Option(E_ExtendEnum.Name)) {
+		assert.True(*enum.Option(E_ExtendEnum.Name).(*bool))
+	}
+	assert.Contains(enum.ValueOptions(), E_ExtendEnumValue.Name)
+	assert.NotEmpty(enum.ValuesWithOption(E_ExtendEnumValue.Name))
+
+	for _, value := range enum.Values {
+		if value.Name == "FUTURE" {
+			if assert.NotNil(value.Options) {
+				assert.NotEmpty(value.Options)
+			}
+			if assert.NotNil(value.Option(E_ExtendEnumValue.Name)) {
+				assert.True(*value.Option(E_ExtendEnumValue.Name).(*bool))
+			}
+		}
 	}
 }
 
@@ -92,6 +206,14 @@ func (assert *TemplateTest) TestMessageProperties() {
 	assert.Equal("Represents a vehicle that can be hired.", msg.Description)
 	assert.False(msg.HasExtensions)
 	assert.True(msg.HasFields)
+	if assert.NotNil(msg.Options) {
+		assert.NotEmpty(msg.Options)
+	}
+	if assert.NotNil(msg.Option(E_ExtendMessage.Name)) {
+		assert.True(*msg.Option(E_ExtendMessage.Name).(*bool))
+	}
+	assert.Contains(msg.FieldOptions(), E_ExtendField.Name)
+	assert.NotEmpty(msg.FieldsWithOption(E_ExtendField.Name))
 }
 
 func (assert *TemplateTest) TestNestedMessageProperties() {
@@ -143,6 +265,12 @@ func (assert *TemplateTest) TestFieldProperties() {
 	assert.Equal("int32", field.LongType)
 	assert.Equal("int32", field.FullType)
 	assert.Equal("", field.DefaultValue)
+	if assert.NotNil(field.Options) {
+		assert.NotEmpty(field.Options)
+	}
+	if assert.NotNil(field.Option(E_ExtendField.Name)) {
+		assert.True(*field.Option(E_ExtendField.Name).(*bool))
+	}
 
 	field = findField("status_code", msg)
 	assert.Equal("status_code", field.Name)
@@ -187,6 +315,14 @@ func (assert *TemplateTest) TestServiceProperties() {
 	assert.Equal("com.example.VehicleService", service.FullName)
 	assert.Equal("The vehicle service.\n\nManages vehicles and such...", service.Description)
 	assert.Equal(3, len(service.Methods))
+	if assert.NotNil(service.Options) {
+		assert.NotEmpty(service.Options)
+	}
+	if assert.NotNil(service.Option(E_ExtendService.Name)) {
+		assert.True(*service.Option(E_ExtendService.Name).(*bool))
+	}
+	assert.Contains(service.MethodOptions(), E_ExtendMethod.Name)
+	assert.NotEmpty(service.MethodsWithOption(E_ExtendMethod.Name))
 }
 
 func (assert *TemplateTest) TestServiceMethodProperties() {
@@ -215,6 +351,12 @@ func (assert *TemplateTest) TestServiceMethodProperties() {
 	assert.Equal("Vehicle", method.ResponseLongType)
 	assert.Equal("com.example.Vehicle", method.ResponseFullType)
 	assert.Equal(false, method.ResponseStreaming)
+	if assert.NotNil(method.Options) {
+		assert.NotEmpty(method.Options)
+	}
+	if assert.NotNil(method.Option(E_ExtendMethod.Name)) {
+		assert.True(*method.Option(E_ExtendMethod.Name).(*bool))
+	}
 }
 
 func (assert *TemplateTest) TestExcludedComments() {
