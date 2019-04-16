@@ -1,14 +1,13 @@
 package extensions_test
 
 import (
-	"github.com/stretchr/testify/suite"
-	"google.golang.org/genproto/googleapis/api/annotations"
-
 	"net/http"
 	"testing"
 
 	"github.com/pseudomuto/protoc-gen-doc/extensions"
-	google_api_http "github.com/pseudomuto/protoc-gen-doc/extensions/google_api_http"
+	. "github.com/pseudomuto/protoc-gen-doc/extensions/google_api_http"
+	"github.com/stretchr/testify/suite"
+	"google.golang.org/genproto/googleapis/api/annotations"
 )
 
 var rule *annotations.HttpRule
@@ -43,8 +42,8 @@ func (assert *HTTPRuleTest) TestTransform() {
 	})
 	assert.NotEmpty(transformed)
 	if assert.Contains(transformed, "google.api.http") {
-		rules := transformed["google.api.http"].(google_api_http.HTTPExtension).Rules
-		assert.Equal(rules, []google_api_http.HTTPRule{
+		rules := transformed["google.api.http"].(HTTPExtension).Rules
+		assert.Equal(rules, []HTTPRule{
 			{Method: http.MethodGet, Pattern: "/api/v1/method"},
 			{Method: http.MethodPut, Pattern: "/api/v1/method_alt", Body: "*"},
 			{Method: http.MethodPost, Pattern: "/api/v1/method_alt", Body: "*"},

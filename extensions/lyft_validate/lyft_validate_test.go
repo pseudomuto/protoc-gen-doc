@@ -1,14 +1,13 @@
 package extensions_test
 
 import (
-	"github.com/golang/protobuf/proto"
-	"github.com/envoyproxy/protoc-gen-validate/validate"
-	"github.com/stretchr/testify/suite"
-
 	"testing"
 
+	"github.com/envoyproxy/protoc-gen-validate/validate"
+	"github.com/golang/protobuf/proto"
 	"github.com/pseudomuto/protoc-gen-doc/extensions"
-	lyft_validate "github.com/pseudomuto/protoc-gen-doc/extensions/lyft_validate"
+	. "github.com/pseudomuto/protoc-gen-doc/extensions/lyft_validate"
+	"github.com/stretchr/testify/suite"
 )
 
 var fieldRules *validate.FieldRules
@@ -37,8 +36,8 @@ func (assert *ValidateTest) TestTransform() {
 	})
 	assert.NotEmpty(transformed)
 	if assert.Contains(transformed, "validate.rules") {
-		rules := transformed["validate.rules"].(lyft_validate.ValidateExtension).Rules()
-		assert.Equal(rules, []lyft_validate.ValidateRule{
+		rules := transformed["validate.rules"].(ValidateExtension).Rules()
+		assert.Equal(rules, []ValidateRule{
 			{Name: "string.min_len", Value: uint64(1)},
 		})
 	}

@@ -1,4 +1,4 @@
-.PHONY: bench test build dist docker examples release
+.PHONY: bench test build dist docker examples release lint
 
 export GO111MODULE=on
 
@@ -72,3 +72,7 @@ release:
 	git commit -m "Bump version to v${VERSION}"
 	git tag -m "Version ${VERSION}" "v${VERSION}"
 	git push && git push --tags
+
+lint:
+	@which revive >/dev/null || go get github.com/mgechev/revive
+	revive --config revive.toml ./...

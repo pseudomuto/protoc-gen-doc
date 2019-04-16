@@ -1,14 +1,13 @@
 package gendoc_test
 
 import (
-	"github.com/golang/protobuf/proto"
-	"github.com/golang/protobuf/protoc-gen-go/plugin"
-	"github.com/stretchr/testify/suite"
-
 	"regexp"
 	"testing"
 
-	"github.com/pseudomuto/protoc-gen-doc"
+	"github.com/golang/protobuf/proto"
+	plugin_go "github.com/golang/protobuf/protoc-gen-go/plugin"
+	. "github.com/pseudomuto/protoc-gen-doc"
+	"github.com/stretchr/testify/suite"
 )
 
 type PluginTest struct {
@@ -31,10 +30,10 @@ func (assert *PluginTest) TestParseOptionsForBuiltinTemplates() {
 		req := new(plugin_go.CodeGeneratorRequest)
 		req.Parameter = proto.String(kind + "," + file)
 
-		options, err := gendoc.ParseOptions(req)
+		options, err := ParseOptions(req)
 		assert.Nil(err)
 
-		renderType, err := gendoc.NewRenderType(kind)
+		renderType, err := NewRenderType(kind)
 		assert.Nil(err)
 
 		assert.Equal(renderType, options.Type)
@@ -47,10 +46,10 @@ func (assert *PluginTest) TestParseOptionsForCustomTemplate() {
 	req := new(plugin_go.CodeGeneratorRequest)
 	req.Parameter = proto.String("/path/to/template.tmpl,/base/name/only/output.md")
 
-	options, err := gendoc.ParseOptions(req)
+	options, err := ParseOptions(req)
 	assert.Nil(err)
 
-	assert.Equal(gendoc.RenderTypeHTML, options.Type)
+	assert.Equal(RenderTypeHTML, options.Type)
 	assert.Equal("/path/to/template.tmpl", options.TemplateFile)
 	assert.Equal("output.md", options.OutputFile)
 }
@@ -59,7 +58,7 @@ func (assert *PluginTest) TestParseOptionsForExcludePatterns() {
 	req := new(plugin_go.CodeGeneratorRequest)
 	req.Parameter = proto.String(":google/*,notgoogle/*")
 
-	options, err := gendoc.ParseOptions(req)
+	options, err := ParseOptions(req)
 	assert.Nil(err)
 
 	assert.Equal(2, len(options.ExcludePatterns))
@@ -81,7 +80,7 @@ func (assert *PluginTest) TestParseOptionsWithInvalidValues() {
 		req := new(plugin_go.CodeGeneratorRequest)
 		req.Parameter = proto.String(value)
 
-		_, err := gendoc.ParseOptions(req)
+		_, err := ParseOptions(req)
 		assert.NotNil(err)
 	}
 }
@@ -90,7 +89,7 @@ func (assert *PluginTest) TestRunPluginForBuiltinTemplate() {
 	req := new(plugin_go.CodeGeneratorRequest)
 	req.Parameter = proto.String("markdown,/base/name/only/output.md")
 
-	plugin := new(gendoc.Plugin)
+	plugin := new(Plugin)
 	resp, err := plugin.Generate(req)
 	assert.Nil(err)
 
@@ -103,7 +102,7 @@ func (assert *PluginTest) TestRunPluginForCustomTemplate() {
 	req := new(plugin_go.CodeGeneratorRequest)
 	req.Parameter = proto.String("resources/html.tmpl,/base/name/only/output.html")
 
-	plugin := new(gendoc.Plugin)
+	plugin := new(Plugin)
 	resp, err := plugin.Generate(req)
 	assert.Nil(err)
 
@@ -116,7 +115,7 @@ func (assert *PluginTest) TestRunPluginWithInvalidOptions() {
 	req := new(plugin_go.CodeGeneratorRequest)
 	req.Parameter = proto.String("html")
 
-	plugin := new(gendoc.Plugin)
+	plugin := new(Plugin)
 	_, err := plugin.Generate(req)
 	assert.NotNil(err)
 }

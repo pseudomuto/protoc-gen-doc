@@ -27,6 +27,7 @@ install:
 script:
   - goverage -race -coverprofile=coverage.txt -covermode=atomic
   - make bench
+  - make lint
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

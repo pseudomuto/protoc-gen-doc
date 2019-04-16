@@ -1,15 +1,14 @@
 package gendoc
 
 import (
-	"github.com/golang/protobuf/protoc-gen-go/descriptor"
-	"github.com/pseudomuto/protokit"
-
 	"encoding/json"
 	"fmt"
 	"sort"
 	"strings"
 
+	"github.com/golang/protobuf/protoc-gen-go/descriptor"
 	"github.com/pseudomuto/protoc-gen-doc/extensions"
+	"github.com/pseudomuto/protokit"
 )
 
 // Template is a type for encapsulating all the parsed files, messages, fields, enums, services, extensions, etc. into
@@ -146,6 +145,7 @@ type File struct {
 	Options map[string]interface{} `json:"options,omitempty"`
 }
 
+// Option returns the named option.
 func (f File) Option(name string) interface{} { return f.Options[name] }
 
 // FileExtension contains details about top-level extensions within a proto(2) file.
@@ -183,6 +183,7 @@ type Message struct {
 	Options map[string]interface{} `json:"options,omitempty"`
 }
 
+// Option returns the named option.
 func (m Message) Option(name string) interface{} { return m.Options[name] }
 
 // FieldOptions returns all options that are set on the fields in this message.
@@ -236,6 +237,7 @@ type MessageField struct {
 	Options map[string]interface{} `json:"options,omitempty"`
 }
 
+// Option returns the named option.
 func (f MessageField) Option(name string) interface{} { return f.Options[name] }
 
 // MessageExtension contains details about message-scoped extensions in proto(2) files.
@@ -258,6 +260,7 @@ type Enum struct {
 	Options map[string]interface{} `json:"options,omitempty"`
 }
 
+// Option returns the named option.
 func (e Enum) Option(name string) interface{} { return e.Options[name] }
 
 // ValueOptions returns all options that are set on the values in this enum.
@@ -303,6 +306,7 @@ type EnumValue struct {
 	Options map[string]interface{} `json:"options,omitempty"`
 }
 
+// Option returns the named option.
 func (v EnumValue) Option(name string) interface{} { return v.Options[name] }
 
 // Service contains details about a service definition within a proto file.
@@ -316,6 +320,7 @@ type Service struct {
 	Options map[string]interface{} `json:"options,omitempty"`
 }
 
+// Option returns the named option.
 func (s Service) Option(name string) interface{} { return s.Options[name] }
 
 // MethodOptions returns all options that are set on the methods in this service.
@@ -368,6 +373,7 @@ type ServiceMethod struct {
 	Options map[string]interface{} `json:"options,omitempty"`
 }
 
+// Option returns the named option.
 func (m ServiceMethod) Option(name string) interface{} { return m.Options[name] }
 
 // ScalarValue contains information about scalar value types in protobuf. The common use case for this type is to know

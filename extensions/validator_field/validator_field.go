@@ -1,14 +1,13 @@
 package extensions
 
 import (
-	"github.com/golang/protobuf/proto"
-	"github.com/golang/protobuf/protoc-gen-go/descriptor"
-	validator "github.com/mwitkow/go-proto-validators"
-
 	"encoding/json"
 	"reflect"
 	"strings"
 
+	"github.com/golang/protobuf/proto"
+	"github.com/golang/protobuf/protoc-gen-go/descriptor"
+	validator "github.com/mwitkow/go-proto-validators"
 	"github.com/pseudomuto/protoc-gen-doc/extensions"
 )
 

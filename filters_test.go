@@ -1,10 +1,11 @@
 package gendoc_test
 
 import (
-	"github.com/pseudomuto/protoc-gen-doc"
-	"github.com/stretchr/testify/suite"
 	html "html/template"
 	"testing"
+
+	. "github.com/pseudomuto/protoc-gen-doc"
+	"github.com/stretchr/testify/suite"
 )
 
 type FilterTest struct {
@@ -25,7 +26,7 @@ func (assert *FilterTest) TestPFilter() {
 	}
 
 	for input, output := range tests {
-		assert.Equal(html.HTML(output), gendoc.PFilter(input))
+		assert.Equal(html.HTML(output), PFilter(input))
 	}
 }
 
@@ -39,7 +40,7 @@ func (assert *FilterTest) TestParaFilter() {
 	}
 
 	for input, output := range tests {
-		assert.Equal(output, gendoc.ParaFilter(input))
+		assert.Equal(output, ParaFilter(input))
 	}
 }
 
@@ -53,6 +54,6 @@ func (assert *FilterTest) TestNoBrFilter() {
 	}
 
 	for input, output := range tests {
-		assert.Equal(output, gendoc.NoBrFilter(input))
+		assert.Equal(output, NoBrFilter(input))
 	}
 }

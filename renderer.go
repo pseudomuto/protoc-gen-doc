@@ -4,11 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-
-	"github.com/Masterminds/sprig"
-
 	html_template "html/template"
 	text_template "text/template"
+
+	"github.com/Masterminds/sprig"
 )
 
 // RenderType is an "enum" for which type of renderer to use.
