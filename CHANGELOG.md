@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.3.0...master)
 
+### Changed
+
+* Switched from dep to go modules
+
 ## [v1.3.0](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.2.0...v1.3.0) - April 15, 2019
 
 ### Added
