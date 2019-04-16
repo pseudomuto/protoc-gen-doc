@@ -2,7 +2,7 @@ package extensions_test
 
 import (
 	"github.com/golang/protobuf/proto"
-	"github.com/lyft/protoc-gen-validate/validate"
+	"github.com/envoyproxy/protoc-gen-validate/validate"
 	"github.com/stretchr/testify/suite"
 
 	"testing"

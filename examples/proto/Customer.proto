@@ -1,7 +1,7 @@
 /// This file has messages for describing a customer.
 syntax = "proto2";
 
-import "github.com/lyft/protoc-gen-validate/validate/validate.proto";
+import "github.com/envoyproxy/protoc-gen-validate/validate/validate.proto";
 
 package com.example;
 
