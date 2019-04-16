@@ -11,6 +11,7 @@ require (
 	github.com/google/uuid v0.0.0-20161128191214-064e2069ce9c // indirect
 	github.com/huandu/xstrings v1.0.0 // indirect
 	github.com/imdario/mergo v0.3.4 // indirect
+	github.com/mgechev/revive v0.0.0-20190416071613-796760d728e1 // indirect
 	github.com/mwitkow/go-proto-validators v0.0.0-20180403085117-0950a7990007
 	github.com/pmezard/go-difflib v0.0.0-20151028094244-d8ed2627bdf0 // indirect
 	github.com/pseudomuto/protokit v0.2.0

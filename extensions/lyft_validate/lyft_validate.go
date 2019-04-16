@@ -25,6 +25,7 @@ type ValidateExtension struct {
 // MarshalJSON implements the json.Marshaler interface.
 func (v ValidateExtension) MarshalJSON() ([]byte, error) { return json.Marshal(v.Rules()) }
 
+// Rules returns the set of rules for this extension.
 func (v ValidateExtension) Rules() []ValidateRule {
 	if v.FieldRules == nil {
 		return nil
