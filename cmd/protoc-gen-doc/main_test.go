@@ -5,18 +5,10 @@ import (
 	"testing"
 
 	. "github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc"
-	"github.com/stretchr/testify/suite"
+	"github.com/stretchr/testify/require"
 )
 
-type MainTest struct {
-	suite.Suite
-}
-
-func TestMain(t *testing.T) {
-	suite.Run(t, new(MainTest))
-}
-
-func (assert *MainTest) TestHandleFlags() {
+func TestHandleFlags(t *testing.T) {
 	tests := []struct {
 		args   []string
 		result bool
@@ -28,6 +20,6 @@ func (assert *MainTest) TestHandleFlags() {
 
 	for _, test := range tests {
 		f := ParseFlags(new(bytes.Buffer), test.args)
-		assert.Equal(test.result, HandleFlags(f))
+		require.Equal(t, test.result, HandleFlags(f))
 	}
 }

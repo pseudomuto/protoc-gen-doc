@@ -5,18 +5,10 @@ import (
 	"testing"
 
 	. "github.com/pseudomuto/protoc-gen-doc"
-	"github.com/stretchr/testify/suite"
+	"github.com/stretchr/testify/require"
 )
 
-type FilterTest struct {
-	suite.Suite
-}
-
-func TestFilter(t *testing.T) {
-	suite.Run(t, new(FilterTest))
-}
-
-func (assert *FilterTest) TestPFilter() {
+func TestPFilter(t *testing.T) {
 	tests := map[string]string{
 		"Some content.":                          "<p>Some content.</p>",
 		"Some content.\nRight here.":             "<p>Some content.</p><p>Right here.</p>",
@@ -26,11 +18,11 @@ func (assert *FilterTest) TestPFilter() {
 	}
 
 	for input, output := range tests {
-		assert.Equal(html.HTML(output), PFilter(input))
+		require.Equal(t, html.HTML(output), PFilter(input))
 	}
 }
 
-func (assert *FilterTest) TestParaFilter() {
+func TestParaFilter(t *testing.T) {
 	tests := map[string]string{
 		"Some content.":                          "<para>Some content.</para>",
 		"Some content.\nRight here.":             "<para>Some content.</para><para>Right here.</para>",
@@ -40,11 +32,11 @@ func (assert *FilterTest) TestParaFilter() {
 	}
 
 	for input, output := range tests {
-		assert.Equal(output, ParaFilter(input))
+		require.Equal(t, output, ParaFilter(input))
 	}
 }
 
-func (assert *FilterTest) TestNoBrFilter() {
+func TestNoBrFilter(t *testing.T) {
 	tests := map[string]string{
 		"My content":                     "My content",
 		"My content \r\nHere.":           "My content Here.",
@@ -54,6 +46,6 @@ func (assert *FilterTest) TestNoBrFilter() {
 	}
 
 	for input, output := range tests {
-		assert.Equal(output, NoBrFilter(input))
+		require.Equal(t, output, NoBrFilter(input))
 	}
 }

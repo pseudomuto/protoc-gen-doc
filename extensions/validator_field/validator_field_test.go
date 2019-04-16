@@ -7,34 +7,19 @@ import (
 	validator "github.com/mwitkow/go-proto-validators"
 	"github.com/pseudomuto/protoc-gen-doc/extensions"
 	. "github.com/pseudomuto/protoc-gen-doc/extensions/validator_field"
-	"github.com/stretchr/testify/suite"
+	"github.com/stretchr/testify/require"
 )
 
-var fieldValidator *validator.FieldValidator
-
-type ValidatorTest struct {
-	suite.Suite
-}
-
-func TestValidator(t *testing.T) {
-	suite.Run(t, new(ValidatorTest))
-}
-
-func (assert *ValidatorTest) SetupSuite() {
-	fieldValidator = &validator.FieldValidator{
+func TestTransform(t *testing.T) {
+	fieldValidator := &validator.FieldValidator{
 		StringNotEmpty: proto.Bool(true),
 	}
-}
 
-func (assert *ValidatorTest) TestTransform() {
-	transformed := extensions.Transform(map[string]interface{}{
-		"validator.field": fieldValidator,
+	transformed := extensions.Transform(map[string]interface{}{"validator.field": fieldValidator})
+	require.NotEmpty(t, transformed)
+
+	rules := transformed["validator.field"].(ValidatorExtension).Rules()
+	require.Equal(t, rules, []ValidatorRule{
+		{Name: "string_not_empty", Value: true},
 	})
-	assert.NotEmpty(transformed)
-	if assert.Contains(transformed, "validator.field") {
-		rules := transformed["validator.field"].(ValidatorExtension).Rules()
-		assert.Equal(rules, []ValidatorRule{
-			{Name: "string_not_empty", Value: true},
-		})
-	}
 }

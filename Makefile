@@ -35,7 +35,7 @@ tmp/googleapis:
 	rm -rf tmp/googleapis/.git
 
 test: fixtures/fileset.pb resources.go
-	@go test -cover -race ./ ./cmd/...
+	@go test -cover -race ./ ./cmd/... ./extensions/...
 
 bench:
 	@go test -bench=.
