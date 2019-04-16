@@ -1,12 +1,11 @@
 package main_test
 
 import (
-	"github.com/stretchr/testify/suite"
-
 	"bytes"
 	"testing"
 
-	"github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc"
+	. "github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc"
+	"github.com/stretchr/testify/suite"
 )
 
 type MainTest struct {
@@ -28,7 +27,7 @@ func (assert *MainTest) TestHandleFlags() {
 	}
 
 	for _, test := range tests {
-		f := main.ParseFlags(new(bytes.Buffer), test.args)
-		assert.Equal(test.result, main.HandleFlags(f))
+		f := ParseFlags(new(bytes.Buffer), test.args)
+		assert.Equal(test.result, HandleFlags(f))
 	}
 }

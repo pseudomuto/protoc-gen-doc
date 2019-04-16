@@ -1,14 +1,13 @@
 package extensions_test
 
 import (
-	"github.com/golang/protobuf/proto"
-	validator "github.com/mwitkow/go-proto-validators"
-	"github.com/stretchr/testify/suite"
-
 	"testing"
 
+	"github.com/golang/protobuf/proto"
+	validator "github.com/mwitkow/go-proto-validators"
 	"github.com/pseudomuto/protoc-gen-doc/extensions"
-	validator_field "github.com/pseudomuto/protoc-gen-doc/extensions/validator_field"
+	. "github.com/pseudomuto/protoc-gen-doc/extensions/validator_field"
+	"github.com/stretchr/testify/suite"
 )
 
 var fieldValidator *validator.FieldValidator
@@ -33,8 +32,8 @@ func (assert *ValidatorTest) TestTransform() {
 	})
 	assert.NotEmpty(transformed)
 	if assert.Contains(transformed, "validator.field") {
-		rules := transformed["validator.field"].(validator_field.ValidatorExtension).Rules()
-		assert.Equal(rules, []validator_field.ValidatorRule{
+		rules := transformed["validator.field"].(ValidatorExtension).Rules()
+		assert.Equal(rules, []ValidatorRule{
 			{Name: "string_not_empty", Value: true},
 		})
 	}

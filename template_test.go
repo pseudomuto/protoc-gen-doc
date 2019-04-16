@@ -1,22 +1,21 @@
 package gendoc_test
 
 import (
+	"testing"
+
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
+	. "github.com/pseudomuto/protoc-gen-doc"
+	"github.com/pseudomuto/protoc-gen-doc/extensions"
 	"github.com/pseudomuto/protokit"
 	"github.com/pseudomuto/protokit/utils"
 	"github.com/stretchr/testify/suite"
-
-	"testing"
-
-	"github.com/pseudomuto/protoc-gen-doc"
-	"github.com/pseudomuto/protoc-gen-doc/extensions"
 )
 
 var (
-	template    *gendoc.Template
-	bookingFile *gendoc.File
-	vehicleFile *gendoc.File
+	template    *Template
+	bookingFile *File
+	vehicleFile *File
 )
 
 type TemplateTest struct {
@@ -35,7 +34,7 @@ func (assert *TemplateTest) SetupSuite() {
 
 	req := utils.CreateGenRequest(set, "Booking.proto", "Vehicle.proto")
 	result := protokit.ParseCodeGenRequest(req)
-	template = gendoc.NewTemplate(result)
+	template = NewTemplate(result)
 	bookingFile = template.Files[0]
 	vehicleFile = template.Files[1]
 }
@@ -150,7 +149,7 @@ func (assert *TemplateTest) TestFileEnumProperties() {
 	assert.Equal("A flag for the status result.", enum.Description)
 	assert.Equal(2, len(enum.Values))
 
-	expectedValues := []*gendoc.EnumValue{
+	expectedValues := []*EnumValue{
 		{Name: "OK", Number: "200", Description: "OK result."},
 		{Name: "BAD_REQUEST", Number: "400", Description: "BAD result."},
 	}
@@ -369,7 +368,7 @@ func (assert *TemplateTest) TestExcludedComments() {
 	assert.Equal("the id of this message.", findField("id", message).Description)
 }
 
-func findService(name string, f *gendoc.File) *gendoc.Service {
+func findService(name string, f *File) *Service {
 	for _, s := range f.Services {
 		if s.Name == name {
 			return s
@@ -379,7 +378,7 @@ func findService(name string, f *gendoc.File) *gendoc.Service {
 	return nil
 }
 
-func findServiceMethod(name string, s *gendoc.Service) *gendoc.ServiceMethod {
+func findServiceMethod(name string, s *Service) *ServiceMethod {
 	for _, m := range s.Methods {
 		if m.Name == name {
 			return m
@@ -389,7 +388,7 @@ func findServiceMethod(name string, s *gendoc.Service) *gendoc.ServiceMethod {
 	return nil
 }
 
-func findEnum(name string, f *gendoc.File) *gendoc.Enum {
+func findEnum(name string, f *File) *Enum {
 	for _, enum := range f.Enums {
 		if enum.LongName == name {
 			return enum
@@ -399,7 +398,7 @@ func findEnum(name string, f *gendoc.File) *gendoc.Enum {
 	return nil
 }
 
-func findExtension(name string, f *gendoc.File) *gendoc.FileExtension {
+func findExtension(name string, f *File) *FileExtension {
 	for _, ext := range f.Extensions {
 		if ext.LongName == name {
 			return ext
@@ -409,7 +408,7 @@ func findExtension(name string, f *gendoc.File) *gendoc.FileExtension {
 	return nil
 }
 
-func findMessage(name string, f *gendoc.File) *gendoc.Message {
+func findMessage(name string, f *File) *Message {
 	for _, m := range f.Messages {
 		if m.LongName == name {
 			return m
@@ -419,7 +418,7 @@ func findMessage(name string, f *gendoc.File) *gendoc.Message {
 	return nil
 }
 
-func findField(name string, m *gendoc.Message) *gendoc.MessageField {
+func findField(name string, m *Message) *MessageField {
 	for _, f := range m.Fields {
 		if f.Name == name {
 			return f

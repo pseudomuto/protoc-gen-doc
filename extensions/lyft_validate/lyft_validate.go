@@ -1,12 +1,11 @@
 package extensions
 
 import (
-	"github.com/envoyproxy/protoc-gen-validate/validate"
-
 	"encoding/json"
 	"reflect"
 	"strings"
 
+	"github.com/envoyproxy/protoc-gen-validate/validate"
 	"github.com/pseudomuto/protoc-gen-doc/extensions"
 )
 
