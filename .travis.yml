@@ -22,7 +22,7 @@ go:
 install:
   - if [ ! -d "${PROTOC_TARGET}" ]; then curl -fsSL "$PROTOC_RELEASE" > "${PROTOC_TARGET}.zip"; fi
   - if [ -f "${PROTOC_TARGET}.zip" ]; then unzip "${PROTOC_TARGET}.zip" -d "${PROTOC_TARGET}"; fi
-  - go get -u github.com/golang/protobuf/{proto,protoc-gen-go} github.com/haya14busa/goverage
+  - go get github.com/golang/protobuf/{proto,protoc-gen-go} github.com/haya14busa/goverage
 
 script:
   - goverage -race -coverprofile=coverage.txt -covermode=atomic
