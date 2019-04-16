@@ -6,69 +6,61 @@ import (
 	"testing"
 
 	. "github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc"
-	"github.com/stretchr/testify/suite"
+	"github.com/stretchr/testify/require"
 )
 
-type FlagsTest struct {
-	suite.Suite
-}
-
-func TestFlags(t *testing.T) {
-	suite.Run(t, new(FlagsTest))
-}
-
-func (assert *FlagsTest) TestCode() {
+func TestCode(t *testing.T) {
 	f := ParseFlags(nil, []string{"app", "-help"})
-	assert.Equal(0, f.Code())
+	require.Zero(t, f.Code())
 
 	f = ParseFlags(nil, []string{"app", "-whoawhoawhoa"})
-	assert.Equal(1, f.Code())
+	require.Equal(t, 1, f.Code())
 }
 
-func (assert *FlagsTest) TestHasMatch() {
+func TestHasMatch(t *testing.T) {
 	f := ParseFlags(nil, []string{"app", "-help"})
-	assert.True(f.HasMatch())
+	require.True(t, f.HasMatch())
 
 	f = ParseFlags(nil, []string{"app", "-version"})
-	assert.True(f.HasMatch())
+	require.True(t, f.HasMatch())
 
 	f = ParseFlags(nil, []string{"app", "-watthewhat"})
-	assert.True(f.HasMatch())
+	require.True(t, f.HasMatch())
 
 	f = ParseFlags(nil, []string{"app"})
-	assert.False(f.HasMatch())
+	require.False(t, f.HasMatch())
 }
 
-func (assert *FlagsTest) TestShowHelp() {
+func TestShowHelp(t *testing.T) {
 	f := ParseFlags(nil, []string{"app", "-help"})
-	assert.True(f.ShowHelp())
+	require.True(t, f.ShowHelp())
 
 	f = ParseFlags(nil, []string{"app", "-version"})
-	assert.False(f.ShowHelp())
+	require.False(t, f.ShowHelp())
 }
 
-func (assert *FlagsTest) TestShowVersion() {
+func TestShowVersion(t *testing.T) {
 	f := ParseFlags(nil, []string{"app", "-version"})
-	assert.True(f.ShowVersion())
+	require.True(t, f.ShowVersion())
 
 	f = ParseFlags(nil, []string{"app", "-help"})
-	assert.False(f.ShowVersion())
+	require.False(t, f.ShowVersion())
 }
 
-func (assert *FlagsTest) TestPrintHelp() {
+func TestPrintHelp(t *testing.T) {
 	buf := new(bytes.Buffer)
 
 	f := ParseFlags(buf, []string{"app"})
 	f.PrintHelp()
 
 	result := buf.String()
-	assert.Contains(result, "Usage of app:\n\n")
-	assert.Contains(result, "FLAGS\n")
-	assert.Contains(result, "-help")
-	assert.Contains(result, "-version")
+	require.Contains(t, result, "Usage of app:\n\n")
+	require.Contains(t, result, "FLAGS\n")
+	require.Contains(t, result, "-help")
+	require.Contains(t, result, "-version")
 }
 
-func (assert *FlagsTest) TestPrintVersion() {
+func TestPrintVersion(t *testing.T) {
 	buf := new(bytes.Buffer)
 
 	f := ParseFlags(buf, []string{"app"})
@@ -76,14 +68,14 @@ func (assert *FlagsTest) TestPrintVersion() {
 
 	// Normally, I'm not a fan of using constants like this in tests. However, having this break everytime the version
 	// changes is kinda poop, so I've used VERSION here.
-	assert.Equal(fmt.Sprintf("app version %s\n", Version()), buf.String())
+	require.Equal(t, fmt.Sprintf("app version %s\n", Version()), buf.String())
 }
 
-func (assert *FlagsTest) TestInvalidFlags() {
+func TestInvalidFlags(t *testing.T) {
 	buf := new(bytes.Buffer)
 
 	f := ParseFlags(buf, []string{"app", "-wat"})
-	assert.Contains(buf.String(), "flag provided but not defined: -wat\n")
-	assert.True(f.HasMatch())
-	assert.True(f.ShowHelp())
+	require.Contains(t, buf.String(), "flag provided but not defined: -wat\n")
+	require.True(t, f.HasMatch())
+	require.True(t, f.ShowHelp())
 }

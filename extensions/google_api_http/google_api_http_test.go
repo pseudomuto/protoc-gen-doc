@@ -6,22 +6,12 @@ import (
 
 	"github.com/pseudomuto/protoc-gen-doc/extensions"
 	. "github.com/pseudomuto/protoc-gen-doc/extensions/google_api_http"
-	"github.com/stretchr/testify/suite"
+	"github.com/stretchr/testify/require"
 	"google.golang.org/genproto/googleapis/api/annotations"
 )
 
-var rule *annotations.HttpRule
-
-type HTTPRuleTest struct {
-	suite.Suite
-}
-
-func TestHTTPRule(t *testing.T) {
-	suite.Run(t, new(HTTPRuleTest))
-}
-
-func (assert *HTTPRuleTest) SetupSuite() {
-	rule = &annotations.HttpRule{
+func TestTransform(t *testing.T) {
+	rule := &annotations.HttpRule{
 		Pattern: &annotations.HttpRule_Get{Get: "/api/v1/method"},
 		AdditionalBindings: []*annotations.HttpRule{
 			{Pattern: &annotations.HttpRule_Put{Put: "/api/v1/method_alt"}, Body: "*"},
@@ -34,22 +24,17 @@ func (assert *HTTPRuleTest) SetupSuite() {
 			}}},
 		},
 	}
-}
 
-func (assert *HTTPRuleTest) TestTransform() {
-	transformed := extensions.Transform(map[string]interface{}{
-		"google.api.http": rule,
+	transformed := extensions.Transform(map[string]interface{}{"google.api.http": rule})
+	require.NotEmpty(t, transformed)
+
+	rules := transformed["google.api.http"].(HTTPExtension).Rules
+	require.Equal(t, rules, []HTTPRule{
+		{Method: http.MethodGet, Pattern: "/api/v1/method"},
+		{Method: http.MethodPut, Pattern: "/api/v1/method_alt", Body: "*"},
+		{Method: http.MethodPost, Pattern: "/api/v1/method_alt", Body: "*"},
+		{Method: http.MethodDelete, Pattern: "/api/v1/method_alt"},
+		{Method: http.MethodPatch, Pattern: "/api/v1/method_alt", Body: "*"},
+		{Method: http.MethodOptions, Pattern: "/api/v1/method_alt"},
 	})
-	assert.NotEmpty(transformed)
-	if assert.Contains(transformed, "google.api.http") {
-		rules := transformed["google.api.http"].(HTTPExtension).Rules
-		assert.Equal(rules, []HTTPRule{
-			{Method: http.MethodGet, Pattern: "/api/v1/method"},
-			{Method: http.MethodPut, Pattern: "/api/v1/method_alt", Body: "*"},
-			{Method: http.MethodPost, Pattern: "/api/v1/method_alt", Body: "*"},
-			{Method: http.MethodDelete, Pattern: "/api/v1/method_alt"},
-			{Method: http.MethodPatch, Pattern: "/api/v1/method_alt", Body: "*"},
-			{Method: http.MethodOptions, Pattern: "/api/v1/method_alt"},
-		})
-	}
 }

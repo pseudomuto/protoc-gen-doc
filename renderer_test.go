@@ -7,53 +7,31 @@ import (
 	. "github.com/pseudomuto/protoc-gen-doc"
 	"github.com/pseudomuto/protokit"
 	"github.com/pseudomuto/protokit/utils"
-	"github.com/stretchr/testify/suite"
+	"github.com/stretchr/testify/require"
 )
 
-const tempTestDir = "./tmp"
-
-var renderTemplate *Template
-
-type RendererTest struct {
-	suite.Suite
-}
-
-func TestRenderer(t *testing.T) {
-	suite.Run(t, new(RendererTest))
-}
-
-func (assert *RendererTest) SetupSuite() {
+func TestRenderers(t *testing.T) {
 	set, err := utils.LoadDescriptorSet("fixtures", "fileset.pb")
-	assert.NoError(err)
+	require.NoError(t, err)
 
-	os.Mkdir(tempTestDir, os.ModePerm)
+	os.Mkdir("./tmp", os.ModePerm)
 
 	req := utils.CreateGenRequest(set, "Booking.proto", "Vehicle.proto")
 	result := protokit.ParseCodeGenRequest(req)
-	renderTemplate = NewTemplate(result)
+	template := NewTemplate(result)
+
+	for _, r := range []RenderType{
+		RenderTypeDocBook,
+		RenderTypeHTML,
+		RenderTypeJSON,
+		RenderTypeMarkdown,
+	} {
+		_, err := RenderTemplate(r, template, "")
+		require.NoError(t, err)
+	}
 }
 
-func (assert *RendererTest) TestDocBookRenderer() {
-	_, err := RenderTemplate(RenderTypeDocBook, renderTemplate, "")
-	assert.Nil(err)
-}
-
-func (assert *RendererTest) TestHtmlRenderer() {
-	_, err := RenderTemplate(RenderTypeHTML, renderTemplate, "")
-	assert.Nil(err)
-}
-
-func (assert *RendererTest) TestJsonRenderer() {
-	_, err := RenderTemplate(RenderTypeJSON, renderTemplate, "")
-	assert.Nil(err)
-}
-
-func (assert *RendererTest) TestMarkdownRenderer() {
-	_, err := RenderTemplate(RenderTypeMarkdown, renderTemplate, "")
-	assert.Nil(err)
-}
-
-func (assert *RendererTest) TestNewRenderType() {
+func TestNewRenderType(t *testing.T) {
 	expected := []RenderType{
 		RenderTypeDocBook,
 		RenderTypeHTML,
@@ -65,13 +43,13 @@ func (assert *RendererTest) TestNewRenderType() {
 
 	for idx, input := range supplied {
 		rt, err := NewRenderType(input)
-		assert.Nil(err)
-		assert.Equal(expected[idx], rt)
+		require.Nil(t, err)
+		require.Equal(t, expected[idx], rt)
 	}
 }
 
-func (assert *RendererTest) TestNewRenderTypeUnknown() {
+func TestNewRenderTypeUnknown(t *testing.T) {
 	rt, err := NewRenderType("/some/template.tmpl")
-	assert.Zero(rt)
-	assert.NotNil(err)
+	require.Zero(t, rt)
+	require.Error(t, err)
 }
