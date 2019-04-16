@@ -5,12 +5,12 @@ require (
 	github.com/Masterminds/sprig v2.15.0+incompatible
 	github.com/aokoli/goutils v1.0.1 // indirect
 	github.com/davecgh/go-spew v0.0.0-20161028175848-04cdfd42973b // indirect
+	github.com/envoyproxy/protoc-gen-validate v0.0.14
 	github.com/gogo/protobuf v1.1.1 // indirect
 	github.com/golang/protobuf v1.1.0
 	github.com/google/uuid v0.0.0-20161128191214-064e2069ce9c // indirect
 	github.com/huandu/xstrings v1.0.0 // indirect
 	github.com/imdario/mergo v0.3.4 // indirect
-	github.com/lyft/protoc-gen-validate v0.0.6
 	github.com/mwitkow/go-proto-validators v0.0.0-20180403085117-0950a7990007
 	github.com/pmezard/go-difflib v0.0.0-20151028094244-d8ed2627bdf0 // indirect
 	github.com/pseudomuto/protokit v0.2.0
