@@ -64,7 +64,7 @@
   version = "v0.3.4"
 
 [[projects]]
-  name = "github.com/lyft/protoc-gen-validate"
+  name = "github.com/envoyproxy/protoc-gen-validate"
   packages = ["validate"]
   revision = "930a67cf7ba41b9d9436ad7a1be70a5d5ff6e1fc"
   version = "v0.0.6"

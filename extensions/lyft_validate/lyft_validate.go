@@ -1,7 +1,7 @@
 package extensions
 
 import (
-	"github.com/lyft/protoc-gen-validate/validate"
+	"github.com/envoyproxy/protoc-gen-validate/validate"
 
 	"encoding/json"
 	"reflect"
