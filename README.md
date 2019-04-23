@@ -181,7 +181,7 @@ the plugin gives the output
 Check out the `examples` task in the [Makefile](Makefile) to see how these were generated.
 
 [gotemplate]:
-    https//golang.org/pkg/text/template/
+    https://golang.org/pkg/text/template/
     "Template - The Go Programming Language"
 [custom]:
     https://github.com/pseudomuto/protoc-gen-doc/wiki/Custom-Templates
