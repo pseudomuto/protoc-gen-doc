@@ -56,7 +56,7 @@
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 {{range .Values -}}
-  | {{.Name}} | {{.Number}} | {{nobr .Description | replace "\n" "<br>"} |
+  | {{.Name}} | {{.Number}} | {{nobr .Description | replace "\n" "<br>"}} |
 {{end}}
 
 {{end}} <!-- end enums -->
