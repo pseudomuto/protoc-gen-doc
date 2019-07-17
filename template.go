@@ -1,13 +1,14 @@
 package gendoc
 
 import (
-	"github.com/golang/protobuf/protoc-gen-go/descriptor"
-	"github.com/pseudomuto/protokit"
-
 	"encoding/json"
 	"fmt"
 	"sort"
 	"strings"
+
+	"github.com/golang/protobuf/protoc-gen-go/descriptor"
+	"github.com/pseudomuto/protoc-gen-doc/extensions"
+	"github.com/pseudomuto/protokit"
 )
 
 // Template is a type for encapsulating all the parsed files, messages, fields, enums, services, extensions, etc. into
@@ -36,6 +37,7 @@ func NewTemplate(descs []*protokit.FileDescriptor) *Template {
 			Extensions:    make(orderedExtensions, 0, len(f.Extensions)),
 			Messages:      make(orderedMessages, 0, len(f.Messages)),
 			Services:      make(orderedServices, 0, len(f.Services)),
+			Options:       mergeOptions(extractOptions(f.GetOptions()), extensions.Transform(f.OptionExtensions)),
 		}
 
 		for _, e := range f.Enums {
@@ -85,6 +87,41 @@ func makeScalars() []*ScalarValue {
 	return scalars
 }
 
+func mergeOptions(opts ...map[string]interface{}) map[string]interface{} {
+	out := make(map[string]interface{})
+	for _, opts := range opts {
+		for k, v := range opts {
+			if _, ok := out[k]; ok {
+				continue
+			}
+			out[k] = v
+		}
+	}
+	if len(out) == 0 {
+		return nil
+	}
+	return out
+}
+
+// CommonOptions are options common to all descriptor types.
+type commonOptions interface {
+	GetDeprecated() bool
+}
+
+func extractOptions(opts commonOptions) map[string]interface{} {
+	out := make(map[string]interface{})
+	if opts.GetDeprecated() {
+		out["deprecated"] = true
+	}
+	switch opts := opts.(type) {
+	case *descriptor.MethodOptions:
+		if opts != nil && opts.IdempotencyLevel != nil {
+			out["idempotency_level"] = opts.IdempotencyLevel.String()
+		}
+	}
+	return out
+}
+
 // File wraps all the relevant parsed info about a proto file. File objects guarantee that their top-level enums,
 // extensions, messages, and services are sorted alphabetically based on their "long name". Other values (enum values,
 // fields, service methods) will be in the order that they're defined within their respective proto files.
@@ -104,7 +141,12 @@ type File struct {
 	Extensions orderedExtensions `json:"extensions"`
 	Messages   orderedMessages   `json:"messages"`
 	Services   orderedServices   `json:"services"`
+
+	Options map[string]interface{} `json:"options,omitempty"`
 }
+
+// Option returns the named option.
+func (f File) Option(name string) interface{} { return f.Options[name] }
 
 // FileExtension contains details about top-level extensions within a proto(2) file.
 type FileExtension struct {
@@ -137,6 +179,45 @@ type Message struct {
 
 	Extensions []*MessageExtension `json:"extensions"`
 	Fields     []*MessageField     `json:"fields"`
+
+	Options map[string]interface{} `json:"options,omitempty"`
+}
+
+// Option returns the named option.
+func (m Message) Option(name string) interface{} { return m.Options[name] }
+
+// FieldOptions returns all options that are set on the fields in this message.
+func (m Message) FieldOptions() []string {
+	optionSet := make(map[string]struct{})
+	for _, field := range m.Fields {
+		for option := range field.Options {
+			optionSet[option] = struct{}{}
+		}
+	}
+	if len(optionSet) == 0 {
+		return nil
+	}
+	options := make([]string, 0, len(optionSet))
+	for option := range optionSet {
+		options = append(options, option)
+	}
+	sort.Strings(options)
+	return options
+}
+
+// FieldsWithOption returns all fields that have the given option set.
+// If no single value has the option set, this returns nil.
+func (m Message) FieldsWithOption(optionName string) []*MessageField {
+	fields := make([]*MessageField, 0, len(m.Fields))
+	for _, field := range m.Fields {
+		if _, ok := field.Options[optionName]; ok {
+			fields = append(fields, field)
+		}
+	}
+	if len(fields) > 0 {
+		return fields
+	}
+	return nil
 }
 
 // MessageField contains details about an individual field within a message.
@@ -152,7 +233,12 @@ type MessageField struct {
 	FullType     string `json:"fullType"`
 	IsMap        bool   `json:"ismap"`
 	DefaultValue string `json:"defaultValue"`
+
+	Options map[string]interface{} `json:"options,omitempty"`
 }
+
+// Option returns the named option.
+func (f MessageField) Option(name string) interface{} { return f.Options[name] }
 
 // MessageExtension contains details about message-scoped extensions in proto(2) files.
 type MessageExtension struct {
@@ -170,6 +256,45 @@ type Enum struct {
 	FullName    string       `json:"fullName"`
 	Description string       `json:"description"`
 	Values      []*EnumValue `json:"values"`
+
+	Options map[string]interface{} `json:"options,omitempty"`
+}
+
+// Option returns the named option.
+func (e Enum) Option(name string) interface{} { return e.Options[name] }
+
+// ValueOptions returns all options that are set on the values in this enum.
+func (e Enum) ValueOptions() []string {
+	optionSet := make(map[string]struct{})
+	for _, value := range e.Values {
+		for option := range value.Options {
+			optionSet[option] = struct{}{}
+		}
+	}
+	if len(optionSet) == 0 {
+		return nil
+	}
+	options := make([]string, 0, len(optionSet))
+	for option := range optionSet {
+		options = append(options, option)
+	}
+	sort.Strings(options)
+	return options
+}
+
+// ValuesWithOption returns all values that have the given option set.
+// If no single value has the option set, this returns nil.
+func (e Enum) ValuesWithOption(optionName string) []*EnumValue {
+	values := make([]*EnumValue, 0, len(e.Values))
+	for _, value := range e.Values {
+		if _, ok := value.Options[optionName]; ok {
+			values = append(values, value)
+		}
+	}
+	if len(values) > 0 {
+		return values
+	}
+	return nil
 }
 
 // EnumValue contains details about an individual value within an enumeration.
@@ -177,7 +302,12 @@ type EnumValue struct {
 	Name        string `json:"name"`
 	Number      string `json:"number"`
 	Description string `json:"description"`
+
+	Options map[string]interface{} `json:"options,omitempty"`
 }
+
+// Option returns the named option.
+func (v EnumValue) Option(name string) interface{} { return v.Options[name] }
 
 // Service contains details about a service definition within a proto file.
 type Service struct {
@@ -186,6 +316,45 @@ type Service struct {
 	FullName    string           `json:"fullName"`
 	Description string           `json:"description"`
 	Methods     []*ServiceMethod `json:"methods"`
+
+	Options map[string]interface{} `json:"options,omitempty"`
+}
+
+// Option returns the named option.
+func (s Service) Option(name string) interface{} { return s.Options[name] }
+
+// MethodOptions returns all options that are set on the methods in this service.
+func (s Service) MethodOptions() []string {
+	optionSet := make(map[string]struct{})
+	for _, method := range s.Methods {
+		for option := range method.Options {
+			optionSet[option] = struct{}{}
+		}
+	}
+	if len(optionSet) == 0 {
+		return nil
+	}
+	options := make([]string, 0, len(optionSet))
+	for option := range optionSet {
+		options = append(options, option)
+	}
+	sort.Strings(options)
+	return options
+}
+
+// MethodsWithOption returns all methods that have the given option set.
+// If no single method has the option set, this returns nil.
+func (s Service) MethodsWithOption(optionName string) []*ServiceMethod {
+	methods := make([]*ServiceMethod, 0, len(s.Methods))
+	for _, method := range s.Methods {
+		if _, ok := method.Options[optionName]; ok {
+			methods = append(methods, method)
+		}
+	}
+	if len(methods) > 0 {
+		return methods
+	}
+	return nil
 }
 
 // ServiceMethod contains details about an individual method within a service.
@@ -200,7 +369,12 @@ type ServiceMethod struct {
 	ResponseLongType  string `json:"responseLongType"`
 	ResponseFullType  string `json:"responseFullType"`
 	ResponseStreaming bool   `json:"responseStreaming"`
+
+	Options map[string]interface{} `json:"options,omitempty"`
 }
+
+// Option returns the named option.
+func (m ServiceMethod) Option(name string) interface{} { return m.Options[name] }
 
 // ScalarValue contains information about scalar value types in protobuf. The common use case for this type is to know
 // which language specific type maps to the protobuf type.
@@ -225,6 +399,7 @@ func parseEnum(pe *protokit.EnumDescriptor) *Enum {
 		LongName:    pe.GetLongName(),
 		FullName:    pe.GetFullName(),
 		Description: description(pe.GetComments().String()),
+		Options:     mergeOptions(extractOptions(pe.GetOptions()), extensions.Transform(pe.OptionExtensions)),
 	}
 
 	for _, val := range pe.GetValues() {
@@ -232,6 +407,7 @@ func parseEnum(pe *protokit.EnumDescriptor) *Enum {
 			Name:        val.GetName(),
 			Number:      fmt.Sprint(val.GetNumber()),
 			Description: description(val.GetComments().String()),
+			Options:     mergeOptions(extractOptions(val.GetOptions()), extensions.Transform(val.OptionExtensions)),
 		})
 	}
 
@@ -268,6 +444,7 @@ func parseMessage(pm *protokit.Descriptor) *Message {
 		HasFields:     len(pm.GetMessageFields()) > 0,
 		Extensions:    make([]*MessageExtension, 0, len(pm.Extensions)),
 		Fields:        make([]*MessageField, 0, len(pm.Fields)),
+		Options:       mergeOptions(extractOptions(pm.GetOptions()), extensions.Transform(pm.OptionExtensions)),
 	}
 
 	for _, ext := range pm.Extensions {
@@ -301,6 +478,7 @@ func parseMessageField(pf *protokit.FieldDescriptor) *MessageField {
 		LongType:     lt,
 		FullType:     ft,
 		DefaultValue: pf.GetDefaultValue(),
+		Options:      mergeOptions(extractOptions(pf.GetOptions()), extensions.Transform(pf.OptionExtensions)),
 	}
 
 	// Check if this is a map.
@@ -323,6 +501,7 @@ func parseService(ps *protokit.ServiceDescriptor) *Service {
 		LongName:    ps.GetLongName(),
 		FullName:    ps.GetFullName(),
 		Description: description(ps.GetComments().String()),
+		Options:     mergeOptions(extractOptions(ps.GetOptions()), extensions.Transform(ps.OptionExtensions)),
 	}
 
 	for _, sm := range ps.Methods {
@@ -344,6 +523,7 @@ func parseServiceMethod(pm *protokit.MethodDescriptor) *ServiceMethod {
 		ResponseLongType:  strings.TrimPrefix(pm.GetOutputType(), "."+pm.GetPackage()+"."),
 		ResponseFullType:  strings.TrimPrefix(pm.GetOutputType(), "."),
 		ResponseStreaming: pm.GetServerStreaming(),
+		Options:           mergeOptions(extractOptions(pm.GetOptions()), extensions.Transform(pm.OptionExtensions)),
 	}
 }
 

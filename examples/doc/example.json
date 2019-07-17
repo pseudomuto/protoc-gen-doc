@@ -99,7 +99,19 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
-              "defaultValue": ""
+              "defaultValue": "",
+              "options": {
+                "validator.field": [
+                  {
+                    "name": "string_not_empty",
+                    "value": true
+                  },
+                  {
+                    "name": "length_lt",
+                    "value": 255
+                  }
+                ]
+              }
             }
           ]
         },
@@ -152,7 +164,18 @@
               "responseType": "BookingStatus",
               "responseLongType": "BookingStatus",
               "responseFullType": "com.example.BookingStatus",
-              "responseStreaming": false
+              "responseStreaming": false,
+              "options": {
+                "google.api.http": {
+                  "rules": [
+                    {
+                      "method": "POST",
+                      "pattern": "/api/bookings/vehicle/{vehicle_id}",
+                      "body": "*"
+                    }
+                  ]
+                }
+              }
             },
             {
               "name": "BookingUpdates",
@@ -198,7 +221,15 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
-              "defaultValue": ""
+              "defaultValue": "",
+              "options": {
+                "validate.rules": [
+                  {
+                    "name": "string.min_len",
+                    "value": 2
+                  }
+                ]
+              }
             },
             {
               "name": "address_line_2",

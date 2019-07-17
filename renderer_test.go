@@ -1,78 +1,55 @@
 package gendoc_test
 
 import (
-	"github.com/pseudomuto/protokit"
-	"github.com/pseudomuto/protokit/utils"
-	"github.com/stretchr/testify/suite"
-
 	"os"
 	"testing"
 
-	"github.com/pseudomuto/protoc-gen-doc"
+	. "github.com/pseudomuto/protoc-gen-doc"
+	"github.com/pseudomuto/protokit"
+	"github.com/pseudomuto/protokit/utils"
+	"github.com/stretchr/testify/require"
 )
 
-const tempTestDir = "./tmp"
-
-var renderTemplate *gendoc.Template
-
-type RendererTest struct {
-	suite.Suite
-}
-
-func TestRenderer(t *testing.T) {
-	suite.Run(t, new(RendererTest))
-}
-
-func (assert *RendererTest) SetupSuite() {
+func TestRenderers(t *testing.T) {
 	set, err := utils.LoadDescriptorSet("fixtures", "fileset.pb")
-	assert.NoError(err)
+	require.NoError(t, err)
 
-	os.Mkdir(tempTestDir, os.ModePerm)
+	os.Mkdir("./tmp", os.ModePerm)
 
 	req := utils.CreateGenRequest(set, "Booking.proto", "Vehicle.proto")
 	result := protokit.ParseCodeGenRequest(req)
-	renderTemplate = gendoc.NewTemplate(result)
+	template := NewTemplate(result)
+
+	for _, r := range []RenderType{
+		RenderTypeDocBook,
+		RenderTypeHTML,
+		RenderTypeJSON,
+		RenderTypeMarkdown,
+	} {
+		_, err := RenderTemplate(r, template, "")
+		require.NoError(t, err)
+	}
 }
 
-func (assert *RendererTest) TestDocBookRenderer() {
-	_, err := gendoc.RenderTemplate(gendoc.RenderTypeDocBook, renderTemplate, "")
-	assert.Nil(err)
-}
-
-func (assert *RendererTest) TestHtmlRenderer() {
-	_, err := gendoc.RenderTemplate(gendoc.RenderTypeHTML, renderTemplate, "")
-	assert.Nil(err)
-}
-
-func (assert *RendererTest) TestJsonRenderer() {
-	_, err := gendoc.RenderTemplate(gendoc.RenderTypeJSON, renderTemplate, "")
-	assert.Nil(err)
-}
-
-func (assert *RendererTest) TestMarkdownRenderer() {
-	_, err := gendoc.RenderTemplate(gendoc.RenderTypeMarkdown, renderTemplate, "")
-	assert.Nil(err)
-}
-
-func (assert *RendererTest) TestNewRenderType() {
-	expected := []gendoc.RenderType{
-		gendoc.RenderTypeDocBook,
-		gendoc.RenderTypeHTML,
-		gendoc.RenderTypeJSON,
-		gendoc.RenderTypeMarkdown,
+func TestNewRenderType(t *testing.T) {
+	expected := []RenderType{
+		RenderTypeDocBook,
+		RenderTypeHTML,
+		RenderTypeJSON,
+		RenderTypeMarkdown,
 	}
 
 	supplied := []string{"docbook", "html", "json", "markdown"}
 
 	for idx, input := range supplied {
-		rt, err := gendoc.NewRenderType(input)
-		assert.Nil(err)
-		assert.Equal(expected[idx], rt)
+		rt, err := NewRenderType(input)
+		require.Nil(t, err)
+		require.Equal(t, expected[idx], rt)
 	}
 }
 
-func (assert *RendererTest) TestNewRenderTypeUnknown() {
-	rt, err := gendoc.NewRenderType("/some/template.tmpl")
-	assert.Zero(rt)
-	assert.NotNil(err)
+func TestNewRenderTypeUnknown(t *testing.T) {
+	rt, err := NewRenderType("/some/template.tmpl")
+	require.Zero(t, rt)
+	require.Error(t, err)
 }

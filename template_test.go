@@ -1,233 +1,340 @@
 package gendoc_test
 
 import (
-	"github.com/pseudomuto/protokit"
-	"github.com/pseudomuto/protokit/utils"
-	"github.com/stretchr/testify/suite"
-
+	"os"
 	"testing"
 
-	"github.com/pseudomuto/protoc-gen-doc"
+	"github.com/golang/protobuf/proto"
+	"github.com/golang/protobuf/protoc-gen-go/descriptor"
+	. "github.com/pseudomuto/protoc-gen-doc"
+	"github.com/pseudomuto/protoc-gen-doc/extensions"
+	"github.com/pseudomuto/protokit"
+	"github.com/pseudomuto/protokit/utils"
+	"github.com/stretchr/testify/require"
 )
 
 var (
-	template    *gendoc.Template
-	bookingFile *gendoc.File
-	vehicleFile *gendoc.File
+	template    *Template
+	bookingFile *File
+	vehicleFile *File
 )
 
-type TemplateTest struct {
-	suite.Suite
-}
+func TestMain(m *testing.M) {
+	registerTestExtensions()
 
-func TestTemplate(t *testing.T) {
-	suite.Run(t, new(TemplateTest))
-}
-
-func (assert *TemplateTest) SetupSuite() {
-	set, err := utils.LoadDescriptorSet("fixtures", "fileset.pb")
-	assert.NoError(err)
-
+	set, _ := utils.LoadDescriptorSet("fixtures", "fileset.pb")
 	req := utils.CreateGenRequest(set, "Booking.proto", "Vehicle.proto")
 	result := protokit.ParseCodeGenRequest(req)
-	template = gendoc.NewTemplate(result)
+
+	template = NewTemplate(result)
 	bookingFile = template.Files[0]
 	vehicleFile = template.Files[1]
+
+	os.Exit(m.Run())
 }
 
-func (assert *TemplateTest) TestTemplateProperties() {
-	assert.Equal(2, len(template.Files))
+func identity(payload interface{}) interface{} { return payload }
+
+var E_ExtendFile = &proto.ExtensionDesc{
+	ExtendedType:  (*descriptor.FileOptions)(nil),
+	ExtensionType: (*bool)(nil),
+	Field:         20000,
+	Name:          "com.pseudomuto.protokit.v1.extend_file",
+	Tag:           "varint,20000,opt,name=extend_file,json=extendFile",
+	Filename:      "extend.proto",
 }
 
-func (assert *TemplateTest) TestFileProperties() {
-	assert.Equal("Booking.proto", bookingFile.Name)
-	assert.Equal("Booking related messages.\n\nThis file is really just an example. The data model is completely\nfictional.", bookingFile.Description)
-	assert.Equal("com.example", bookingFile.Package)
-	assert.True(bookingFile.HasEnums)
-	assert.True(bookingFile.HasExtensions)
-	assert.True(bookingFile.HasMessages)
-	assert.True(bookingFile.HasServices)
+var E_ExtendService = &proto.ExtensionDesc{
+	ExtendedType:  (*descriptor.ServiceOptions)(nil),
+	ExtensionType: (*bool)(nil),
+	Field:         20000,
+	Name:          "com.pseudomuto.protokit.v1.extend_service",
+	Tag:           "varint,20000,opt,name=extend_service,json=extendService",
+	Filename:      "extend.proto",
 }
 
-func (assert *TemplateTest) TestFileEnumProperties() {
+var E_ExtendMethod = &proto.ExtensionDesc{
+	ExtendedType:  (*descriptor.MethodOptions)(nil),
+	ExtensionType: (*bool)(nil),
+	Field:         20000,
+	Name:          "com.pseudomuto.protokit.v1.extend_method",
+	Tag:           "varint,20000,opt,name=extend_method,json=extendMethod",
+	Filename:      "extend.proto",
+}
+
+var E_ExtendEnum = &proto.ExtensionDesc{
+	ExtendedType:  (*descriptor.EnumOptions)(nil),
+	ExtensionType: (*bool)(nil),
+	Field:         20000,
+	Name:          "com.pseudomuto.protokit.v1.extend_enum",
+	Tag:           "varint,20000,opt,name=extend_enum,json=extendEnum",
+	Filename:      "extend.proto",
+}
+
+var E_ExtendEnumValue = &proto.ExtensionDesc{
+	ExtendedType:  (*descriptor.EnumValueOptions)(nil),
+	ExtensionType: (*bool)(nil),
+	Field:         20000,
+	Name:          "com.pseudomuto.protokit.v1.extend_enum_value",
+	Tag:           "varint,20000,opt,name=extend_enum_value,json=extendEnumValue",
+	Filename:      "extend.proto",
+}
+
+var E_ExtendMessage = &proto.ExtensionDesc{
+	ExtendedType:  (*descriptor.MessageOptions)(nil),
+	ExtensionType: (*bool)(nil),
+	Field:         20000,
+	Name:          "com.pseudomuto.protokit.v1.extend_message",
+	Tag:           "varint,20000,opt,name=extend_message,json=extendMessage",
+	Filename:      "extend.proto",
+}
+
+var E_ExtendField = &proto.ExtensionDesc{
+	ExtendedType:  (*descriptor.FieldOptions)(nil),
+	ExtensionType: (*bool)(nil),
+	Field:         20000,
+	Name:          "com.pseudomuto.protokit.v1.extend_field",
+	Tag:           "varint,20000,opt,name=extend_field,json=extendField",
+	Filename:      "extend.proto",
+}
+
+func registerTestExtensions() {
+	proto.RegisterExtension(E_ExtendFile)
+	extensions.SetTransformer(E_ExtendFile.Name, identity)
+	proto.RegisterExtension(E_ExtendService)
+	extensions.SetTransformer(E_ExtendService.Name, identity)
+	proto.RegisterExtension(E_ExtendMethod)
+	extensions.SetTransformer(E_ExtendMethod.Name, identity)
+	proto.RegisterExtension(E_ExtendEnum)
+	extensions.SetTransformer(E_ExtendEnum.Name, identity)
+	proto.RegisterExtension(E_ExtendEnumValue)
+	extensions.SetTransformer(E_ExtendEnumValue.Name, identity)
+	proto.RegisterExtension(E_ExtendMessage)
+	extensions.SetTransformer(E_ExtendMessage.Name, identity)
+	proto.RegisterExtension(E_ExtendField)
+	extensions.SetTransformer(E_ExtendField.Name, identity)
+}
+
+func TestTemplateProperties(t *testing.T) {
+	require.Len(t, template.Files, 2)
+}
+
+func TestFileProperties(t *testing.T) {
+	require.Equal(t, "Booking.proto", bookingFile.Name)
+	require.Equal(t, "Booking related messages.\n\nThis file is really just an example. The data model is completely\nfictional.", bookingFile.Description)
+	require.Equal(t, "com.example", bookingFile.Package)
+	require.True(t, bookingFile.HasEnums)
+	require.True(t, bookingFile.HasExtensions)
+	require.True(t, bookingFile.HasMessages)
+	require.True(t, bookingFile.HasServices)
+	require.NotEmpty(t, bookingFile.Options)
+	require.True(t, *bookingFile.Option(E_ExtendFile.Name).(*bool))
+}
+
+func TestFileEnumProperties(t *testing.T) {
 	enum := findEnum("BookingStatus.StatusCode", bookingFile)
-	assert.Equal("StatusCode", enum.Name)
-	assert.Equal("BookingStatus.StatusCode", enum.LongName)
-	assert.Equal("com.example.BookingStatus.StatusCode", enum.FullName)
-	assert.Equal("A flag for the status result.", enum.Description)
-	assert.Equal(2, len(enum.Values))
+	require.Equal(t, "StatusCode", enum.Name)
+	require.Equal(t, "BookingStatus.StatusCode", enum.LongName)
+	require.Equal(t, "com.example.BookingStatus.StatusCode", enum.FullName)
+	require.Equal(t, "A flag for the status result.", enum.Description)
+	require.Len(t, enum.Values, 2)
 
-	expectedValues := []*gendoc.EnumValue{
+	expectedValues := []*EnumValue{
 		{Name: "OK", Number: "200", Description: "OK result."},
 		{Name: "BAD_REQUEST", Number: "400", Description: "BAD result."},
 	}
 
 	for idx, value := range enum.Values {
-		assert.Equal(expectedValues[idx], value)
+		require.Equal(t, expectedValues[idx], value)
+	}
+
+	enum = findEnum("BookingType", bookingFile)
+	require.NotEmpty(t, enum.Options)
+	require.True(t, *enum.Option(E_ExtendEnum.Name).(*bool))
+	require.Contains(t, enum.ValueOptions(), E_ExtendEnumValue.Name)
+	require.NotEmpty(t, enum.ValuesWithOption(E_ExtendEnumValue.Name))
+
+	for _, value := range enum.Values {
+		if value.Name == "FUTURE" {
+			require.NotEmpty(t, value.Options)
+			require.True(t, *value.Option(E_ExtendEnumValue.Name).(*bool))
+		}
 	}
 }
 
-func (assert *TemplateTest) TestFileExtensionProperties() {
+func TestFileExtensionProperties(t *testing.T) {
 	ext := findExtension("BookingStatus.country", bookingFile)
-	assert.Equal("country", ext.Name)
-	assert.Equal("BookingStatus.country", ext.LongName)
-	assert.Equal("com.example.BookingStatus.country", ext.FullName)
-	assert.Equal("The country the booking occurred in.", ext.Description)
-	assert.Equal("optional", ext.Label)
-	assert.Equal("string", ext.Type)
-	assert.Equal("string", ext.LongType)
-	assert.Equal("string", ext.FullType)
-	assert.Equal(100, ext.Number)
-	assert.Equal("china", ext.DefaultValue)
-	assert.Equal("BookingStatus", ext.ContainingType)
-	assert.Equal("BookingStatus", ext.ContainingLongType)
-	assert.Equal("com.example.BookingStatus", ext.ContainingFullType)
+	require.Equal(t, "country", ext.Name)
+	require.Equal(t, "BookingStatus.country", ext.LongName)
+	require.Equal(t, "com.example.BookingStatus.country", ext.FullName)
+	require.Equal(t, "The country the booking occurred in.", ext.Description)
+	require.Equal(t, "optional", ext.Label)
+	require.Equal(t, "string", ext.Type)
+	require.Equal(t, "string", ext.LongType)
+	require.Equal(t, "string", ext.FullType)
+	require.Equal(t, 100, ext.Number)
+	require.Equal(t, "china", ext.DefaultValue)
+	require.Equal(t, "BookingStatus", ext.ContainingType)
+	require.Equal(t, "BookingStatus", ext.ContainingLongType)
+	require.Equal(t, "com.example.BookingStatus", ext.ContainingFullType)
 }
 
-func (assert *TemplateTest) TestMessageProperties() {
+func TestMessageProperties(t *testing.T) {
 	msg := findMessage("Vehicle", vehicleFile)
-	assert.Equal("Vehicle", msg.Name)
-	assert.Equal("Vehicle", msg.LongName)
-	assert.Equal("com.example.Vehicle", msg.FullName)
-	assert.Equal("Represents a vehicle that can be hired.", msg.Description)
-	assert.False(msg.HasExtensions)
-	assert.True(msg.HasFields)
+	require.Equal(t, "Vehicle", msg.Name)
+	require.Equal(t, "Vehicle", msg.LongName)
+	require.Equal(t, "com.example.Vehicle", msg.FullName)
+	require.Equal(t, "Represents a vehicle that can be hired.", msg.Description)
+	require.False(t, msg.HasExtensions)
+	require.True(t, msg.HasFields)
+	require.NotEmpty(t, msg.Options)
+	require.True(t, *msg.Option(E_ExtendMessage.Name).(*bool))
+	require.Contains(t, msg.FieldOptions(), E_ExtendField.Name)
+	require.NotEmpty(t, msg.FieldsWithOption(E_ExtendField.Name))
 }
 
-func (assert *TemplateTest) TestNestedMessageProperties() {
+func TestNestedMessageProperties(t *testing.T) {
 	msg := findMessage("Vehicle.Category", vehicleFile)
-	assert.Equal("Category", msg.Name)
-	assert.Equal("Vehicle.Category", msg.LongName)
-	assert.Equal("com.example.Vehicle.Category", msg.FullName)
-	assert.Equal("Represents a vehicle category. E.g. \"Sedan\" or \"Truck\".", msg.Description)
-	assert.False(msg.HasExtensions)
-	assert.True(msg.HasFields)
+	require.Equal(t, "Category", msg.Name)
+	require.Equal(t, "Vehicle.Category", msg.LongName)
+	require.Equal(t, "com.example.Vehicle.Category", msg.FullName)
+	require.Equal(t, "Represents a vehicle category. E.g. \"Sedan\" or \"Truck\".", msg.Description)
+	require.False(t, msg.HasExtensions)
+	require.True(t, msg.HasFields)
 }
 
-func (assert *TemplateTest) TestMultiplyNestedMessages() {
-	assert.NotNil(findEnum("Vehicle.Engine.FuelType", vehicleFile))
-	assert.NotNil(findMessage("Vehicle.Engine.Stats", vehicleFile))
+func TestMultiplyNestedMessages(t *testing.T) {
+	require.NotNil(t, findEnum("Vehicle.Engine.FuelType", vehicleFile))
+	require.NotNil(t, findMessage("Vehicle.Engine.Stats", vehicleFile))
 }
 
-func (assert *TemplateTest) TestMessageExtensionProperties() {
+func TestMessageExtensionProperties(t *testing.T) {
 	msg := findMessage("Booking", bookingFile)
-	assert.Equal(1, len(msg.Extensions))
+	require.Len(t, msg.Extensions, 1)
 
 	ext := msg.Extensions[0]
-	assert.Equal("optional_field_1", ext.Name)
-	assert.Equal("BookingStatus.optional_field_1", ext.LongName)
-	assert.Equal("com.example.BookingStatus.optional_field_1", ext.FullName)
-	assert.Equal("An optional field to be used however you please.", ext.Description)
-	assert.Equal("optional", ext.Label)
-	assert.Equal("string", ext.Type)
-	assert.Equal("string", ext.LongType)
-	assert.Equal("string", ext.FullType)
-	assert.Equal(101, ext.Number)
-	assert.Equal("", ext.DefaultValue)
-	assert.Equal("BookingStatus", ext.ContainingType)
-	assert.Equal("BookingStatus", ext.ContainingLongType)
-	assert.Equal("com.example.BookingStatus", ext.ContainingFullType)
-	assert.Equal("Booking", ext.ScopeType)
-	assert.Equal("Booking", ext.ScopeLongType)
-	assert.Equal("com.example.Booking", ext.ScopeFullType)
+	require.Equal(t, "optional_field_1", ext.Name)
+	require.Equal(t, "BookingStatus.optional_field_1", ext.LongName)
+	require.Equal(t, "com.example.BookingStatus.optional_field_1", ext.FullName)
+	require.Equal(t, "An optional field to be used however you please.", ext.Description)
+	require.Equal(t, "optional", ext.Label)
+	require.Equal(t, "string", ext.Type)
+	require.Equal(t, "string", ext.LongType)
+	require.Equal(t, "string", ext.FullType)
+	require.Equal(t, 101, ext.Number)
+	require.Empty(t, ext.DefaultValue)
+	require.Equal(t, "BookingStatus", ext.ContainingType)
+	require.Equal(t, "BookingStatus", ext.ContainingLongType)
+	require.Equal(t, "com.example.BookingStatus", ext.ContainingFullType)
+	require.Equal(t, "Booking", ext.ScopeType)
+	require.Equal(t, "Booking", ext.ScopeLongType)
+	require.Equal(t, "com.example.Booking", ext.ScopeFullType)
 }
 
-func (assert *TemplateTest) TestFieldProperties() {
+func TestFieldProperties(t *testing.T) {
 	msg := findMessage("BookingStatus", bookingFile)
 
 	field := findField("id", msg)
-	assert.Equal("id", field.Name)
-	assert.Equal("Unique booking status ID.", field.Description)
-	assert.Equal("required", field.Label)
-	assert.Equal("int32", field.Type)
-	assert.Equal("int32", field.LongType)
-	assert.Equal("int32", field.FullType)
-	assert.Equal("", field.DefaultValue)
+	require.Equal(t, "id", field.Name)
+	require.Equal(t, "Unique booking status ID.", field.Description)
+	require.Equal(t, "required", field.Label)
+	require.Equal(t, "int32", field.Type)
+	require.Equal(t, "int32", field.LongType)
+	require.Equal(t, "int32", field.FullType)
+	require.Empty(t, field.DefaultValue)
+	require.NotEmpty(t, field.Options)
+	require.True(t, *field.Option(E_ExtendField.Name).(*bool))
 
 	field = findField("status_code", msg)
-	assert.Equal("status_code", field.Name)
-	assert.Equal("The status of this status?", field.Description)
-	assert.Equal("optional", field.Label)
-	assert.Equal("StatusCode", field.Type)
-	assert.Equal("BookingStatus.StatusCode", field.LongType)
-	assert.Equal("com.example.BookingStatus.StatusCode", field.FullType)
-	assert.Equal("", field.DefaultValue)
+	require.Equal(t, "status_code", field.Name)
+	require.Equal(t, "The status of this status?", field.Description)
+	require.Equal(t, "optional", field.Label)
+	require.Equal(t, "StatusCode", field.Type)
+	require.Equal(t, "BookingStatus.StatusCode", field.LongType)
+	require.Equal(t, "com.example.BookingStatus.StatusCode", field.FullType)
+	require.Empty(t, field.DefaultValue)
 
 	field = findField("category", findMessage("Vehicle", vehicleFile))
-	assert.Equal("category", field.Name)
-	assert.Equal("Vehicle category.", field.Description)
-	assert.Equal("", field.Label) // proto3, neither required, nor optional are valid
-	assert.Equal("Category", field.Type)
-	assert.Equal("Vehicle.Category", field.LongType)
-	assert.Equal("com.example.Vehicle.Category", field.FullType)
-	assert.Equal("", field.DefaultValue)
+	require.Equal(t, "category", field.Name)
+	require.Equal(t, "Vehicle category.", field.Description)
+	require.Empty(t, field.Label) // proto3, neither required, nor optional are valid
+	require.Equal(t, "Category", field.Type)
+	require.Equal(t, "Vehicle.Category", field.LongType)
+	require.Equal(t, "com.example.Vehicle.Category", field.FullType)
+	require.Empty(t, field.DefaultValue)
 
 	field = findField("properties", findMessage("Vehicle", vehicleFile))
-	assert.Equal("properties", field.Name)
-	assert.Equal("repeated", field.Label)
-	assert.Equal("PropertiesEntry", field.Type)
-	assert.Equal("Vehicle.PropertiesEntry", field.LongType)
-	assert.Equal("com.example.Vehicle.PropertiesEntry", field.FullType)
-	assert.Equal("", field.DefaultValue)
-	assert.True(field.IsMap)
+	require.Equal(t, "properties", field.Name)
+	require.Equal(t, "repeated", field.Label)
+	require.Equal(t, "PropertiesEntry", field.Type)
+	require.Equal(t, "Vehicle.PropertiesEntry", field.LongType)
+	require.Equal(t, "com.example.Vehicle.PropertiesEntry", field.FullType)
+	require.Empty(t, field.DefaultValue)
+	require.True(t, field.IsMap)
 
 	field = findField("rates", findMessage("Vehicle", vehicleFile))
-	assert.Equal("rates", field.Name)
-	assert.Equal("repeated", field.Label)
-	assert.Equal("sint32", field.Type)
-	assert.Equal("sint32", field.LongType)
-	assert.Equal("sint32", field.FullType)
-	assert.False(field.IsMap)
+	require.Equal(t, "rates", field.Name)
+	require.Equal(t, "repeated", field.Label)
+	require.Equal(t, "sint32", field.Type)
+	require.Equal(t, "sint32", field.LongType)
+	require.Equal(t, "sint32", field.FullType)
+	require.False(t, field.IsMap)
 }
 
-func (assert *TemplateTest) TestServiceProperties() {
+func TestServiceProperties(t *testing.T) {
 	service := findService("VehicleService", vehicleFile)
-	assert.Equal("VehicleService", service.Name)
-	assert.Equal("VehicleService", service.LongName)
-	assert.Equal("com.example.VehicleService", service.FullName)
-	assert.Equal("The vehicle service.\n\nManages vehicles and such...", service.Description)
-	assert.Equal(3, len(service.Methods))
+	require.Equal(t, "VehicleService", service.Name)
+	require.Equal(t, "VehicleService", service.LongName)
+	require.Equal(t, "com.example.VehicleService", service.FullName)
+	require.Equal(t, "The vehicle service.\n\nManages vehicles and such...", service.Description)
+	require.Len(t, service.Methods, 3)
+	require.NotEmpty(t, service.Options)
+	require.True(t, *service.Option(E_ExtendService.Name).(*bool))
+	require.Contains(t, service.MethodOptions(), E_ExtendMethod.Name)
+	require.NotEmpty(t, service.MethodsWithOption(E_ExtendMethod.Name))
 }
 
-func (assert *TemplateTest) TestServiceMethodProperties() {
+func TestServiceMethodProperties(t *testing.T) {
 	service := findService("VehicleService", vehicleFile)
 
 	method := findServiceMethod("AddModels", service)
-	assert.Equal("AddModels", method.Name)
-	assert.Equal("creates models", method.Description)
-	assert.Equal("Model", method.RequestType)
-	assert.Equal("Model", method.RequestLongType)
-	assert.Equal("com.example.Model", method.RequestFullType)
-	assert.Equal(true, method.RequestStreaming)
-	assert.Equal("Model", method.ResponseType)
-	assert.Equal("Model", method.ResponseLongType)
-	assert.Equal("com.example.Model", method.ResponseFullType)
-	assert.Equal(true, method.ResponseStreaming)
+	require.Equal(t, "AddModels", method.Name)
+	require.Equal(t, "creates models", method.Description)
+	require.Equal(t, "Model", method.RequestType)
+	require.Equal(t, "Model", method.RequestLongType)
+	require.Equal(t, "com.example.Model", method.RequestFullType)
+	require.True(t, method.RequestStreaming)
+	require.Equal(t, "Model", method.ResponseType)
+	require.Equal(t, "Model", method.ResponseLongType)
+	require.Equal(t, "com.example.Model", method.ResponseFullType)
+	require.True(t, method.ResponseStreaming)
 
 	method = findServiceMethod("GetVehicle", service)
-	assert.Equal("GetVehicle", method.Name)
-	assert.Equal("Looks up a vehicle by id.", method.Description)
-	assert.Equal("FindVehicleById", method.RequestType)
-	assert.Equal("FindVehicleById", method.RequestLongType)
-	assert.Equal("com.example.FindVehicleById", method.RequestFullType)
-	assert.Equal(false, method.RequestStreaming)
-	assert.Equal("Vehicle", method.ResponseType)
-	assert.Equal("Vehicle", method.ResponseLongType)
-	assert.Equal("com.example.Vehicle", method.ResponseFullType)
-	assert.Equal(false, method.ResponseStreaming)
+	require.Equal(t, "GetVehicle", method.Name)
+	require.Equal(t, "Looks up a vehicle by id.", method.Description)
+	require.Equal(t, "FindVehicleById", method.RequestType)
+	require.Equal(t, "FindVehicleById", method.RequestLongType)
+	require.Equal(t, "com.example.FindVehicleById", method.RequestFullType)
+	require.False(t, method.RequestStreaming)
+	require.Equal(t, "Vehicle", method.ResponseType)
+	require.Equal(t, "Vehicle", method.ResponseLongType)
+	require.Equal(t, "com.example.Vehicle", method.ResponseFullType)
+	require.False(t, method.ResponseStreaming)
+	require.NotEmpty(t, method.Options)
+	require.True(t, *method.Option(E_ExtendMethod.Name).(*bool))
 }
 
-func (assert *TemplateTest) TestExcludedComments() {
+func TestExcludedComments(t *testing.T) {
 	message := findMessage("ExcludedMessage", vehicleFile)
-	assert.Empty(message.Description)
-	assert.Empty(findField("name", message).Description)
-	assert.Empty(findField("value", message).Description)
+	require.Empty(t, message.Description)
+	require.Empty(t, findField("name", message).Description)
+	require.Empty(t, findField("value", message).Description)
 
 	// just checking that it doesn't exclude everything
-	assert.Equal("the id of this message.", findField("id", message).Description)
+	require.Equal(t, "the id of this message.", findField("id", message).Description)
 }
 
-func findService(name string, f *gendoc.File) *gendoc.Service {
+func findService(name string, f *File) *Service {
 	for _, s := range f.Services {
 		if s.Name == name {
 			return s
@@ -237,7 +344,7 @@ func findService(name string, f *gendoc.File) *gendoc.Service {
 	return nil
 }
 
-func findServiceMethod(name string, s *gendoc.Service) *gendoc.ServiceMethod {
+func findServiceMethod(name string, s *Service) *ServiceMethod {
 	for _, m := range s.Methods {
 		if m.Name == name {
 			return m
@@ -247,7 +354,7 @@ func findServiceMethod(name string, s *gendoc.Service) *gendoc.ServiceMethod {
 	return nil
 }
 
-func findEnum(name string, f *gendoc.File) *gendoc.Enum {
+func findEnum(name string, f *File) *Enum {
 	for _, enum := range f.Enums {
 		if enum.LongName == name {
 			return enum
@@ -257,7 +364,7 @@ func findEnum(name string, f *gendoc.File) *gendoc.Enum {
 	return nil
 }
 
-func findExtension(name string, f *gendoc.File) *gendoc.FileExtension {
+func findExtension(name string, f *File) *FileExtension {
 	for _, ext := range f.Extensions {
 		if ext.LongName == name {
 			return ext
@@ -267,7 +374,7 @@ func findExtension(name string, f *gendoc.File) *gendoc.FileExtension {
 	return nil
 }
 
-func findMessage(name string, f *gendoc.File) *gendoc.Message {
+func findMessage(name string, f *File) *Message {
 	for _, m := range f.Messages {
 		if m.LongName == name {
 			return m
@@ -277,7 +384,7 @@ func findMessage(name string, f *gendoc.File) *gendoc.Message {
 	return nil
 }
 
-func findField(name string, m *gendoc.Message) *gendoc.MessageField {
+func findField(name string, m *Message) *MessageField {
 	for _, f := range m.Fields {
 		if f.Name == name {
 			return f

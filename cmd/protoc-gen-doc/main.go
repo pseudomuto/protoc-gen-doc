@@ -19,7 +19,10 @@ import (
 	"log"
 	"os"
 
-	"github.com/pseudomuto/protoc-gen-doc"
+	gendoc "github.com/pseudomuto/protoc-gen-doc"
+	_ "github.com/pseudomuto/protoc-gen-doc/extensions/google_api_http" // imported for side effects
+	_ "github.com/pseudomuto/protoc-gen-doc/extensions/lyft_validate"   // imported for side effects
+	_ "github.com/pseudomuto/protoc-gen-doc/extensions/validator_field" // imported for side effects
 )
 
 func main() {

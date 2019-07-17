@@ -1,17 +1,25 @@
-.PHONY: bench setup test build dist docker examples
+.PHONY: bench test build dist docker examples release lint
 
-EXAMPLE_DIR=$(shell pwd)/examples
+export GO111MODULE=on
+
+EXAMPLE_DIR=$(PWD)/examples
 DOCS_DIR=$(EXAMPLE_DIR)/doc
 PROTOS_DIR=$(EXAMPLE_DIR)/proto
 
-EXAMPLE_CMD=protoc --plugin=protoc-gen-doc -Iexamples/proto --doc_out=examples/doc
-DOCKER_CMD=docker run --rm -v $(DOCS_DIR):/out:rw -v $(PROTOS_DIR):/protos:ro -v $(EXAMPLE_DIR)/templates:/templates:ro pseudomuto/protoc-gen-doc
+EXAMPLE_CMD=protoc --plugin=protoc-gen-doc \
+	-Ithirdparty -Itmp/googleapis -Iexamples/proto \
+	--doc_out=examples/doc
 
-setup:
-	$(info Synching dev tools and dependencies...)
-	@if test -z $(which retool); then go get github.com/twitchtv/retool; fi
-	@retool sync
-	@retool do dep ensure
+DOCKER_CMD=docker run --rm \
+	-v $(DOCS_DIR):/out:rw \
+	-v $(PROTOS_DIR):/protos:ro \
+	-v $(EXAMPLE_DIR)/templates:/templates:ro \
+	-v $(PWD)/thirdparty/github.com/mwitkow:/usr/local/include/github.com/mwitkow:ro \
+	-v $(PWD)/thirdparty/github.com/envoyproxy:/usr/local/include/github.com/envoyproxy:ro \
+	-v $(PWD)/tmp/googleapis/google/api:/usr/local/include/google/api:ro \
+	pseudomuto/protoc-gen-doc
+
+VERSION = $(shell cat version.go | sed -n 's/.*const VERSION = "\(.*\)"/\1/p')
 
 resources.go: resources/*.tmpl resources/*.json
 	$(info Generating resources...)
@@ -21,13 +29,18 @@ fixtures/fileset.pb: fixtures/*.proto fixtures/generate.go
 	$(info Generating fixtures...)
 	@cd fixtures && go generate
 
+tmp/googleapis:
+	rm -rf tmp/googleapis
+	git clone --depth 1 https://github.com/googleapis/googleapis tmp/googleapis
+	rm -rf tmp/googleapis/.git
+
 test: fixtures/fileset.pb resources.go
-	@go test -cover -race ./ ./cmd/...
+	@go test -cover -race ./ ./cmd/... ./extensions/...
 
 bench:
 	@go test -bench=.
 
-build: setup resources.go
+build: resources.go
 	@go build ./cmd/...
 
 dist:
@@ -36,7 +49,7 @@ dist:
 docker:
 	@script/push_to_docker.sh
 
-docker_test: build docker
+docker_test: build tmp/googleapis docker
 	@rm -f examples/doc/*
 	@$(DOCKER_CMD) --doc_opt=docbook,example.docbook:Ignore*
 	@$(DOCKER_CMD) --doc_opt=html,example.html:Ignore*
@@ -44,7 +57,7 @@ docker_test: build docker
 	@$(DOCKER_CMD) --doc_opt=markdown,example.md:Ignore*
 	@$(DOCKER_CMD) --doc_opt=/templates/asciidoc.tmpl,example.txt:Ignore*
 
-examples: build examples/proto/*.proto examples/templates/*.tmpl
+examples: build tmp/googleapis examples/proto/*.proto examples/templates/*.tmpl
 	$(info Making examples...)
 	@rm -f examples/doc/*
 	@$(EXAMPLE_CMD) --doc_opt=docbook,example.docbook:Ignore* examples/proto/*.proto
@@ -52,3 +65,14 @@ examples: build examples/proto/*.proto examples/templates/*.tmpl
 	@$(EXAMPLE_CMD) --doc_opt=json,example.json:Ignore* examples/proto/*.proto
 	@$(EXAMPLE_CMD) --doc_opt=markdown,example.md:Ignore* examples/proto/*.proto
 	@$(EXAMPLE_CMD) --doc_opt=examples/templates/asciidoc.tmpl,example.txt:Ignore* examples/proto/*.proto
+
+release:
+	@echo Releasing v${VERSION}...
+	git add CHANGELOG.md version.go
+	git commit -m "Bump version to v${VERSION}"
+	git tag -m "Version ${VERSION}" "v${VERSION}"
+	git push && git push --tags
+
+lint:
+	@which revive >/dev/null || go get github.com/mgechev/revive
+	revive --config revive.toml ./...
