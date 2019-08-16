@@ -98,7 +98,8 @@ func TestParseOptionsWithInvalidValues(t *testing.T) {
 }
 
 func TestRunPluginForBuiltinTemplate(t *testing.T) {
-	req := new(plugin_go.CodeGeneratorRequest)
+	set, _ := utils.LoadDescriptorSet("fixtures", "fileset.pb")
+	req := utils.CreateGenRequest(set, "Booking.proto", "Vehicle.proto", "nested/Book.proto")
 	req.Parameter = proto.String("markdown,/base/name/only/output.md")
 
 	plugin := new(Plugin)
@@ -110,7 +111,8 @@ func TestRunPluginForBuiltinTemplate(t *testing.T) {
 }
 
 func TestRunPluginForCustomTemplate(t *testing.T) {
-	req := new(plugin_go.CodeGeneratorRequest)
+	set, _ := utils.LoadDescriptorSet("fixtures", "fileset.pb")
+	req := utils.CreateGenRequest(set, "Booking.proto", "Vehicle.proto", "nested/Book.proto")
 	req.Parameter = proto.String("resources/html.tmpl,/base/name/only/output.html")
 
 	plugin := new(Plugin)

@@ -69,7 +69,6 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 
 func groupProtosByDirectory(fds []*protokit.FileDescriptor, sourceRelative bool) map[string][]*protokit.FileDescriptor {
 	fdsGroup := make(map[string][]*protokit.FileDescriptor)
-	fdsGroup["./"] = []*protokit.FileDescriptor{}
 
 	for _, fd := range fds {
 		dir := ""
