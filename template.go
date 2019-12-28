@@ -3,7 +3,9 @@ package gendoc
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 	"sort"
+	"strconv"
 	"strings"
 
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
@@ -67,10 +69,16 @@ func NewTemplate(descs []*protokit.FileDescriptor) *Template {
 			file.Services = append(file.Services, parseService(s))
 		}
 
-		sort.Sort(file.Enums)
-		sort.Sort(file.Extensions)
-		sort.Sort(file.Messages)
-		sort.Sort(file.Services)
+		shouldSort, err := strconv.ParseBool(os.Getenv("PROTOC_GEN_DOC_SORT"))
+		if err != nil {
+			shouldSort = true
+		}
+		if shouldSort {
+			sort.Sort(file.Enums)
+			sort.Sort(file.Extensions)
+			sort.Sort(file.Messages)
+			sort.Sort(file.Services)
+		}
 
 		files = append(files, file)
 	}
