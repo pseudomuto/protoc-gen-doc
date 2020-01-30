@@ -4,19 +4,19 @@
 ## Table of Contents
 {{range .Files}}
 {{$file_name := .Name}}- [{{.Name}}](#{{.Name}})
-  {{- if .Messages -}}
+  {{- if .Messages }}
   {{range .Messages}}  - [{{.LongName}}](#{{.FullName}})
   {{end}}
   {{- end -}}
-  {{- if .Enums -}}
+  {{- if .Enums }}
   {{range .Enums}}  - [{{.LongName}}](#{{.FullName}})
   {{end}}
   {{- end -}}
-  {{- if .Extensions -}}
+  {{- if .Extensions }}
   {{range .Extensions}}  - [File-level Extensions](#{{$file_name}}-extensions)
   {{end}}
   {{- end -}}
-  {{- if .Services -}}
+  {{- if .Services }}
   {{range .Services}}  - [{{.Name}}](#{{.FullName}})
   {{end}}
   {{- end -}}
