@@ -18,12 +18,15 @@ type Template struct {
 	Files []*File `json:"files"`
 	// Details about the scalar values and their respective types in supported languages.
 	Scalars []*ScalarValue `json:"scalarValueTypes"`
+
+	AllServices   orderedServices   `json:"allServices"`
 }
 
 // NewTemplate creates a Template object from a set of descriptors.
 func NewTemplate(descs []*protokit.FileDescriptor) *Template {
 	files := make([]*File, 0, len(descs))
 
+	var allOrderedServices orderedServices
 	for _, f := range descs {
 		file := &File{
 			Name:          f.GetName(),
@@ -67,15 +70,21 @@ func NewTemplate(descs []*protokit.FileDescriptor) *Template {
 			file.Services = append(file.Services, parseService(s))
 		}
 
+		for _, s := range file.Services {
+			s.SourceFile = file.Name
+			allOrderedServices = append(allOrderedServices, s)
+		}
+
 		sort.Sort(file.Enums)
 		sort.Sort(file.Extensions)
 		sort.Sort(file.Messages)
 		sort.Sort(file.Services)
+		sort.Sort(allOrderedServices)
 
 		files = append(files, file)
 	}
 
-	return &Template{Files: files, Scalars: makeScalars()}
+	return &Template{Files: files, Scalars: makeScalars(), AllServices:allOrderedServices}
 }
 
 func makeScalars() []*ScalarValue {
@@ -316,6 +325,7 @@ type Service struct {
 	FullName    string           `json:"fullName"`
 	Description string           `json:"description"`
 	Methods     []*ServiceMethod `json:"methods"`
+	SourceFile  string           `json:"sourceFile"`
 
 	Options map[string]interface{} `json:"options,omitempty"`
 }
