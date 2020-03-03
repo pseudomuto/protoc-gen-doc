@@ -9,19 +9,12 @@
     - [BookingStatusID](#com.example.BookingStatusID)
     - [EmptyBookingMessage](#com.example.EmptyBookingMessage)
   
-  
-  
     - [BookingService](#com.example.BookingService)
   
-
 - [Customer.proto](#Customer.proto)
     - [Address](#com.example.Address)
     - [Customer](#com.example.Customer)
   
-  
-  
-  
-
 - [Vehicle.proto](#Vehicle.proto)
     - [Manufacturer](#com.example.Manufacturer)
     - [Model](#com.example.Model)
@@ -32,8 +25,6 @@
   
     - [File-level Extensions](#Vehicle.proto-extensions)
   
-  
-
 - [Scalar Value Types](#scalar-value-types)
 
 
