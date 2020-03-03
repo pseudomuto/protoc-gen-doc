@@ -33,6 +33,10 @@ tmp/googleapis:
 	rm -rf tmp/googleapis
 	git clone --depth 1 https://github.com/googleapis/googleapis tmp/googleapis
 	rm -rf tmp/googleapis/.git
+	rm -rf tmp/protocolbuffers
+	git clone --depth 1 https://github.com/protocolbuffers/protobuf tmp/protocolbuffers
+	cp -r tmp/protocolbuffers/src/* tmp/googleapis/
+	rm -rf rm -rf tmp/protocolbuffers
 
 test: fixtures/fileset.pb resources.go
 	@go test -cover -race ./ ./cmd/... ./extensions/...
