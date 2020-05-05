@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 * Stripped unnecessary whitespace from markdown templates
+* Renamed `lyft_validate` extension to `envoyproxy_validate`
+* Fixed `envoyproxy_validate` rules with slice values such as `in` and `not_in`
 
 ## [v1.3.1](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.3.0...v1.3.1)
 
