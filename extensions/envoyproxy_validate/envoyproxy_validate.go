@@ -73,6 +73,7 @@ func flattenRules(prefix string, vv reflect.Value) (rules []ValidateRule) {
 		if vv.Len() == 0 {
 			return nil
 		}
+		fallthrough
 	default:
 		rules = append(rules, ValidateRule{Name: prefix, Value: vv.Interface()})
 	}
