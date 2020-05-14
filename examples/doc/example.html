@@ -911,7 +911,7 @@
     <h2 id="scalar-value-types">Scalar Value Types</h2>
     <table class="scalar-value-types-table">
       <thead>
-        <tr><td>.proto Type</td><td>Notes</td><td>C++ Type</td><td>Java Type</td><td>Python Type</td></tr>
+        <tr><td>.proto Type</td><td>Notes</td><td>C++</td><td>Java</td><td>Python</td><td>Go</td><td>C#</td><td>PHP</td><td>Ruby</td></tr>
       </thead>
       <tbody>
         
@@ -921,6 +921,10 @@
             <td>double</td>
             <td>double</td>
             <td>float</td>
+            <td>float64</td>
+            <td>double</td>
+            <td>float</td>
+            <td>Float</td>
           </tr>
         
           <tr id="float">
@@ -929,6 +933,10 @@
             <td>float</td>
             <td>float</td>
             <td>float</td>
+            <td>float32</td>
+            <td>float</td>
+            <td>float</td>
+            <td>Float</td>
           </tr>
         
           <tr id="int32">
@@ -937,6 +945,10 @@
             <td>int32</td>
             <td>int</td>
             <td>int</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
           </tr>
         
           <tr id="int64">
@@ -945,6 +957,10 @@
             <td>int64</td>
             <td>long</td>
             <td>int/long</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
           </tr>
         
           <tr id="uint32">
@@ -953,6 +969,10 @@
             <td>uint32</td>
             <td>int</td>
             <td>int/long</td>
+            <td>uint32</td>
+            <td>uint</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
           </tr>
         
           <tr id="uint64">
@@ -961,6 +981,10 @@
             <td>uint64</td>
             <td>long</td>
             <td>int/long</td>
+            <td>uint64</td>
+            <td>ulong</td>
+            <td>integer/string</td>
+            <td>Bignum or Fixnum (as required)</td>
           </tr>
         
           <tr id="sint32">
@@ -969,6 +993,10 @@
             <td>int32</td>
             <td>int</td>
             <td>int</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
           </tr>
         
           <tr id="sint64">
@@ -977,6 +1005,10 @@
             <td>int64</td>
             <td>long</td>
             <td>int/long</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
           </tr>
         
           <tr id="fixed32">
@@ -985,6 +1017,10 @@
             <td>uint32</td>
             <td>int</td>
             <td>int</td>
+            <td>uint32</td>
+            <td>uint</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
           </tr>
         
           <tr id="fixed64">
@@ -993,6 +1029,10 @@
             <td>uint64</td>
             <td>long</td>
             <td>int/long</td>
+            <td>uint64</td>
+            <td>ulong</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
           </tr>
         
           <tr id="sfixed32">
@@ -1001,6 +1041,10 @@
             <td>int32</td>
             <td>int</td>
             <td>int</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
           </tr>
         
           <tr id="sfixed64">
@@ -1009,6 +1053,10 @@
             <td>int64</td>
             <td>long</td>
             <td>int/long</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
           </tr>
         
           <tr id="bool">
@@ -1017,6 +1065,10 @@
             <td>bool</td>
             <td>boolean</td>
             <td>boolean</td>
+            <td>bool</td>
+            <td>bool</td>
+            <td>boolean</td>
+            <td>TrueClass/FalseClass</td>
           </tr>
         
           <tr id="string">
@@ -1025,6 +1077,10 @@
             <td>string</td>
             <td>String</td>
             <td>str/unicode</td>
+            <td>string</td>
+            <td>string</td>
+            <td>string</td>
+            <td>String (UTF-8)</td>
           </tr>
         
           <tr id="bytes">
@@ -1033,6 +1089,10 @@
             <td>string</td>
             <td>ByteString</td>
             <td>str</td>
+            <td>[]byte</td>
+            <td>ByteString</td>
+            <td>string</td>
+            <td>String (ASCII-8BIT)</td>
           </tr>
         
       </tbody>

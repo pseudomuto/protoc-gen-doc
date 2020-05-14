@@ -30,9 +30,12 @@ fixtures/fileset.pb: fixtures/*.proto fixtures/generate.go
 	@cd fixtures && go generate
 
 tmp/googleapis:
-	rm -rf tmp/googleapis
+	rm -rf tmp/googleapis tmp/protocolbuffers
 	git clone --depth 1 https://github.com/googleapis/googleapis tmp/googleapis
 	rm -rf tmp/googleapis/.git
+	git clone --depth 1 https://github.com/protocolbuffers/protobuf tmp/protocolbuffers
+	cp -r tmp/protocolbuffers/src/* tmp/googleapis/
+	rm -rf tmp/protocolbuffers
 
 test: fixtures/fileset.pb resources.go
 	@go test -cover -race ./ ./cmd/... ./extensions/...

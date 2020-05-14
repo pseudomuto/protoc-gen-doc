@@ -719,9 +719,13 @@
           <row>
             <entry>.proto Type</entry>
             <entry>Notes</entry>
-            <entry>C++ Type</entry>
-            <entry>Java Type</entry>
-            <entry>Python Type</entry>
+            <entry>C++</entry>
+            <entry>Java</entry>
+            <entry>Python</entry>
+            <entry>Go</entry>
+            <entry>C#</entry>
+            <entry>PHP</entry>
+            <entry>Ruby</entry>
           </row>
         </thead>
         <tbody>
@@ -732,6 +736,10 @@
             <entry>double</entry>
             <entry>double</entry>
             <entry>float</entry>
+            <entry>float64</entry>
+            <entry>double</entry>
+            <entry>float</entry>
+            <entry>Float</entry>
           </row>
           
           <row>
@@ -740,6 +748,10 @@
             <entry>float</entry>
             <entry>float</entry>
             <entry>float</entry>
+            <entry>float32</entry>
+            <entry>float</entry>
+            <entry>float</entry>
+            <entry>Float</entry>
           </row>
           
           <row>
@@ -748,6 +760,10 @@
             <entry>int32</entry>
             <entry>int</entry>
             <entry>int</entry>
+            <entry>int32</entry>
+            <entry>int</entry>
+            <entry>integer</entry>
+            <entry>Bignum or Fixnum (as required)</entry>
           </row>
           
           <row>
@@ -756,6 +772,10 @@
             <entry>int64</entry>
             <entry>long</entry>
             <entry>int/long</entry>
+            <entry>int64</entry>
+            <entry>long</entry>
+            <entry>integer/string</entry>
+            <entry>Bignum</entry>
           </row>
           
           <row>
@@ -764,6 +784,10 @@
             <entry>uint32</entry>
             <entry>int</entry>
             <entry>int/long</entry>
+            <entry>uint32</entry>
+            <entry>uint</entry>
+            <entry>integer</entry>
+            <entry>Bignum or Fixnum (as required)</entry>
           </row>
           
           <row>
@@ -772,6 +796,10 @@
             <entry>uint64</entry>
             <entry>long</entry>
             <entry>int/long</entry>
+            <entry>uint64</entry>
+            <entry>ulong</entry>
+            <entry>integer/string</entry>
+            <entry>Bignum or Fixnum (as required)</entry>
           </row>
           
           <row>
@@ -780,6 +808,10 @@
             <entry>int32</entry>
             <entry>int</entry>
             <entry>int</entry>
+            <entry>int32</entry>
+            <entry>int</entry>
+            <entry>integer</entry>
+            <entry>Bignum or Fixnum (as required)</entry>
           </row>
           
           <row>
@@ -788,6 +820,10 @@
             <entry>int64</entry>
             <entry>long</entry>
             <entry>int/long</entry>
+            <entry>int64</entry>
+            <entry>long</entry>
+            <entry>integer/string</entry>
+            <entry>Bignum</entry>
           </row>
           
           <row>
@@ -796,6 +832,10 @@
             <entry>uint32</entry>
             <entry>int</entry>
             <entry>int</entry>
+            <entry>uint32</entry>
+            <entry>uint</entry>
+            <entry>integer</entry>
+            <entry>Bignum or Fixnum (as required)</entry>
           </row>
           
           <row>
@@ -804,6 +844,10 @@
             <entry>uint64</entry>
             <entry>long</entry>
             <entry>int/long</entry>
+            <entry>uint64</entry>
+            <entry>ulong</entry>
+            <entry>integer/string</entry>
+            <entry>Bignum</entry>
           </row>
           
           <row>
@@ -812,6 +856,10 @@
             <entry>int32</entry>
             <entry>int</entry>
             <entry>int</entry>
+            <entry>int32</entry>
+            <entry>int</entry>
+            <entry>integer</entry>
+            <entry>Bignum or Fixnum (as required)</entry>
           </row>
           
           <row>
@@ -820,6 +868,10 @@
             <entry>int64</entry>
             <entry>long</entry>
             <entry>int/long</entry>
+            <entry>int64</entry>
+            <entry>long</entry>
+            <entry>integer/string</entry>
+            <entry>Bignum</entry>
           </row>
           
           <row>
@@ -828,6 +880,10 @@
             <entry>bool</entry>
             <entry>boolean</entry>
             <entry>boolean</entry>
+            <entry>bool</entry>
+            <entry>bool</entry>
+            <entry>boolean</entry>
+            <entry>TrueClass/FalseClass</entry>
           </row>
           
           <row>
@@ -836,6 +892,10 @@
             <entry>string</entry>
             <entry>String</entry>
             <entry>str/unicode</entry>
+            <entry>string</entry>
+            <entry>string</entry>
+            <entry>string</entry>
+            <entry>String (UTF-8)</entry>
           </row>
           
           <row>
@@ -844,6 +904,10 @@
             <entry>string</entry>
             <entry>ByteString</entry>
             <entry>str</entry>
+            <entry>[]byte</entry>
+            <entry>ByteString</entry>
+            <entry>string</entry>
+            <entry>String (ASCII-8BIT)</entry>
           </row>
           
         </tbody>
