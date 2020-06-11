@@ -340,8 +340,7 @@ func TestFieldPropertiesProto3Optional(t *testing.T) {
 	field = findField("name", msg)
 	require.Equal(t, "name", field.Name)
 	require.Equal(t, "The name of the cookie.", field.Description)
-	//TODO(ezimanyi): This is a proto3 optional field, and should have label "optional"
-	require.Equal(t, "", field.Label)
+	require.Equal(t, "optional", field.Label)
 	require.Equal(t, "string", field.Type)
 	require.Equal(t, "string", field.LongType)
 	require.Equal(t, "string", field.FullType)

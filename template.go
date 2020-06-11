@@ -422,7 +422,7 @@ func parseFileExtension(pe *protokit.ExtensionDescriptor) *FileExtension {
 		LongName:           pe.GetLongName(),
 		FullName:           pe.GetFullName(),
 		Description:        description(pe.GetComments().String()),
-		Label:              labelName(pe.GetLabel(), pe.IsProto3()),
+		Label:              labelName(pe.GetLabel(), pe.IsProto3(), pe.GetProto3Optional()),
 		Type:               t,
 		LongType:           lt,
 		FullType:           ft,
@@ -473,7 +473,7 @@ func parseMessageField(pf *protokit.FieldDescriptor) *MessageField {
 	m := &MessageField{
 		Name:         pf.GetName(),
 		Description:  description(pf.GetComments().String()),
-		Label:        labelName(pf.GetLabel(), pf.IsProto3()),
+		Label:        labelName(pf.GetLabel(), pf.IsProto3(), pf.GetProto3Optional()),
 		Type:         t,
 		LongType:     lt,
 		FullType:     ft,
@@ -532,8 +532,8 @@ func baseName(name string) string {
 	return parts[len(parts)-1]
 }
 
-func labelName(lbl descriptor.FieldDescriptorProto_Label, proto3 bool) string {
-	if proto3 && lbl != descriptor.FieldDescriptorProto_LABEL_REPEATED {
+func labelName(lbl descriptor.FieldDescriptorProto_Label, proto3 bool, proto3Opt bool) string {
+	if proto3 && !proto3Opt && lbl != descriptor.FieldDescriptorProto_LABEL_REPEATED {
 		return ""
 	}
 
