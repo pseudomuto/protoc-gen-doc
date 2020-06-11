@@ -17,6 +17,9 @@ var (
 	template    *Template
 	bookingFile *File
 	vehicleFile *File
+
+	cookieTemplate *Template
+	cookieFile     *File
 )
 
 func TestMain(m *testing.M) {
@@ -29,6 +32,12 @@ func TestMain(m *testing.M) {
 	template = NewTemplate(result)
 	bookingFile = template.Files[0]
 	vehicleFile = template.Files[1]
+
+	set, _ = utils.LoadDescriptorSet("fixtures", "cookie.pb")
+	req = utils.CreateGenRequest(set, "Cookie.proto")
+	result = protokit.ParseCodeGenRequest(req)
+	cookieTemplate = NewTemplate(result)
+	cookieFile = cookieTemplate.Files[0]
 
 	os.Exit(m.Run())
 }
@@ -311,6 +320,41 @@ func TestFieldPropertiesProto3(t *testing.T) {
 	require.Equal(t, "sint32", field.Type)
 	require.Equal(t, "sint32", field.LongType)
 	require.Equal(t, "sint32", field.FullType)
+	require.Empty(t, field.DefaultValue)
+	require.Empty(t, field.Options)
+}
+
+func TestFieldPropertiesProto3Optional(t *testing.T) {
+	msg := findMessage("Cookie", cookieFile)
+
+	field := findField("id", msg)
+	require.Equal(t, "id", field.Name)
+	require.Equal(t, "The id of the cookie.", field.Description)
+	require.Equal(t, "", field.Label)
+	require.Equal(t, "string", field.Type)
+	require.Equal(t, "string", field.LongType)
+	require.Equal(t, "string", field.FullType)
+	require.Empty(t, field.DefaultValue)
+	require.Empty(t, field.Options)
+
+	field = findField("name", msg)
+	require.Equal(t, "name", field.Name)
+	require.Equal(t, "The name of the cookie.", field.Description)
+	//TODO(ezimanyi): This is a proto3 optional field, and should have label "optional"
+	require.Equal(t, "", field.Label)
+	require.Equal(t, "string", field.Type)
+	require.Equal(t, "string", field.LongType)
+	require.Equal(t, "string", field.FullType)
+	require.Empty(t, field.DefaultValue)
+	require.Empty(t, field.Options)
+
+	field = findField("ingredients", msg)
+	require.Equal(t, "ingredients", field.Name)
+	require.Equal(t, "Ingredients in the cookie.", field.Description)
+	require.Equal(t, "repeated", field.Label)
+	require.Equal(t, "string", field.Type)
+	require.Equal(t, "string", field.LongType)
+	require.Equal(t, "string", field.FullType)
 	require.Empty(t, field.DefaultValue)
 	require.Empty(t, field.Options)
 }
