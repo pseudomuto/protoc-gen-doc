@@ -7,7 +7,7 @@ require (
 	github.com/davecgh/go-spew v0.0.0-20161028175848-04cdfd42973b // indirect
 	github.com/envoyproxy/protoc-gen-validate v0.0.14
 	github.com/gogo/protobuf v1.1.1 // indirect
-	github.com/golang/protobuf v1.1.0
+	github.com/golang/protobuf v1.4.2
 	github.com/google/uuid v0.0.0-20161128191214-064e2069ce9c // indirect
 	github.com/huandu/xstrings v1.0.0 // indirect
 	github.com/imdario/mergo v0.3.4 // indirect
