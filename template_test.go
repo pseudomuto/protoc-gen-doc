@@ -281,6 +281,40 @@ func TestFieldProperties(t *testing.T) {
 	require.False(t, field.IsMap)
 }
 
+func TestFieldPropertiesProto3(t *testing.T) {
+	msg := findMessage("Model", vehicleFile)
+
+	field := findField("id", msg)
+	require.Equal(t, "id", field.Name)
+	require.Equal(t, "The unique model ID.", field.Description)
+	require.Equal(t, "", field.Label)
+	require.Equal(t, "string", field.Type)
+	require.Equal(t, "string", field.LongType)
+	require.Equal(t, "string", field.FullType)
+	require.Empty(t, field.DefaultValue)
+	require.Empty(t, field.Options)
+
+	field = findField("model_code", msg)
+	require.Equal(t, "model_code", field.Name)
+	require.Equal(t, "The car model code, e.g. \"PZ003\".", field.Description)
+	require.Equal(t, "", field.Label)
+	require.Equal(t, "string", field.Type)
+	require.Equal(t, "string", field.LongType)
+	require.Equal(t, "string", field.FullType)
+	require.Empty(t, field.DefaultValue)
+	require.Empty(t, field.Options)
+
+	field = findField("daily_hire_rate_dollars", msg)
+	require.Equal(t, "daily_hire_rate_dollars", field.Name)
+	require.Equal(t, "Dollars per day.", field.Description)
+	require.Equal(t, "", field.Label)
+	require.Equal(t, "sint32", field.Type)
+	require.Equal(t, "sint32", field.LongType)
+	require.Equal(t, "sint32", field.FullType)
+	require.Empty(t, field.DefaultValue)
+	require.Empty(t, field.Options)
+}
+
 func TestServiceProperties(t *testing.T) {
 	service := findService("VehicleService", vehicleFile)
 	require.Equal(t, "VehicleService", service.Name)
