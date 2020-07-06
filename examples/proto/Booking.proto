@@ -41,6 +41,8 @@ message Booking {
 
   /** Has payment been received? */
   bool payment_received = 5;
+
+  string color_preference = 6 [deprecated=true]; // Color preference of the customer.
 }
 
 // An empty message for testing
