@@ -5,7 +5,13 @@ All noteworthy changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) (as of Feb 2018)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.3.2...master)
+## [Unreleased](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.3.3...master)
+
+## [v1.3.3](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.3.2...v1.3.3) - July 27, 2020
+
+### Changed
+
+* Note deprecated fields in HTML, Markdown, and Docbook outputs [#426](https://github.com/pseudomuto/protoc-gen-doc/pull/426)
 
 ## [v1.3.2](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.3.1...v1.3.2) - May 7, 2020
 
