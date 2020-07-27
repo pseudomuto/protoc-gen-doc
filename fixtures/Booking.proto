@@ -73,7 +73,9 @@ message Booking {
   /** Has booking confirmation been sent? */
   required bool confirmation_sent = 4;
 
-  optional string color_preference = 5 [deprecated=true]; // Color preference of the customer.
+  optional bool payment_received = 5 [default = false, (com.pseudomuto.protokit.v1.extend_field) = true];
+
+  optional string color_preference = 6 [deprecated=true]; // Color preference of the customer.
 
   // Nested extentions are also a thing.
 
