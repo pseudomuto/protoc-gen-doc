@@ -66,7 +66,7 @@
               <entry>color_preference</entry>
               <entry><link linkend="string">string</link></entry>
               <entry></entry>
-              <entry><para>Color preference of the customer.</para></entry>
+              <entry><emphasis>Deprecated.</emphasis><para>Color preference of the customer.</para></entry>
             </row>
             
           </tbody>
