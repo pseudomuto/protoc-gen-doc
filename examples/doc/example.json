@@ -69,6 +69,19 @@
               "fullType": "bool",
               "ismap": false,
               "defaultValue": ""
+            },
+            {
+              "name": "color_preference",
+              "description": "Color preference of the customer.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
             }
           ]
         },

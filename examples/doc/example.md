@@ -54,6 +54,7 @@ Vehicles are some cool shit. But drive carefully!
 | status | [BookingStatus](#com.example.BookingStatus) |  | Status of the booking. |
 | confirmation_sent | [bool](#bool) |  | Has booking confirmation been sent? |
 | payment_received | [bool](#bool) |  | Has payment been received? |
+| color_preference | [string](#string) |  | **Deprecated.** Color preference of the customer. |
 
 
 

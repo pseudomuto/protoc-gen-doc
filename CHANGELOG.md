@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.3.2...master)
 
+* Note deprecated fields in HTML, Markdown, and Docbook outputs [#426](https://github.com/pseudomuto/protoc-gen-doc/pull/426)
+
 ## [v1.3.2](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.3.1...v1.3.2) - May 7, 2020
 
 ### Changed
