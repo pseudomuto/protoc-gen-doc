@@ -251,6 +251,7 @@ func TestFieldProperties(t *testing.T) {
 	require.Equal(t, "int32", field.LongType)
 	require.Equal(t, "int32", field.FullType)
 	require.Empty(t, field.DefaultValue)
+	require.False(t, field.IsOneof)
 	require.NotEmpty(t, field.Options)
 	require.True(t, *field.Option(E_ExtendField.Name).(*bool))
 
@@ -262,6 +263,7 @@ func TestFieldProperties(t *testing.T) {
 	require.Equal(t, "BookingStatus.StatusCode", field.LongType)
 	require.Equal(t, "com.example.BookingStatus.StatusCode", field.FullType)
 	require.Empty(t, field.DefaultValue)
+	require.False(t, field.IsOneof)
 
 	field = findField("category", findMessage("Vehicle", vehicleFile))
 	require.Equal(t, "category", field.Name)
@@ -271,6 +273,7 @@ func TestFieldProperties(t *testing.T) {
 	require.Equal(t, "Vehicle.Category", field.LongType)
 	require.Equal(t, "com.example.Vehicle.Category", field.FullType)
 	require.Empty(t, field.DefaultValue)
+	require.False(t, field.IsOneof)
 
 	field = findField("properties", findMessage("Vehicle", vehicleFile))
 	require.Equal(t, "properties", field.Name)
@@ -280,6 +283,7 @@ func TestFieldProperties(t *testing.T) {
 	require.Equal(t, "com.example.Vehicle.PropertiesEntry", field.FullType)
 	require.Empty(t, field.DefaultValue)
 	require.True(t, field.IsMap)
+	require.False(t, field.IsOneof)
 
 	field = findField("rates", findMessage("Vehicle", vehicleFile))
 	require.Equal(t, "rates", field.Name)
@@ -288,6 +292,27 @@ func TestFieldProperties(t *testing.T) {
 	require.Equal(t, "sint32", field.LongType)
 	require.Equal(t, "sint32", field.FullType)
 	require.False(t, field.IsMap)
+	require.False(t, field.IsOneof)
+
+	field = findField("kilometers", findMessage("Vehicle", vehicleFile))
+	require.Equal(t, "kilometers", field.Name)
+	require.Equal(t, "", field.Label)
+	require.Equal(t, "int32", field.Type)
+	require.Equal(t, "int32", field.LongType)
+	require.Equal(t, "int32", field.FullType)
+	require.False(t, field.IsMap)
+	require.True(t, field.IsOneof)
+	require.Equal(t, "travel", field.OneofDecl)
+
+	field = findField("human_name", findMessage("Vehicle", vehicleFile))
+	require.Equal(t, "human_name", field.Name)
+	require.Equal(t, "", field.Label)
+	require.Equal(t, "string", field.Type)
+	require.Equal(t, "string", field.LongType)
+	require.Equal(t, "string", field.FullType)
+	require.False(t, field.IsMap)
+	require.True(t, field.IsOneof)
+	require.Equal(t, "drivers", field.OneofDecl)
 }
 
 func TestFieldPropertiesProto3(t *testing.T) {
