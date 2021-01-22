@@ -21,6 +21,7 @@ type PluginOptions struct {
 	ExcludePatterns []*regexp.Regexp
 }
 
+// SupportedFeatures describes a flag setting for supported features.
 var SupportedFeatures = uint64(plugin_go.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL)
 
 // Plugin describes a protoc code generate plugin. It's an implementation of Plugin from github.com/pseudomuto/protokit
