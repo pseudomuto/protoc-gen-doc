@@ -18,6 +18,7 @@
           "description": "Represents the booking of a vehicle.\n\nVehicles are some cool shit. But drive carefully!",
           "hasExtensions": false,
           "hasFields": true,
+          "hasOneofs": false,
           "extensions": [],
           "fields": [
             {
@@ -28,6 +29,8 @@
               "longType": "int32",
               "fullType": "int32",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -38,6 +41,8 @@
               "longType": "int32",
               "fullType": "int32",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -48,6 +53,8 @@
               "longType": "BookingStatus",
               "fullType": "com.example.BookingStatus",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -58,6 +65,8 @@
               "longType": "bool",
               "fullType": "bool",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -68,6 +77,8 @@
               "longType": "bool",
               "fullType": "bool",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -78,6 +89,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": "",
               "options": {
                 "deprecated": true
@@ -92,6 +105,7 @@
           "description": "Represents the status of a vehicle booking.",
           "hasExtensions": false,
           "hasFields": true,
+          "hasOneofs": false,
           "extensions": [],
           "fields": [
             {
@@ -102,6 +116,8 @@
               "longType": "int32",
               "fullType": "int32",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -112,6 +128,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": "",
               "options": {
                 "validator.field": [
@@ -135,6 +153,7 @@
           "description": "Represents the booking status ID.",
           "hasExtensions": false,
           "hasFields": true,
+          "hasOneofs": false,
           "extensions": [],
           "fields": [
             {
@@ -145,6 +164,8 @@
               "longType": "int32",
               "fullType": "int32",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             }
           ]
@@ -156,6 +177,7 @@
           "description": "An empty message for testing",
           "hasExtensions": false,
           "hasFields": false,
+          "hasOneofs": false,
           "extensions": [],
           "fields": []
         }
@@ -224,6 +246,7 @@
           "description": "Represents a mail address.",
           "hasExtensions": false,
           "hasFields": true,
+          "hasOneofs": false,
           "extensions": [],
           "fields": [
             {
@@ -234,15 +257,9 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
-              "defaultValue": "",
-              "options": {
-                "validate.rules": [
-                  {
-                    "name": "string.min_len",
-                    "value": 2
-                  }
-                ]
-              }
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             },
             {
               "name": "address_line_2",
@@ -252,6 +269,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -262,6 +281,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -272,6 +293,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -282,6 +305,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -292,6 +317,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             }
           ]
@@ -303,6 +330,7 @@
           "description": "Represents a customer.",
           "hasExtensions": false,
           "hasFields": true,
+          "hasOneofs": false,
           "extensions": [],
           "fields": [
             {
@@ -313,6 +341,8 @@
               "longType": "int32",
               "fullType": "int32",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -323,6 +353,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -333,6 +365,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -343,6 +377,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -353,6 +389,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -363,6 +401,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -373,6 +413,8 @@
               "longType": "Address",
               "fullType": "com.example.Address",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             }
           ]
@@ -433,6 +475,7 @@
           "description": "Represents a manufacturer of cars.",
           "hasExtensions": false,
           "hasFields": true,
+          "hasOneofs": false,
           "extensions": [],
           "fields": [
             {
@@ -443,6 +486,8 @@
               "longType": "int32",
               "fullType": "int32",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -453,6 +498,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -463,6 +510,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -473,6 +522,8 @@
               "longType": "Manufacturer.Category",
               "fullType": "com.example.Manufacturer.Category",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": "CATEGORY_EXTERNAL"
             }
           ]
@@ -484,6 +535,7 @@
           "description": "Represents a vehicle model.",
           "hasExtensions": false,
           "hasFields": true,
+          "hasOneofs": false,
           "extensions": [],
           "fields": [
             {
@@ -494,6 +546,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -504,6 +558,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -514,6 +570,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -524,6 +582,8 @@
               "longType": "sint32",
               "fullType": "sint32",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -534,6 +594,8 @@
               "longType": "sint32",
               "fullType": "sint32",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             }
           ]
@@ -545,6 +607,7 @@
           "description": "Represents a vehicle that can be hired.",
           "hasExtensions": true,
           "hasFields": true,
+          "hasOneofs": false,
           "extensions": [
             {
               "name": "series",
@@ -574,6 +637,8 @@
               "longType": "int32",
               "fullType": "int32",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -584,6 +649,8 @@
               "longType": "Model",
               "fullType": "com.example.Model",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -594,6 +661,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -604,6 +673,8 @@
               "longType": "sint32",
               "fullType": "sint32",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -614,6 +685,8 @@
               "longType": "Vehicle.Category",
               "fullType": "com.example.Vehicle.Category",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -624,6 +697,8 @@
               "longType": "sint32",
               "fullType": "sint32",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": "50"
             },
             {
@@ -634,6 +709,8 @@
               "longType": "sint32",
               "fullType": "sint32",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             }
           ]
@@ -645,6 +722,7 @@
           "description": "Represents a vehicle category. E.g. \"Sedan\" or \"Truck\".",
           "hasExtensions": false,
           "hasFields": true,
+          "hasOneofs": false,
           "extensions": [],
           "fields": [
             {
@@ -655,6 +733,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             },
             {
@@ -665,6 +745,8 @@
               "longType": "string",
               "fullType": "string",
               "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
               "defaultValue": ""
             }
           ]
