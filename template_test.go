@@ -17,6 +17,9 @@ var (
 	template    *Template
 	bookingFile *File
 	vehicleFile *File
+
+	cookieTemplate *Template
+	cookieFile     *File
 )
 
 func TestMain(m *testing.M) {
@@ -29,6 +32,12 @@ func TestMain(m *testing.M) {
 	template = NewTemplate(result)
 	bookingFile = template.Files[0]
 	vehicleFile = template.Files[1]
+
+	set, _ = utils.LoadDescriptorSet("fixtures", "cookie.pb")
+	req = utils.CreateGenRequest(set, "Cookie.proto")
+	result = protokit.ParseCodeGenRequest(req)
+	cookieTemplate = NewTemplate(result)
+	cookieFile = cookieTemplate.Files[0]
 
 	os.Exit(m.Run())
 }
@@ -242,6 +251,7 @@ func TestFieldProperties(t *testing.T) {
 	require.Equal(t, "int32", field.LongType)
 	require.Equal(t, "int32", field.FullType)
 	require.Empty(t, field.DefaultValue)
+	require.False(t, field.IsOneof)
 	require.NotEmpty(t, field.Options)
 	require.True(t, *field.Option(E_ExtendField.Name).(*bool))
 
@@ -253,6 +263,7 @@ func TestFieldProperties(t *testing.T) {
 	require.Equal(t, "BookingStatus.StatusCode", field.LongType)
 	require.Equal(t, "com.example.BookingStatus.StatusCode", field.FullType)
 	require.Empty(t, field.DefaultValue)
+	require.False(t, field.IsOneof)
 
 	field = findField("category", findMessage("Vehicle", vehicleFile))
 	require.Equal(t, "category", field.Name)
@@ -262,6 +273,7 @@ func TestFieldProperties(t *testing.T) {
 	require.Equal(t, "Vehicle.Category", field.LongType)
 	require.Equal(t, "com.example.Vehicle.Category", field.FullType)
 	require.Empty(t, field.DefaultValue)
+	require.False(t, field.IsOneof)
 
 	field = findField("properties", findMessage("Vehicle", vehicleFile))
 	require.Equal(t, "properties", field.Name)
@@ -271,6 +283,7 @@ func TestFieldProperties(t *testing.T) {
 	require.Equal(t, "com.example.Vehicle.PropertiesEntry", field.FullType)
 	require.Empty(t, field.DefaultValue)
 	require.True(t, field.IsMap)
+	require.False(t, field.IsOneof)
 
 	field = findField("rates", findMessage("Vehicle", vehicleFile))
 	require.Equal(t, "rates", field.Name)
@@ -279,6 +292,95 @@ func TestFieldProperties(t *testing.T) {
 	require.Equal(t, "sint32", field.LongType)
 	require.Equal(t, "sint32", field.FullType)
 	require.False(t, field.IsMap)
+	require.False(t, field.IsOneof)
+
+	field = findField("kilometers", findMessage("Vehicle", vehicleFile))
+	require.Equal(t, "kilometers", field.Name)
+	require.Equal(t, "", field.Label)
+	require.Equal(t, "int32", field.Type)
+	require.Equal(t, "int32", field.LongType)
+	require.Equal(t, "int32", field.FullType)
+	require.False(t, field.IsMap)
+	require.True(t, field.IsOneof)
+	require.Equal(t, "travel", field.OneofDecl)
+
+	field = findField("human_name", findMessage("Vehicle", vehicleFile))
+	require.Equal(t, "human_name", field.Name)
+	require.Equal(t, "", field.Label)
+	require.Equal(t, "string", field.Type)
+	require.Equal(t, "string", field.LongType)
+	require.Equal(t, "string", field.FullType)
+	require.False(t, field.IsMap)
+	require.True(t, field.IsOneof)
+	require.Equal(t, "drivers", field.OneofDecl)
+}
+
+func TestFieldPropertiesProto3(t *testing.T) {
+	msg := findMessage("Model", vehicleFile)
+
+	field := findField("id", msg)
+	require.Equal(t, "id", field.Name)
+	require.Equal(t, "The unique model ID.", field.Description)
+	require.Equal(t, "", field.Label)
+	require.Equal(t, "string", field.Type)
+	require.Equal(t, "string", field.LongType)
+	require.Equal(t, "string", field.FullType)
+	require.Empty(t, field.DefaultValue)
+	require.Empty(t, field.Options)
+
+	field = findField("model_code", msg)
+	require.Equal(t, "model_code", field.Name)
+	require.Equal(t, "The car model code, e.g. \"PZ003\".", field.Description)
+	require.Equal(t, "", field.Label)
+	require.Equal(t, "string", field.Type)
+	require.Equal(t, "string", field.LongType)
+	require.Equal(t, "string", field.FullType)
+	require.Empty(t, field.DefaultValue)
+	require.Empty(t, field.Options)
+
+	field = findField("daily_hire_rate_dollars", msg)
+	require.Equal(t, "daily_hire_rate_dollars", field.Name)
+	require.Equal(t, "Dollars per day.", field.Description)
+	require.Equal(t, "", field.Label)
+	require.Equal(t, "sint32", field.Type)
+	require.Equal(t, "sint32", field.LongType)
+	require.Equal(t, "sint32", field.FullType)
+	require.Empty(t, field.DefaultValue)
+	require.Empty(t, field.Options)
+}
+
+func TestFieldPropertiesProto3Optional(t *testing.T) {
+	msg := findMessage("Cookie", cookieFile)
+
+	field := findField("id", msg)
+	require.Equal(t, "id", field.Name)
+	require.Equal(t, "The id of the cookie.", field.Description)
+	require.Equal(t, "", field.Label)
+	require.Equal(t, "string", field.Type)
+	require.Equal(t, "string", field.LongType)
+	require.Equal(t, "string", field.FullType)
+	require.Empty(t, field.DefaultValue)
+	require.Empty(t, field.Options)
+
+	field = findField("name", msg)
+	require.Equal(t, "name", field.Name)
+	require.Equal(t, "The name of the cookie.", field.Description)
+	require.Equal(t, "optional", field.Label)
+	require.Equal(t, "string", field.Type)
+	require.Equal(t, "string", field.LongType)
+	require.Equal(t, "string", field.FullType)
+	require.Empty(t, field.DefaultValue)
+	require.Empty(t, field.Options)
+
+	field = findField("ingredients", msg)
+	require.Equal(t, "ingredients", field.Name)
+	require.Equal(t, "Ingredients in the cookie.", field.Description)
+	require.Equal(t, "repeated", field.Label)
+	require.Equal(t, "string", field.Type)
+	require.Equal(t, "string", field.LongType)
+	require.Equal(t, "string", field.FullType)
+	require.Empty(t, field.DefaultValue)
+	require.Empty(t, field.Options)
 }
 
 func TestServiceProperties(t *testing.T) {
