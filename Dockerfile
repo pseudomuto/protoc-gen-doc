@@ -15,7 +15,7 @@ RUN apt-get -q -y update && \
 ADD dist/protoc-gen-doc /usr/local/bin/
 ADD script/entrypoint.sh ./
 
-VOLUME ["/out", "/protos"]
+VOLUME ["/out", "/protos", "/templates"]
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["--doc_opt=html,index.html"]
+CMD ["--doc_opt=html,index.html,BNet Protocol Documentation,3.01.x"]

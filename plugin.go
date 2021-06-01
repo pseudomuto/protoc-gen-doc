@@ -19,6 +19,9 @@ type PluginOptions struct {
 	TemplateFile    string
 	OutputFile      string
 	ExcludePatterns []*regexp.Regexp
+	// khoa add title and doc version
+	Title   string
+	Version string
 }
 
 // SupportedFeatures describes a flag setting for supported features.
@@ -36,7 +39,7 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 	}
 
 	result := excludeUnwantedProtos(protokit.ParseCodeGenRequest(r), options.ExcludePatterns)
-	template := NewTemplate(result)
+	template := NewTemplate(result, options.Title, options.Version)
 
 	customTemplate := ""
 
@@ -84,13 +87,16 @@ OUTER:
 // ParseOptions parses plugin options from a CodeGeneratorRequest. It does this by splitting the `Parameter` field from
 // the request object and parsing out the type of renderer to use and the name of the file to be generated.
 //
-// The parameter (`--doc_opt`) must be of the format <TYPE|TEMPLATE_FILE>,<OUTPUT_FILE>:<EXCLUDE_PATTERN>,<EXCLUDE_PATTERN>*.
+// Khoa: add title and doc version
+// The parameter (`--doc_opt`) must be of the format <TYPE|TEMPLATE_FILE>,<OUTPUT_FILE>,<TITLE>,<DOC_VERSION>:<EXCLUDE_PATTERN>,<EXCLUDE_PATTERN>*.
 // The file will be written to the directory specified with the `--doc_out` argument to protoc.
 func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 	options := &PluginOptions{
 		Type:         RenderTypeHTML,
 		TemplateFile: "",
 		OutputFile:   "index.html",
+		Title:        "BNet Proto Documentation",
+		Version:      "3.01.0",
 	}
 
 	params := req.GetParameter()
@@ -116,12 +122,20 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 	}
 
 	parts := strings.Split(params, ",")
-	if len(parts) != 2 {
+	if len(parts) < 2 { // 2 to 4 since I added title and doc_version
 		return nil, fmt.Errorf("Invalid parameter: %s", params)
 	}
 
 	options.TemplateFile = parts[0]
 	options.OutputFile = path.Base(parts[1])
+
+	if len(parts) == 3 {
+		options.Title = parts[2]
+	}
+
+	if len(parts) == 4 {
+		options.Version = parts[3]
+	}
 
 	renderType, err := NewRenderType(options.TemplateFile)
 	if err == nil {

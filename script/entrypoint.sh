@@ -7,4 +7,7 @@ set -euo pipefail
 args=("$@")
 if [ "${#args[@]}" -lt 2 ]; then args+=(protos/**/*.proto); fi
 
+echo "Removing //--- lines"
+find protos -name "*.proto" -exec sed -i '/\/\/-/d' {} \;
+
 exec protoc -Iprotos --doc_out=/out "${args[@]}"

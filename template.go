@@ -14,6 +14,10 @@ import (
 // Template is a type for encapsulating all the parsed files, messages, fields, enums, services, extensions, etc. into
 // an object that will be supplied to a go template.
 type Template struct {
+	// Khoa -- added doc title
+	Title string `json:"title"`
+	// Khoa -- added doc version
+	Version string `json:"version"`
 	// The files that were parsed
 	Files []*File `json:"files"`
 	// Details about the scalar values and their respective types in supported languages.
@@ -21,7 +25,7 @@ type Template struct {
 }
 
 // NewTemplate creates a Template object from a set of descriptors.
-func NewTemplate(descs []*protokit.FileDescriptor) *Template {
+func NewTemplate(descs []*protokit.FileDescriptor, title string, version string) *Template {
 	files := make([]*File, 0, len(descs))
 
 	for _, f := range descs {
@@ -75,7 +79,7 @@ func NewTemplate(descs []*protokit.FileDescriptor) *Template {
 		files = append(files, file)
 	}
 
-	return &Template{Files: files, Scalars: makeScalars()}
+	return &Template{Title: title, Version: version, Files: files, Scalars: makeScalars()}
 }
 
 func makeScalars() []*ScalarValue {

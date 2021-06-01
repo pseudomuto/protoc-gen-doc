@@ -1,0 +1,15 @@
+@startuml backExclusive
+participant "game-client" as client order 20
+
+participant Tassadar as Tassadar order 30
+participant FRONT as FRONT order 40
+participant BACK as BACK order 50
+participant "game-server" as server order 60
+
+server <-> BACK: Establish connection
+note left: DO NOT USE\n\n\n
+server -> BACK: Register as game-util-server
+server <-> BACK: Very limited BGS APIs
+== Out-of-band ==
+client <-> server: custom
+@enduml

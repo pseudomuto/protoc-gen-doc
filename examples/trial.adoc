@@ -1,0 +1,49 @@
+= Proto Documentation [[top]]
+:toc: auto
+
+== bgs/low/pb/client/account_register_service.proto <<top>>
+
+
+=== RegisterAccountRequest
+A message registering a client on back.
+
+
+|===========================================
+|*Field* |*Type* |*Label* |*Description*
+
+|identity | <<Identity,Identity>> |optional |Battle.net identity
+
+|===========================================
+
+
+=== UnregisterAccountRequest
+A message unregistering a client on back.
+
+
+|===========================================
+|*Field* |*Type* |*Label* |*Description*
+
+|identity | <<Identity,Identity>> |optional |Battle.net identity
+
+|===========================================
+
+[plantuml]
+....
+
+@startuml
+participant "gameclient" as client order 20
+
+participant Tassadar as Tassadar order 30
+participant FRONT as FRONT order 40
+participant BACK as BACK order 50
+participant "game-server" as server order 60
+
+server <-> BACK: Establish connection
+note left: DO NOT USE\n\n\n
+server -> BACK: Register as game-util-server
+server <-> BACK: Very limited BGS APIs
+== Out-of-band ==
+client <-> server: custom
+@enduml
+
+....

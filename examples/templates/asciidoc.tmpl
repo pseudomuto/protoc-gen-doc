@@ -1,12 +1,17 @@
-= __Application_Name__ Protobuf Documentation
-:toc:
+[#title]
+= {{.Title}}
+v{{.Version}}
+:toc: auto
 
 {{range .Files}}
 
-== {{.Name}}
+== {{.Name}} 
+
+<<title,top>>
+
+
 
 {{range .Messages}}
-
 === {{.LongName}}
 {{nobr .Description}}
 
@@ -14,15 +19,28 @@
 |===========================================
 |*Field* |*Type* |*Label* |*Description*
 {{range .Fields}}
-|{{.Name}} | <<{{.FullType}},{{.LongType}}>> |{{.Label}} |{{.Description}}
+|{{.Name}} | <<{{.Type}},{{.LongType}}>> |{{.Label}} |{{.Description}}
 {{end}}
 |===========================================
 {{end}}
 {{end}}
 
-{{range .Enums}}
 
-[[{{.LongName}}]]
+
+{{range .Services}}
+=== {{.LongName}}
+{{nobr .Description}}
+|===========================================
+|*Method Name*|*RequestType*|*ResponseType*|*Description*
+{{range .Methods}}
+|{{.Name}} | <<{{.RequestType}}, {{.RequestLongType}}>> | <<{{.ResponseType}}, {{.ResponseLongType}}>> | {{.Description}} 
+{{end}}
+|===========================================
+{{end}}
+
+
+
+{{range .Enums}}
 === {{.LongName}}
 {{.Description}}
 
