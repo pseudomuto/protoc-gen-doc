@@ -5,7 +5,11 @@ All noteworthy changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) (as of Feb 2018)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.4.1...master)
+## [Unreleased](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.5.0...master)
+
+## [v1.5.0](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.4.1...v1.5.0)
+
+* Add `source_relative` flag [#450](https://github.com/pseudomuto/protoc-gen-doc/pull/450)
 
 ## [v1.4.1](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.3.2...v1.4.1)
 
