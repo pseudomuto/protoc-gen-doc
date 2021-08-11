@@ -24,10 +24,12 @@ If you'd like to install this locally, you can `go get` it.
 The plugin is invoked by passing the `--doc_out`, and `--doc_opt` options to the `protoc` compiler. The option has the
 following format:
 
-    --doc_opt=<FORMAT>|<TEMPLATE_FILENAME>,<OUT_FILENAME>
+    --doc_opt=<FORMAT>|<TEMPLATE_FILENAME>,<OUT_FILENAME>[,default|source_relative]
 
 The format may be one of the built-in ones ( `docbook`, `html`, `markdown` or `json`)
 or the name of a file containing a custom [Go template][gotemplate].
+
+If the `source_relative` flag is specified, the output file is written in the same relative directory as the input file.
 
 ### Using the Docker Image (Recommended)
 
