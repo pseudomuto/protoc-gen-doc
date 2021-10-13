@@ -49,3 +49,16 @@ func TestNoBrFilter(t *testing.T) {
 		require.Equal(t, output, NoBrFilter(input))
 	}
 }
+
+func TestAnchorFilter(t *testing.T) {
+	tests := map[string]string{
+		"com/example/test.proto":  "com_example_test-proto",
+		"com.example.SomeRequest": "com-example-SomeRequest",
+		"héllô":                   "h-ll-",
+		"un_modified-Content":     "un_modified-Content",
+	}
+
+	for input, output := range tests {
+		require.Equal(t, output, AnchorFilter(input))
+	}
+}

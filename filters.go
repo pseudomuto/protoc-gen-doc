@@ -11,6 +11,7 @@ var (
 	paraPattern         = regexp.MustCompile(`(\n|\r|\r\n)\s*`)
 	spacePattern        = regexp.MustCompile("( )+")
 	multiNewlinePattern = regexp.MustCompile(`(\r\n|\r|\n){2,}`)
+	specialCharsPattern = regexp.MustCompile(`[^a-zA-Z0-9_-]`)
 )
 
 // PFilter splits the content by new lines and wraps each one in a <p> tag.
@@ -35,4 +36,9 @@ func NoBrFilter(content string) string {
 		paragraphs[i] = spacePattern.ReplaceAllString(withoutLF, " ")
 	}
 	return strings.Join(paragraphs, "\n\n")
+}
+
+// AnchorFilter replaces all special characters with URL friendly dashes
+func AnchorFilter(str string) string {
+	return specialCharsPattern.ReplaceAllString(strings.ReplaceAll(str, "/", "_"), "-")
 }
