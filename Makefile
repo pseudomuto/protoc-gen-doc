@@ -21,11 +21,7 @@ DOCKER_CMD=docker run --rm \
 
 VERSION = $(shell cat version.go | sed -n 's/.*const VERSION = "\(.*\)"/\1/p')
 
-resources.go: resources/*.tmpl resources/*.json
-	$(info Generating resources...)
-	@go run resources/main.go -in resources -out resources.go -pkg gendoc
-
-fixtures/fileset.pb: fixtures/*.proto fixtures/generate.go
+fixtures/fileset.pb: fixtures/*.proto fixtures/generate.go fixtures/nested/*.proto
 	$(info Generating fixtures...)
 	@cd fixtures && go generate
 
@@ -37,13 +33,13 @@ tmp/googleapis:
 	cp -r tmp/protocolbuffers/src/* tmp/googleapis/
 	rm -rf tmp/protocolbuffers
 
-test: fixtures/fileset.pb resources.go
+test: fixtures/fileset.pb
 	@go test -cover -race ./ ./cmd/... ./extensions/...
 
 bench:
 	@go test -bench=.
 
-build: resources.go
+build: 
 	@go build ./cmd/...
 
 dist:
