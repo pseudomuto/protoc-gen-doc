@@ -1,4 +1,11 @@
-FROM debian:jessie-slim
+FROM golang:1.17-alpine AS builder
+WORKDIR /build
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . ./
+RUN CGO_ENABLED=0 go build -ldflags="-s -w" -o protoc-gen-doc ./cmd/protoc-gen-doc
+
+FROM debian:jessie-slim AS final
 LABEL maintainer="pseudomuto <david.muto@gmail.com>" protoc_version="3.6.1"
 
 WORKDIR /
@@ -12,8 +19,8 @@ RUN apt-get -q -y update && \
   apt-get autoremove && \
   rm -rf /var/lib/apt/lists/*
 
-ADD dist/protoc-gen-doc /usr/local/bin/
-ADD script/entrypoint.sh ./
+COPY --from=builder /build/protoc-gen-doc /usr/local/bin
+COPY script/entrypoint.sh ./
 
 VOLUME ["/out", "/protos"]
 
