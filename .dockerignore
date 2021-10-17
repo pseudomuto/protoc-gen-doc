@@ -1,2 +1,7 @@
-/
+.git/
+.github/
+dist/
+examples/
+fixtures/
+tmp/
 !/script
