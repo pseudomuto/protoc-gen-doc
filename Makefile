@@ -17,7 +17,7 @@ DOCKER_CMD=docker run --rm \
 	-v $(PWD)/thirdparty/github.com/mwitkow:/usr/local/include/github.com/mwitkow:ro \
 	-v $(PWD)/thirdparty/github.com/envoyproxy:/usr/local/include/github.com/envoyproxy:ro \
 	-v $(PWD)/tmp/googleapis/google/api:/usr/local/include/google/api:ro \
-	pseudomuto/protoc-gen-doc
+	pseudomuto/protoc-gen-doc:local
 
 VERSION = $(shell cat version.go | sed -n 's/.*const VERSION = "\(.*\)"/\1/p')
 
@@ -49,11 +49,9 @@ build: resources.go
 dist:
 	@script/dist.sh
 
-docker:
-	@script/push_to_docker.sh
-
-docker_test: build tmp/googleapis docker
+docker_test: tmp/googleapis
 	@rm -f examples/doc/*
+	@docker build -t pseudomuto/protoc-gen-doc:local .
 	@$(DOCKER_CMD) --doc_opt=docbook,example.docbook:Ignore*
 	@$(DOCKER_CMD) --doc_opt=html,example.html:Ignore*
 	@$(DOCKER_CMD) --doc_opt=json,example.json:Ignore*

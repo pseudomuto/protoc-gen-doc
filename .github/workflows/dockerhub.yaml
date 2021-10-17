@@ -1,0 +1,25 @@
+name: Deploy Docker Image
+
+on:
+  create: ~
+
+jobs:
+  deploy:
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: pseudomuto/protoc-gen-doc:${{ github.sha }}, pseudomuto/protoc-gen-doc:latest
