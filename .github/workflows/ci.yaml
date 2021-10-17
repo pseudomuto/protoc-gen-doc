@@ -1,7 +1,10 @@
 name: CI
 
 on:
-  create: ~
+  push:
+    - branches: [ master ]
+  pull-request:
+    - branches: [ master ]
 
 jobs:
   test:
