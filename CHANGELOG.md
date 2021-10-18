@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.5.0...master)
 
+### Changed
+
+* Escape special characters in markdown anchors [#460](https://github.com/pseudomuto/protoc-gen-doc/pull/460)
+* Bump go to 1.17, protoc to 3.18.1, and leverage go:embed [#461](https://github.com/pseudomuto/protoc-gen-doc/pull/461)
+
 ## [v1.5.0](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.4.1...v1.5.0)
 
 * Add `source_relative` flag [#450](https://github.com/pseudomuto/protoc-gen-doc/pull/450)
