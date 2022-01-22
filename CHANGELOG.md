@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.5.0...master)
 
+* Fix Formatting of Scalar Value Table in the markdown.tmpl template. [#454](https://github.com/pseudomuto/protoc-gen-doc/pull/454)
+
 ### Changed
 
 * Escape special characters in markdown anchors [#460](https://github.com/pseudomuto/protoc-gen-doc/pull/460)
