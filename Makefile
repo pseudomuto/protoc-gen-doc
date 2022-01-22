@@ -17,15 +17,11 @@ DOCKER_CMD=docker run --rm \
 	-v $(PWD)/thirdparty/github.com/mwitkow:/usr/local/include/github.com/mwitkow:ro \
 	-v $(PWD)/thirdparty/github.com/envoyproxy:/usr/local/include/github.com/envoyproxy:ro \
 	-v $(PWD)/tmp/googleapis/google/api:/usr/local/include/google/api:ro \
-	pseudomuto/protoc-gen-doc
+	pseudomuto/protoc-gen-doc:local
 
 VERSION = $(shell cat version.go | sed -n 's/.*const VERSION = "\(.*\)"/\1/p')
 
-resources.go: resources/*.tmpl resources/*.json
-	$(info Generating resources...)
-	@go run resources/main.go -in resources -out resources.go -pkg gendoc
-
-fixtures/fileset.pb: fixtures/*.proto fixtures/generate.go
+fixtures/fileset.pb: fixtures/*.proto fixtures/generate.go fixtures/nested/*.proto
 	$(info Generating fixtures...)
 	@cd fixtures && go generate
 
@@ -37,23 +33,21 @@ tmp/googleapis:
 	cp -r tmp/protocolbuffers/src/* tmp/googleapis/
 	rm -rf tmp/protocolbuffers
 
-test: fixtures/fileset.pb resources.go
+test: fixtures/fileset.pb
 	@go test -cover -race ./ ./cmd/... ./extensions/...
 
 bench:
 	@go test -bench=.
 
-build: resources.go
+build: 
 	@go build ./cmd/...
 
 dist:
 	@script/dist.sh
 
-docker:
-	@script/push_to_docker.sh
-
-docker_test: build tmp/googleapis docker
+docker_test: tmp/googleapis
 	@rm -f examples/doc/*
+	@docker build -t pseudomuto/protoc-gen-doc:local .
 	@$(DOCKER_CMD) --doc_opt=docbook,example.docbook:Ignore*
 	@$(DOCKER_CMD) --doc_opt=html,example.html:Ignore*
 	@$(DOCKER_CMD) --doc_opt=json,example.json:Ignore*

@@ -62,22 +62,23 @@ func (rt RenderType) renderer() (Processor, error) {
 func (rt RenderType) template() ([]byte, error) {
 	switch rt {
 	case RenderTypeDocBook:
-		return fetchResource("docbook.tmpl")
+		return docbookTmpl, nil
 	case RenderTypeHTML:
-		return fetchResource("html.tmpl")
+		return htmlTmpl, nil
 	case RenderTypeJSON:
 		return nil, nil
 	case RenderTypeMarkdown:
-		return fetchResource("markdown.tmpl")
+		return markdownTmpl, nil
 	}
 
 	return nil, errors.New("Couldn't find template for render type")
 }
 
 var funcMap = map[string]interface{}{
-	"p":    PFilter,
-	"para": ParaFilter,
-	"nobr": NoBrFilter,
+	"p":      PFilter,
+	"para":   ParaFilter,
+	"nobr":   NoBrFilter,
+	"anchor": AnchorFilter,
 }
 
 // Processor is an interface that is satisfied by all built-in processors (text, html, and json).

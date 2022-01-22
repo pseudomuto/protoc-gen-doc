@@ -3,21 +3,21 @@
 
 ## Table of Contents
 {{range .Files}}
-{{$file_name := .Name}}- [{{.Name}}](#{{.Name}})
+{{$file_name := .Name}}- [{{.Name}}](#{{.Name | anchor}})
   {{- if .Messages }}
-  {{range .Messages}}  - [{{.LongName}}](#{{.FullName}})
+  {{range .Messages}}  - [{{.LongName}}](#{{.FullName | anchor}})
   {{end}}
   {{- end -}}
   {{- if .Enums }}
-  {{range .Enums}}  - [{{.LongName}}](#{{.FullName}})
+  {{range .Enums}}  - [{{.LongName}}](#{{.FullName | anchor}})
   {{end}}
   {{- end -}}
   {{- if .Extensions }}
-  {{range .Extensions}}  - [File-level Extensions](#{{$file_name}}-extensions)
+  {{range .Extensions}}  - [File-level Extensions](#{{$file_name | anchor}}-extensions)
   {{end}}
   {{- end -}}
   {{- if .Services }}
-  {{range .Services}}  - [{{.Name}}](#{{.FullName}})
+  {{range .Services}}  - [{{.Name}}](#{{.FullName | anchor}})
   {{end}}
   {{- end -}}
 {{end}}
@@ -25,14 +25,14 @@
 
 {{range .Files}}
 {{$file_name := .Name}}
-<a name="{{.Name}}"></a>
+<a name="{{.Name | anchor}}"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## {{.Name}}
 {{.Description}}
 
 {{range .Messages}}
-<a name="{{.FullName}}"></a>
+<a name="{{.FullName | anchor}}"></a>
 
 ### {{.LongName}}
 {{.Description}}
@@ -41,7 +41,7 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 {{range .Fields -}}
-  | {{.Name}} | [{{.LongType}}](#{{.FullType}}) | {{.Label}} | {{if (index .Options "deprecated"|default false)}}**Deprecated.** {{end}}{{nobr .Description}}{{if .DefaultValue}} Default: {{.DefaultValue}}{{end}} |
+  | {{.Name}} | [{{.LongType}}](#{{.FullType | anchor}}) | {{.Label}} | {{if (index .Options "deprecated"|default false)}}**Deprecated.** {{end}}{{nobr .Description}}{{if .DefaultValue}} Default: {{.DefaultValue}}{{end}} |
 {{end}}
 {{end}}
 
@@ -56,7 +56,7 @@
 {{end}} <!-- end messages -->
 
 {{range .Enums}}
-<a name="{{.FullName}}"></a>
+<a name="{{.FullName | anchor}}"></a>
 
 ### {{.LongName}}
 {{.Description}}
@@ -70,7 +70,7 @@
 {{end}} <!-- end enums -->
 
 {{if .HasExtensions}}
-<a name="{{$file_name}}-extensions"></a>
+<a name="{{$file_name | anchor}}-extensions"></a>
 
 ### File-level Extensions
 | Extension | Type | Base | Number | Description |
@@ -81,7 +81,7 @@
 {{end}} <!-- end HasExtensions -->
 
 {{range .Services}}
-<a name="{{.FullName}}"></a>
+<a name="{{.FullName | anchor}}"></a>
 
 ### {{.Name}}
 {{.Description}}
@@ -89,7 +89,7 @@
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
 {{range .Methods -}}
-  | {{.Name}} | [{{.RequestLongType}}](#{{.RequestFullType}}){{if .RequestStreaming}} stream{{end}} | [{{.ResponseLongType}}](#{{.ResponseFullType}}){{if .ResponseStreaming}} stream{{end}} | {{nobr .Description}} |
+  | {{.Name}} | [{{.RequestLongType}}](#{{.RequestFullType | anchor}}){{if .RequestStreaming}} stream{{end}} | [{{.ResponseLongType}}](#{{.ResponseFullType | anchor}}){{if .ResponseStreaming}} stream{{end}} | {{nobr .Description}} |
 {{end}}
 {{end}} <!-- end services -->
 
@@ -100,5 +100,5 @@
 | .proto Type | Notes | C++ | Java | Python | Go  | C#  | PHP | Ruby |
 | ----------- | ----- | --- | ---- | ------ | --- | --- | --- | ---- |
 {{range .Scalars -}}
-  | <a name="{{.ProtoType}}" /> {{.ProtoType}} | {{.Notes}} | {{.CppType}} | {{.JavaType}} | {{.PythonType}} | {{.GoType}} | {{.CSharp}} | {{.PhpType}} | {{.RubyType}} |
+  | <a name="{{.ProtoType | anchor}}" /> {{.ProtoType}} | {{.Notes}} | {{.CppType}} | {{.JavaType}} | {{.PythonType}} | {{.GoType}} | {{.CSharp}} | {{.PhpType}} | {{.RubyType}} |
 {{end}}

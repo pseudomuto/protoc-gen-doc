@@ -79,10 +79,8 @@ func NewTemplate(descs []*protokit.FileDescriptor) *Template {
 }
 
 func makeScalars() []*ScalarValue {
-	data, _ := fetchResource("scalars.json")
-
 	var scalars []*ScalarValue
-	json.Unmarshal(data, &scalars)
+	json.Unmarshal(scalarsJSON, &scalars)
 
 	return scalars
 }
