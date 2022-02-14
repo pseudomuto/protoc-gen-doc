@@ -47,7 +47,7 @@ dist:
 
 docker_test: tmp/googleapis
 	@rm -f examples/doc/*
-	@docker build -t pseudomuto/protoc-gen-doc:local .
+	@docker build --no-cache -t pseudomuto/protoc-gen-doc:local .
 	@$(DOCKER_CMD) --doc_opt=docbook,example.docbook:Ignore*
 	@$(DOCKER_CMD) --doc_opt=html,example.html:Ignore*
 	@$(DOCKER_CMD) --doc_opt=json,example.json:Ignore*
