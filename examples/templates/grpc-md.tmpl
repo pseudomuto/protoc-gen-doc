@@ -1,75 +1,104 @@
-# API Reference
+# Protocol Documentation
+<a name="top"></a>
 
-# Table of Contents
+## Table of Contents
 {{range .Files}}
-{{if .HasServices}}
-- Services
-  {{range .Services}}  - [{{.Name}}](#{{.FullName | lower | replace "." ""}})
+{{$file_name := .Name}}- [{{.Name}}](#{{.Name | anchor}})
+  {{- if .Messages }}
+  {{range .Messages}}  - [{{.LongName}}](#{{.FullName | anchor}})
   {{end}}
-{{end}}
-{{if .HasMessages}}
-- Messages
-  {{range .Messages}}  - [{{.LongName}}](#{{.LongName | lower | replace "." ""}})
+  {{- end -}}
+  {{- if .Enums }}
+  {{range .Enums}}  - [{{.LongName}}](#{{.FullName | anchor}})
   {{end}}
-{{end}}
-{{if .HasEnums}}
-- Enums
-  {{range .Enums}}  - [{{.LongName}}](#{{.LongName | lower | replace "." ""}})
+  {{- end -}}
+  {{- if .Extensions }}
+  {{range .Extensions}}  - [File-level Extensions](#{{$file_name | anchor}}-extensions)
   {{end}}
-{{end}}
+  {{- end -}}
+  {{- if .Services }}
+  {{range .Services}}  - [{{.Name}}](#{{.FullName | anchor}})
+  {{end}}
+  {{- end -}}
 {{end}}
 - [Scalar Value Types](#scalar-value-types)
 
 {{range .Files}}
+{{$file_name := .Name}}
+<a name="{{.Name | anchor}}"></a>
+<p align="right"><a href="#top">Top</a></p>
 
-{{range .Services -}}
-# {{.Name}} {#{{.FullName | lower | replace "." ""}}}
+## {{.Name}}
 {{.Description}}
 
-{{range .Methods -}}
-## {{.Name}}
-
-> **rpc** {{.Name}}([{{.RequestLongType}}](#{{.RequestLongType | lower | replace "." ""}}))
-    [{{.ResponseLongType}}](#{{.ResponseLongType | lower | replace "." ""}})
-
-{{ .Description}}
-{{end}} <!-- end methods -->
-{{end}} <!-- end services -->
-
-# Messages
 {{range .Messages}}
+<a name="{{.FullName | anchor}}"></a>
 
-## {{.LongName}} {#{{.LongName | lower | replace "." ""}}}
+### {{.LongName}}
 {{.Description}}
 
 {{if .HasFields}}
-| Field | Type | Description |
-| ----- | ---- | ----------- |
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
 {{range .Fields -}}
-	| {{if .IsOneof}}[**oneof**](https://developers.google.com/protocol-buffers/docs/proto3#oneof) {{.OneofDecl}}.{{end}}{{.Name}} | [{{if .IsMap}}map {{else}}{{.Label}} {{end}}{{.LongType}}](#{{.LongType | lower | replace "." ""}}) | {{if .Description}}{{nobr .Description}}{{if .DefaultValue}} Default: {{.DefaultValue}}{{end}}{{else}}none{{end}} |
-{{end}} <!-- end Fields -->
-{{end}} <!-- end HasFields -->
+  | {{.Name}} | [{{.LongType}}](#{{.FullType | anchor}}) | {{.Label}} | {{if (index .Options "deprecated"|default false)}}**Deprecated.** {{end}}{{nobr .Description}}{{if .DefaultValue}} Default: {{.DefaultValue}}{{end}} |
+{{end}}
+{{end}}
+
+{{if .HasExtensions}}
+| Extension | Type | Base | Number | Description |
+| --------- | ---- | ---- | ------ | ----------- |
+{{range .Extensions -}}
+  | {{.Name}} | {{.LongType}} | {{.ContainingLongType}} | {{.Number}} | {{nobr .Description}}{{if .DefaultValue}} Default: {{.DefaultValue}}{{end}} |
+{{end}}
+{{end}}
+
 {{end}} <!-- end messages -->
 
-# Enums
 {{range .Enums}}
+<a name="{{.FullName | anchor}}"></a>
 
-## {{.LongName}} {#{{.LongName | lower | replace "." ""}}}
+### {{.LongName}}
 {{.Description}}
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 {{range .Values -}}
-	| {{.Name}} | {{.Number}} | {{if .Description}}{{nobr .Description}}{{else}}none{{end}} |
+  | {{.Name}} | {{.Number}} | {{nobr .Description}} |
 {{end}}
 
-{{end}} <!-- end Enums -->
-{{end}} <!-- end Files -->
+{{end}} <!-- end enums -->
 
-# Scalar Value Types
+{{if .HasExtensions}}
+<a name="{{$file_name | anchor}}-extensions"></a>
 
-| .proto Type | Notes | C++ Type | Java Type | Python Type |
-| ----------- | ----- | -------- | --------- | ----------- |
+### File-level Extensions
+| Extension | Type | Base | Number | Description |
+| --------- | ---- | ---- | ------ | ----------- |
+{{range .Extensions -}}
+  | {{.Name}} | {{.LongType}} | {{.ContainingLongType}} | {{.Number}} | {{nobr .Description}}{{if .DefaultValue}} Default: `{{.DefaultValue}}`{{end}} |
+{{end}}
+{{end}} <!-- end HasExtensions -->
+
+{{range .Services}}
+<a name="{{.FullName | anchor}}"></a>
+
+### {{.Name}}
+{{.Description}}
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+{{range .Methods -}}
+  | {{.Name}} | [{{.RequestLongType}}](#{{.RequestFullType | anchor}}){{if .RequestStreaming}} stream{{end}} | [{{.ResponseLongType}}](#{{.ResponseFullType | anchor}}){{if .ResponseStreaming}} stream{{end}} | {{nobr .Description}} |
+{{end}}
+{{end}} <!-- end services -->
+
+{{end}}
+
+## Scalar Value Types
+
+| .proto Type | Notes | C++ | Java | Python | Go | C# | PHP | Ruby |
+| ----------- | ----- | --- | ---- | ------ | -- | -- | --- | ---- |
 {{range .Scalars -}}
-  | <div><h4 id="{{.ProtoType | lower | replace "." ""}}" /></div><a name="{{.ProtoType}}" /> {{.ProtoType}} | {{.Notes}} | {{.CppType}} | {{.JavaType}} | {{.PythonType}} |
+  | <a name="{{.ProtoType | anchor}}" /> {{.ProtoType}} | {{.Notes}} | {{.CppType}} | {{.JavaType}} | {{.PythonType}} | {{.GoType}} | {{.CSharp}} | {{.PhpType}} | {{.RubyType}} |
 {{end}}
