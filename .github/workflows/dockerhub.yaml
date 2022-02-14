@@ -23,3 +23,4 @@ jobs:
         with:
           push: true
           tags: pseudomuto/protoc-gen-doc:${{ github.sha }}, pseudomuto/protoc-gen-doc:latest
+          no-cache: true
