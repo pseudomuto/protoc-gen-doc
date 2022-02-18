@@ -24,7 +24,7 @@ jobs:
       - name: Tests
         run: |
           goverage -race -coverprofile=coverage.txt -covermode=atomic
-          make bench lint
+          make test/bench test/lint
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2

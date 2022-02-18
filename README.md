@@ -6,7 +6,7 @@
 [![Go Report Card][goreport-svg]][goreport-url]
 
 This is a documentation generator plugin for the Google Protocol Buffers compiler (`protoc`). The plugin can generate
-HTML, JSON, DocBook and Markdown documentation from comments in your `.proto` files.
+HTML, JSON, DocBook, and Markdown documentation from comments in your `.proto` files.
 
 It supports proto2 and proto3, and can handle having both in the same context (see [examples](examples/) for proof).
 
@@ -18,6 +18,8 @@ documentation from your protos.
 If you'd like to install this locally, you can `go get` it.
 
 `go get -u github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc`
+
+Alternatively, you can download a pre-built release for your platform from the [releases](releases/) page.
 
 ## Invoking the Plugin
 
@@ -66,8 +68,8 @@ docker run --rm \
   pseudomuto/protoc-gen-doc --doc_opt=markdown,docs.md /protos/Booking.proto [OPTIONALLY LIST MORE FILES]
 ```
 
-You can also exclude proto files that match specific path expressions. This is done by passing a second option delimited by `:`.
-For example, you can pass any number of comma separated patterns as the second option:
+You can also exclude proto files that match specific path expressions. This is done by passing a second option delimited
+by `:`. For example, you can pass any number of comma separated patterns as the second option:
 
 ```
 docker run --rm \
