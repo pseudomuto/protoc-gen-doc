@@ -19,7 +19,7 @@ If you'd like to install this locally, you can `go get` it.
 
 `go get -u github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc`
 
-Alternatively, you can download a pre-built release for your platform from the [releases](releases/) page.
+Alternatively, you can download a pre-built release for your platform from the [releases][] page.
 
 ## Invoking the Plugin
 
@@ -201,3 +201,4 @@ Check out the `examples` task in the [Makefile](Makefile) to see how these were 
 [goreport-url]: https://goreportcard.com/report/github.com/pseudomuto/protoc-gen-doc
 [ci-svg]: https://github.com/pseudomuto/protoc-gen-doc/actions/workflows/ci.yaml/badge.svg?branch=master
 [ci-url]: https://github.com/pseudomuto/protoc-gen-doc/actions/workflows/ci.yaml
+[releases]: https://github.com/pseudomuto/protoc-gen-doc/releases
