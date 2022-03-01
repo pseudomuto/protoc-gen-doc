@@ -26,6 +26,8 @@ Vehicles are some cool shit. But drive carefully!
 
 |payment_received | <<bool,bool>> | |Has payment been received?
 
+|color_preference | <<string,string>> | |Color preference of the customer.
+
 |===========================================
 
 

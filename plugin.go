@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"path"
+	"path/filepath"
 	"regexp"
 	"strings"
 
@@ -19,7 +20,11 @@ type PluginOptions struct {
 	TemplateFile    string
 	OutputFile      string
 	ExcludePatterns []*regexp.Regexp
+	SourceRelative  bool
 }
+
+// SupportedFeatures describes a flag setting for supported features.
+var SupportedFeatures = uint64(plugin_go.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL)
 
 // Plugin describes a protoc code generate plugin. It's an implementation of Plugin from github.com/pseudomuto/protokit
 type Plugin struct{}
@@ -33,7 +38,6 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 	}
 
 	result := excludeUnwantedProtos(protokit.ParseCodeGenRequest(r), options.ExcludePatterns)
-	template := NewTemplate(result)
 
 	customTemplate := ""
 
@@ -46,18 +50,41 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 		customTemplate = string(data)
 	}
 
-	output, err := RenderTemplate(options.Type, template, customTemplate)
-	if err != nil {
-		return nil, err
+	resp := new(plugin_go.CodeGeneratorResponse)
+	fdsGroup := groupProtosByDirectory(result, options.SourceRelative)
+	for dir, fds := range fdsGroup {
+		template := NewTemplate(fds)
+
+		output, err := RenderTemplate(options.Type, template, customTemplate)
+		if err != nil {
+			return nil, err
+		}
+
+		resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
+			Name:    proto.String(filepath.Join(dir, options.OutputFile)),
+			Content: proto.String(string(output)),
+		})
 	}
 
-	resp := new(plugin_go.CodeGeneratorResponse)
-	resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
-		Name:    proto.String(options.OutputFile),
-		Content: proto.String(string(output)),
-	})
+	resp.SupportedFeatures = proto.Uint64(SupportedFeatures)
 
 	return resp, nil
+}
+
+func groupProtosByDirectory(fds []*protokit.FileDescriptor, sourceRelative bool) map[string][]*protokit.FileDescriptor {
+	fdsGroup := make(map[string][]*protokit.FileDescriptor)
+
+	for _, fd := range fds {
+		dir := ""
+		if sourceRelative {
+			dir, _ = filepath.Split(fd.GetName())
+		}
+		if dir == "" {
+			dir = "./"
+		}
+		fdsGroup[dir] = append(fdsGroup[dir], fd)
+	}
+	return fdsGroup
 }
 
 func excludeUnwantedProtos(fds []*protokit.FileDescriptor, excludePatterns []*regexp.Regexp) []*protokit.FileDescriptor {
@@ -80,13 +107,14 @@ OUTER:
 // ParseOptions parses plugin options from a CodeGeneratorRequest. It does this by splitting the `Parameter` field from
 // the request object and parsing out the type of renderer to use and the name of the file to be generated.
 //
-// The parameter (`--doc_opt`) must be of the format <TYPE|TEMPLATE_FILE>,<OUTPUT_FILE>:<EXCLUDE_PATTERN>,<EXCLUDE_PATTERN>*.
+// The parameter (`--doc_opt`) must be of the format <TYPE|TEMPLATE_FILE>,<OUTPUT_FILE>[,default|source_relative]:<EXCLUDE_PATTERN>,<EXCLUDE_PATTERN>*.
 // The file will be written to the directory specified with the `--doc_out` argument to protoc.
 func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 	options := &PluginOptions{
-		Type:         RenderTypeHTML,
-		TemplateFile: "",
-		OutputFile:   "index.html",
+		Type:           RenderTypeHTML,
+		TemplateFile:   "",
+		OutputFile:     "index.html",
+		SourceRelative: false,
 	}
 
 	params := req.GetParameter()
@@ -112,12 +140,23 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 	}
 
 	parts := strings.Split(params, ",")
-	if len(parts) != 2 {
+	if len(parts) < 2 || len(parts) > 3 {
 		return nil, fmt.Errorf("Invalid parameter: %s", params)
 	}
 
 	options.TemplateFile = parts[0]
 	options.OutputFile = path.Base(parts[1])
+	if len(parts) > 2 {
+		switch parts[2] {
+		case "source_relative":
+			options.SourceRelative = true
+		case "default":
+			options.SourceRelative = false
+		default:
+			return nil, fmt.Errorf("Invalid parameter: %s", params)
+		}
+	}
+	options.SourceRelative = len(parts) > 2 && parts[2] == "source_relative"
 
 	renderType, err := NewRenderType(options.TemplateFile)
 	if err == nil {

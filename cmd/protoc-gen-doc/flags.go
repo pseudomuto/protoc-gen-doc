@@ -21,6 +21,9 @@ protoc --doc_out=. --doc_opt=html,index.html:google/*,somedir/* protos/*.proto
 EXAMPLE: Use a custom template
 protoc --doc_out=. --doc_opt=custom.tmpl,docs.txt protos/*.proto
 
+EXAMPLE: Generate docs relative to source protos
+protoc --doc_out=. --doc_opt=html,index.html,source_relative protos/*.proto
+
 See https://github.com/pseudomuto/protoc-gen-doc for more details.
 `
 
