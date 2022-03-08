@@ -11,11 +11,11 @@ publishing {
 
   publications {
     maven(MavenPublication) {
-      artifact("$projectDir/src/main/binaries/protoc-gen-doc_1.5.1_windows_amd64.exe") {
+      artifact("$projectDir/dist/protoc-gen-doc_windows_amd64/protoc-gen-doc.exe") {
         classifier 'windows-x86_64'
         extension 'exe'
       }
-      artifact("$projectDir/src/main/binaries/protoc-gen-doc_1.5.1_linux_amd64.elf") {
+      artifact("$projectDir/dist/protoc-gen-doc_linux_amd64/protoc-gen-doc") {
         classifier 'linux-x86_64'
       }
     }
