@@ -1,0 +1,34 @@
+plugins {
+  id 'maven-publish'
+}
+
+
+project.groupId = 'com.github.davidjlynn'
+project.artifactId = rootProject.name
+project.version = '1.2.3'
+
+publishing {
+
+  publications {
+    maven(MavenPublication) {
+      artifact("$projectDir/src/main/binaries/protoc-gen-doc_1.5.1_windows_amd64.exe") {
+        classifier 'windows-x86_64'
+        extension 'exe'
+      }
+      artifact("$projectDir/src/main/binaries/protoc-gen-doc_1.5.1_linux_amd64.elf") {
+        classifier 'linux-x86_64'
+      }
+    }
+  }
+
+  repositories {
+    maven {
+      name = "OSSRH"
+      url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+      credentials {
+        username = System.getenv("MAVEN_USERNAME")
+        password = System.getenv("MAVEN_PASSWORD")
+      }
+    }
+  }
+}
