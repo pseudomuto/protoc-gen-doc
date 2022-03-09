@@ -2,15 +2,14 @@ plugins {
   id 'maven-publish'
 }
 
-
-project.groupId = 'com.github.davidjlynn'
-project.artifactId = rootProject.name
-project.version = '1.2.3'
-
 publishing {
 
   publications {
     maven(MavenPublication) {
+      groupId = 'com.github.davidjlynn'
+      artifactId = rootProject.name
+      version = System.getenv("GITHUB_REF_NAME")
+
       artifact("$projectDir/dist/protoc-gen-doc_windows_amd64/protoc-gen-doc.exe") {
         classifier 'windows-x86_64'
         extension 'exe'
