@@ -10,12 +10,35 @@ publishing {
       artifactId = rootProject.name
       version = System.getenv("GITHUB_REF_NAME")
 
-      artifact("$projectDir/dist/protoc-gen-doc_windows_amd64/protoc-gen-doc.exe") {
-        classifier 'windows-x86_64'
-        extension 'exe'
+      //linux 64 arm
+      artifact("$projectDir/dist/protoc-gen-doc_linux_arm64/protoc-gen-doc") {
+          classifier 'linux-aarch_64'
+          extension 'exe'
       }
+      //linux 64 intel
       artifact("$projectDir/dist/protoc-gen-doc_linux_amd64/protoc-gen-doc") {
-        classifier 'linux-x86_64'
+          classifier 'linux-x86_64'
+          extension 'exe'
+      }
+      //mac 64 arm
+      artifact("$projectDir/dist/protoc-gen-doc_darwin_arm64/protoc-gen-doc") {
+          classifier 'osx-aarch_64'
+          extension 'exe'
+      }
+      //mac 64 intel
+      artifact("$projectDir/dist/protoc-gen-doc_darwin_amd64/protoc-gen-doc") {
+          classifier 'osx-x86_64'
+          extension 'exe'
+      }
+      //windows 64 arm
+      artifact("$projectDir/dist/protoc-gen-doc_windows_arm64/protoc-gen-doc.exe") {
+          classifier 'windows-aarch_64'
+          extension 'exe'
+      }
+      //windows 64 intel
+      artifact("$projectDir/dist/protoc-gen-doc_windows_amd64/protoc-gen-doc.exe") {
+          classifier 'windows-x86_64'
+          extension 'exe'
       }
     }
   }
