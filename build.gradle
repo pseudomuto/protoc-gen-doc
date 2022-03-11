@@ -6,7 +6,7 @@ publishing {
 
   publications {
     maven(MavenPublication) {
-      groupId = 'com.github.pseudomuto'
+      groupId = 'io.github.pseudomuto'
       artifactId = rootProject.name
       version = System.getenv("GITHUB_REF_NAME")
 
