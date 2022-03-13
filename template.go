@@ -67,10 +67,10 @@ func NewTemplate(descs []*protokit.FileDescriptor) *Template {
 			file.Services = append(file.Services, parseService(s))
 		}
 
-		sort.Sort(file.Enums)
-		sort.Sort(file.Extensions)
-		sort.Sort(file.Messages)
-		sort.Sort(file.Services)
+		//sort.Sort(file.Enums)
+		//sort.Sort(file.Extensions)
+		//sort.Sort(file.Messages)
+		//sort.Sort(file.Services)
 
 		files = append(files, file)
 	}
