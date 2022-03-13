@@ -21,7 +21,7 @@ type Template struct {
 }
 
 // NewTemplate creates a Template object from a set of descriptors.
-func NewTemplate(descs []*protokit.FileDescriptor) *Template {
+func NewTemplate(descs []*protokit.FileDescriptor, keyValues map[string]string) *Template {
 	files := make([]*File, 0, len(descs))
 
 	for _, f := range descs {
@@ -67,10 +67,12 @@ func NewTemplate(descs []*protokit.FileDescriptor) *Template {
 			file.Services = append(file.Services, parseService(s))
 		}
 
-		sort.Sort(file.Enums)
-		sort.Sort(file.Extensions)
-		sort.Sort(file.Messages)
-		sort.Sort(file.Services)
+		if value, ok := keyValues["keep-order"]; !ok || value != "true" {
+			sort.Sort(file.Enums)
+			sort.Sort(file.Extensions)
+			sort.Sort(file.Messages)
+			sort.Sort(file.Services)
+		}
 
 		files = append(files, file)
 	}

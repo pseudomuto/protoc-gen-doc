@@ -21,6 +21,7 @@ type PluginOptions struct {
 	OutputFile      string
 	ExcludePatterns []*regexp.Regexp
 	SourceRelative  bool
+	KeyValues       map[string]string
 }
 
 // SupportedFeatures describes a flag setting for supported features.
@@ -53,7 +54,7 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 	resp := new(plugin_go.CodeGeneratorResponse)
 	fdsGroup := groupProtosByDirectory(result, options.SourceRelative)
 	for dir, fds := range fdsGroup {
-		template := NewTemplate(fds)
+		template := NewTemplate(fds, options.KeyValues)
 
 		output, err := RenderTemplate(options.Type, template, customTemplate)
 		if err != nil {
@@ -107,7 +108,7 @@ OUTER:
 // ParseOptions parses plugin options from a CodeGeneratorRequest. It does this by splitting the `Parameter` field from
 // the request object and parsing out the type of renderer to use and the name of the file to be generated.
 //
-// The parameter (`--doc_opt`) must be of the format <TYPE|TEMPLATE_FILE>,<OUTPUT_FILE>[,default|source_relative]:<EXCLUDE_PATTERN>,<EXCLUDE_PATTERN>*.
+// The parameter (`--doc_opt`) must be of the format <TYPE|TEMPLATE_FILE>,<OUTPUT_FILE>[,default|source_relative][:<EXCLUDE_PATTERN>,<EXCLUDE_PATTERN>*[:<KEY>[=<VALUE>],<KEY>[=<VALUE>]*]].
 // The file will be written to the directory specified with the `--doc_out` argument to protoc.
 func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 	options := &PluginOptions{
@@ -115,6 +116,7 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 		TemplateFile:   "",
 		OutputFile:     "index.html",
 		SourceRelative: false,
+		KeyValues:      map[string]string{},
 	}
 
 	params := req.GetParameter()
@@ -122,11 +124,25 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 		// Parse out exclude patterns if any
 		parts := strings.Split(params, ":")
 		for _, pattern := range strings.Split(parts[1], ",") {
-			r, err := regexp.Compile(pattern)
-			if err != nil {
-				return nil, err
+			pattern = strings.TrimSpace(pattern)
+			if pattern != "" {
+				r, err := regexp.Compile(pattern)
+				if err != nil {
+					return nil, err
+				}
+				options.ExcludePatterns = append(options.ExcludePatterns, r)
 			}
-			options.ExcludePatterns = append(options.ExcludePatterns, r)
+		}
+		if len(parts) > 2 {
+			pairs := strings.Split(parts[2], ",")
+			for _, pair := range pairs {
+				if strings.Contains(pair, "=") {
+					pair := strings.Split(pair, "=")
+					options.KeyValues[pair[0]] = pair[1]
+				} else {
+					options.KeyValues[pair] = "true"
+				}
+			}
 		}
 		// The first part is parsed below
 		params = parts[0]

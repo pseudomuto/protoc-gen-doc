@@ -26,12 +26,21 @@ Alternatively, you can download a pre-built release for your platform from the [
 The plugin is invoked by passing the `--doc_out`, and `--doc_opt` options to the `protoc` compiler. The option has the
 following format:
 
-    --doc_opt=<FORMAT>|<TEMPLATE_FILENAME>,<OUT_FILENAME>[,default|source_relative]
+    --doc_opt=<TYPE|TEMPLATE_FILE>,<OUTPUT_FILE>[,default|source_relative][:<EXCLUDE_PATTERN>,<EXCLUDE_PATTERN>*[:<KEY>[=<VALUE>],<KEY>[=<VALUE>]*]]
 
 The format may be one of the built-in ones ( `docbook`, `html`, `markdown` or `json`)
 or the name of a file containing a custom [Go template][gotemplate].
 
 If the `source_relative` flag is specified, the output file is written in the same relative directory as the input file.
+
+The following key/value pairs are supported:
+
+|     KEY    |     VALUE     |
+|------------|---------------|
+| keep-order | true \| false |
+
+Omitting the value specifies "true".
+
 
 ### Using the Docker Image (Recommended)
 
