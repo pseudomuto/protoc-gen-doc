@@ -84,8 +84,8 @@ publishing {
 }
 
 signing {
-  def signingKey = project.getProperty('SIGNING_PRIVATE_KEY')
-  def signingPassword = project.getProperty('SIGNING_PASSWORD')
+  def signingKey = project.getProperty('signingKey')
+  def signingPassword = project.getProperty('signingPassword')
   useInMemoryPgpKeys(signingKey, signingPassword)
   sign publishing.publications.maven
 }
@@ -100,7 +100,7 @@ tasks.register('flattenDistDirectory', Copy) {
       file.name = file.relativePath.parent.lastName
       file.relativePath = new RelativePath(true, file.relativePath.segments.drop(1))
     }
-    includeEmptyDirs = false  
+    includeEmptyDirs = false
   }
   into "$buildDir/dist"
 }

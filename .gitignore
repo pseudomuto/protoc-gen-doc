@@ -1,4 +1,6 @@
+/.gradle
 /bin
+/build
 /coverage.txt
 /dist
 /tmp/
