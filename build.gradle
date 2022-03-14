@@ -1,44 +1,70 @@
 plugins {
   id 'maven-publish'
+  id 'signing'
 }
 
-publishing {
+group = 'io.github.pseudomuto'
 
+publishing {
   publications {
     maven(MavenPublication) {
       groupId = 'io.github.pseudomuto'
       artifactId = rootProject.name
       version = System.getenv("GITHUB_REF_NAME")
 
+      pom {
+        name = groupId + ':' + rootProject.name
+        description = 'This is a documentation generator plugin for the Google Protocol Buffers compiler (protoc). The plugin can generate HTML, JSON, DocBook, and Markdown documentation from comments in your .proto files.'
+        url = 'https://github.com/pseudomuto/protoc-gen-doc'
+        licenses {
+          license {
+            name = 'MIT License'
+            url = 'https://github.com/pseudomuto/protoc-gen-doc/blob/master/LICENSE.md'
+          }
+        }
+        developers {
+          developer {
+            id = 'pseudomuto'
+            name = 'David Muto'
+            email = 'david.muto@gmail.com'
+          }
+        }
+        scm {
+          connection = 'scm:git:git@github.com:pseudomuto/protoc-gen-doc.git'
+          developerConnection = 'scm:git:git@github.com:pseudomuto/protoc-gen-doc.git'
+          url = 'https://github.com/pseudomuto/protoc-gen-doc'
+        }
+      }
+
       //linux 64 arm
-      artifact("$projectDir/dist/protoc-gen-doc_linux_arm64/protoc-gen-doc") {
-          classifier 'linux-aarch_64'
-          extension 'exe'
+      artifact("$buildDir/dist/protoc-gen-doc_linux_arm64") {
+        classifier 'linux-aarch_64'
+        extension 'exe'
       }
       //linux 64 intel
-      artifact("$projectDir/dist/protoc-gen-doc_linux_amd64/protoc-gen-doc") {
-          classifier 'linux-x86_64'
-          extension 'exe'
+      artifact("$buildDir/dist/protoc-gen-doc_linux_amd64") {
+        classifier 'linux-x86_64'
+        extension 'exe'
       }
       //mac 64 arm
-      artifact("$projectDir/dist/protoc-gen-doc_darwin_arm64/protoc-gen-doc") {
-          classifier 'osx-aarch_64'
-          extension 'exe'
+      artifact("$buildDir/dist/protoc-gen-doc_darwin_arm64") {
+        classifier 'osx-aarch_64'
+        extension 'exe'
       }
       //mac 64 intel
-      artifact("$projectDir/dist/protoc-gen-doc_darwin_amd64/protoc-gen-doc") {
-          classifier 'osx-x86_64'
-          extension 'exe'
+      artifact("$buildDir/dist/protoc-gen-doc_darwin_amd64") {
+        classifier 'osx-x86_64'
+        extension 'exe'
       }
       //windows 64 arm
-      artifact("$projectDir/dist/protoc-gen-doc_windows_arm64/protoc-gen-doc.exe") {
-          classifier 'windows-aarch_64'
-          extension 'exe'
+      artifact("$buildDir/dist/protoc-gen-doc_windows_arm64") {
+        classifier 'windows-aarch_64'
+        extension 'exe'
       }
       //windows 64 intel
-      artifact("$projectDir/dist/protoc-gen-doc_windows_amd64/protoc-gen-doc.exe") {
-          classifier 'windows-x86_64'
-          extension 'exe'
+      artifact("$buildDir/dist/protoc-gen-doc_windows_amd64") {
+        classifier 'windows-x86_64'
+        extension 'exe'
       }
     }
   }
@@ -46,7 +72,9 @@ publishing {
   repositories {
     maven {
       name = "OSSRH"
-      url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+      def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+      def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+      url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
       credentials {
         username = System.getenv("MAVEN_USERNAME")
         password = System.getenv("MAVEN_PASSWORD")
@@ -54,3 +82,28 @@ publishing {
     }
   }
 }
+
+signing {
+  def signingKey = project.getProperty('signingKey')
+  def signingPassword = project.getProperty('signingPassword')
+  useInMemoryPgpKeys(signingKey, signingPassword)
+  sign publishing.publications.maven
+}
+
+// A strange issue with signing meant that only the first files (with the same name) got signed.
+// To workaround this, rename all executables to include architecture.
+tasks.register('flattenDistDirectory', Copy) {
+  from("$projectDir/dist") {
+    include "**/protoc-gen-doc"
+    include "**/protoc-gen-doc.exe"
+    eachFile { file ->
+      file.name = file.relativePath.parent.lastName
+      file.relativePath = new RelativePath(true, file.relativePath.segments.drop(1))
+    }
+    includeEmptyDirs = false
+  }
+  into "$buildDir/dist"
+}
+
+publish.dependsOn flattenDistDirectory
+signMavenPublication.mustRunAfter flattenDistDirectory

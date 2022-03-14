@@ -76,3 +76,9 @@ From an up-to-date master, do the following:
 1. `git push origin master --tags`.
 
 Once the tag is on GitHub, the release action will handle pushing to docker and creating a release in GitHub.
+
+### Publish the Maven artifacts
+
+1. Head over to https://s01.oss.sonatype.org/#stagingRepositories
+1. Verify the contents of the staging repo and close it
+1. After successful closing (test suite is run), release the repo
