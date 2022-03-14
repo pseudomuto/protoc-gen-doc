@@ -21,6 +21,9 @@ If you'd like to install this locally, you can `go get` it.
 
 Alternatively, you can download a pre-built release for your platform from the [releases][] page.
 
+Finally, this plugin is also available on Maven Central. For details about how to use it, check out the [gradle
+example](examples/gradle).
+
 ## Invoking the Plugin
 
 The plugin is invoked by passing the `--doc_out`, and `--doc_opt` options to the `protoc` compiler. The option has the
