@@ -11,6 +11,10 @@ publishing {
       groupId = 'io.github.pseudomuto'
       artifactId = rootProject.name
       version = System.getenv("GITHUB_REF_NAME")
+      // Strip "v" from version number
+      if (version.startsWith("v")) {
+        version = version.substring(1)
+      }
 
       pom {
         name = groupId + ':' + rootProject.name
