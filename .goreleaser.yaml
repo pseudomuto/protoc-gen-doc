@@ -15,13 +15,15 @@ builds:
     goarch:
       - amd64
       - arm64
+      - ppc64le
 
 dockers:
   - image_templates:
-      - pseudomuto/{{.ProjectName}}:latest
-      - pseudomuto/{{.ProjectName}}:{{.Version}}
-      - pseudomuto/{{.ProjectName}}:{{.Major}}
-      - pseudomuto/{{.ProjectName}}:{{.Major}}.{{.Minor}}
+      - pseudomuto/{{.ProjectName}}:latest-amd64
+      - pseudomuto/{{.ProjectName}}:{{.Version}}-amd64
+      - pseudomuto/{{.ProjectName}}:{{.Major}}-amd64
+      - pseudomuto/{{.ProjectName}}:{{.Major}}.{{.Minor}}-amd64
+    use: buildx
     build_flag_templates:
       - "--pull"
       - "--label=org.opencontainers.image.created={{.Date}}"
@@ -33,6 +35,64 @@ dockers:
       - LICENSE.md
       - README.md
       - script/entrypoint.sh
+  - image_templates:
+      - pseudomuto/{{.ProjectName}}:latest-arm64v8
+      - pseudomuto/{{.ProjectName}}:{{.Version}}-arm64v8
+      - pseudomuto/{{.ProjectName}}:{{.Major}}-arm64v8
+      - pseudomuto/{{.ProjectName}}:{{.Major}}.{{.Minor}}-arm64v8
+    use: buildx
+    goarch: arm64
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--platform=linux/arm64/v8"
+    extra_files:
+      - LICENSE.md
+      - README.md
+      - script/entrypoint.sh
+  - image_templates:
+      - pseudomuto/{{.ProjectName}}:latest-ppc64le
+      - pseudomuto/{{.ProjectName}}:{{.Version}}-ppc64le
+      - pseudomuto/{{.ProjectName}}:{{.Major}}-ppc64le
+      - pseudomuto/{{.ProjectName}}:{{.Major}}.{{.Minor}}-ppc64le
+    use: buildx
+    goarch: ppc64le
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--platform=linux/ppc64le"
+    extra_files:
+      - LICENSE.md
+      - README.md
+      - script/entrypoint.sh
+ 
+docker_manifests:
+- name_template: pseudomuto/{{.ProjectName}}:latest
+  image_templates:
+    - pseudomuto/{{.ProjectName}}:latest-amd64
+    - pseudomuto/{{.ProjectName}}:latest-arm64v8
+    - pseudomuto/{{.ProjectName}}:latest-ppc64le
+- name_template: pseudomuto/{{.ProjectName}}:{{.Version}}
+  image_templates:
+    - pseudomuto/{{.ProjectName}}:{{.Version}}-amd64
+    - pseudomuto/{{.ProjectName}}:{{.Version}}-arm64v8
+    - pseudomuto/{{.ProjectName}}:{{.Version}}-ppc64le
+- name_template: pseudomuto/{{.ProjectName}}:{{.Major}}
+  image_templates:
+    - pseudomuto/{{.ProjectName}}:{{.Major}}-amd64
+    - pseudomuto/{{.ProjectName}}:{{.Major}}-arm64v8
+    - pseudomuto/{{.ProjectName}}:{{.Major}}-ppc64le
+- name_template: pseudomuto/{{.ProjectName}}:{{.Major}}.{{.Minor}}
+  image_templates:
+    - pseudomuto/{{.ProjectName}}:{{.Major}}.{{.Minor}}-amd64
+    - pseudomuto/{{.ProjectName}}:{{.Major}}.{{.Minor}}-arm64v8
+    - pseudomuto/{{.ProjectName}}:{{.Major}}.{{.Minor}}-ppc64le
 
 checksum:
   name_template: 'checksums.txt'
