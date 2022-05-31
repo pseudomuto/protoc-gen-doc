@@ -158,7 +158,9 @@ Represents a vehicle model.
 
 |model_code | <<string,string>> |required |The car model code, e.g. "PZ003".
 
-|model_name | <<string,string>> |required |The car model name, e.g. "Z3".
+|model_name | <<string,string>> |required |model_name represents the car model name.
+
+This field typically contains the manufacturer name, e.g. "Porsche 911".
 
 |daily_hire_rate_dollars | <<sint32,sint32>> |required |Dollars per day.
 

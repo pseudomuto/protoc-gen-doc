@@ -564,7 +564,7 @@
             },
             {
               "name": "model_name",
-              "description": "The car model name, e.g. \"Z3\".",
+              "description": "model_name represents the car model name.\n\nThis field typically contains the manufacturer name, e.g. \"Porsche 911\".",
               "label": "required",
               "type": "string",
               "longType": "string",

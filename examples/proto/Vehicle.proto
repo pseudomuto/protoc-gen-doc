@@ -38,7 +38,11 @@ extend Manufacturer {
 message Model {
   required string id         = 1; /** The unique model ID. */
   required string model_code = 2; /** The car model code, e.g. "PZ003". */
-  required string model_name = 3; /** The car model name, e.g. "Z3". */
+
+  // model_name represents the car model name.
+  //
+  // This field typically contains the manufacturer name, e.g. "Porsche 911".
+  required string model_name = 3;
 
   required sint32 daily_hire_rate_dollars = 4; /// Dollars per day.
   required sint32 daily_hire_rate_cents   = 5; /// Cents per day.

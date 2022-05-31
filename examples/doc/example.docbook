@@ -463,7 +463,7 @@
               <entry>model_name</entry>
               <entry><link linkend="string">string</link></entry>
               <entry>required</entry>
-              <entry><para>The car model name, e.g. "Z3".</para></entry>
+              <entry><para>model_name represents the car model name.</para><para>This field typically contains the manufacturer name, e.g. "Porsche 911".</para></entry>
             </row>
             
             <row>

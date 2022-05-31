@@ -78,6 +78,7 @@ var funcMap = map[string]interface{}{
 	"p":      PFilter,
 	"para":   ParaFilter,
 	"nobr":   NoBrFilter,
+	"brmd":   BrFilterMD,
 	"anchor": AnchorFilter,
 }
 

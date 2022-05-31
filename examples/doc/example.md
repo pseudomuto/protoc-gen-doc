@@ -70,7 +70,7 @@ Represents the status of a vehicle booking.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | id | [int32](#int32) |  | Unique booking status ID. |
-| description | [string](#string) |  | Booking status description. E.g. &#34;Active&#34;. |
+| description | [string](#string) |  | Booking status description. E.g. "Active". |
 
 
 
@@ -195,7 +195,7 @@ Represents a manufacturer of cars.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | id | [int32](#int32) | required | The unique manufacturer ID. |
-| code | [string](#string) | required | A manufacturer code, e.g. &#34;DKL4P&#34;. |
+| code | [string](#string) | required | A manufacturer code, e.g. "DKL4P". |
 | details | [string](#string) | optional | Manufacturer details (minimum orders et.c.). |
 | category | [Manufacturer.Category](#com-example-Manufacturer-Category) | optional | Manufacturer category. Default: CATEGORY_EXTERNAL |
 
@@ -213,8 +213,8 @@ Represents a vehicle model.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | id | [string](#string) | required | The unique model ID. |
-| model_code | [string](#string) | required | The car model code, e.g. &#34;PZ003&#34;. |
-| model_name | [string](#string) | required | The car model name, e.g. &#34;Z3&#34;. |
+| model_code | [string](#string) | required | The car model code, e.g. "PZ003". |
+| model_name | [string](#string) | required | model_name represents the car model name.<br><br>This field typically contains the manufacturer name, e.g. "Porsche 911". |
 | daily_hire_rate_dollars | [sint32](#sint32) | required | Dollars per day. |
 | daily_hire_rate_cents | [sint32](#sint32) | required | Cents per day. |
 
@@ -257,8 +257,8 @@ Represents a vehicle category. E.g. &#34;Sedan&#34; or &#34;Truck&#34;.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| code | [string](#string) | required | Category code. E.g. &#34;S&#34;. |
-| description | [string](#string) | required | Category name. E.g. &#34;Sedan&#34;. |
+| code | [string](#string) | required | Category code. E.g. "S". |
+| description | [string](#string) | required | Category name. E.g. "Sedan". |
 
 
 

@@ -28,6 +28,18 @@ func ParaFilter(content string) string {
 
 // NoBrFilter removes single CR and LF from content.
 func NoBrFilter(content string) string {
+	paragraphs := contentToParagraphs(content)
+	return strings.Join(paragraphs, "\n\n")
+}
+
+// BrFilterMD removes single CR and LF from content and replaces it with unescaped
+// HTML line breaks for markdown.
+func BrFilterMD(content string) template.HTML {
+	paragraphs := contentToParagraphs(content)
+	return template.HTML(strings.Join(paragraphs, "<br><br>"))
+}
+
+func contentToParagraphs(content string) []string {
 	normalized := strings.Replace(content, "\r\n", "\n", -1)
 	paragraphs := multiNewlinePattern.Split(normalized, -1)
 	for i, p := range paragraphs {
@@ -35,7 +47,7 @@ func NoBrFilter(content string) string {
 		withoutLF := strings.Replace(withoutCR, "\n", " ", -1)
 		paragraphs[i] = spacePattern.ReplaceAllString(withoutLF, " ")
 	}
-	return strings.Join(paragraphs, "\n\n")
+	return paragraphs
 }
 
 // AnchorFilter replaces all special characters with URL friendly dashes
