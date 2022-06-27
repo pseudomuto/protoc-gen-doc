@@ -7,11 +7,11 @@ require (
 	github.com/Masterminds/sprig v2.15.0+incompatible
 	github.com/aokoli/goutils v1.0.1 // indirect
 	github.com/envoyproxy/protoc-gen-validate v0.3.0-java
-	github.com/gogo/protobuf v1.1.1 // indirect
+	github.com/gogo/protobuf v1.3.0 // indirect
 	github.com/golang/protobuf v1.5.2
 	github.com/huandu/xstrings v1.0.0 // indirect
 	github.com/imdario/mergo v0.3.4 // indirect
-	github.com/mwitkow/go-proto-validators v0.0.0-20180403085117-0950a7990007
+	github.com/mwitkow/go-proto-validators v0.3.2
 	github.com/pseudomuto/protokit v0.2.0
 	github.com/stretchr/testify v1.6.1
 	google.golang.org/api v0.58.0
