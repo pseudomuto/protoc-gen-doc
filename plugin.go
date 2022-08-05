@@ -21,6 +21,7 @@ type PluginOptions struct {
 	OutputFile      string
 	ExcludePatterns []*regexp.Regexp
 	SourceRelative  bool
+	SeparateFiles   bool
 }
 
 // SupportedFeatures describes a flag setting for supported features.
@@ -51,19 +52,40 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 	}
 
 	resp := new(plugin_go.CodeGeneratorResponse)
-	fdsGroup := groupProtosByDirectory(result, options.SourceRelative)
-	for dir, fds := range fdsGroup {
-		template := NewTemplate(fds)
 
-		output, err := RenderTemplate(options.Type, template, customTemplate)
-		if err != nil {
-			return nil, err
+	if !options.SeparateFiles {
+		fdsGroup := groupProtosByDirectory(result, options.SourceRelative)
+		for dir, fds := range fdsGroup {
+			template := NewTemplate(fds)
+
+			output, err := RenderTemplate(options.Type, template, customTemplate)
+			if err != nil {
+				return nil, err
+			}
+
+			resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
+				Name:    proto.String(filepath.Join(dir, options.OutputFile)),
+				Content: proto.String(string(output)),
+			})
 		}
+	} else {
+		for _, fd := range result {
+			template := NewTemplate([]*protokit.FileDescriptor{fd})
 
-		resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
-			Name:    proto.String(filepath.Join(dir, options.OutputFile)),
-			Content: proto.String(string(output)),
-		})
+			output, err := RenderTemplate(options.Type, template, customTemplate)
+			if err != nil {
+				return nil, err
+			}
+
+			dir, protoFilename := filepath.Split(fd.GetName())
+
+			filenameParts := strings.Split(protoFilename, ".")
+
+			resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
+				Name:    proto.String(filepath.Join(dir, filenameParts[0]+"."+options.OutputFile)),
+				Content: proto.String(string(output)),
+			})
+		}
 	}
 
 	resp.SupportedFeatures = proto.Uint64(SupportedFeatures)
@@ -115,6 +137,7 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 		TemplateFile:   "",
 		OutputFile:     "index.html",
 		SourceRelative: false,
+		SeparateFiles:  false,
 	}
 
 	params := req.GetParameter()
@@ -140,7 +163,7 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 	}
 
 	parts := strings.Split(params, ",")
-	if len(parts) < 2 || len(parts) > 3 {
+	if len(parts) < 2 {
 		return nil, fmt.Errorf("Invalid parameter: %s", params)
 	}
 
@@ -152,6 +175,14 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 			options.SourceRelative = true
 		case "default":
 			options.SourceRelative = false
+		default:
+			return nil, fmt.Errorf("Invalid parameter: %s", params)
+		}
+	}
+	if len(parts) > 3 {
+		switch parts[3] {
+		case "separate_files":
+			options.SeparateFiles = true
 		default:
 			return nil, fmt.Errorf("Invalid parameter: %s", params)
 		}
