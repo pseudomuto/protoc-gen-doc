@@ -53,9 +53,9 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 
 	resp := new(plugin_go.CodeGeneratorResponse)
 
-	if !options.SeparateFiles {
-		fdsGroup := groupProtosByDirectory(result, options.SourceRelative)
-		for dir, fds := range fdsGroup {
+	fdsGroup := groupProtosByDirectory(result, options.SourceRelative)
+	for dir, fds := range fdsGroup {
+		if !options.SeparateFiles {
 			template := NewTemplate(fds)
 
 			output, err := RenderTemplate(options.Type, template, customTemplate)
@@ -67,24 +67,24 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 				Name:    proto.String(filepath.Join(dir, options.OutputFile)),
 				Content: proto.String(string(output)),
 			})
-		}
-	} else {
-		for _, fd := range result {
-			template := NewTemplate([]*protokit.FileDescriptor{fd})
+		} else {
+			for _, fd := range fds {
+				template := NewTemplate([]*protokit.FileDescriptor{fd})
 
-			output, err := RenderTemplate(options.Type, template, customTemplate)
-			if err != nil {
-				return nil, err
+				output, err := RenderTemplate(options.Type, template, customTemplate)
+				if err != nil {
+					return nil, err
+				}
+
+				_, protoFilename := filepath.Split(fd.GetName())
+
+				filenameParts := strings.Split(protoFilename, ".")
+
+				resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
+					Name:    proto.String(filepath.Join(dir, filenameParts[0]+"."+options.OutputFile)),
+					Content: proto.String(string(output)),
+				})
 			}
-
-			dir, protoFilename := filepath.Split(fd.GetName())
-
-			filenameParts := strings.Split(protoFilename, ".")
-
-			resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
-				Name:    proto.String(filepath.Join(dir, filenameParts[0]+"."+options.OutputFile)),
-				Content: proto.String(string(output)),
-			})
 		}
 	}
 
@@ -169,25 +169,34 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 
 	options.TemplateFile = parts[0]
 	options.OutputFile = path.Base(parts[1])
+
 	if len(parts) > 2 {
-		switch parts[2] {
-		case "source_relative":
-			options.SourceRelative = true
-		case "default":
-			options.SourceRelative = false
-		default:
-			return nil, fmt.Errorf("Invalid parameter: %s", params)
+		extraOptions := parts[2:]
+
+		for i := 0; i < len(extraOptions); i++ {
+			switch i {
+			case 0: // Third option
+				switch extraOptions[i] {
+				case "source_relative":
+					options.SourceRelative = true
+				case "default":
+					options.SourceRelative = false
+				default:
+					return nil, fmt.Errorf("Invalid parameter: %s", params)
+				}
+			case 1: // Fourth option
+				switch extraOptions[i] {
+				case "separate_files":
+					options.SeparateFiles = true
+				case "default":
+					options.SeparateFiles = false
+				default:
+					return nil, fmt.Errorf("Invalid parameter: %s", params)
+				}
+			}
+
 		}
 	}
-	if len(parts) > 3 {
-		switch parts[3] {
-		case "separate_files":
-			options.SeparateFiles = true
-		default:
-			return nil, fmt.Errorf("Invalid parameter: %s", params)
-		}
-	}
-	options.SourceRelative = len(parts) > 2 && parts[2] == "source_relative"
 
 	renderType, err := NewRenderType(options.TemplateFile)
 	if err == nil {
