@@ -53,6 +53,24 @@ func TestParseOptionsForSourceRelative(t *testing.T) {
 	require.Equal(t, options.SourceRelative, false)
 }
 
+func TestParseOptionsForSeparateFiles(t *testing.T) {
+	req := new(plugin_go.CodeGeneratorRequest)
+	req.Parameter = proto.String("markdown,index.md,source_relative,separate_files")
+	options, err := ParseOptions(req)
+	require.NoError(t, err)
+	require.Equal(t, options.SeparateFiles, true)
+
+	req.Parameter = proto.String("markdown,index.md,source_relative,default")
+	options, err = ParseOptions(req)
+	require.NoError(t, err)
+	require.Equal(t, options.SeparateFiles, false)
+
+	req.Parameter = proto.String("markdown,index.md,source_relative")
+	options, err = ParseOptions(req)
+	require.NoError(t, err)
+	require.Equal(t, options.SeparateFiles, false)
+}
+
 func TestParseOptionsForCustomTemplate(t *testing.T) {
 	req := new(plugin_go.CodeGeneratorRequest)
 	req.Parameter = proto.String("/path/to/template.tmpl,/base/name/only/output.md")
@@ -149,4 +167,48 @@ func TestRunPluginForSourceRelative(t *testing.T) {
 
 	require.NotEmpty(t, resp.File[0].GetContent())
 	require.NotEmpty(t, resp.File[1].GetContent())
+}
+
+func TestRunPluginForSeparateFilesSourceRelative(t *testing.T) {
+	set, _ := utils.LoadDescriptorSet("fixtures", "fileset.pb")
+	req := utils.CreateGenRequest(set, "Booking.proto", "Vehicle.proto", "nested/Book.proto")
+	req.Parameter = proto.String("markdown,md,source_relative,separate_files")
+
+	plugin := new(Plugin)
+	resp, err := plugin.Generate(req)
+	require.NoError(t, err)
+	require.Len(t, resp.File, 3)
+	expected := map[string]int{"Booking.md": 1, "Vehicle.md": 1, "nested/Book.md": 1}
+	require.Contains(t, expected, resp.File[0].GetName())
+	delete(expected, resp.File[0].GetName())
+	require.Contains(t, expected, resp.File[1].GetName())
+	delete(expected, resp.File[1].GetName())
+	require.Contains(t, expected, resp.File[2].GetName())
+	delete(expected, resp.File[2].GetName())
+
+	require.NotEmpty(t, resp.File[0].GetContent())
+	require.NotEmpty(t, resp.File[1].GetContent())
+	require.NotEmpty(t, resp.File[2].GetContent())
+}
+
+func TestRunPluginForSeparateFilesNoSourceRelative(t *testing.T) {
+	set, _ := utils.LoadDescriptorSet("fixtures", "fileset.pb")
+	req := utils.CreateGenRequest(set, "Booking.proto", "Vehicle.proto", "nested/Book.proto")
+	req.Parameter = proto.String("markdown,md,default,separate_files")
+
+	plugin := new(Plugin)
+	resp, err := plugin.Generate(req)
+	require.NoError(t, err)
+	require.Len(t, resp.File, 3)
+	expected := map[string]int{"Booking.md": 1, "Vehicle.md": 1, "Book.md": 1}
+	require.Contains(t, expected, resp.File[0].GetName())
+	delete(expected, resp.File[0].GetName())
+	require.Contains(t, expected, resp.File[1].GetName())
+	delete(expected, resp.File[1].GetName())
+	require.Contains(t, expected, resp.File[2].GetName())
+	delete(expected, resp.File[2].GetName())
+
+	require.NotEmpty(t, resp.File[0].GetContent())
+	require.NotEmpty(t, resp.File[1].GetContent())
+	require.NotEmpty(t, resp.File[2].GetContent())
 }
