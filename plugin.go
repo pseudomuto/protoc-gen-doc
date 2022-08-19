@@ -163,17 +163,18 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 	}
 
 	parts := strings.Split(params, ",")
-	if len(parts) < 2 {
+	if len(parts) < 2 || len(parts) > 4 {
 		return nil, fmt.Errorf("Invalid parameter: %s", params)
 	}
 
 	options.TemplateFile = parts[0]
 	options.OutputFile = path.Base(parts[1])
 
+	// Handle extra options
 	if len(parts) > 2 {
 		extraOptions := parts[2:]
 
-		for i := 0; i < len(extraOptions); i++ {
+		for i := range extraOptions {
 			switch i {
 			case 0: // Third option
 				switch extraOptions[i] {
@@ -194,7 +195,6 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 					return nil, fmt.Errorf("Invalid parameter: %s", params)
 				}
 			}
-
 		}
 	}
 
