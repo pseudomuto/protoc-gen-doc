@@ -17,7 +17,7 @@ documentation from your protos.
 
 If you'd like to install this locally, you can `go get` it.
 
-`go get -u github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc`
+`go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest`
 
 Alternatively, you can download a pre-built release for your platform from the [releases][] page.
 
