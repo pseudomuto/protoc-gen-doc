@@ -37,9 +37,10 @@ func TestNewRenderType(t *testing.T) {
 		RenderTypeHTML,
 		RenderTypeJSON,
 		RenderTypeMarkdown,
+		RenderTypeAsciidoc,
 	}
 
-	supplied := []string{"docbook", "html", "json", "markdown"}
+	supplied := []string{"docbook", "html", "json", "markdown", "asciidoc"}
 
 	for idx, input := range supplied {
 		rt, err := NewRenderType(input)

@@ -11,6 +11,8 @@ var (
 	htmlTmpl []byte
 	//go:embed resources/markdown.tmpl
 	markdownTmpl []byte
+	//go:embed resources/asciidoc.tmpl
+	asciidocTmpl []byte
 	//go:embed resources/scalars.json
 	scalarsJSON []byte
 )

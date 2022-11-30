@@ -6,7 +6,7 @@
 [![Go Report Card][goreport-svg]][goreport-url]
 
 This is a documentation generator plugin for the Google Protocol Buffers compiler (`protoc`). The plugin can generate
-HTML, JSON, DocBook, and Markdown documentation from comments in your `.proto` files.
+HTML, JSON, DocBook, Asciidoc, and Markdown documentation from comments in your `.proto` files.
 
 It supports proto2 and proto3, and can handle having both in the same context (see [examples](examples/) for proof).
 
@@ -31,7 +31,7 @@ following format:
 
     --doc_opt=<FORMAT>|<TEMPLATE_FILENAME>,<OUT_FILENAME>[,default|source_relative]
 
-The format may be one of the built-in ones ( `docbook`, `html`, `markdown` or `json`)
+The format may be one of the built-in ones ( `docbook`, `html`, `markdown`, `asciidoc` or `json`)
 or the name of a file containing a custom [Go template][gotemplate].
 
 If the `source_relative` flag is specified, the output file is written in the same relative directory as the input file.
