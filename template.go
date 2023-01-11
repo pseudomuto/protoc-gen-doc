@@ -83,10 +83,8 @@ func NewTemplate(descs []*protokit.FileDescriptor) *Template {
 }
 
 func makeScalars() []*ScalarValue {
-	data, _ := fetchResource("scalars.json")
-
 	var scalars []*ScalarValue
-	json.Unmarshal(data, &scalars)
+	json.Unmarshal(scalarsJSON, &scalars)
 
 	return scalars
 }
@@ -180,6 +178,7 @@ type Message struct {
 
 	HasExtensions bool `json:"hasExtensions"`
 	HasFields     bool `json:"hasFields"`
+	HasOneofs     bool `json:"hasOneofs"`
 
 	Extensions []*MessageExtension `json:"extensions"`
 	Fields     []*MessageField     `json:"fields"`
@@ -236,6 +235,8 @@ type MessageField struct {
 	LongType     string `json:"longType"`
 	FullType     string `json:"fullType"`
 	IsMap        bool   `json:"ismap"`
+	IsOneof      bool   `json:"isoneof"`
+	OneofDecl    string `json:"oneofdecl"`
 	DefaultValue string `json:"defaultValue"`
 
 	Options map[string]interface{} `json:"options,omitempty"`
@@ -426,7 +427,7 @@ func parseFileExtension(pe *protokit.ExtensionDescriptor) *FileExtension {
 		LongName:           pe.GetLongName(),
 		FullName:           pe.GetFullName(),
 		Description:        description(pe.GetComments().String()),
-		Label:              labelName(pe.GetLabel(), pe.IsProto3()),
+		Label:              labelName(pe.GetLabel(), pe.IsProto3(), pe.GetProto3Optional()),
 		Type:               t,
 		LongType:           lt,
 		FullType:           ft,
@@ -446,6 +447,7 @@ func parseMessage(pm *protokit.Descriptor) *Message {
 		Description:   description(pm.GetComments().String()),
 		HasExtensions: len(pm.GetExtensions()) > 0,
 		HasFields:     len(pm.GetMessageFields()) > 0,
+		HasOneofs:     len(pm.GetOneofDecl()) > 0,
 		Extensions:    make([]*MessageExtension, 0, len(pm.Extensions)),
 		Fields:        make([]*MessageField, 0, len(pm.Fields)),
 		Options:       mergeOptions(extractOptions(pm.GetOptions()), extensions.Transform(pm.OptionExtensions)),
@@ -456,7 +458,7 @@ func parseMessage(pm *protokit.Descriptor) *Message {
 	}
 
 	for _, f := range pm.Fields {
-		msg.Fields = append(msg.Fields, parseMessageField(f))
+		msg.Fields = append(msg.Fields, parseMessageField(f, pm.GetOneofDecl()))
 	}
 
 	return msg
@@ -471,18 +473,23 @@ func parseMessageExtension(pe *protokit.ExtensionDescriptor) *MessageExtension {
 	}
 }
 
-func parseMessageField(pf *protokit.FieldDescriptor) *MessageField {
+func parseMessageField(pf *protokit.FieldDescriptor, oneofDecls []*descriptor.OneofDescriptorProto) *MessageField {
 	t, lt, ft := parseType(pf)
 
 	m := &MessageField{
 		Name:         pf.GetName(),
 		Description:  description(pf.GetComments().String()),
-		Label:        labelName(pf.GetLabel(), pf.IsProto3()),
+		Label:        labelName(pf.GetLabel(), pf.IsProto3(), pf.GetProto3Optional()),
 		Type:         t,
 		LongType:     lt,
 		FullType:     ft,
 		DefaultValue: pf.GetDefaultValue(),
 		Options:      mergeOptions(extractOptions(pf.GetOptions()), extensions.Transform(pf.OptionExtensions)),
+		IsOneof:      pf.OneofIndex != nil,
+	}
+
+	if m.IsOneof {
+		m.OneofDecl = oneofDecls[pf.GetOneofIndex()].GetName()
 	}
 
 	// Check if this is a map.
@@ -536,8 +543,8 @@ func baseName(name string) string {
 	return parts[len(parts)-1]
 }
 
-func labelName(lbl descriptor.FieldDescriptorProto_Label, proto3 bool) string {
-	if proto3 && lbl != descriptor.FieldDescriptorProto_LABEL_REPEATED {
+func labelName(lbl descriptor.FieldDescriptorProto_Label, proto3 bool, proto3Opt bool) string {
+	if proto3 && !proto3Opt && lbl != descriptor.FieldDescriptorProto_LABEL_REPEATED {
 		return ""
 	}
 

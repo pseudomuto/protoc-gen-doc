@@ -1,12 +1,12 @@
 # protoc-gen-doc
 
-[![Travis Build Status][travis-svg]][travis-ci]
+[![CI Status][ci-svg]][ci-url]
 [![codecov][codecov-svg]][codecov-url]
 [![GoDoc][godoc-svg]][godoc-url]
 [![Go Report Card][goreport-svg]][goreport-url]
 
 This is a documentation generator plugin for the Google Protocol Buffers compiler (`protoc`). The plugin can generate
-HTML, JSON, DocBook and Markdown documentation from comments in your `.proto` files.
+HTML, JSON, DocBook, and Markdown documentation from comments in your `.proto` files.
 
 It supports proto2 and proto3, and can handle having both in the same context (see [examples](examples/) for proof).
 
@@ -19,15 +19,22 @@ If you'd like to install this locally, you can `go get` it.
 
 `go get -u github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc`
 
+Alternatively, you can download a pre-built release for your platform from the [releases][] page.
+
+Finally, this plugin is also available on Maven Central. For details about how to use it, check out the [gradle
+example](examples/gradle).
+
 ## Invoking the Plugin
 
 The plugin is invoked by passing the `--doc_out`, and `--doc_opt` options to the `protoc` compiler. The option has the
 following format:
 
-    --doc_opt=<FORMAT>|<TEMPLATE_FILENAME>,<OUT_FILENAME>
+    --doc_opt=<FORMAT>|<TEMPLATE_FILENAME>,<OUT_FILENAME>[,default|source_relative]
 
 The format may be one of the built-in ones ( `docbook`, `html`, `markdown` or `json`)
 or the name of a file containing a custom [Go template][gotemplate].
+
+If the `source_relative` flag is specified, the output file is written in the same relative directory as the input file.
 
 ### Using the Docker Image (Recommended)
 
@@ -61,11 +68,11 @@ You can also generate documentation for a single file. This can be done by passi
 docker run --rm \
   -v $(pwd)/examples/doc:/out \
   -v $(pwd)/examples/proto:/protos \
-  pseudomuto/protoc-gen-doc --doc_opt=markdown,docs.md /protos/Booking.proto [OPTIONALLY LIST MORE FILES]
+  pseudomuto/protoc-gen-doc --doc_opt=markdown,docs.md Booking.proto [OPTIONALLY LIST MORE FILES]
 ```
 
-You can also exclude proto files that match specific path expressions. This is done by passing a second option delimited by `:`.
-For example, you can pass any number of comma separated patterns as the second option:
+You can also exclude proto files that match specific path expressions. This is done by passing a second option delimited
+by `:`. For example, you can pass any number of comma separated patterns as the second option:
 
 ```
 docker run --rm \
@@ -120,7 +127,7 @@ Leading comments can be used everywhere.
 ```protobuf
 /**
  * This is a leading comment for a message
-*/
+ */
 message SomeMessage {
   // this is another leading comment
   string value = 1;
@@ -189,15 +196,12 @@ Check out the `examples` task in the [Makefile](Makefile) to see how these were 
 [html_preview]:
     https://rawgit.com/pseudomuto/protoc-gen-doc/master/examples/doc/example.html
     "HTML Example Output"
-[travis-svg]:
-    https://travis-ci.org/pseudomuto/protoc-gen-doc.svg?branch=master
-    "Travis CI build status SVG"
-[travis-ci]:
-    https://travis-ci.org/pseudomuto/protoc-gen-doc
-    "protoc-gen-doc at Travis CI"
 [codecov-svg]: https://codecov.io/gh/pseudomuto/protoc-gen-doc/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/pseudomuto/protoc-gen-doc
 [godoc-svg]: https://godoc.org/github.com/pseudomuto/protoc-gen-doc?status.svg
 [godoc-url]: https://godoc.org/github.com/pseudomuto/protoc-gen-doc
 [goreport-svg]: https://goreportcard.com/badge/github.com/pseudomuto/protoc-gen-doc
 [goreport-url]: https://goreportcard.com/report/github.com/pseudomuto/protoc-gen-doc
+[ci-svg]: https://github.com/pseudomuto/protoc-gen-doc/actions/workflows/ci.yaml/badge.svg?branch=master
+[ci-url]: https://github.com/pseudomuto/protoc-gen-doc/actions/workflows/ci.yaml
+[releases]: https://github.com/pseudomuto/protoc-gen-doc/releases

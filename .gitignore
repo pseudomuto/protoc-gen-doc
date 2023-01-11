@@ -1,8 +1,6 @@
-/_tools
+/.gradle
+/bin
+/build
 /coverage.txt
 /dist
-/gen_fixtures
-/protoc-gen-doc
-/test/*.dat
-/vendor
 /tmp/

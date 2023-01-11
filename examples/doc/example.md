@@ -3,42 +3,33 @@
 
 ## Table of Contents
 
-- [Booking.proto](#Booking.proto)
-    - [Booking](#com.example.Booking)
-    - [BookingStatus](#com.example.BookingStatus)
-    - [BookingStatusID](#com.example.BookingStatusID)
-    - [EmptyBookingMessage](#com.example.EmptyBookingMessage)
+- [Booking.proto](#Booking-proto)
+    - [Booking](#com-example-Booking)
+    - [BookingStatus](#com-example-BookingStatus)
+    - [BookingStatusID](#com-example-BookingStatusID)
+    - [EmptyBookingMessage](#com-example-EmptyBookingMessage)
   
+    - [BookingService](#com-example-BookingService)
   
+- [Customer.proto](#Customer-proto)
+    - [Address](#com-example-Address)
+    - [Customer](#com-example-Customer)
   
-    - [BookingService](#com.example.BookingService)
+- [Vehicle.proto](#Vehicle-proto)
+    - [Manufacturer](#com-example-Manufacturer)
+    - [Model](#com-example-Model)
+    - [Vehicle](#com-example-Vehicle)
+    - [Vehicle.Category](#com-example-Vehicle-Category)
   
-
-- [Customer.proto](#Customer.proto)
-    - [Address](#com.example.Address)
-    - [Customer](#com.example.Customer)
+    - [Manufacturer.Category](#com-example-Manufacturer-Category)
   
+    - [File-level Extensions](#Vehicle-proto-extensions)
   
-  
-  
-
-- [Vehicle.proto](#Vehicle.proto)
-    - [Manufacturer](#com.example.Manufacturer)
-    - [Model](#com.example.Model)
-    - [Vehicle](#com.example.Vehicle)
-    - [Vehicle.Category](#com.example.Vehicle.Category)
-  
-    - [Manufacturer.Category](#com.example.Manufacturer.Category)
-  
-    - [File-level Extensions](#Vehicle.proto-extensions)
-  
-  
-
 - [Scalar Value Types](#scalar-value-types)
 
 
 
-<a name="Booking.proto"></a>
+<a name="Booking-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## Booking.proto
@@ -48,7 +39,7 @@ This file is really just an example. The data model is completely
 fictional.
 
 
-<a name="com.example.Booking"></a>
+<a name="com-example-Booking"></a>
 
 ### Booking
 Represents the booking of a vehicle.
@@ -60,16 +51,17 @@ Vehicles are some cool shit. But drive carefully!
 | ----- | ---- | ----- | ----------- |
 | vehicle_id | [int32](#int32) |  | ID of booked vehicle. |
 | customer_id | [int32](#int32) |  | Customer that booked the vehicle. |
-| status | [BookingStatus](#com.example.BookingStatus) |  | Status of the booking. |
+| status | [BookingStatus](#com-example-BookingStatus) |  | Status of the booking. |
 | confirmation_sent | [bool](#bool) |  | Has booking confirmation been sent? |
 | payment_received | [bool](#bool) |  | Has payment been received? |
+| color_preference | [string](#string) |  | **Deprecated.** Color preference of the customer. |
 
 
 
 
 
 
-<a name="com.example.BookingStatus"></a>
+<a name="com-example-BookingStatus"></a>
 
 ### BookingStatus
 Represents the status of a vehicle booking.
@@ -85,7 +77,7 @@ Represents the status of a vehicle booking.
 
 
 
-<a name="com.example.BookingStatusID"></a>
+<a name="com-example-BookingStatusID"></a>
 
 ### BookingStatusID
 Represents the booking status ID.
@@ -100,7 +92,7 @@ Represents the booking status ID.
 
 
 
-<a name="com.example.EmptyBookingMessage"></a>
+<a name="com-example-EmptyBookingMessage"></a>
 
 ### EmptyBookingMessage
 An empty message for testing
@@ -116,28 +108,28 @@ An empty message for testing
  
 
 
-<a name="com.example.BookingService"></a>
+<a name="com-example-BookingService"></a>
 
 ### BookingService
 Service for handling vehicle bookings.
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| BookVehicle | [Booking](#com.example.Booking) | [BookingStatus](#com.example.BookingStatus) | Used to book a vehicle. Pass in a Booking and a BookingStatus will be returned. |
-| BookingUpdates | [BookingStatusID](#com.example.BookingStatusID) | [BookingStatus](#com.example.BookingStatus) stream | Used to subscribe to updates of the BookingStatus. |
+| BookVehicle | [Booking](#com-example-Booking) | [BookingStatus](#com-example-BookingStatus) | Used to book a vehicle. Pass in a Booking and a BookingStatus will be returned. |
+| BookingUpdates | [BookingStatusID](#com-example-BookingStatusID) | [BookingStatus](#com-example-BookingStatus) stream | Used to subscribe to updates of the BookingStatus. |
 
  
 
 
 
-<a name="Customer.proto"></a>
+<a name="Customer-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## Customer.proto
 This file has messages for describing a customer.
 
 
-<a name="com.example.Address"></a>
+<a name="com-example-Address"></a>
 
 ### Address
 Represents a mail address.
@@ -157,7 +149,7 @@ Represents a mail address.
 
 
 
-<a name="com.example.Customer"></a>
+<a name="com-example-Customer"></a>
 
 ### Customer
 Represents a customer.
@@ -171,7 +163,7 @@ Represents a customer.
 | details | [string](#string) | optional | Customer details. |
 | email_address | [string](#string) | optional | Customer e-mail address. |
 | phone_number | [string](#string) | repeated | Customer phone numbers, primary first. |
-| mail_addresses | [Address](#com.example.Address) | repeated | Customer mail addresses, primary first. |
+| mail_addresses | [Address](#com-example-Address) | repeated | Customer mail addresses, primary first. |
 
 
 
@@ -187,14 +179,14 @@ Represents a customer.
 
 
 
-<a name="Vehicle.proto"></a>
+<a name="Vehicle-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## Vehicle.proto
 Messages describing manufacturers / vehicles.
 
 
-<a name="com.example.Manufacturer"></a>
+<a name="com-example-Manufacturer"></a>
 
 ### Manufacturer
 Represents a manufacturer of cars.
@@ -205,14 +197,14 @@ Represents a manufacturer of cars.
 | id | [int32](#int32) | required | The unique manufacturer ID. |
 | code | [string](#string) | required | A manufacturer code, e.g. &#34;DKL4P&#34;. |
 | details | [string](#string) | optional | Manufacturer details (minimum orders et.c.). |
-| category | [Manufacturer.Category](#com.example.Manufacturer.Category) | optional | Manufacturer category. Default: CATEGORY_EXTERNAL |
+| category | [Manufacturer.Category](#com-example-Manufacturer-Category) | optional | Manufacturer category. Default: CATEGORY_EXTERNAL |
 
 
 
 
 
 
-<a name="com.example.Model"></a>
+<a name="com-example-Model"></a>
 
 ### Model
 Represents a vehicle model.
@@ -231,7 +223,7 @@ Represents a vehicle model.
 
 
 
-<a name="com.example.Vehicle"></a>
+<a name="com-example-Vehicle"></a>
 
 ### Vehicle
 Represents a vehicle that can be hired.
@@ -240,10 +232,10 @@ Represents a vehicle that can be hired.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | id | [int32](#int32) | required | Unique vehicle ID. |
-| model | [Model](#com.example.Model) | required | Vehicle model. |
+| model | [Model](#com-example-Model) | required | Vehicle model. |
 | reg_number | [string](#string) | required | Vehicle registration number. |
 | mileage | [sint32](#sint32) | optional | Current vehicle mileage, if known. |
-| category | [Vehicle.Category](#com.example.Vehicle.Category) | optional | Vehicle category. |
+| category | [Vehicle.Category](#com-example-Vehicle-Category) | optional | Vehicle category. |
 | daily_hire_rate_dollars | [sint32](#sint32) | optional | Dollars per day. Default: 50 |
 | daily_hire_rate_cents | [sint32](#sint32) | optional | Cents per day. |
 
@@ -257,7 +249,7 @@ Represents a vehicle that can be hired.
 
 
 
-<a name="com.example.Vehicle.Category"></a>
+<a name="com-example-Vehicle-Category"></a>
 
 ### Vehicle.Category
 Represents a vehicle category. E.g. &#34;Sedan&#34; or &#34;Truck&#34;.
@@ -275,7 +267,7 @@ Represents a vehicle category. E.g. &#34;Sedan&#34; or &#34;Truck&#34;.
  
 
 
-<a name="com.example.Manufacturer.Category"></a>
+<a name="com-example-Manufacturer-Category"></a>
 
 ### Manufacturer.Category
 Manufacturer category. A manufacturer may be either inhouse or external.
@@ -289,7 +281,7 @@ Manufacturer category. A manufacturer may be either inhouse or external.
  
 
 
-<a name="Vehicle.proto-extensions"></a>
+<a name="Vehicle-proto-extensions"></a>
 
 ### File-level Extensions
 | Extension | Type | Base | Number | Description |
@@ -304,21 +296,21 @@ Manufacturer category. A manufacturer may be either inhouse or external.
 
 ## Scalar Value Types
 
-| .proto Type | Notes | C++ Type | Java Type | Python Type |
-| ----------- | ----- | -------- | --------- | ----------- |
-| <a name="double" /> double |  | double | double | float |
-| <a name="float" /> float |  | float | float | float |
-| <a name="int32" /> int32 | Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead. | int32 | int | int |
-| <a name="int64" /> int64 | Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead. | int64 | long | int/long |
-| <a name="uint32" /> uint32 | Uses variable-length encoding. | uint32 | int | int/long |
-| <a name="uint64" /> uint64 | Uses variable-length encoding. | uint64 | long | int/long |
-| <a name="sint32" /> sint32 | Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s. | int32 | int | int |
-| <a name="sint64" /> sint64 | Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s. | int64 | long | int/long |
-| <a name="fixed32" /> fixed32 | Always four bytes. More efficient than uint32 if values are often greater than 2^28. | uint32 | int | int |
-| <a name="fixed64" /> fixed64 | Always eight bytes. More efficient than uint64 if values are often greater than 2^56. | uint64 | long | int/long |
-| <a name="sfixed32" /> sfixed32 | Always four bytes. | int32 | int | int |
-| <a name="sfixed64" /> sfixed64 | Always eight bytes. | int64 | long | int/long |
-| <a name="bool" /> bool |  | bool | boolean | boolean |
-| <a name="string" /> string | A string must always contain UTF-8 encoded or 7-bit ASCII text. | string | String | str/unicode |
-| <a name="bytes" /> bytes | May contain any arbitrary sequence of bytes. | string | ByteString | str |
+| .proto Type | Notes | C++ | Java | Python | Go | C# | PHP | Ruby |
+| ----------- | ----- | --- | ---- | ------ | -- | -- | --- | ---- |
+| <a name="double" /> double |  | double | double | float | float64 | double | float | Float |
+| <a name="float" /> float |  | float | float | float | float32 | float | float | Float |
+| <a name="int32" /> int32 | Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead. | int32 | int | int | int32 | int | integer | Bignum or Fixnum (as required) |
+| <a name="int64" /> int64 | Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead. | int64 | long | int/long | int64 | long | integer/string | Bignum |
+| <a name="uint32" /> uint32 | Uses variable-length encoding. | uint32 | int | int/long | uint32 | uint | integer | Bignum or Fixnum (as required) |
+| <a name="uint64" /> uint64 | Uses variable-length encoding. | uint64 | long | int/long | uint64 | ulong | integer/string | Bignum or Fixnum (as required) |
+| <a name="sint32" /> sint32 | Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s. | int32 | int | int | int32 | int | integer | Bignum or Fixnum (as required) |
+| <a name="sint64" /> sint64 | Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s. | int64 | long | int/long | int64 | long | integer/string | Bignum |
+| <a name="fixed32" /> fixed32 | Always four bytes. More efficient than uint32 if values are often greater than 2^28. | uint32 | int | int | uint32 | uint | integer | Bignum or Fixnum (as required) |
+| <a name="fixed64" /> fixed64 | Always eight bytes. More efficient than uint64 if values are often greater than 2^56. | uint64 | long | int/long | uint64 | ulong | integer/string | Bignum |
+| <a name="sfixed32" /> sfixed32 | Always four bytes. | int32 | int | int | int32 | int | integer | Bignum or Fixnum (as required) |
+| <a name="sfixed64" /> sfixed64 | Always eight bytes. | int64 | long | int/long | int64 | long | integer/string | Bignum |
+| <a name="bool" /> bool |  | bool | boolean | boolean | bool | bool | boolean | TrueClass/FalseClass |
+| <a name="string" /> string | A string must always contain UTF-8 encoded or 7-bit ASCII text. | string | String | str/unicode | string | string | string | String (UTF-8) |
+| <a name="bytes" /> bytes | May contain any arbitrary sequence of bytes. | string | ByteString | str | []byte | ByteString | string | String (ASCII-8BIT) |
 

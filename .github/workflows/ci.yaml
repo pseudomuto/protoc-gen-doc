@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        go: [ '1.17.2' ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
+
+      - name: Dependencies
+        run: go get github.com/golang/protobuf/{proto,protoc-gen-go} github.com/haya14busa/goverage
+
+      - name: Tests
+        run: |
+          goverage -race -coverprofile=coverage.txt -covermode=atomic
+          make test/bench test/lint
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2

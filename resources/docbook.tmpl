@@ -31,7 +31,7 @@
               <entry>{{.Name}}</entry>
               <entry><link linkend="{{.FullType}}">{{.LongType}}</link></entry>
               <entry>{{.Label}}</entry>
-              <entry>{{para .Description}}{{if .DefaultValue}}<para>Default: {{.DefaultValue}}</para>{{end}}</entry>
+              <entry>{{if (index .Options "deprecated"|default false)}}<emphasis>Deprecated.</emphasis>{{end}}{{para .Description}}{{if .DefaultValue}}<para>Default: {{.DefaultValue}}</para>{{end}}</entry>
             </row>
             {{end}}
           </tbody>
@@ -187,9 +187,13 @@
           <row>
             <entry>.proto Type</entry>
             <entry>Notes</entry>
-            <entry>C++ Type</entry>
-            <entry>Java Type</entry>
-            <entry>Python Type</entry>
+            <entry>C++</entry>
+            <entry>Java</entry>
+            <entry>Python</entry>
+            <entry>Go</entry>
+            <entry>C#</entry>
+            <entry>PHP</entry>
+            <entry>Ruby</entry>
           </row>
         </thead>
         <tbody>
@@ -200,6 +204,10 @@
             <entry>{{.CppType}}</entry>
             <entry>{{.JavaType}}</entry>
             <entry>{{.PythonType}}</entry>
+            <entry>{{.GoType}}</entry>
+            <entry>{{.CSharp}}</entry>
+            <entry>{{.PhpType}}</entry>
+            <entry>{{.RubyType}}</entry>
           </row>
           {{end}}
         </tbody>

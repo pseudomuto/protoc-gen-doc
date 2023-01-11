@@ -3,28 +3,36 @@
 
 ## Table of Contents
 {{range .Files}}
-{{$file_name := .Name}}- [{{.Name}}](#{{.Name}})
-  {{range .Messages}}  - [{{.LongName}}](#{{.FullName}})
+{{$file_name := .Name}}- [{{.Name}}](#{{.Name | anchor}})
+  {{- if .Messages }}
+  {{range .Messages}}  - [{{.LongName}}](#{{.FullName | anchor}})
   {{end}}
-  {{range .Enums}}  - [{{.LongName}}](#{{.FullName}})
+  {{- end -}}
+  {{- if .Enums }}
+  {{range .Enums}}  - [{{.LongName}}](#{{.FullName | anchor}})
   {{end}}
-  {{range .Extensions}}  - [File-level Extensions](#{{$file_name}}-extensions)
+  {{- end -}}
+  {{- if .Extensions }}
+  {{range .Extensions}}  - [File-level Extensions](#{{$file_name | anchor}}-extensions)
   {{end}}
-  {{range .Services}}  - [{{.Name}}](#{{.FullName}})
+  {{- end -}}
+  {{- if .Services }}
+  {{range .Services}}  - [{{.Name}}](#{{.FullName | anchor}})
   {{end}}
+  {{- end -}}
 {{end}}
 - [Scalar Value Types](#scalar-value-types)
 
 {{range .Files}}
 {{$file_name := .Name}}
-<a name="{{.Name}}"></a>
+<a name="{{.Name | anchor}}"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## {{.Name}}
 {{.Description}}
 
 {{range .Messages}}
-<a name="{{.FullName}}"></a>
+<a name="{{.FullName | anchor}}"></a>
 
 ### {{.LongName}}
 {{.Description}}
@@ -33,7 +41,7 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 {{range .Fields -}}
-  | {{.Name}} | [{{.LongType}}](#{{.FullType}}) | {{.Label}} | {{nobr .Description}}{{if .DefaultValue}} Default: {{.DefaultValue}}{{end}} |
+  | {{.Name}} | [{{.LongType}}](#{{.FullType | anchor}}) | {{.Label}} | {{if (index .Options "deprecated"|default false)}}**Deprecated.** {{end}}{{nobr .Description}}{{if .DefaultValue}} Default: {{.DefaultValue}}{{end}} |
 {{end}}
 {{end}}
 
@@ -48,7 +56,7 @@
 {{end}} <!-- end messages -->
 
 {{range .Enums}}
-<a name="{{.FullName}}"></a>
+<a name="{{.FullName | anchor}}"></a>
 
 ### {{.LongName}}
 {{.Description}}
@@ -62,7 +70,7 @@
 {{end}} <!-- end enums -->
 
 {{if .HasExtensions}}
-<a name="{{$file_name}}-extensions"></a>
+<a name="{{$file_name | anchor}}-extensions"></a>
 
 ### File-level Extensions
 | Extension | Type | Base | Number | Description |
@@ -73,7 +81,7 @@
 {{end}} <!-- end HasExtensions -->
 
 {{range .Services}}
-<a name="{{.FullName}}"></a>
+<a name="{{.FullName | anchor}}"></a>
 
 ### {{.Name}}
 {{.Description}}
@@ -81,7 +89,7 @@
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
 {{range .Methods -}}
-  | {{.Name}} | [{{.RequestLongType}}](#{{.RequestFullType}}){{if .RequestStreaming}} stream{{end}} | [{{.ResponseLongType}}](#{{.ResponseFullType}}){{if .ResponseStreaming}} stream{{end}} | {{nobr .Description}} |
+  | {{.Name}} | [{{.RequestLongType}}](#{{.RequestFullType | anchor}}){{if .RequestStreaming}} stream{{end}} | [{{.ResponseLongType}}](#{{.ResponseFullType | anchor}}){{if .ResponseStreaming}} stream{{end}} | {{nobr .Description}} |
 {{end}}
 {{end}} <!-- end services -->
 
@@ -89,8 +97,8 @@
 
 ## Scalar Value Types
 
-| .proto Type | Notes | C++ Type | Java Type | Python Type |
-| ----------- | ----- | -------- | --------- | ----------- |
+| .proto Type | Notes | C++ | Java | Python | Go | C# | PHP | Ruby |
+| ----------- | ----- | --- | ---- | ------ | -- | -- | --- | ---- |
 {{range .Scalars -}}
-  | <a name="{{.ProtoType}}" /> {{.ProtoType}} | {{.Notes}} | {{.CppType}} | {{.JavaType}} | {{.PythonType}} |
+  | <a name="{{.ProtoType | anchor}}" /> {{.ProtoType}} | {{.Notes}} | {{.CppType}} | {{.JavaType}} | {{.PythonType}} | {{.GoType}} | {{.CSharp}} | {{.PhpType}} | {{.RubyType}} |
 {{end}}

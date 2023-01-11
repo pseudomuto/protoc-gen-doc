@@ -76,6 +76,8 @@ message Booking {
   /** Has payment been received? */
   optional bool payment_received = 5 [default = false, (com.pseudomuto.protokit.v1.extend_field) = true];
 
+  optional string color_preference = 6 [deprecated=true]; // Color preference of the customer.
+
   // Nested extentions are also a thing.
 
   extend BookingStatus {

@@ -1,0 +1,29 @@
+plugins {
+  id 'java'
+  id 'com.google.protobuf' version '0.8.18'
+}
+
+protobuf {
+  protoc {
+    artifact = "com.google.protobuf:protoc:3.19.4"
+  }
+  plugins {
+    doc {
+      artifact = "io.github.pseudomuto:protoc-gen-doc:1.5.1"
+    }
+  }
+
+  generateProtoTasks {
+    all().each { task ->
+      task.plugins {
+        doc {
+          option 'markdown,grpc-docs.md'
+        }
+      }
+    }
+  }
+}
+
+repositories {
+  mavenCentral()
+}
