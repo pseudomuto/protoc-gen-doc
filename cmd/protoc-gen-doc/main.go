@@ -14,7 +14,7 @@
 package main
 
 import (
-	"github.com/Raiden1974/protokit"
+	"github.com/pseudomuto/protokit"
 
 	"log"
 	"os"

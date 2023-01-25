@@ -5,10 +5,10 @@ import (
 	"testing"
 
 	"github.com/Raiden1974/protoc-gen-doc/extensions"
-	"github.com/Raiden1974/protokit"
-	"github.com/Raiden1974/protokit/utils"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
+	"github.com/pseudomuto/protokit"
+	"github.com/pseudomuto/protokit/utils"
 	"github.com/stretchr/testify/require"
 )
 

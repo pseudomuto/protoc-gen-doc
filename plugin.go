@@ -8,9 +8,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/Raiden1974/protokit"
 	"github.com/golang/protobuf/proto"
 	plugin_go "github.com/golang/protobuf/protoc-gen-go/plugin"
+	"github.com/pseudomuto/protokit"
 )
 
 // PluginOptions encapsulates options for the plugin. The type of renderer, template file, and the name of the output
@@ -26,7 +26,7 @@ type PluginOptions struct {
 // SupportedFeatures describes a flag setting for supported features.
 var SupportedFeatures = uint64(plugin_go.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL)
 
-// Plugin describes a protoc code generate plugin. It's an implementation of Plugin from github.com/Raiden1974/protokit
+// Plugin describes a protoc code generate plugin. It's an implementation of Plugin from github.com/pseudomuto/protokit
 type Plugin struct{}
 
 // Generate compiles the documentation and generates the CodeGeneratorResponse to send back to protoc. It does this
