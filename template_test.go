@@ -4,12 +4,11 @@ import (
 	"os"
 	"testing"
 
+	"github.com/Raiden1974/protoc-gen-doc/extensions"
+	"github.com/Raiden1974/protokit"
+	"github.com/Raiden1974/protokit/utils"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
-	. "github.com/pseudomuto/protoc-gen-doc"
-	"github.com/pseudomuto/protoc-gen-doc/extensions"
-	"github.com/pseudomuto/protokit"
-	"github.com/pseudomuto/protokit/utils"
 	"github.com/stretchr/testify/require"
 )
 
@@ -48,7 +47,7 @@ var E_ExtendFile = &proto.ExtensionDesc{
 	ExtendedType:  (*descriptor.FileOptions)(nil),
 	ExtensionType: (*bool)(nil),
 	Field:         20000,
-	Name:          "com.pseudomuto.protokit.v1.extend_file",
+	Name:          "com.Raiden1974.protokit.v1.extend_file",
 	Tag:           "varint,20000,opt,name=extend_file,json=extendFile",
 	Filename:      "extend.proto",
 }
@@ -57,7 +56,7 @@ var E_ExtendService = &proto.ExtensionDesc{
 	ExtendedType:  (*descriptor.ServiceOptions)(nil),
 	ExtensionType: (*bool)(nil),
 	Field:         20000,
-	Name:          "com.pseudomuto.protokit.v1.extend_service",
+	Name:          "com.Raiden1974.protokit.v1.extend_service",
 	Tag:           "varint,20000,opt,name=extend_service,json=extendService",
 	Filename:      "extend.proto",
 }
@@ -66,7 +65,7 @@ var E_ExtendMethod = &proto.ExtensionDesc{
 	ExtendedType:  (*descriptor.MethodOptions)(nil),
 	ExtensionType: (*bool)(nil),
 	Field:         20000,
-	Name:          "com.pseudomuto.protokit.v1.extend_method",
+	Name:          "com.Raiden1974.protokit.v1.extend_method",
 	Tag:           "varint,20000,opt,name=extend_method,json=extendMethod",
 	Filename:      "extend.proto",
 }
@@ -75,7 +74,7 @@ var E_ExtendEnum = &proto.ExtensionDesc{
 	ExtendedType:  (*descriptor.EnumOptions)(nil),
 	ExtensionType: (*bool)(nil),
 	Field:         20000,
-	Name:          "com.pseudomuto.protokit.v1.extend_enum",
+	Name:          "com.Raiden1974.protokit.v1.extend_enum",
 	Tag:           "varint,20000,opt,name=extend_enum,json=extendEnum",
 	Filename:      "extend.proto",
 }
@@ -84,7 +83,7 @@ var E_ExtendEnumValue = &proto.ExtensionDesc{
 	ExtendedType:  (*descriptor.EnumValueOptions)(nil),
 	ExtensionType: (*bool)(nil),
 	Field:         20000,
-	Name:          "com.pseudomuto.protokit.v1.extend_enum_value",
+	Name:          "com.Raiden1974.protokit.v1.extend_enum_value",
 	Tag:           "varint,20000,opt,name=extend_enum_value,json=extendEnumValue",
 	Filename:      "extend.proto",
 }
@@ -93,7 +92,7 @@ var E_ExtendMessage = &proto.ExtensionDesc{
 	ExtendedType:  (*descriptor.MessageOptions)(nil),
 	ExtensionType: (*bool)(nil),
 	Field:         20000,
-	Name:          "com.pseudomuto.protokit.v1.extend_message",
+	Name:          "com.Raiden1974.protokit.v1.extend_message",
 	Tag:           "varint,20000,opt,name=extend_message,json=extendMessage",
 	Filename:      "extend.proto",
 }
@@ -102,7 +101,7 @@ var E_ExtendField = &proto.ExtensionDesc{
 	ExtendedType:  (*descriptor.FieldOptions)(nil),
 	ExtensionType: (*bool)(nil),
 	Field:         20000,
-	Name:          "com.pseudomuto.protokit.v1.extend_field",
+	Name:          "com.Raiden1974.protokit.v1.extend_field",
 	Tag:           "varint,20000,opt,name=extend_field,json=extendField",
 	Filename:      "extend.proto",
 }

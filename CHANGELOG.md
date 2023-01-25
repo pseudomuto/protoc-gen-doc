@@ -5,52 +5,52 @@ All noteworthy changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) (as of Feb 2018)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.5.0...master)
+## [Unreleased](https://github.com/Raiden1974/protoc-gen-doc/compare/v1.5.0...master)
 
 _**CHANGELOG is now available with each release rather than in this file**_
 
 ### Changed
 
-* Escape special characters in markdown anchors [#460](https://github.com/pseudomuto/protoc-gen-doc/pull/460)
-* Bump go to 1.17, protoc to 3.18.1, and leverage go:embed [#461](https://github.com/pseudomuto/protoc-gen-doc/pull/461)
+* Escape special characters in markdown anchors [#460](https://github.com/Raiden1974/protoc-gen-doc/pull/460)
+* Bump go to 1.17, protoc to 3.18.1, and leverage go:embed [#461](https://github.com/Raiden1974/protoc-gen-doc/pull/461)
 
-## [v1.5.0](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.4.1...v1.5.0)
+## [v1.5.0](https://github.com/Raiden1974/protoc-gen-doc/compare/v1.4.1...v1.5.0)
 
-* Add `source_relative` flag [#450](https://github.com/pseudomuto/protoc-gen-doc/pull/450)
+* Add `source_relative` flag [#450](https://github.com/Raiden1974/protoc-gen-doc/pull/450)
 
-## [v1.4.1](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.3.2...v1.4.1)
+## [v1.4.1](https://github.com/Raiden1974/protoc-gen-doc/compare/v1.3.2...v1.4.1)
 
-* Add support for OneOf in templates [#436](https://github.com/pseudomuto/protoc-gen-doc/pull/436)
-* Note deprecated fields in HTML, Markdown, and Docbook outputs [#426](https://github.com/pseudomuto/protoc-gen-doc/pull/426)
+* Add support for OneOf in templates [#436](https://github.com/Raiden1974/protoc-gen-doc/pull/436)
+* Note deprecated fields in HTML, Markdown, and Docbook outputs [#426](https://github.com/Raiden1974/protoc-gen-doc/pull/426)
 * Tidy up modules
 
-## [v1.3.2](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.3.1...v1.3.2) - May 7, 2020
+## [v1.3.2](https://github.com/Raiden1974/protoc-gen-doc/compare/v1.3.1...v1.3.2) - May 7, 2020
 
 ### Changed
 
-* Stripped unnecessary whitespace from markdown templates [#410](https://github.com/pseudomuto/protoc-gen-doc/pull/410)
+* Stripped unnecessary whitespace from markdown templates [#410](https://github.com/Raiden1974/protoc-gen-doc/pull/410)
 * Renamed `lyft_validate` extension to `envoyproxy_validate`
-    [#392](https://github.com/pseudomuto/protoc-gen-doc/pull/392)
+    [#392](https://github.com/Raiden1974/protoc-gen-doc/pull/392)
 * Fixed `envoyproxy_validate` rules with slice values such as `in` and `not_in`
-    [#392](https://github.com/pseudomuto/protoc-gen-doc/pull/392)
+    [#392](https://github.com/Raiden1974/protoc-gen-doc/pull/392)
 
-## [v1.3.1](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.3.0...v1.3.1) - March 3, 2020
+## [v1.3.1](https://github.com/Raiden1974/protoc-gen-doc/compare/v1.3.0...v1.3.1) - March 3, 2020
 
 ### Changed
 
 * Switched from dep to go modules
 
-## [v1.3.0](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.2.0...v1.3.0) - April 15, 2019
+## [v1.3.0](https://github.com/Raiden1974/protoc-gen-doc/compare/v1.2.0...v1.3.0) - April 15, 2019
 
 ### Added
 
-* Support for options and extended options in files, services, methods, enums, enum values, messages and fields [#376](https://github.com/pseudomuto/protoc-gen-doc/pull/376)
+* Support for options and extended options in files, services, methods, enums, enum values, messages and fields [#376](https://github.com/Raiden1974/protoc-gen-doc/pull/376)
 
 ### Changed
 
 ### Fixed
 
-## [v1.2.0](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.1.0...v1.2.0) - March 13, 2019
+## [v1.2.0](https://github.com/Raiden1974/protoc-gen-doc/compare/v1.1.0...v1.2.0) - March 13, 2019
 
 ### Added
 
@@ -69,7 +69,7 @@ _**CHANGELOG is now available with each release rather than in this file**_
 * Markdown template was incorrectly links response types to request types
 * Markdown template anchor tags were self-closing (invalid).
 
-## [v1.1.0](https://github.com/pseudomuto/protoc-gen-doc/compare/v1.0.0...v1.1.0) - March 13, 2018
+## [v1.1.0](https://github.com/Raiden1974/protoc-gen-doc/compare/v1.0.0...v1.1.0) - March 13, 2018
 
 ### Added
 
@@ -93,7 +93,7 @@ _**CHANGELOG is now available with each release rather than in this file**_
 
 * The entire `parser` package (in favor of [protokit])
 
-[protokit]: https://github.com/pseudomuto/protokit
+[protokit]: https://github.com/Raiden1974/protokit
 
 # v1.0.0 - September 26, 2017
 

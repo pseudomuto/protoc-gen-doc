@@ -12,12 +12,12 @@ It supports proto2 and proto3, and can handle having both in the same context (s
 
 ## Installation
 
-There is a Docker image available (`docker pull pseudomuto/protoc-gen-doc`) that has everything you need to generate
+There is a Docker image available (`docker pull Raiden1974/protoc-gen-doc`) that has everything you need to generate
 documentation from your protos.
 
 If you'd like to install this locally, you can `go get` it.
 
-`go get -u github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc`
+`go get -u github.com/Raiden1974/protoc-gen-doc/cmd/protoc-gen-doc`
 
 Alternatively, you can download a pre-built release for your platform from the [releases][] page.
 
@@ -47,7 +47,7 @@ You could generate HTML docs for the examples by running the following:
 docker run --rm \
   -v $(pwd)/examples/doc:/out \
   -v $(pwd)/examples/proto:/protos \
-  pseudomuto/protoc-gen-doc
+  Raiden1974/protoc-gen-doc
 ```
 
 By default HTML documentation is generated in `/out/index.html` for all `.proto` files in the `/protos` volume. This can
@@ -59,7 +59,7 @@ For example, to generate Markdown for all the examples:
 docker run --rm \
   -v $(pwd)/examples/doc:/out \
   -v $(pwd)/examples/proto:/protos \
-  pseudomuto/protoc-gen-doc --doc_opt=markdown,docs.md
+  Raiden1974/protoc-gen-doc --doc_opt=markdown,docs.md
 ```
 
 You can also generate documentation for a single file. This can be done by passing the file(s) to the command:
@@ -68,7 +68,7 @@ You can also generate documentation for a single file. This can be done by passi
 docker run --rm \
   -v $(pwd)/examples/doc:/out \
   -v $(pwd)/examples/proto:/protos \
-  pseudomuto/protoc-gen-doc --doc_opt=markdown,docs.md Booking.proto [OPTIONALLY LIST MORE FILES]
+  Raiden1974/protoc-gen-doc --doc_opt=markdown,docs.md Booking.proto [OPTIONALLY LIST MORE FILES]
 ```
 
 You can also exclude proto files that match specific path expressions. This is done by passing a second option delimited
@@ -78,7 +78,7 @@ by `:`. For example, you can pass any number of comma separated patterns as the 
 docker run --rm \
   -v $(pwd)/examples/doc:/out \
   -v $(pwd)/examples/proto:/protos \
-  pseudomuto/protoc-gen-doc --doc_opt=:google/*,somepath/*
+  Raiden1974/protoc-gen-doc --doc_opt=:google/*,somepath/*
 ```
 
 _**Remember**_: Paths should be from within the container, not the host!
@@ -191,17 +191,17 @@ Check out the `examples` task in the [Makefile](Makefile) to see how these were 
     https://golang.org/pkg/text/template/
     "Template - The Go Programming Language"
 [custom]:
-    https://github.com/pseudomuto/protoc-gen-doc/wiki/Custom-Templates
+    https://github.com/Raiden1974/protoc-gen-doc/wiki/Custom-Templates
     "Custom templates instructions"
 [html_preview]:
-    https://rawgit.com/pseudomuto/protoc-gen-doc/master/examples/doc/example.html
+    https://rawgit.com/Raiden1974/protoc-gen-doc/master/examples/doc/example.html
     "HTML Example Output"
-[codecov-svg]: https://codecov.io/gh/pseudomuto/protoc-gen-doc/branch/master/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/pseudomuto/protoc-gen-doc
-[godoc-svg]: https://godoc.org/github.com/pseudomuto/protoc-gen-doc?status.svg
-[godoc-url]: https://godoc.org/github.com/pseudomuto/protoc-gen-doc
-[goreport-svg]: https://goreportcard.com/badge/github.com/pseudomuto/protoc-gen-doc
-[goreport-url]: https://goreportcard.com/report/github.com/pseudomuto/protoc-gen-doc
-[ci-svg]: https://github.com/pseudomuto/protoc-gen-doc/actions/workflows/ci.yaml/badge.svg?branch=master
-[ci-url]: https://github.com/pseudomuto/protoc-gen-doc/actions/workflows/ci.yaml
-[releases]: https://github.com/pseudomuto/protoc-gen-doc/releases
+[codecov-svg]: https://codecov.io/gh/Raiden1974/protoc-gen-doc/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/Raiden1974/protoc-gen-doc
+[godoc-svg]: https://godoc.org/github.com/Raiden1974/protoc-gen-doc?status.svg
+[godoc-url]: https://godoc.org/github.com/Raiden1974/protoc-gen-doc
+[goreport-svg]: https://goreportcard.com/badge/github.com/Raiden1974/protoc-gen-doc
+[goreport-url]: https://goreportcard.com/report/github.com/Raiden1974/protoc-gen-doc
+[ci-svg]: https://github.com/Raiden1974/protoc-gen-doc/actions/workflows/ci.yaml/badge.svg?branch=master
+[ci-url]: https://github.com/Raiden1974/protoc-gen-doc/actions/workflows/ci.yaml
+[releases]: https://github.com/Raiden1974/protoc-gen-doc/releases

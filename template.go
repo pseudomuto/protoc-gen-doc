@@ -6,9 +6,9 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/Raiden1974/protoc-gen-doc/extensions"
+	"github.com/Raiden1974/protokit"
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
-	"github.com/pseudomuto/protoc-gen-doc/extensions"
-	"github.com/pseudomuto/protokit"
 )
 
 // Template is a type for encapsulating all the parsed files, messages, fields, enums, services, extensions, etc. into

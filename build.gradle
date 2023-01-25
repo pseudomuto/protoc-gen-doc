@@ -3,12 +3,12 @@ plugins {
   id 'signing'
 }
 
-group = 'io.github.pseudomuto'
+group = 'io.github.Raiden1974'
 
 publishing {
   publications {
     maven(MavenPublication) {
-      groupId = 'io.github.pseudomuto'
+      groupId = 'io.github.Raiden1974'
       artifactId = rootProject.name
       version = System.getenv("GITHUB_REF_NAME")
       // Strip "v" from version number
@@ -19,24 +19,24 @@ publishing {
       pom {
         name = groupId + ':' + rootProject.name
         description = 'This is a documentation generator plugin for the Google Protocol Buffers compiler (protoc). The plugin can generate HTML, JSON, DocBook, and Markdown documentation from comments in your .proto files.'
-        url = 'https://github.com/pseudomuto/protoc-gen-doc'
+        url = 'https://github.com/Raiden1974/protoc-gen-doc'
         licenses {
           license {
             name = 'MIT License'
-            url = 'https://github.com/pseudomuto/protoc-gen-doc/blob/master/LICENSE.md'
+            url = 'https://github.com/Raiden1974/protoc-gen-doc/blob/master/LICENSE.md'
           }
         }
         developers {
           developer {
-            id = 'pseudomuto'
+            id = 'Raiden1974'
             name = 'David Muto'
             email = 'david.muto@gmail.com'
           }
         }
         scm {
-          connection = 'scm:git:git@github.com:pseudomuto/protoc-gen-doc.git'
-          developerConnection = 'scm:git:git@github.com:pseudomuto/protoc-gen-doc.git'
-          url = 'https://github.com/pseudomuto/protoc-gen-doc'
+          connection = 'scm:git:git@github.com:Raiden1974/protoc-gen-doc.git'
+          developerConnection = 'scm:git:git@github.com:Raiden1974/protoc-gen-doc.git'
+          url = 'https://github.com/Raiden1974/protoc-gen-doc'
         }
       }
 

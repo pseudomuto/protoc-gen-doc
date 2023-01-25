@@ -2,7 +2,7 @@ package extensions
 
 import (
 	"fmt"
-	"github.com/pseudomuto/protoc-gen-doc/extensions"
+	"github.com/Raiden1974/protoc-gen-doc/extensions"
 )
 
 func init() {

@@ -6,21 +6,21 @@
  */
 syntax = "proto2";
 
-import "github.com/pseudomuto/protokit/fixtures/extend.proto";
+import "github.com/Raiden1974/protokit/fixtures/extend.proto";
 
 package com.example;
 
-option (com.pseudomuto.protokit.v1.extend_file) = true;
+option (com.Raiden1974.protokit.v1.extend_file) = true;
 
 /**
  * Service for handling vehicle bookings.
  */
 service BookingService {
-  option (com.pseudomuto.protokit.v1.extend_service) = true;
+  option (com.Raiden1974.protokit.v1.extend_service) = true;
 
   /// Used to book a vehicle. Pass in a Booking and a BookingStatus will be returned.
   rpc BookVehicle (Booking) returns (BookingStatus) {
-    option (com.pseudomuto.protokit.v1.extend_method) = true;
+    option (com.Raiden1974.protokit.v1.extend_method) = true;
   };
 }
 
@@ -36,7 +36,7 @@ message BookingStatus {
     BAD_REQUEST = 400; // BAD result.
   }
 
-  required int32 id               = 1 [(com.pseudomuto.protokit.v1.extend_field) = true]; /// Unique booking status ID.
+  required int32 id               = 1 [(com.Raiden1974.protokit.v1.extend_field) = true]; /// Unique booking status ID.
   required string description     = 2; /// Booking status description. E.g. "Active".
   optional StatusCode status_code = 3; /// The status of this status?
 
@@ -52,10 +52,10 @@ extend BookingStatus {
  * The type of booking.
  */
 enum BookingType {
-  option (com.pseudomuto.protokit.v1.extend_enum) = true;
+  option (com.Raiden1974.protokit.v1.extend_enum) = true;
 
   IMMEDIATE = 100; // Immediate booking.
-  FUTURE    = 101 [(com.pseudomuto.protokit.v1.extend_enum_value) = true]; // Future booking.
+  FUTURE    = 101 [(com.Raiden1974.protokit.v1.extend_enum_value) = true]; // Future booking.
 }
 
 /**
@@ -64,7 +64,7 @@ enum BookingType {
  * Vehicles are some cool shit. But drive carefully!
  */
 message Booking {
-  option (com.pseudomuto.protokit.v1.extend_message) = true;
+  option (com.Raiden1974.protokit.v1.extend_message) = true;
 
   required int32 vehicle_id     = 1;     /// ID of booked vehicle.
   required int32 customer_id    = 2;    /// Customer that booked the vehicle.
@@ -74,7 +74,7 @@ message Booking {
   required bool confirmation_sent = 4;
 
   /** Has payment been received? */
-  optional bool payment_received = 5 [default = false, (com.pseudomuto.protokit.v1.extend_field) = true];
+  optional bool payment_received = 5 [default = false, (com.Raiden1974.protokit.v1.extend_field) = true];
 
   optional string color_preference = 6 [deprecated=true]; // Color preference of the customer.
 

@@ -1,4 +1,4 @@
-module github.com/pseudomuto/protoc-gen-doc
+module github.com/Raiden1974/protoc-gen-doc
 
 go 1.17
 
@@ -12,7 +12,7 @@ require (
 	github.com/huandu/xstrings v1.0.0 // indirect
 	github.com/imdario/mergo v0.3.4 // indirect
 	github.com/mwitkow/go-proto-validators v0.3.2
-	github.com/pseudomuto/protokit v0.2.0
+	github.com/Raiden1974/protokit v0.2.0
 	github.com/stretchr/testify v1.6.1
 	google.golang.org/api v0.58.0
 	google.golang.org/genproto v0.0.0-20210917145530-b395a37504d4
