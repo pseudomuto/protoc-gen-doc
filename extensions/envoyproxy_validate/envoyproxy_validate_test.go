@@ -3,9 +3,8 @@ package extensions_test
 import (
 	"testing"
 
-	"github.com/Raiden1974/protoc-gen-doc/extensions"
-	. "github.com/Raiden1974/protoc-gen-doc/extensions/lyft_validate"
 	"github.com/envoyproxy/protoc-gen-validate/validate"
+	"github.com/pseudomuto/protoc-gen-doc/extensions"
 	"github.com/stretchr/testify/require"
 )
 

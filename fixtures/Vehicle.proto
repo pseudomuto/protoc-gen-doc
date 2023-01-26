@@ -7,7 +7,7 @@ import "github.com/pseudomuto/protokit/fixtures/extend.proto";
 
 package com.example;
 
-option (com.Raiden1974.protokit.v1.extend_file) = true;
+option (com.pseudomuto.protokit.v1.extend_file) = true;
 
 /**
  * The vehicle service.
@@ -15,7 +15,7 @@ option (com.Raiden1974.protokit.v1.extend_file) = true;
  * Manages vehicles and such...
  */
 service VehicleService {
-  option (com.Raiden1974.protokit.v1.extend_service) = true;
+  option (com.pseudomuto.protokit.v1.extend_service) = true;
 
   // Returns the set of models.
   rpc GetModels(EmptyMessage) returns (stream Model);
@@ -26,7 +26,7 @@ service VehicleService {
    * Looks up a vehicle by id.
    */
   rpc GetVehicle(FindVehicleById) returns (Vehicle) {
-    option (com.Raiden1974.protokit.v1.extend_method) = true;
+    option (com.pseudomuto.protokit.v1.extend_method) = true;
   };
 }
 
@@ -69,10 +69,10 @@ message ExcludedMessage {
 
 // The type of model.
 enum Type {
-  option (com.Raiden1974.protokit.v1.extend_enum) = true;
+  option (com.pseudomuto.protokit.v1.extend_enum) = true;
 
   COUPE = 0; // The type is coupe.
-  SEDAN = 1 [(com.Raiden1974.protokit.v1.extend_enum_value) = true]; // The type is sedan.
+  SEDAN = 1 [(com.pseudomuto.protokit.v1.extend_enum_value) = true]; // The type is sedan.
 }
 
 /**
@@ -99,7 +99,7 @@ message Manufacturer {
  * Represents a vehicle that can be hired.
  */
 message Vehicle {
-  option (com.Raiden1974.protokit.v1.extend_message) = true;
+  option (com.pseudomuto.protokit.v1.extend_message) = true;
 
   /**
    * Represents a vehicle category. E.g. "Sedan" or "Truck".
@@ -128,7 +128,7 @@ message Vehicle {
 
   int32 id          = 1; /** Unique vehicle ID. */
   Model model       = 2; /** Vehicle model. */
-  string reg_number = 3 [(com.Raiden1974.protokit.v1.extend_field) = true]; /** Vehicle registration number. */
+  string reg_number = 3 [(com.pseudomuto.protokit.v1.extend_field) = true]; /** Vehicle registration number. */
   sint32 mileage    = 4; /** Current vehicle mileage, if known. */
   Category category = 5; /** Vehicle category. */
   Engine engine     = 9; /** Vehicle engine. */

@@ -2,7 +2,7 @@ syntax = "proto2";
 
 import "google/protobuf/descriptor.proto";
 
-package com.Raiden1974.protokit.v1;
+package com.pseudomuto.protokit.v1;
 
 /**
  * Extension of protobuf file options.

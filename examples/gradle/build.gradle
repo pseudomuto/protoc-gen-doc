@@ -9,7 +9,7 @@ protobuf {
   }
   plugins {
     doc {
-      artifact = "io.github.Raiden1974:protoc-gen-doc:1.5.1"
+      artifact = "io.github.pseudomuto:protoc-gen-doc:1.5.1"
     }
   }
 

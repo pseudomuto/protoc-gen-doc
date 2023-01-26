@@ -3,9 +3,9 @@ package extensions_test
 import (
 	"testing"
 
-	"github.com/Raiden1974/protoc-gen-doc/extensions"
 	"github.com/golang/protobuf/proto"
 	validator "github.com/mwitkow/go-proto-validators"
+	"github.com/pseudomuto/protoc-gen-doc/extensions"
 	"github.com/stretchr/testify/require"
 )
 

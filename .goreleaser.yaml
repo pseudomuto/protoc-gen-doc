@@ -18,10 +18,10 @@ builds:
 
 dockers:
   - image_templates:
-      - Raiden1974/{{.ProjectName}}:latest
-      - Raiden1974/{{.ProjectName}}:{{.Version}}
-      - Raiden1974/{{.ProjectName}}:{{.Major}}
-      - Raiden1974/{{.ProjectName}}:{{.Major}}.{{.Minor}}
+      - pseudomuto/{{.ProjectName}}:latest
+      - pseudomuto/{{.ProjectName}}:{{.Version}}
+      - pseudomuto/{{.ProjectName}}:{{.Major}}
+      - pseudomuto/{{.ProjectName}}:{{.Major}}.{{.Minor}}
     build_flag_templates:
       - "--pull"
       - "--label=org.opencontainers.image.created={{.Date}}"

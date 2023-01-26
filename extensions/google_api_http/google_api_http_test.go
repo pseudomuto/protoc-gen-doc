@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/Raiden1974/protoc-gen-doc/extensions"
+	"github.com/pseudomuto/protoc-gen-doc/extensions"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/genproto/googleapis/api/annotations"
 )

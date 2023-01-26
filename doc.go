@@ -15,5 +15,5 @@
 //
 //	protoc --doc_out=. --doc_opt=custom.tmpl,docs.txt protos/*.proto
 //
-// For more details, check out the README at https://github.com/Raiden1974/protoc-gen-doc
+// For more details, check out the README at https://github.com/pseudomuto/protoc-gen-doc
 package gendoc
