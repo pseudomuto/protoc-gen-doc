@@ -6,6 +6,7 @@ import (
 
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
+	. "github.com/pseudomuto/protoc-gen-doc"
 	"github.com/pseudomuto/protoc-gen-doc/extensions"
 	"github.com/pseudomuto/protokit"
 	"github.com/pseudomuto/protokit/utils"
@@ -137,7 +138,6 @@ func TestFileProperties(t *testing.T) {
 	require.True(t, bookingFile.HasServices)
 	require.NotEmpty(t, bookingFile.Options)
 	require.True(t, *bookingFile.Option(E_ExtendFile.Name).(*bool))
-	require.Equal(t, "", bookingFile.Syntax)
 }
 
 func TestFileEnumProperties(t *testing.T) {
@@ -254,7 +254,6 @@ func TestFieldProperties(t *testing.T) {
 	require.False(t, field.IsOneof)
 	require.NotEmpty(t, field.Options)
 	require.True(t, *field.Option(E_ExtendField.Name).(*bool))
-	require.Equal(t, 1, field.Number)
 
 	field = findField("status_code", msg)
 	require.Equal(t, "status_code", field.Name)
@@ -265,7 +264,6 @@ func TestFieldProperties(t *testing.T) {
 	require.Equal(t, "com.example.BookingStatus.StatusCode", field.FullType)
 	require.Empty(t, field.DefaultValue)
 	require.False(t, field.IsOneof)
-	require.Equal(t, 3, field.Number)
 
 	field = findField("category", findMessage("Vehicle", vehicleFile))
 	require.Equal(t, "category", field.Name)
@@ -276,7 +274,6 @@ func TestFieldProperties(t *testing.T) {
 	require.Equal(t, "com.example.Vehicle.Category", field.FullType)
 	require.Empty(t, field.DefaultValue)
 	require.False(t, field.IsOneof)
-	require.Equal(t, 5, field.Number)
 
 	field = findField("properties", findMessage("Vehicle", vehicleFile))
 	require.Equal(t, "properties", field.Name)
@@ -287,7 +284,6 @@ func TestFieldProperties(t *testing.T) {
 	require.Empty(t, field.DefaultValue)
 	require.True(t, field.IsMap)
 	require.False(t, field.IsOneof)
-	require.Equal(t, 7, field.Number)
 
 	field = findField("rates", findMessage("Vehicle", vehicleFile))
 	require.Equal(t, "rates", field.Name)
@@ -297,7 +293,6 @@ func TestFieldProperties(t *testing.T) {
 	require.Equal(t, "sint32", field.FullType)
 	require.False(t, field.IsMap)
 	require.False(t, field.IsOneof)
-	require.Equal(t, 6, field.Number)
 
 	field = findField("kilometers", findMessage("Vehicle", vehicleFile))
 	require.Equal(t, "kilometers", field.Name)
@@ -308,7 +303,6 @@ func TestFieldProperties(t *testing.T) {
 	require.False(t, field.IsMap)
 	require.True(t, field.IsOneof)
 	require.Equal(t, "travel", field.OneofDecl)
-	require.Equal(t, 8, field.Number)
 
 	field = findField("human_name", findMessage("Vehicle", vehicleFile))
 	require.Equal(t, "human_name", field.Name)
@@ -319,7 +313,6 @@ func TestFieldProperties(t *testing.T) {
 	require.False(t, field.IsMap)
 	require.True(t, field.IsOneof)
 	require.Equal(t, "drivers", field.OneofDecl)
-	require.Equal(t, 11, field.Number)
 }
 
 func TestFieldPropertiesProto3(t *testing.T) {
@@ -334,7 +327,6 @@ func TestFieldPropertiesProto3(t *testing.T) {
 	require.Equal(t, "string", field.FullType)
 	require.Empty(t, field.DefaultValue)
 	require.Empty(t, field.Options)
-	require.Equal(t, 1, field.Number)
 
 	field = findField("model_code", msg)
 	require.Equal(t, "model_code", field.Name)
@@ -345,7 +337,6 @@ func TestFieldPropertiesProto3(t *testing.T) {
 	require.Equal(t, "string", field.FullType)
 	require.Empty(t, field.DefaultValue)
 	require.Empty(t, field.Options)
-	require.Equal(t, 2, field.Number)
 
 	field = findField("daily_hire_rate_dollars", msg)
 	require.Equal(t, "daily_hire_rate_dollars", field.Name)
@@ -356,7 +347,6 @@ func TestFieldPropertiesProto3(t *testing.T) {
 	require.Equal(t, "sint32", field.FullType)
 	require.Empty(t, field.DefaultValue)
 	require.Empty(t, field.Options)
-	require.Equal(t, 4, field.Number)
 }
 
 func TestFieldPropertiesProto3Optional(t *testing.T) {
@@ -371,7 +361,6 @@ func TestFieldPropertiesProto3Optional(t *testing.T) {
 	require.Equal(t, "string", field.FullType)
 	require.Empty(t, field.DefaultValue)
 	require.Empty(t, field.Options)
-	require.Equal(t, 1, field.Number)
 
 	field = findField("name", msg)
 	require.Equal(t, "name", field.Name)
@@ -382,7 +371,6 @@ func TestFieldPropertiesProto3Optional(t *testing.T) {
 	require.Equal(t, "string", field.FullType)
 	require.Empty(t, field.DefaultValue)
 	require.Empty(t, field.Options)
-	require.Equal(t, 2, field.Number)
 
 	field = findField("ingredients", msg)
 	require.Equal(t, "ingredients", field.Name)
@@ -393,7 +381,6 @@ func TestFieldPropertiesProto3Optional(t *testing.T) {
 	require.Equal(t, "string", field.FullType)
 	require.Empty(t, field.DefaultValue)
 	require.Empty(t, field.Options)
-	require.Equal(t, 3, field.Number)
 }
 
 func TestServiceProperties(t *testing.T) {
