@@ -6,6 +6,7 @@ import (
 	"path"
 	"path/filepath"
 	"regexp"
+	"sort"
 	"strings"
 
 	"github.com/golang/protobuf/proto"
@@ -52,7 +53,22 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 
 	resp := new(plugin_go.CodeGeneratorResponse)
 	fdsGroup := groupProtosByDirectory(result, options.SourceRelative)
-	for dir, fds := range fdsGroup {
+
+	// Sort the directory groups by directory key first...
+	dirs := make([]string, 0, len(fdsGroup))
+	for dir := range fdsGroup {
+		dirs = append(dirs, dir)
+	}
+	sort.Slice(dirs, func(i, j int) bool {
+		return pathCompare(dirs[i], dirs[j], 0)
+	})
+	// ...then, for each directory group, sort the files by their path (excluding last element, which is the filename)
+	for _, dir := range dirs {
+		fds := fdsGroup[dir]
+		sort.Slice(fds, func(i, j int) bool {
+			return pathCompare(fds[i].GetName(), fds[j].GetName(), 1)
+		})
+
 		template := NewTemplate(fds)
 
 		output, err := RenderTemplate(options.Type, template, customTemplate)
@@ -102,6 +118,33 @@ OUTER:
 	}
 
 	return descs
+}
+
+// A comparison function taking two paths with "/" as separator and a number of elements to ignore at the end.
+// It sorts a list of paths "top-level-first", such that they end up forming a clean directory tree, like:
+// - /top1/sub1/
+// - /top1/sub1/bot1/
+// - /top1/sub1/bot2/
+// - /top1/sub2/
+// - /top2/
+// - /top2/sub1/
+func pathCompare(i, j string, ignoreAtEnd int) bool {
+	pi, pj := strings.Split(i, "/"), strings.Split(j, "/")
+
+	minLen := len(pi)
+	if minLen > len(pj) {
+		minLen = len(pj)
+	}
+	minLen -= ignoreAtEnd
+
+	for k := 0; k < minLen; k++ {
+		comp := strings.Compare(pi[k], pj[k])
+		if comp != 0 {
+			return comp < 0
+		}
+	}
+
+	return minLen < (len(pj) - ignoreAtEnd)
 }
 
 // ParseOptions parses plugin options from a CodeGeneratorRequest. It does this by splitting the `Parameter` field from
