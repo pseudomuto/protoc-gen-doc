@@ -37,7 +37,7 @@ jobs:
       - name: Publish package
         uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: 7.4
+          gradle-version: 7.5.1
           arguments: publish
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
