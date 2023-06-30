@@ -71,11 +71,15 @@ message Vehicle {
 
   /**
    * Dollars per day.
+   *
+   * Check also cents field.
    */
   optional sint32 daily_hire_rate_dollars = 6 [default = 50];
 
   /**
    * Cents per day.
+   *
+   * Check also dollars field.
    */
   optional sint32 daily_hire_rate_cents = 7;
 

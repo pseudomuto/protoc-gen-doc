@@ -691,7 +691,7 @@
             },
             {
               "name": "daily_hire_rate_dollars",
-              "description": "Dollars per day.",
+              "description": "Dollars per day.\n\nCheck also cents field.",
               "label": "optional",
               "type": "sint32",
               "longType": "sint32",
@@ -703,7 +703,7 @@
             },
             {
               "name": "daily_hire_rate_cents",
-              "description": "Cents per day.",
+              "description": "Cents per day.\n\nCheck also dollars field.",
               "label": "optional",
               "type": "sint32",
               "longType": "sint32",
