@@ -71,6 +71,8 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 			for _, fd := range fds {
 				template := NewTemplate([]*protokit.FileDescriptor{fd})
 
+				ResolveTypePaths(template)
+
 				output, err := RenderTemplate(options.Type, template, customTemplate)
 				if err != nil {
 					return nil, err
