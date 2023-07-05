@@ -68,8 +68,15 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 				Content: proto.String(string(output)),
 			})
 		} else {
-			for _, fd := range fds {
-				template := NewTemplate([]*protokit.FileDescriptor{fd})
+			var templates = make([]*Template, len(fds));
+			for idx, fd := range fds {
+				templates[idx] = NewTemplate([]*protokit.FileDescriptor{fd})
+			}
+
+			for idx, fd := range fds {
+				template := templates[idx]
+
+				ResolveTypePaths(template)
 
 				output, err := RenderTemplate(options.Type, template, customTemplate)
 				if err != nil {

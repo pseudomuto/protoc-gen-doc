@@ -436,6 +436,18 @@ func TestExcludedComments(t *testing.T) {
 	require.Equal(t, "the id of this message.", findField("id", message).Description)
 }
 
+func TestResolveTypePaths(t *testing.T) {
+	ResolveTypePaths(template)
+
+	message := findMessage("Booking", bookingFile)
+	require.Equal(t, "Booking.proto", findField("status", message).TypeFile)
+	// ensure literal types have no TypeFile
+	require.Empty(t, findField("vehicle_id", message).TypeFile)
+
+	message = findMessage("Manufacturer", vehicleFile)
+	require.Equal(t, "Vehicle.proto", findField("category", message).TypeFile)
+}
+
 func findService(name string, f *File) *Service {
 	for _, s := range f.Services {
 		if s.Name == name {
