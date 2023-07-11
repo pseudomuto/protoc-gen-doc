@@ -85,6 +85,15 @@ func NewTemplate(descs []*protokit.FileDescriptor) *Template {
 
 func ResolveTypePaths(tmpl *Template) {
 	for _, file := range tmpl.Files {
+		for _, service := range file.Services {
+			for i, method := range service.Methods {
+				requestFile := typesMap[method.RequestFullType]
+				service.Methods[i].RequestTypeFile = requestFile
+
+				responseFile := typesMap[method.ResponseFullType]
+				service.Methods[i].ResponseTypeFile = responseFile
+			}
+		}
 		for _, message := range file.Messages {
 			for i, field := range message.Fields {
 				file := typesMap[field.FullType]
@@ -382,10 +391,12 @@ type ServiceMethod struct {
 	RequestType       string `json:"requestType"`
 	RequestLongType   string `json:"requestLongType"`
 	RequestFullType   string `json:"requestFullType"`
+	RequestTypeFile   string `json:"requestTypeFile"`
 	RequestStreaming  bool   `json:"requestStreaming"`
 	ResponseType      string `json:"responseType"`
 	ResponseLongType  string `json:"responseLongType"`
 	ResponseFullType  string `json:"responseFullType"`
+	ResponseTypeFile  string `json:"responseTypeFile"`
 	ResponseStreaming bool   `json:"responseStreaming"`
 
 	Options map[string]interface{} `json:"options,omitempty"`
@@ -543,10 +554,12 @@ func parseServiceMethod(pm *protokit.MethodDescriptor) *ServiceMethod {
 		RequestType:       baseName(pm.GetInputType()),
 		RequestLongType:   strings.TrimPrefix(pm.GetInputType(), "."+pm.GetPackage()+"."),
 		RequestFullType:   strings.TrimPrefix(pm.GetInputType(), "."),
+		RequestTypeFile:   "",
 		RequestStreaming:  pm.GetClientStreaming(),
 		ResponseType:      baseName(pm.GetOutputType()),
 		ResponseLongType:  strings.TrimPrefix(pm.GetOutputType(), "."+pm.GetPackage()+"."),
 		ResponseFullType:  strings.TrimPrefix(pm.GetOutputType(), "."),
+		ResponseTypeFile:  "",
 		ResponseStreaming: pm.GetServerStreaming(),
 		Options:           mergeOptions(extractOptions(pm.GetOptions()), extensions.Transform(pm.OptionExtensions)),
 	}

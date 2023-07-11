@@ -204,10 +204,12 @@
               "requestType": "Booking",
               "requestLongType": "Booking",
               "requestFullType": "com.example.Booking",
+              "requestTypeFile": "",
               "requestStreaming": false,
               "responseType": "BookingStatus",
               "responseLongType": "BookingStatus",
               "responseFullType": "com.example.BookingStatus",
+              "responseTypeFile": "",
               "responseStreaming": false,
               "options": {
                 "google.api.http": {
@@ -227,10 +229,12 @@
               "requestType": "BookingStatusID",
               "requestLongType": "BookingStatusID",
               "requestFullType": "com.example.BookingStatusID",
+              "requestTypeFile": "",
               "requestStreaming": false,
               "responseType": "BookingStatus",
               "responseLongType": "BookingStatus",
               "responseFullType": "com.example.BookingStatus",
+              "responseTypeFile": "",
               "responseStreaming": true
             }
           ]
