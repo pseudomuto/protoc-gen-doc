@@ -44,7 +44,7 @@ func NewTemplate(descs []*protokit.FileDescriptor) *Template {
 
 		for _, e := range f.Enums {
 			file.Enums = append(file.Enums, parseEnum(e))
-			typesMap[e.GetFullName()] = file.Name
+			typesMap[e.GetFullName()] = fileNameToMapValue(file.Name)
 		}
 
 		for _, e := range f.Extensions {
@@ -55,10 +55,10 @@ func NewTemplate(descs []*protokit.FileDescriptor) *Template {
 		var addFromMessage func(*protokit.Descriptor)
 		addFromMessage = func(m *protokit.Descriptor) {
 			file.Messages = append(file.Messages, parseMessage(m))
-			typesMap[m.GetFullName()] = file.Name
+			typesMap[m.GetFullName()] = fileNameToMapValue(file.Name)
 			for _, e := range m.Enums {
 				file.Enums = append(file.Enums, parseEnum(e))
-				typesMap[e.GetFullName()] = file.Name
+				typesMap[e.GetFullName()] = fileNameToMapValue(file.Name)
 			}
 			for _, n := range m.Messages {
 				addFromMessage(n)
@@ -81,6 +81,10 @@ func NewTemplate(descs []*protokit.FileDescriptor) *Template {
 	}
 
 	return &Template{Files: files, Scalars: makeScalars()}
+}
+
+func fileNameToMapValue(fileName string) string {
+	return strings.TrimSuffix(fileName, ".proto")
 }
 
 func ResolveTypePaths(tmpl *Template) {
