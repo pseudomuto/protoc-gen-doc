@@ -441,19 +441,19 @@ func TestResolveTypePaths(t *testing.T) {
 
 	service := findService("BookingService", bookingFile)
 	method := findServiceMethod("BookVehicle", service)
-	require.Equal(t, "Booking.proto", method.RequestTypeFile)
-	require.Equal(t, "Booking.proto", method.ResponseTypeFile)
+	require.Equal(t, "Booking", method.RequestTypeFile)
+	require.Equal(t, "Booking", method.ResponseTypeFile)
 	message := findMessage("Booking", bookingFile)
-	require.Equal(t, "Booking.proto", findField("status", message).TypeFile)
+	require.Equal(t, "Booking", findField("status", message).TypeFile)
 	// ensure literal types have no TypeFile
 	require.Empty(t, findField("vehicle_id", message).TypeFile)
 
 	service = findService("VehicleService", vehicleFile)
 	method = findServiceMethod("GetModels", service)
-	require.Equal(t, "Vehicle.proto", method.RequestTypeFile)
-	require.Equal(t, "Vehicle.proto", method.ResponseTypeFile)
+	require.Equal(t, "Vehicle", method.RequestTypeFile)
+	require.Equal(t, "Vehicle", method.ResponseTypeFile)
 	message = findMessage("Manufacturer", vehicleFile)
-	require.Equal(t, "Vehicle.proto", findField("category", message).TypeFile)
+	require.Equal(t, "Vehicle", findField("category", message).TypeFile)
 }
 
 func findService(name string, f *File) *Service {
