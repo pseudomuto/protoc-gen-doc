@@ -96,6 +96,19 @@ Represents a mail address.
 
 
 
+=== BookingStatusMessage
+
+
+
+|===========================================
+|*Field* |*Type* |*Label* |*Description*
+
+|description | <<string,string>> |required |Booking status description. E.g. "Active".
+
+|===========================================
+
+
+
 === Customer
 Represents a customer.
 
@@ -116,6 +129,21 @@ Represents a customer.
 |phone_number | <<string,string>> |repeated |Customer phone numbers, primary first.
 
 |mail_addresses | <<com.example.Address,Address>> |repeated |Customer mail addresses, primary first.
+
+|===========================================
+
+
+
+=== VerificationRequest
+
+
+
+|===========================================
+|*Field* |*Type* |*Label* |*Description*
+
+|customer_id | <<int32,int32>> |required |Unique customer ID.
+
+|booking_status_id | <<com.example.BookingStatusID,BookingStatusID>> |required |Unique booking status ID.
 
 |===========================================
 

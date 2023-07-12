@@ -280,6 +280,41 @@
       
     </section>
     
+    <section id="com.example.BookingStatusMessage">
+      <title>BookingStatusMessage</title>
+      <para></para>
+      
+      <table frame="all">
+        <title><classname>BookingStatusMessage</classname> Fields</title>
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>description</entry>
+              <entry><link linkend="string">string</link></entry>
+              <entry>required</entry>
+              <entry><para>Booking status description. E.g. "Active".</para></entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </table>
+      
+      
+    </section>
+    
     <section id="com.example.Customer">
       <title>Customer</title>
       <para>Represents a customer.</para>
@@ -357,10 +392,91 @@
       
     </section>
     
+    <section id="com.example.VerificationRequest">
+      <title>VerificationRequest</title>
+      <para></para>
+      
+      <table frame="all">
+        <title><classname>VerificationRequest</classname> Fields</title>
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>customer_id</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry>required</entry>
+              <entry><para>Unique customer ID.</para></entry>
+            </row>
+            
+            <row>
+              <entry>booking_status_id</entry>
+              <entry><link linkend="com.example.BookingStatusID">BookingStatusID</link></entry>
+              <entry>required</entry>
+              <entry><para>Unique booking status ID.</para></entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </table>
+      
+      
+    </section>
+    
     
 
     
 
+    
+    <section id="com.example.CustomerService">
+      <title>CustomerService</title>
+      <para>Customer centric booking service.</para>
+      <table frame="all">
+        <title><classname>CustomerService</classname> Methods</title>
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Method Name</entry>
+              <entry>Request Type</entry>
+              <entry>Response Type</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>FindBookings</entry>
+              <entry><link linkend="com.example.Customer">Customer</link></entry>
+              <entry><link linkend="com.example.Booking">Booking</link> stream</entry>
+              <entry><para>Retrieve all bookings made by a customer.</para></entry>
+            </row>
+            
+            <row>
+              <entry>VerifyBookingStatus</entry>
+              <entry><link linkend="com.example.VerificationRequest">VerificationRequest</link></entry>
+              <entry><link linkend="com.example.BookingStatusMessage">BookingStatusMessage</link></entry>
+              <entry><para>Verify the payment status of a booking.</para></entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
     
   </section>
   
