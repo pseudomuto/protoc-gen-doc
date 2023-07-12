@@ -248,7 +248,7 @@
       "hasEnums": false,
       "hasExtensions": false,
       "hasMessages": true,
-      "hasServices": false,
+      "hasServices": true,
       "enums": [],
       "extensions": [],
       "messages": [
@@ -330,6 +330,31 @@
             {
               "name": "country",
               "description": "Address country.",
+              "label": "required",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "typeFile": "",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "BookingStatusMessage",
+          "longName": "BookingStatusMessage",
+          "fullName": "com.example.BookingStatusMessage",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "description",
+              "description": "Booking status description. E.g. \"Active\".",
               "label": "required",
               "type": "string",
               "longType": "string",
@@ -444,9 +469,84 @@
               "defaultValue": ""
             }
           ]
+        },
+        {
+          "name": "VerificationRequest",
+          "longName": "VerificationRequest",
+          "fullName": "com.example.VerificationRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "customer_id",
+              "description": "Unique customer ID.",
+              "label": "required",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "typeFile": "",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "booking_status_id",
+              "description": "Unique booking status ID.",
+              "label": "required",
+              "type": "BookingStatusID",
+              "longType": "BookingStatusID",
+              "fullType": "com.example.BookingStatusID",
+              "typeFile": "",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
         }
       ],
-      "services": []
+      "services": [
+        {
+          "name": "CustomerService",
+          "longName": "CustomerService",
+          "fullName": "com.example.CustomerService",
+          "description": "Customer centric booking service.",
+          "methods": [
+            {
+              "name": "FindBookings",
+              "description": "Retrieve all bookings made by a customer.",
+              "requestType": "Customer",
+              "requestLongType": "Customer",
+              "requestFullType": "com.example.Customer",
+              "requestTypeFile": "",
+              "requestStreaming": false,
+              "responseType": "Booking",
+              "responseLongType": "Booking",
+              "responseFullType": "com.example.Booking",
+              "responseTypeFile": "",
+              "responseStreaming": true
+            },
+            {
+              "name": "VerifyBookingStatus",
+              "description": "Verify the payment status of a booking.",
+              "requestType": "VerificationRequest",
+              "requestLongType": "VerificationRequest",
+              "requestFullType": "com.example.VerificationRequest",
+              "requestTypeFile": "",
+              "requestStreaming": false,
+              "responseType": "BookingStatusMessage",
+              "responseLongType": "BookingStatusMessage",
+              "responseFullType": "com.example.BookingStatusMessage",
+              "responseTypeFile": "",
+              "responseStreaming": false
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Vehicle.proto",
