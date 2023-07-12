@@ -240,8 +240,8 @@
           {{range .Methods}}
             <tr>
               <td>{{.Name}}</td>
-              <td><a href="#{{.RequestFullType}}">{{.RequestLongType}}</a>{{if .RequestStreaming}} stream{{end}}</td>
-              <td><a href="#{{.ResponseFullType}}">{{.ResponseLongType}}</a>{{if .ResponseStreaming}} stream{{end}}</td>
+              <td><a href="{{.RequestTypeFile}}.html#{{.RequestFullType}}">{{.RequestLongType}}</a>{{if .RequestStreaming}} stream{{end}}</td>
+              <td><a href="{{.ResponseTypeFile}}.html#{{.ResponseFullType}}">{{.ResponseLongType}}</a>{{if .ResponseStreaming}} stream{{end}}</td>
               <td><p>{{.Description}}</p></td>
             </tr>
           {{end}}
@@ -314,7 +314,7 @@
             {{range .Fields}}
               <tr>
                 <td>{{.Name}}</td>
-                <td><a href="#{{.FullType}}">{{.LongType}}</a></td>
+                <td><a href="{{.TypeFile}}.html#{{.FullType}}">{{.LongType}}</a></td>
                 <td>{{.Label}}</td>
                 <td><p>{{if (index .Options "deprecated"|default false)}}<strong>Deprecated.</strong> {{end}}{{.Description}} {{if .DefaultValue}}Default: {{.DefaultValue}}{{end}}</p></td>
               </tr>
