@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Protocol Documentation</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic"/>
+    <style>
+      body {
+        width: 60em;
+        margin: 1em auto;
+        color: #222;
+        font-family: "Ubuntu", sans-serif;
+        padding-bottom: 4em;
+      }
+
+      h1 {
+        font-weight: normal;
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+      }
+
+      h2 {
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+        margin: 1.5em 0;
+      }
+
+      h3 {
+        font-weight: normal;
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+      }
+
+      a {
+        text-decoration: none;
+        color: #567e25;
+      }
+
+      table {
+        width: 100%;
+        font-size: 80%;
+        border-collapse: collapse;
+      }
+
+      thead {
+        font-weight: 700;
+        background-color: #dcdcdc;
+      }
+
+      tbody tr:nth-child(even) {
+        background-color: #fbfbfb;
+      }
+
+      td {
+        border: 1px solid #ccc;
+        padding: 0.5ex 2ex;
+      }
+
+      td p {
+        text-indent: 1em;
+        margin: 0;
+      }
+
+      td p:nth-child(1) {
+        text-indent: 0; /* No indent on first p in td */
+      }
+
+      /* Table of fields */
+      .field-table td:nth-child(1) { /* Field */
+        width: 10em;
+      }
+      .field-table td:nth-child(2) { /* Type */
+        width: 10em;
+      }
+      .field-table td:nth-child(3) { /* Label */
+        width: 6em;
+      }
+      .field-table td:nth-child(4) { /* Description */
+        width: auto;
+      }
+
+      /* Table of extensions */
+      .extension-table td:nth-child(1) { /* Extension */
+        width: 10em;
+      }
+      .extension-table td:nth-child(2) { /* Type */
+        width: 10em;
+      }
+      .extension-table td:nth-child(3) { /* Base */
+        width: 10em;
+      }
+      .extension-table td:nth-child(4) { /* Number */
+        width: 5em;
+      }
+      .extension-table td:nth-child(5) { /* Description */
+        width: auto;
+      }
+
+      /* Table of enum values. */
+      .enum-table td:nth-child(1) { /* Name */
+        width: 10em;
+      }
+      .enum-table td:nth-child(2) { /* Number */
+        width: 10em;
+      }
+      .enum-table td:nth-child(3) { /* Description */
+        width: auto;
+      }
+
+      /* Table of scalar value types. */
+      .scalar-value-types-table tr {
+        height: 3em;
+      }
+
+      /* Table of contents. */
+      #toc-container ul {
+        list-style-type: none;
+        padding-left: 1em;
+        line-height: 180%;
+        margin: 0;
+      }
+      #toc > li > a {
+        font-weight: bold;
+      }
+
+      /* File heading div */
+      .file-heading {
+        width: 100%;
+        display: table;
+        border-bottom: 1px solid #aaa;
+        margin: 4em 0 1.5em 0;
+      }
+      .file-heading h2 {
+        border: none;
+        display: table-cell;
+      }
+      .file-heading a {
+        text-align: right;
+        display: table-cell;
+      }
+
+      /* The 'M', 'E' and 'X' badges in the ToC */
+      .badge {
+        width: 1.6em;
+        height: 1.6em;
+        display: inline-block;
+
+        line-height: 1.6em;
+        text-align: center;
+        font-weight: bold;
+        font-size: 60%;
+
+        color: #89ba48;
+        background-color: #dff0c8;
+
+        margin: 0.5ex 1em 0.5ex -1em;
+        border: 1px solid #fbfbfb;
+        border-radius: 1ex;
+      }
+    </style>
+
+    <!-- User custom CSS -->
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+  </head>
+
+  <body>
+    
+    <h1 id="title">Booking.proto</h1>
+    <p>Booking related messages.</p><p>This file is really just an example. The data model is completely</p><p>fictional.</p>
+
+    <h2>Table of Contents</h2>
+
+    <div id="toc-container">
+      <ul id="toc">
+        <li>
+          
+          <a href="#services"><span class="badge">S</span>Services</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#com.example.BookingService">BookingService</a>
+            </li>
+            
+          </ul>
+        </li>
+        <li>
+          
+          <a href="#messages"><span class="badge">M</span>Messages</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#com.example.Booking">Booking</a>
+            </li>
+            
+            <li>
+              <a href="#com.example.BookingStatus">BookingStatus</a>
+            </li>
+            
+            <li>
+              <a href="#com.example.BookingStatusID">BookingStatusID</a>
+            </li>
+            
+            <li>
+              <a href="#com.example.EmptyBookingMessage">EmptyBookingMessage</a>
+            </li>
+            
+          </ul>
+        </li>
+        <li>
+          
+          <ul>
+            
+          </ul>
+        </li>
+        <li>
+          
+          <ul>
+            
+          </ul>
+        </li>
+      </ul>
+    </div>
+    
+
+    
+    
+    <h2 id="services">Services</h2>
+    
+    
+      <h3 id="com.example.BookingService">BookingService</h3>
+      <p>Service for handling vehicle bookings.</p>
+      <table class="enum-table">
+        <thead>
+          <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
+        </thead>
+        <tbody>
+          
+            <tr>
+              <td>BookVehicle</td>
+              <td><a href="#com.example.Booking">Booking</a></td>
+              <td><a href="#com.example.BookingStatus">BookingStatus</a></td>
+              <td><p>Used to book a vehicle. Pass in a Booking and a BookingStatus will be returned.</p></td>
+            </tr>
+          
+            <tr>
+              <td>BookingUpdates</td>
+              <td><a href="#com.example.BookingStatusID">BookingStatusID</a></td>
+              <td><a href="#com.example.BookingStatus">BookingStatus</a> stream</td>
+              <td><p>Used to subscribe to updates of the BookingStatus.</p></td>
+            </tr>
+          
+        </tbody>
+      </table>
+
+      
+        
+        
+        <h4>Methods with HTTP bindings</h4>
+        <table>
+          <thead>
+            <tr>
+              <td>Method Name</td>
+              <td>Method</td>
+              <td>Pattern</td>
+              <td>Body</td>
+            </tr>
+          </thead>
+          <tbody>
+          
+            
+            
+            <tr>
+              <td>BookVehicle</td>
+              <td>POST</td>
+              <td>/api/bookings/vehicle/{vehicle_id}</td>
+              <td>*</td>
+            </tr>
+            
+          
+          </tbody>
+        </table>
+        
+      
+
+    
+    <h2 id="messages">Messages</h2>
+    
+    
+      <h3 id="com.example.Booking">Booking</h3>
+      <p>Represents the booking of a vehicle.</p><p>Vehicles are some cool shit. But drive carefully!</p>
+
+      
+        <table class="field-table">
+          <thead>
+            <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>vehicle_id</td>
+                <td><a href="#int32">int32</a></td>
+                <td></td>
+                <td><p>ID of booked vehicle. </p></td>
+              </tr>
+            
+              <tr>
+                <td>customer_id</td>
+                <td><a href="#int32">int32</a></td>
+                <td></td>
+                <td><p>Customer that booked the vehicle. </p></td>
+              </tr>
+            
+              <tr>
+                <td>status</td>
+                <td><a href="#com.example.BookingStatus">BookingStatus</a></td>
+                <td></td>
+                <td><p>Status of the booking. </p></td>
+              </tr>
+            
+              <tr>
+                <td>confirmation_sent</td>
+                <td><a href="#bool">bool</a></td>
+                <td></td>
+                <td><p>Has booking confirmation been sent? </p></td>
+              </tr>
+            
+              <tr>
+                <td>payment_received</td>
+                <td><a href="#bool">bool</a></td>
+                <td></td>
+                <td><p>Has payment been received? </p></td>
+              </tr>
+            
+              <tr>
+                <td>color_preference</td>
+                <td><a href="#string">string</a></td>
+                <td></td>
+                <td><p><strong>Deprecated.</strong> Color preference of the customer. </p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+
+        
+          
+          
+          <h4>Fields with deprecated option</h4>
+          <table>
+            <thead>
+              <tr>
+                <td>Name</td>
+                <td>Option</td>
+              </tr>
+            </thead>
+            <tbody>
+            
+              <tr>
+                <td>color_preference</td>
+                <td><p>true</p></td>
+              </tr>
+            
+            </tbody>
+          </table>
+          
+        
+
+      
+    
+      <h3 id="com.example.BookingStatus">BookingStatus</h3>
+      <p>Represents the status of a vehicle booking.</p>
+
+      
+        <table class="field-table">
+          <thead>
+            <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>id</td>
+                <td><a href="#int32">int32</a></td>
+                <td></td>
+                <td><p>Unique booking status ID. </p></td>
+              </tr>
+            
+              <tr>
+                <td>description</td>
+                <td><a href="#string">string</a></td>
+                <td></td>
+                <td><p>Booking status description. E.g. "Active". </p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+
+        
+          
+          
+          <h4>Validated Fields</h4>
+          <table>
+            <thead>
+              <tr>
+                <td>Field</td>
+                <td>Validations</td>
+              </tr>
+            </thead>
+            <tbody>
+            
+              <tr>
+                <td>description</td>
+                <td>
+                  <ul>
+                  
+                    <li>string_not_empty: true</li>
+                  
+                    <li>length_lt: 255</li>
+                  
+                  </ul>
+                </td>
+              </tr>
+            
+            </tbody>
+          </table>
+          
+        
+
+      
+    
+      <h3 id="com.example.BookingStatusID">BookingStatusID</h3>
+      <p>Represents the booking status ID.</p>
+
+      
+        <table class="field-table">
+          <thead>
+            <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>id</td>
+                <td><a href="#int32">int32</a></td>
+                <td></td>
+                <td><p>Unique booking status ID. </p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+
+        
+
+      
+    
+      <h3 id="com.example.EmptyBookingMessage">EmptyBookingMessage</h3>
+      <p>An empty message for testing</p>
+
+      
+
+      
+    
+
+    
+    
+
+    
+
+    
+  </body>
+</html>
+
