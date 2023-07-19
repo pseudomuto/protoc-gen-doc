@@ -386,6 +386,7 @@ type ScalarValue struct {
 	ProtoType  string `json:"protoType"`
 	Notes      string `json:"notes"`
 	CppType    string `json:"cppType"`
+	RustType   string `json:"rustType"`
 	CSharp     string `json:"csType"`
 	GoType     string `json:"goType"`
 	JavaType   string `json:"javaType"`
