@@ -53,7 +53,8 @@ func (rt RenderType) renderer() (Processor, error) {
 	case RenderTypeJSON:
 		return new(jsonRenderer), nil
 	case RenderTypeMarkdown:
-		return &htmlRenderer{string(tmpl)}, nil
+		return &textRenderer{string(tmpl)}, nil
+		// return &htmlRenderer{string(tmpl)}, nil
 	}
 
 	return nil, errors.New("Unable to create a processor")
