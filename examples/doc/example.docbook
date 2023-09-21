@@ -554,7 +554,7 @@
               <entry>daily_hire_rate_cents</entry>
               <entry><link linkend="sint32">sint32</link></entry>
               <entry>optional</entry>
-              <entry><para>Cents per day.</para></entry>
+              <entry><para>Cents per day.</para><para>e.g. 20</para></entry>
             </row>
             
           </tbody>

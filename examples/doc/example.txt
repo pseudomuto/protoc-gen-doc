@@ -189,6 +189,8 @@ Represents a vehicle that can be hired.
 
 |daily_hire_rate_cents | <<sint32,sint32>> |optional |Cents per day.
 
+e.g. 20
+
 |===========================================
 
 
