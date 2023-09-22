@@ -121,15 +121,50 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 	if strings.Contains(params, ":") {
 		// Parse out exclude patterns if any
 		parts := strings.Split(params, ":")
-		for _, pattern := range strings.Split(parts[1], ",") {
-			r, err := regexp.Compile(pattern)
-			if err != nil {
-				return nil, err
+
+		// On Windows, there can legitimately be up to two ":" in the first part: one for each filename in case absolute paths
+		// are used, as a divider between the drive letter and the remainder of the path. That makes it really ugly: we now
+		// need to do some heuristics to "match" Windows path patterns to detect if a : is not to be treated as a divider
+		// between the first parameter half and the second half with the exclude patterns.
+		// This fixes GitHub issue #497.
+		winPathHeuristic := func(first, second string) bool {
+			// A Windows path in our doc_opt parameter is assumed to have a backslash in the second part...
+			if strings.HasPrefix(second, "\\") {
+				// ...and a drive letter either directly at the start of the first part or being preceded by a comma.
+				// If both of these conditions match, it is assumed that the : separation actually splitted a Windows
+				// path in two parts which belong together.
+				firstMatches, _ := regexp.MatchString("(?:^|,)[a-zA-z]$", first)
+				return firstMatches
 			}
-			options.ExcludePatterns = append(options.ExcludePatterns, r)
+			return false
 		}
-		// The first part is parsed below
-		params = parts[0]
+		excludePart := ""
+		if winPathHeuristic(parts[0], parts[1]) {
+			params = parts[0] + ":" + parts[1]
+			if len(parts) > 2 {
+				if winPathHeuristic(params, parts[2]) {
+					params = params + ":" + parts[2]
+					if len(parts) > 3 {
+						excludePart = parts[3]
+					}
+				} else {
+					excludePart = parts[2]
+				}
+			}
+		} else {
+			params = parts[0]
+			excludePart = parts[1]
+		}
+
+		if len(excludePart) > 0 {
+			for _, pattern := range strings.Split(excludePart, ",") {
+				r, err := regexp.Compile(pattern)
+				if err != nil {
+					return nil, err
+				}
+				options.ExcludePatterns = append(options.ExcludePatterns, r)
+			}
+		}
 	}
 	if params == "" {
 		return options, nil
