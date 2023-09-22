@@ -1,0 +1,116 @@
+= [[top]]Protocol Documentation
+:toc:
+
+{{range .Files}}
+{{$file_name := .Name}}
+[[{{.Name | anchor}}]]
+== {{.Name}}
+
+[.text-right]
+xref:top[Top]
+
+{{.Description}}
+
+{{range .Messages}}
+[[{{.FullName | anchor}}]]
+=== {{.LongName}}
+
+{{.Description}}
+
+{{if .HasFields}}
+[%header,cols="1,1,1,4"]
+|===
+| Field | Type | Label | Description
+
+{{range .Fields -}}
+| {{.Name}} | xref:{{.FullType | anchor}}[{{.LongType}}] | {{.Label}} | {{if (index .Options "deprecated"|default false)}}__Deprecated.__ {{end}}{{nobr .Description}}{{if .DefaultValue}} Default: {{.DefaultValue}}{{end}}
+
+{{end}}
+
+|===
+{{end}}
+
+{{if .HasExtensions}}
+[%header,cols="1,1,1,1,3"]
+|===
+| Extension | Type | Base | Number | Description
+
+{{range .Extensions -}}
+| {{.Name}} | {{.LongType}} | {{.ContainingLongType}} | {{.Number}} | {{nobr .Description}}{{if .DefaultValue}} Default: {{.DefaultValue}}{{end}}
+
+{{end}}
+|===
+{{end}}
+
+{{end}}
+// end messages
+
+{{range .Enums}}
+
+[[{{.FullName | anchor}}]]
+=== {{.LongName}}
+
+{{.Description}}
+
+[%header,cols="1,1,4"]
+|===
+| Name | Number | Description
+
+{{range .Values -}}
+| {{.Name}} | {{.Number}} | {{nobr .Description}}
+
+{{end}}
+|===
+{{end}}
+// end enums
+
+{{if .HasExtensions}}
+
+[[{{$file_name | anchor}}-extensions]]
+=== File-level Extensions
+
+[%header,cols="1,1,1,1,2"]
+|===
+| Extension | Type | Base | Number | Description
+
+{{range .Extensions -}}
+| {{.Name}} | {{.LongType}} | {{.ContainingLongType}} | {{.Number}} | {{nobr .Description}}{{if .DefaultValue}} Default: `{{.DefaultValue}}`{{end}}
+{{end}}
+|===
+{{end}}
+// end HasExtensions
+
+{{range .Services}}
+
+[[{{.FullName | anchor}}]]
+=== {{.Name}}
+
+{{.Description}}
+
+[%header,cols="1,1,1,3"]
+|===
+| Method Name | Request Type | Response Type | Description
+
+{{range .Methods -}}
+| {{.Name}} | xref:{{.RequestFullType | anchor}}[{{.RequestLongType}}]{{if .RequestStreaming}} stream{{end}} | xref:{{.ResponseFullType | anchor}}[{{.ResponseLongType}}]{{if .ResponseStreaming}} stream{{end}} | {{nobr .Description}}
+
+{{end}}
+|===
+{{end}}
+// end services
+
+{{end}}
+
+[[scalar-value-types]]
+== Scalar Value Types
+
+[%header,cols="1,3,1,1,1,1,1,1,1"]
+|===
+| .proto Type | Notes | C++ | Java | Python | Go | C# | PHP | Ruby
+
+{{range .Scalars -}}
+[[{{.ProtoType | anchor}}]]
+| {{.ProtoType}} | {{.Notes}} | {{.CppType}} | {{.JavaType}} | {{.PythonType}} | {{.GoType}} | {{.CSharp}} | {{.PhpType}} | {{.RubyType}}
+{{end}}
+
+|===
