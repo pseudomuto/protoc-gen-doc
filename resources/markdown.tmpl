@@ -45,6 +45,19 @@
 {{end}}
 {{end}}
 
+{{$message := .}}
+{{- range .FieldOptions}}
+{{$option := .}}
+{{if eq . "validator.field" "validate.rules" }}
+#### Validated Fields
+| Field | Validations |
+| ----- | ----------- |
+{{range $message.FieldsWithOption . -}}
+  | {{.Name}} | {{range (.Option $option).Rules}}• {{.Name}}: `{{.Value}}`<br>{{end}} |
+{{end}}
+{{end}}
+{{end}}
+
 {{if .HasExtensions}}
 | Extension | Type | Base | Number | Description |
 | --------- | ---- | ---- | ------ | ----------- |
