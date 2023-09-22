@@ -4,3 +4,5 @@
 /coverage.txt
 /dist
 /tmp/
+.idea
+*.iml
