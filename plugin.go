@@ -21,6 +21,7 @@ type PluginOptions struct {
 	OutputFile      string
 	ExcludePatterns []*regexp.Regexp
 	SourceRelative  bool
+	SeparateFiles   bool
 }
 
 // SupportedFeatures describes a flag setting for supported features.
@@ -51,19 +52,47 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 	}
 
 	resp := new(plugin_go.CodeGeneratorResponse)
+
 	fdsGroup := groupProtosByDirectory(result, options.SourceRelative)
 	for dir, fds := range fdsGroup {
-		template := NewTemplate(fds)
+		if !options.SeparateFiles {
+			template := NewTemplate(fds)
 
-		output, err := RenderTemplate(options.Type, template, customTemplate)
-		if err != nil {
-			return nil, err
+			output, err := RenderTemplate(options.Type, template, customTemplate)
+			if err != nil {
+				return nil, err
+			}
+
+			resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
+				Name:    proto.String(filepath.Join(dir, options.OutputFile)),
+				Content: proto.String(string(output)),
+			})
+		} else {
+			var templates = make([]*Template, len(fds));
+			for idx, fd := range fds {
+				templates[idx] = NewTemplate([]*protokit.FileDescriptor{fd})
+			}
+
+			for idx, fd := range fds {
+				template := templates[idx]
+
+				ResolveTypePaths(template)
+
+				output, err := RenderTemplate(options.Type, template, customTemplate)
+				if err != nil {
+					return nil, err
+				}
+
+				_, protoFilename := filepath.Split(fd.GetName())
+
+				filenameParts := strings.Split(protoFilename, ".")
+
+				resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
+					Name:    proto.String(filepath.Join(dir, filenameParts[0]+"."+options.OutputFile)),
+					Content: proto.String(string(output)),
+				})
+			}
 		}
-
-		resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
-			Name:    proto.String(filepath.Join(dir, options.OutputFile)),
-			Content: proto.String(string(output)),
-		})
 	}
 
 	resp.SupportedFeatures = proto.Uint64(SupportedFeatures)
@@ -107,7 +136,7 @@ OUTER:
 // ParseOptions parses plugin options from a CodeGeneratorRequest. It does this by splitting the `Parameter` field from
 // the request object and parsing out the type of renderer to use and the name of the file to be generated.
 //
-// The parameter (`--doc_opt`) must be of the format <TYPE|TEMPLATE_FILE>,<OUTPUT_FILE>[,default|source_relative]:<EXCLUDE_PATTERN>,<EXCLUDE_PATTERN>*.
+// The parameter (`--doc_opt`) must be of the format <TYPE|TEMPLATE_FILE>,<OUTPUT_FILE>[,default|source_relative][,default|separate_files]:<EXCLUDE_PATTERN>,<EXCLUDE_PATTERN>*.
 // The file will be written to the directory specified with the `--doc_out` argument to protoc.
 func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 	options := &PluginOptions{
@@ -115,6 +144,7 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 		TemplateFile:   "",
 		OutputFile:     "index.html",
 		SourceRelative: false,
+		SeparateFiles:  false,
 	}
 
 	params := req.GetParameter()
@@ -140,23 +170,40 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 	}
 
 	parts := strings.Split(params, ",")
-	if len(parts) < 2 || len(parts) > 3 {
+	if len(parts) < 2 || len(parts) > 4 {
 		return nil, fmt.Errorf("Invalid parameter: %s", params)
 	}
 
 	options.TemplateFile = parts[0]
 	options.OutputFile = path.Base(parts[1])
+
+	// Handle extra options
 	if len(parts) > 2 {
-		switch parts[2] {
-		case "source_relative":
-			options.SourceRelative = true
-		case "default":
-			options.SourceRelative = false
-		default:
-			return nil, fmt.Errorf("Invalid parameter: %s", params)
+		extraOptions := parts[2:]
+
+		for i := range extraOptions {
+			switch i {
+			case 0: // Third option
+				switch extraOptions[i] {
+				case "source_relative":
+					options.SourceRelative = true
+				case "default":
+					options.SourceRelative = false
+				default:
+					return nil, fmt.Errorf("Invalid parameter: %s", params)
+				}
+			case 1: // Fourth option
+				switch extraOptions[i] {
+				case "separate_files":
+					options.SeparateFiles = true
+				case "default":
+					options.SeparateFiles = false
+				default:
+					return nil, fmt.Errorf("Invalid parameter: %s", params)
+				}
+			}
 		}
 	}
-	options.SourceRelative = len(parts) > 2 && parts[2] == "source_relative"
 
 	renderType, err := NewRenderType(options.TemplateFile)
 	if err == nil {

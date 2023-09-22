@@ -9,6 +9,9 @@ PROTOS_DIR=$(EXAMPLE_DIR)/proto
 EXAMPLE_CMD=bin/protoc --plugin=bin/protoc-gen-doc \
 	-Ithirdparty -Itmp/googleapis -Iexamples/proto \
 	--doc_out=examples/doc
+EXAMPLE_CMD_MULTI_PAGE=bin/protoc --plugin=bin/protoc-gen-doc \
+	-Ithirdparty -Itmp/googleapis -Iexamples/proto \
+	--doc_out=examples/doc-multi-page
 
 DOCKER_CMD=docker run --rm \
 	-v $(DOCS_DIR):/out:rw \
@@ -44,6 +47,7 @@ build/examples: bin/protoc build tmp/googleapis examples/proto/*.proto examples/
 	@$(EXAMPLE_CMD) --doc_opt=json,example.json:Ignore* examples/proto/*.proto
 	@$(EXAMPLE_CMD) --doc_opt=markdown,example.md:Ignore* examples/proto/*.proto
 	@$(EXAMPLE_CMD) --doc_opt=examples/templates/asciidoc.tmpl,example.txt:Ignore* examples/proto/*.proto
+	@$(EXAMPLE_CMD_MULTI_PAGE)/html --doc_opt=examples/templates/html-multi-page.tmpl,html,source_relative,separate_files:Ignore* examples/proto/*.proto
 
 ##@: Dev
 

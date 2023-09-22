@@ -214,11 +214,23 @@
                 </li>
               
                 <li>
+                  <a href="#com.example.BookingStatusMessage"><span class="badge">M</span>BookingStatusMessage</a>
+                </li>
+              
+                <li>
                   <a href="#com.example.Customer"><span class="badge">M</span>Customer</a>
+                </li>
+              
+                <li>
+                  <a href="#com.example.VerificationRequest"><span class="badge">M</span>VerificationRequest</a>
                 </li>
               
               
               
+              
+                <li>
+                  <a href="#com.example.CustomerService"><span class="badge">S</span>CustomerService</a>
+                </li>
               
             </ul>
           </li>
@@ -568,6 +580,30 @@
 
         
       
+        <h3 id="com.example.BookingStatusMessage">BookingStatusMessage</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>description</td>
+                  <td><a href="#string">string</a></td>
+                  <td>required</td>
+                  <td><p>Booking status description. E.g. &#34;Active&#34;. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
         <h3 id="com.example.Customer">Customer</h3>
         <p>Represents a customer.</p>
 
@@ -634,12 +670,69 @@
 
         
       
+        <h3 id="com.example.VerificationRequest">VerificationRequest</h3>
+        <p></p>
 
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>customer_id</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td>required</td>
+                  <td><p>Unique customer ID. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>booking_status_id</td>
+                  <td><a href="#com.example.BookingStatusID">BookingStatusID</a></td>
+                  <td>required</td>
+                  <td><p>Unique booking status ID. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
       
 
       
 
       
+
+      
+        <h3 id="com.example.CustomerService">CustomerService</h3>
+        <p>Customer centric booking service.</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>FindBookings</td>
+                <td><a href="#com.example.Customer">Customer</a></td>
+                <td><a href="#com.example.Booking">Booking</a> stream</td>
+                <td><p>Retrieve all bookings made by a customer.</p></td>
+              </tr>
+            
+              <tr>
+                <td>VerifyBookingStatus</td>
+                <td><a href="#com.example.VerificationRequest">VerificationRequest</a></td>
+                <td><a href="#com.example.BookingStatusMessage">BookingStatusMessage</a></td>
+                <td><p>Verify the payment status of a booking.</p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+
+        
     
       
       <div class="file-heading">
