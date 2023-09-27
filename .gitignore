@@ -4,3 +4,4 @@
 /coverage.txt
 /dist
 /tmp/
+bazel-out
