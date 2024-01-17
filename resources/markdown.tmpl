@@ -5,7 +5,7 @@
 
 {{range .Messages}}
 
-## {{.LongName}}
+### {{.LongName}}
 {{.Description}}
 
 {{if .HasFields}}
@@ -26,11 +26,10 @@
 
 {{end}}
 
-## Enums
-
+### Enums
 {{range .Enums}}
 
-## {{.LongName}}
+#### {{.LongName}}
 {{.Description}}
 
 | Name | Number | Description |
@@ -43,7 +42,7 @@
 
 {{if .HasExtensions}}
 
-## File-level Extensions
+### File-level Extensions
 | Extension | Type | Base | Number | Description |
 | --------- | ---- | ---- | ------ | ----------- |
 {{range .Extensions -}}
