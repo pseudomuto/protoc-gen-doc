@@ -17,6 +17,7 @@ var (
 // PFilter splits the content by new lines and wraps each one in a <p> tag.
 func PFilter(content string) template.HTML {
 	paragraphs := paraPattern.Split(content, -1)
+
 	return template.HTML(fmt.Sprintf("<p>%s</p>", strings.Join(paragraphs, "</p><p>")))
 }
 
@@ -36,6 +37,11 @@ func NoBrFilter(content string) string {
 		paragraphs[i] = spacePattern.ReplaceAllString(withoutLF, " ")
 	}
 	return strings.Join(paragraphs, "\n\n")
+}
+
+// BrFilter uses NoBrFilter to remove single CR and LF and then replaces \n\n with <br/><br/>
+func BrFilter(content string) template.HTML {
+	return template.HTML(strings.Replace(NoBrFilter(content), "\n\n", "<br/><br/>", -1))
 }
 
 // AnchorFilter replaces all special characters with URL friendly dashes
