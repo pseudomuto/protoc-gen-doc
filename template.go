@@ -20,6 +20,8 @@ type Template struct {
 	Scalars []*ScalarValue `json:"scalarValueTypes"`
 }
 
+var typesMap = make(map[string]string)
+
 // NewTemplate creates a Template object from a set of descriptors.
 func NewTemplate(descs []*protokit.FileDescriptor) *Template {
 	files := make([]*File, 0, len(descs))
@@ -42,6 +44,7 @@ func NewTemplate(descs []*protokit.FileDescriptor) *Template {
 
 		for _, e := range f.Enums {
 			file.Enums = append(file.Enums, parseEnum(e))
+			typesMap[e.GetFullName()] = fileNameToMapValue(file.Name)
 		}
 
 		for _, e := range f.Extensions {
@@ -52,8 +55,10 @@ func NewTemplate(descs []*protokit.FileDescriptor) *Template {
 		var addFromMessage func(*protokit.Descriptor)
 		addFromMessage = func(m *protokit.Descriptor) {
 			file.Messages = append(file.Messages, parseMessage(m))
+			typesMap[m.GetFullName()] = fileNameToMapValue(file.Name)
 			for _, e := range m.Enums {
 				file.Enums = append(file.Enums, parseEnum(e))
+				typesMap[e.GetFullName()] = fileNameToMapValue(file.Name)
 			}
 			for _, n := range m.Messages {
 				addFromMessage(n)
@@ -76,6 +81,30 @@ func NewTemplate(descs []*protokit.FileDescriptor) *Template {
 	}
 
 	return &Template{Files: files, Scalars: makeScalars()}
+}
+
+func fileNameToMapValue(fileName string) string {
+	return strings.TrimSuffix(fileName, ".proto")
+}
+
+func ResolveTypePaths(tmpl *Template) {
+	for _, file := range tmpl.Files {
+		for _, service := range file.Services {
+			for i, method := range service.Methods {
+				requestFile := typesMap[method.RequestFullType]
+				service.Methods[i].RequestTypeFile = requestFile
+
+				responseFile := typesMap[method.ResponseFullType]
+				service.Methods[i].ResponseTypeFile = responseFile
+			}
+		}
+		for _, message := range file.Messages {
+			for i, field := range message.Fields {
+				file := typesMap[field.FullType]
+				message.Fields[i].TypeFile = file
+			}
+		}
+	}
 }
 
 func makeScalars() []*ScalarValue {
@@ -230,6 +259,7 @@ type MessageField struct {
 	Type         string `json:"type"`
 	LongType     string `json:"longType"`
 	FullType     string `json:"fullType"`
+	TypeFile     string `json:"typeFile"`
 	IsMap        bool   `json:"ismap"`
 	IsOneof      bool   `json:"isoneof"`
 	OneofDecl    string `json:"oneofdecl"`
@@ -365,10 +395,12 @@ type ServiceMethod struct {
 	RequestType       string `json:"requestType"`
 	RequestLongType   string `json:"requestLongType"`
 	RequestFullType   string `json:"requestFullType"`
+	RequestTypeFile   string `json:"requestTypeFile"`
 	RequestStreaming  bool   `json:"requestStreaming"`
 	ResponseType      string `json:"responseType"`
 	ResponseLongType  string `json:"responseLongType"`
 	ResponseFullType  string `json:"responseFullType"`
+	ResponseTypeFile  string `json:"responseTypeFile"`
 	ResponseStreaming bool   `json:"responseStreaming"`
 
 	Options map[string]interface{} `json:"options,omitempty"`
@@ -479,6 +511,7 @@ func parseMessageField(pf *protokit.FieldDescriptor, oneofDecls []*descriptor.On
 		Type:         t,
 		LongType:     lt,
 		FullType:     ft,
+		TypeFile:     "",
 		DefaultValue: pf.GetDefaultValue(),
 		Options:      mergeOptions(extractOptions(pf.GetOptions()), extensions.Transform(pf.OptionExtensions)),
 		IsOneof:      pf.OneofIndex != nil,
@@ -525,10 +558,12 @@ func parseServiceMethod(pm *protokit.MethodDescriptor) *ServiceMethod {
 		RequestType:       baseName(pm.GetInputType()),
 		RequestLongType:   strings.TrimPrefix(pm.GetInputType(), "."+pm.GetPackage()+"."),
 		RequestFullType:   strings.TrimPrefix(pm.GetInputType(), "."),
+		RequestTypeFile:   "",
 		RequestStreaming:  pm.GetClientStreaming(),
 		ResponseType:      baseName(pm.GetOutputType()),
 		ResponseLongType:  strings.TrimPrefix(pm.GetOutputType(), "."+pm.GetPackage()+"."),
 		ResponseFullType:  strings.TrimPrefix(pm.GetOutputType(), "."),
+		ResponseTypeFile:  "",
 		ResponseStreaming: pm.GetServerStreaming(),
 		Options:           mergeOptions(extractOptions(pm.GetOptions()), extensions.Transform(pm.OptionExtensions)),
 	}
