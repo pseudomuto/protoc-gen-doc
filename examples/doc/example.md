@@ -237,7 +237,7 @@ Represents a vehicle that can be hired.
 | mileage | [sint32](#sint32) | optional | Current vehicle mileage, if known. |
 | category | [Vehicle.Category](#com-example-Vehicle-Category) | optional | Vehicle category. |
 | daily_hire_rate_dollars | [sint32](#sint32) | optional | Dollars per day. Default: 50 |
-| daily_hire_rate_cents | [sint32](#sint32) | optional | Cents per day. |
+| daily_hire_rate_cents | [sint32](#sint32) | optional | Cents per day.&lt;br&gt;&lt;br&gt;e.g. 20 |
 
 
 
