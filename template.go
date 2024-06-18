@@ -38,6 +38,7 @@ func NewTemplate(descs []*protokit.FileDescriptor) *Template {
 			Messages:      make(orderedMessages, 0, len(f.Messages)),
 			Services:      make(orderedServices, 0, len(f.Services)),
 			Options:       mergeOptions(extractOptions(f.GetOptions()), extensions.Transform(f.OptionExtensions)),
+			Syntax:        f.GetSyntax(),
 		}
 
 		for _, e := range f.Enums {
@@ -141,6 +142,8 @@ type File struct {
 	Services   orderedServices   `json:"services"`
 
 	Options map[string]interface{} `json:"options,omitempty"`
+
+	Syntax string `json:"syntax,omitempty"`
 }
 
 // Option returns the named option.
@@ -236,6 +239,8 @@ type MessageField struct {
 	DefaultValue string `json:"defaultValue"`
 
 	Options map[string]interface{} `json:"options,omitempty"`
+
+	Number int `json:"number,omitempty"`
 }
 
 // Option returns the named option.
@@ -482,6 +487,7 @@ func parseMessageField(pf *protokit.FieldDescriptor, oneofDecls []*descriptor.On
 		DefaultValue: pf.GetDefaultValue(),
 		Options:      mergeOptions(extractOptions(pf.GetOptions()), extensions.Transform(pf.OptionExtensions)),
 		IsOneof:      pf.OneofIndex != nil,
+		Number:       int(pf.GetNumber()),
 	}
 
 	if m.IsOneof {
