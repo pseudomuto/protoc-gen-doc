@@ -7,6 +7,7 @@
 
 {{range .Messages}}
 
+[[{{.FullName}}]]
 === {{.LongName}}
 {{nobr .Description}}
 
@@ -22,7 +23,7 @@
 
 {{range .Enums}}
 
-[[{{.LongName}}]]
+[[{{.FullName}}]]
 === {{.LongName}}
 {{.Description}}
 
