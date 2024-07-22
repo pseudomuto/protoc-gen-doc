@@ -27,7 +27,7 @@ Vehicles are some cool shit. But drive carefully!
 
 |payment_received | <<bool,bool>> | |Has payment been received?
 
-|color_preference | <<string,string>> | |Color preference of the customer.
+|color_preference | <<string,string>> | |**Deprecated.** Color preference of the customer.
 
 |===========================================
 
@@ -148,7 +148,7 @@ Represents a manufacturer of cars.
 
 |details | <<string,string>> |optional |Manufacturer details (minimum orders et.c.).
 
-|category | <<com.example.Manufacturer.Category,Manufacturer.Category>> |optional |Manufacturer category.
+|category | <<com.example.Manufacturer.Category,Manufacturer.Category>> |optional |Manufacturer category. Default: CATEGORY_EXTERNAL
 
 |===========================================
 
@@ -194,7 +194,7 @@ Represents a vehicle that can be hired.
 
 |category | <<com.example.Vehicle.Category,Vehicle.Category>> |optional |Vehicle category.
 
-|daily_hire_rate_dollars | <<sint32,sint32>> |optional |Dollars per day.
+|daily_hire_rate_dollars | <<sint32,sint32>> |optional |Dollars per day. Default: 50
 
 |daily_hire_rate_cents | <<sint32,sint32>> |optional |Cents per day.
 
