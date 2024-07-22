@@ -43,7 +43,7 @@ build/examples: bin/protoc build tmp/googleapis examples/proto/*.proto examples/
 	@$(EXAMPLE_CMD) --doc_opt=html,example.html:Ignore* examples/proto/*.proto
 	@$(EXAMPLE_CMD) --doc_opt=json,example.json:Ignore* examples/proto/*.proto
 	@$(EXAMPLE_CMD) --doc_opt=markdown,example.md:Ignore* examples/proto/*.proto
-	@$(EXAMPLE_CMD) --doc_opt=examples/templates/asciidoc.tmpl,example.txt:Ignore* examples/proto/*.proto
+	@$(EXAMPLE_CMD) --doc_opt=examples/templates/asciidoc.tmpl,example.adoc:Ignore* examples/proto/*.proto
 
 ##@: Dev
 
