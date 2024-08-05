@@ -102,10 +102,7 @@ func mergeOptions(opts ...map[string]interface{}) map[string]interface{} {
 	return out
 }
 
-func maybeCamelCase(s string, makeCamelCase bool) string {
-	if !makeCamelCase {
-		return s
-	}
+func camelCase(s string) string {
 	var result strings.Builder
 
 	words := strings.Split(s, "_")
@@ -493,8 +490,13 @@ func parseMessageExtension(pe *protokit.ExtensionDescriptor) *MessageExtension {
 func parseMessageField(pf *protokit.FieldDescriptor, oneofDecls []*descriptor.OneofDescriptorProto, pluginOptions *PluginOptions) *MessageField {
 	t, lt, ft := parseType(pf)
 
+	name := pf.GetName()
+	if pluginOptions.CamelCaseFields {
+		name = camelCase(name)
+	}
+
 	m := &MessageField{
-		Name:         maybeCamelCase(pf.GetName(), pluginOptions.CamelCaseFields),
+		Name:         name,
 		Description:  description(pf.GetComments().String()),
 		Label:        labelName(pf.GetLabel(), pf.IsProto3(), pf.GetProto3Optional()),
 		Type:         t,

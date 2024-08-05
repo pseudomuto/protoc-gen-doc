@@ -141,9 +141,6 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 			}
 			options.ExcludePatterns = append(options.ExcludePatterns, r)
 		}
-		// Parse out any additional options, if any
-		if len(parts) > 2 {
-		}
 		// The first part is parsed below
 		params = parts[0]
 	}

@@ -29,7 +29,7 @@ func TestMain(m *testing.M) {
 	req := utils.CreateGenRequest(set, "Booking.proto", "Vehicle.proto")
 	result := protokit.ParseCodeGenRequest(req)
 
-	template = NewTemplate(result, &PluginOptions{CamelCaseFields: true})
+	template = NewTemplate(result, &PluginOptions{})
 	bookingFile = template.Files[0]
 	vehicleFile = template.Files[1]
 
