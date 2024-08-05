@@ -21,6 +21,7 @@ type PluginOptions struct {
 	OutputFile      string
 	ExcludePatterns []*regexp.Regexp
 	SourceRelative  bool
+	CamelCaseFields bool
 }
 
 // SupportedFeatures describes a flag setting for supported features.
@@ -53,7 +54,7 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 	resp := new(plugin_go.CodeGeneratorResponse)
 	fdsGroup := groupProtosByDirectory(result, options.SourceRelative)
 	for dir, fds := range fdsGroup {
-		template := NewTemplate(fds)
+		template := NewTemplate(fds, options)
 
 		output, err := RenderTemplate(options.Type, template, customTemplate)
 		if err != nil {
@@ -107,41 +108,53 @@ OUTER:
 // ParseOptions parses plugin options from a CodeGeneratorRequest. It does this by splitting the `Parameter` field from
 // the request object and parsing out the type of renderer to use and the name of the file to be generated.
 //
-// The parameter (`--doc_opt`) must be of the format <TYPE|TEMPLATE_FILE>,<OUTPUT_FILE>[,default|source_relative]:<EXCLUDE_PATTERN>,<EXCLUDE_PATTERN>*.
+// The parameter (`--doc_opt`) must be of the format <TYPE|TEMPLATE_FILE>,<OUTPUT_FILE>[,default|source_relative]:<EXCLUDE_PATTERN>,<EXCLUDE_PATTERN>*:[,camel_case_fields=[true|false]].
 // The file will be written to the directory specified with the `--doc_out` argument to protoc.
 func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 	options := &PluginOptions{
-		Type:           RenderTypeHTML,
-		TemplateFile:   "",
-		OutputFile:     "index.html",
-		SourceRelative: false,
+		Type:            RenderTypeHTML,
+		TemplateFile:    "",
+		OutputFile:      "index.html",
+		SourceRelative:  false,
+		CamelCaseFields: false,
 	}
 
 	params := req.GetParameter()
-	if strings.Contains(params, ":") {
-		// Parse out exclude patterns if any
-		parts := strings.Split(params, ":")
-		for _, pattern := range strings.Split(parts[1], ",") {
-			r, err := regexp.Compile(pattern)
-			if err != nil {
-				return nil, err
-			}
-			options.ExcludePatterns = append(options.ExcludePatterns, r)
+	colonParts := strings.Split(params, ":")
+	if len(colonParts) == 3 {
+		additionalOptions := (strings.Split(colonParts[2], "\n"))[0]
+		if additionalOptions == "camel_case_fields=true" {
+			options.CamelCaseFields = true
+		} else if additionalOptions == "camel_case_fields=false" {
+			options.CamelCaseFields = false
+		} else if additionalOptions != "" {
+			return nil, fmt.Errorf("Invalid additional options after second colon separator: %v", additionalOptions)
 		}
-		// The first part is parsed below
-		params = parts[0]
 	}
-	if params == "" {
+	if len(colonParts) >= 2 {
+		if colonParts[1] != "" {
+			// Parse out exclude patterns if any
+			for _, pattern := range strings.Split(colonParts[1], ",") {
+				r, err := regexp.Compile(pattern)
+				if err != nil {
+					return nil, err
+				}
+				options.ExcludePatterns = append(options.ExcludePatterns, r)
+			}
+		}
+	}
+	fileParams := colonParts[0]
+	if fileParams == "" {
 		return options, nil
 	}
 
-	if !strings.Contains(params, ",") {
-		return nil, fmt.Errorf("Invalid parameter: %s", params)
+	if !strings.Contains(fileParams, ",") {
+		return nil, fmt.Errorf("Invalid parameter: %s", fileParams)
 	}
 
-	parts := strings.Split(params, ",")
+	parts := strings.Split(fileParams, ",")
 	if len(parts) < 2 || len(parts) > 3 {
-		return nil, fmt.Errorf("Invalid parameter: %s", params)
+		return nil, fmt.Errorf("Invalid parameter: %s", fileParams)
 	}
 
 	options.TemplateFile = parts[0]
@@ -153,7 +166,7 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 		case "default":
 			options.SourceRelative = false
 		default:
-			return nil, fmt.Errorf("Invalid parameter: %s", params)
+			return nil, fmt.Errorf("Invalid parameter: %s", fileParams)
 		}
 	}
 	options.SourceRelative = len(parts) > 2 && parts[2] == "source_relative"
