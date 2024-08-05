@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"sort"
 	"strings"
+	"unicode"
 
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
 	"github.com/pseudomuto/protoc-gen-doc/extensions"
@@ -21,7 +22,7 @@ type Template struct {
 }
 
 // NewTemplate creates a Template object from a set of descriptors.
-func NewTemplate(descs []*protokit.FileDescriptor) *Template {
+func NewTemplate(descs []*protokit.FileDescriptor, pluginOptions *PluginOptions) *Template {
 	files := make([]*File, 0, len(descs))
 
 	for _, f := range descs {
@@ -51,7 +52,7 @@ func NewTemplate(descs []*protokit.FileDescriptor) *Template {
 		// Recursively add nested types from messages
 		var addFromMessage func(*protokit.Descriptor)
 		addFromMessage = func(m *protokit.Descriptor) {
-			file.Messages = append(file.Messages, parseMessage(m))
+			file.Messages = append(file.Messages, parseMessage(m, pluginOptions))
 			for _, e := range m.Enums {
 				file.Enums = append(file.Enums, parseEnum(e))
 			}
@@ -99,6 +100,26 @@ func mergeOptions(opts ...map[string]interface{}) map[string]interface{} {
 		return nil
 	}
 	return out
+}
+
+func maybeCamelCase(s string, makeCamelCase bool) string {
+	if !makeCamelCase {
+		return s
+	}
+	var result strings.Builder
+
+	words := strings.Split(s, "_")
+	for i, word := range words {
+		if i == 0 {
+			result.WriteString(strings.ToLower(word))
+		} else {
+			runes := []rune(word)
+			runes[0] = unicode.ToUpper(runes[0])
+			result.WriteString(string(runes))
+		}
+	}
+
+	return result.String()
 }
 
 // CommonOptions are options common to all descriptor types.
@@ -435,7 +456,7 @@ func parseFileExtension(pe *protokit.ExtensionDescriptor) *FileExtension {
 	}
 }
 
-func parseMessage(pm *protokit.Descriptor) *Message {
+func parseMessage(pm *protokit.Descriptor, pluginOptions *PluginOptions) *Message {
 	msg := &Message{
 		Name:          pm.GetName(),
 		LongName:      pm.GetLongName(),
@@ -454,7 +475,7 @@ func parseMessage(pm *protokit.Descriptor) *Message {
 	}
 
 	for _, f := range pm.Fields {
-		msg.Fields = append(msg.Fields, parseMessageField(f, pm.GetOneofDecl()))
+		msg.Fields = append(msg.Fields, parseMessageField(f, pm.GetOneofDecl(), pluginOptions))
 	}
 
 	return msg
@@ -469,11 +490,11 @@ func parseMessageExtension(pe *protokit.ExtensionDescriptor) *MessageExtension {
 	}
 }
 
-func parseMessageField(pf *protokit.FieldDescriptor, oneofDecls []*descriptor.OneofDescriptorProto) *MessageField {
+func parseMessageField(pf *protokit.FieldDescriptor, oneofDecls []*descriptor.OneofDescriptorProto, pluginOptions *PluginOptions) *MessageField {
 	t, lt, ft := parseType(pf)
 
 	m := &MessageField{
-		Name:         pf.GetName(),
+		Name:         maybeCamelCase(pf.GetName(), pluginOptions.CamelCaseFields),
 		Description:  description(pf.GetComments().String()),
 		Label:        labelName(pf.GetLabel(), pf.IsProto3(), pf.GetProto3Optional()),
 		Type:         t,

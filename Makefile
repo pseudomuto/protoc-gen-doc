@@ -43,6 +43,7 @@ build/examples: bin/protoc build tmp/googleapis examples/proto/*.proto examples/
 	@$(EXAMPLE_CMD) --doc_opt=html,example.html:Ignore* examples/proto/*.proto
 	@$(EXAMPLE_CMD) --doc_opt=json,example.json:Ignore* examples/proto/*.proto
 	@$(EXAMPLE_CMD) --doc_opt=markdown,example.md:Ignore* examples/proto/*.proto
+	@$(EXAMPLE_CMD) --doc_opt=markdown,example-camel-case-fields.md:Ignore*:camel_case_fields=true examples/proto/*.proto
 	@$(EXAMPLE_CMD) --doc_opt=examples/templates/asciidoc.tmpl,example.txt:Ignore* examples/proto/*.proto
 
 ##@: Dev
@@ -71,6 +72,7 @@ test/docker: bin/protoc tmp/googleapis release/snapshot ## Run the docker e2e te
 	@$(DOCKER_CMD) --doc_opt=html,example.html:Ignore*
 	@$(DOCKER_CMD) --doc_opt=json,example.json:Ignore*
 	@$(DOCKER_CMD) --doc_opt=markdown,example.md:Ignore*
+	@$(DOCKER_CMD) --doc_opt=markdown,example-camel-case-fields.md:Ignore*:camel_case_fields=true
 	@$(DOCKER_CMD) --doc_opt=/templates/asciidoc.tmpl,example.txt:Ignore*
 
 ##@: Release
