@@ -132,29 +132,29 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 		}
 	}
 	if len(colonParts) >= 2 {
-		// Parse out exclude patterns if any
-		parts := strings.Split(params, ":")
-		for _, pattern := range strings.Split(parts[1], ",") {
-			r, err := regexp.Compile(pattern)
-			if err != nil {
-				return nil, err
+		if colonParts[1] != "" {
+			// Parse out exclude patterns if any
+			for _, pattern := range strings.Split(colonParts[1], ",") {
+				r, err := regexp.Compile(pattern)
+				if err != nil {
+					return nil, err
+				}
+				options.ExcludePatterns = append(options.ExcludePatterns, r)
 			}
-			options.ExcludePatterns = append(options.ExcludePatterns, r)
 		}
-		// The first part is parsed below
-		params = parts[0]
 	}
-	if params == "" {
+	fileParams := colonParts[0]
+	if fileParams == "" {
 		return options, nil
 	}
 
-	if !strings.Contains(params, ",") {
-		return nil, fmt.Errorf("Invalid parameter: %s", params)
+	if !strings.Contains(fileParams, ",") {
+		return nil, fmt.Errorf("Invalid parameter: %s", fileParams)
 	}
 
-	parts := strings.Split(params, ",")
+	parts := strings.Split(fileParams, ",")
 	if len(parts) < 2 || len(parts) > 3 {
-		return nil, fmt.Errorf("Invalid parameter: %s", params)
+		return nil, fmt.Errorf("Invalid parameter: %s", fileParams)
 	}
 
 	options.TemplateFile = parts[0]
@@ -166,7 +166,7 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 		case "default":
 			options.SourceRelative = false
 		default:
-			return nil, fmt.Errorf("Invalid parameter: %s", params)
+			return nil, fmt.Errorf("Invalid parameter: %s", fileParams)
 		}
 	}
 	options.SourceRelative = len(parts) > 2 && parts[2] == "source_relative"
