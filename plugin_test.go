@@ -97,6 +97,31 @@ func TestParseOptionsWithInvalidValues(t *testing.T) {
 	}
 }
 
+func TestParseOptionsForCustomTemplateWindowsAbsolutePath(t *testing.T) {
+	req := new(plugin_go.CodeGeneratorRequest)
+	req.Parameter = proto.String("C:\\path\\to\\template.tmpl,C:\\path\\to\\output")
+
+	options, err := ParseOptions(req)
+	require.NoError(t, err)
+
+	require.Equal(t, RenderTypeHTML, options.Type)
+	require.Equal(t, "C:\\path\\to\\template.tmpl", options.TemplateFile)
+	require.Equal(t, "C:\\path\\to\\output", options.OutputFile)
+}
+
+func TestParseOptionsForCustomTemplateWindowsAbsolutePathPlusExcludes(t *testing.T) {
+	req := new(plugin_go.CodeGeneratorRequest)
+	req.Parameter = proto.String("C:\\path\\to\\template.tmpl,C:\\path\\to\\output:test.*")
+
+	options, err := ParseOptions(req)
+	require.NoError(t, err)
+
+	require.Equal(t, RenderTypeHTML, options.Type)
+	require.Equal(t, "C:\\path\\to\\template.tmpl", options.TemplateFile)
+	require.Equal(t, "C:\\path\\to\\output", options.OutputFile)
+	require.Equal(t, "test.*", options.ExcludePatterns[0].String())
+}
+
 func TestRunPluginForBuiltinTemplate(t *testing.T) {
 	set, _ := utils.LoadDescriptorSet("fixtures", "fileset.pb")
 	req := utils.CreateGenRequest(set, "Booking.proto", "Vehicle.proto", "nested/Book.proto")
