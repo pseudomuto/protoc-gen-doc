@@ -426,6 +426,22 @@ func TestServiceMethodProperties(t *testing.T) {
 	require.True(t, *method.Option(E_ExtendMethod.Name).(*bool))
 }
 
+func TestServiceMethodSorting(t *testing.T) {
+	service := findService("VehicleService", vehicleFile)
+
+	// verify 'by file' order by default
+	unsortedMethods := service.Methods
+	require.Equal(t, "GetModels", unsortedMethods[0].Name)
+	require.Equal(t, "AddModels", unsortedMethods[1].Name)
+	require.Equal(t, "GetVehicle", unsortedMethods[2].Name)
+
+	// verify 'a-z' order when sorted
+	sortedMethods := SortServiceMethods(service.Methods)
+	require.Equal(t, "AddModels", sortedMethods[0].Name)
+	require.Equal(t, "GetModels", sortedMethods[1].Name)
+	require.Equal(t, "GetVehicle", sortedMethods[2].Name)
+}
+
 func TestExcludedComments(t *testing.T) {
 	message := findMessage("ExcludedMessage", vehicleFile)
 	require.Empty(t, message.Description)
