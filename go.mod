@@ -1,4 +1,4 @@
-module github.com/pseudomuto/protoc-gen-doc
+module github.com/nside/protoc-gen-doc
 
 go 1.17
 
