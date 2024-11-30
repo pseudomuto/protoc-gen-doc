@@ -7,6 +7,7 @@
 
 {{range .Messages}}
 
+[[{{.FullName}}]]
 === {{.LongName}}
 {{nobr .Description}}
 
@@ -14,7 +15,7 @@
 |===========================================
 |*Field* |*Type* |*Label* |*Description*
 {{range .Fields}}
-|{{.Name}} | <<{{.FullType}},{{.LongType}}>> |{{.Label}} |{{.Description}}
+|{{.Name}} | <<{{.FullType}},{{.LongType}}>> |{{.Label}} |{{if (index .Options "deprecated"|default false)}}**Deprecated.** {{end}}{{nobr .Description}}{{if .DefaultValue}} Default: {{.DefaultValue}}{{end}}
 {{end}}
 |===========================================
 {{end}}
@@ -22,7 +23,7 @@
 
 {{range .Enums}}
 
-[[{{.LongName}}]]
+[[{{.FullName}}]]
 === {{.LongName}}
 {{.Description}}
 
