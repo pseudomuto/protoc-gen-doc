@@ -2,6 +2,7 @@
 syntax = "proto2";
 
 import "github.com/envoyproxy/protoc-gen-validate/validate/validate.proto";
+import "Booking.proto";
 
 package com.example;
 
@@ -34,4 +35,24 @@ message Customer {
   optional string email_address   = 5; /// Customer e-mail address.
   repeated string phone_number    = 6; /// Customer phone numbers, primary first.
   repeated Address mail_addresses = 7; /// Customer mail addresses, primary first.
+}
+
+message VerificationRequest {
+  required int32 customer_id                 = 1; // Unique customer ID.
+  required BookingStatusID booking_status_id = 2; // Unique booking status ID.
+}
+
+message BookingStatusMessage {
+  required string description = 2; /// Booking status description. E.g. "Active".
+}
+
+/**
+ * Customer centric booking service.
+ */
+service CustomerService {
+  /// Retrieve all bookings made by a customer.
+  rpc FindBookings (Customer) returns (stream Booking);
+
+  /// Verify the payment status of a booking.
+  rpc VerifyBookingStatus(VerificationRequest) returns (BookingStatusMessage);
 }

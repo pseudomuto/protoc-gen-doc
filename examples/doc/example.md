@@ -13,7 +13,11 @@
   
 - [Customer.proto](#Customer-proto)
     - [Address](#com-example-Address)
+    - [BookingStatusMessage](#com-example-BookingStatusMessage)
     - [Customer](#com-example-Customer)
+    - [VerificationRequest](#com-example-VerificationRequest)
+  
+    - [CustomerService](#com-example-CustomerService)
   
 - [Vehicle.proto](#Vehicle-proto)
     - [Manufacturer](#com-example-Manufacturer)
@@ -149,6 +153,21 @@ Represents a mail address.
 
 
 
+<a name="com-example-BookingStatusMessage"></a>
+
+### BookingStatusMessage
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| description | [string](#string) | required | Booking status description. E.g. &#34;Active&#34;. |
+
+
+
+
+
+
 <a name="com-example-Customer"></a>
 
 ### Customer
@@ -169,11 +188,38 @@ Represents a customer.
 
 
 
- 
+
+<a name="com-example-VerificationRequest"></a>
+
+### VerificationRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| customer_id | [int32](#int32) | required | Unique customer ID. |
+| booking_status_id | [BookingStatusID](#com-example-BookingStatusID) | required | Unique booking status ID. |
+
+
+
+
 
  
 
  
+
+ 
+
+
+<a name="com-example-CustomerService"></a>
+
+### CustomerService
+Customer centric booking service.
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| FindBookings | [Customer](#com-example-Customer) | [Booking](#com-example-Booking) stream | Retrieve all bookings made by a customer. |
+| VerifyBookingStatus | [VerificationRequest](#com-example-VerificationRequest) | [BookingStatusMessage](#com-example-BookingStatusMessage) | Verify the payment status of a booking. |
 
  
 

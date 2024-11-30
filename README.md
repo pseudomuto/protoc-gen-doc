@@ -29,12 +29,24 @@ example](examples/gradle).
 The plugin is invoked by passing the `--doc_out`, and `--doc_opt` options to the `protoc` compiler. The option has the
 following format:
 
-    --doc_opt=<FORMAT>|<TEMPLATE_FILENAME>,<OUT_FILENAME>[,default|source_relative]
+    --doc_opt=<FORMAT>|<TEMPLATE_FILENAME>,<OUT_FILENAME>[,default|source_relative][,default|separate_files]
 
 The format may be one of the built-in ones ( `docbook`, `html`, `markdown` or `json`)
 or the name of a file containing a custom [Go template][gotemplate].
 
+### `source_relative`
+
 If the `source_relative` flag is specified, the output file is written in the same relative directory as the input file.
+
+### `separate_files`
+
+If the `separate_files` flag is specified, there will be one file outputted per input file and the second parameter,
+`<OUT_FILENAME>`, will be used as the extension of the outputted files.
+
+For example, the following will result in the outputted files `foo.md` and `bar.md` since `md` is passed as the second parameter.
+```
+--doc_opt=markdown,md,source_relative,separate_files foo.proto bar.proto
+```
 
 ### Using the Docker Image (Recommended)
 
