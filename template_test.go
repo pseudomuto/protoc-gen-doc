@@ -29,14 +29,14 @@ func TestMain(m *testing.M) {
 	req := utils.CreateGenRequest(set, "Booking.proto", "Vehicle.proto")
 	result := protokit.ParseCodeGenRequest(req)
 
-	template = NewTemplate(result)
+	template = NewTemplate(result, &PluginOptions{})
 	bookingFile = template.Files[0]
 	vehicleFile = template.Files[1]
 
 	set, _ = utils.LoadDescriptorSet("fixtures", "cookie.pb")
 	req = utils.CreateGenRequest(set, "Cookie.proto")
 	result = protokit.ParseCodeGenRequest(req)
-	cookieTemplate = NewTemplate(result)
+	cookieTemplate = NewTemplate(result, &PluginOptions{})
 	cookieFile = cookieTemplate.Files[0]
 
 	os.Exit(m.Run())

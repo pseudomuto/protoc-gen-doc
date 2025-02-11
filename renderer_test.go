@@ -18,7 +18,7 @@ func TestRenderers(t *testing.T) {
 
 	req := utils.CreateGenRequest(set, "Booking.proto", "Vehicle.proto")
 	result := protokit.ParseCodeGenRequest(req)
-	template := NewTemplate(result)
+	template := NewTemplate(result, &PluginOptions{})
 
 	for _, r := range []RenderType{
 		RenderTypeDocBook,
