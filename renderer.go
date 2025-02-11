@@ -78,6 +78,7 @@ var funcMap = map[string]interface{}{
 	"p":      PFilter,
 	"para":   ParaFilter,
 	"nobr":   NoBrFilter,
+	"br":     BrFilter,
 	"anchor": AnchorFilter,
 }
 
@@ -90,10 +91,12 @@ type Processor interface {
 // supplying a non-empty string as the last parameter.
 //
 // Example: generating an HTML template (assuming you've got a Template object)
-//     data, err := RenderTemplate(RenderTypeHTML, &template, "")
+//
+//	data, err := RenderTemplate(RenderTypeHTML, &template, "")
 //
 // Example: generating a custom template (assuming you've got a Template object)
-//     data, err := RenderTemplate(RenderTypeHTML, &template, "{{range .Files}}{{.Name}}{{end}}")
+//
+//	data, err := RenderTemplate(RenderTypeHTML, &template, "{{range .Files}}{{.Name}}{{end}}")
 func RenderTemplate(kind RenderType, template *Template, inputTemplate string) ([]byte, error) {
 	if inputTemplate != "" {
 		processor := &textRenderer{inputTemplate}
