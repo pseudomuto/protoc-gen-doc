@@ -90,10 +90,10 @@ type Processor interface {
 // supplying a non-empty string as the last parameter.
 //
 // Example: generating an HTML template (assuming you've got a Template object)
-//     data, err := RenderTemplate(RenderTypeHTML, &template, "")
+//	data, err := RenderTemplate(RenderTypeHTML, &template, "")
 //
 // Example: generating a custom template (assuming you've got a Template object)
-//     data, err := RenderTemplate(RenderTypeHTML, &template, "{{range .Files}}{{.Name}}{{end}}")
+//	data, err := RenderTemplate(RenderTypeHTML, &template, "{{range .Files}}{{.Name}}{{end}}")
 func RenderTemplate(kind RenderType, template *Template, inputTemplate string) ([]byte, error) {
 	if inputTemplate != "" {
 		processor := &textRenderer{inputTemplate}
@@ -113,6 +113,7 @@ type textRenderer struct {
 }
 
 func (mr *textRenderer) Apply(template *Template) ([]byte, error) {
+	funcMap["SortServiceMethods"] = SortServiceMethods
 	tmpl, err := text_template.New("Text Template").Funcs(funcMap).Funcs(sprig.TxtFuncMap()).Parse(mr.inputTemplate)
 	if err != nil {
 		return nil, err
@@ -131,6 +132,7 @@ type htmlRenderer struct {
 }
 
 func (mr *htmlRenderer) Apply(template *Template) ([]byte, error) {
+	funcMap["SortServiceMethods"] = SortServiceMethods
 	tmpl, err := html_template.New("Text Template").Funcs(funcMap).Funcs(sprig.HtmlFuncMap()).Parse(mr.inputTemplate)
 	if err != nil {
 		return nil, err

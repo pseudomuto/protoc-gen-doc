@@ -19,6 +19,7 @@ type Template struct {
 	Files []*File `json:"files"`
 	// Details about the scalar values and their respective types in supported languages.
 	Scalars []*ScalarValue `json:"scalarValueTypes"`
+	// Function Map usable within Templates
 }
 
 // NewTemplate creates a Template object from a set of descriptors.
@@ -557,6 +558,15 @@ func parseServiceMethod(pm *protokit.MethodDescriptor) *ServiceMethod {
 	}
 }
 
+func SortServiceMethods(methods []*ServiceMethod) orderedMethods {
+	sortedMethods := make(orderedMethods, 0, len(methods))
+	for _, method := range methods {
+		sortedMethods = append(sortedMethods, method)
+	}
+	sort.Sort(sortedMethods)
+	return sortedMethods
+}
+
 func baseName(name string) string {
 	parts := strings.Split(name, ".")
 	return parts[len(parts)-1]
@@ -620,3 +630,9 @@ type orderedServices []*Service
 func (os orderedServices) Len() int           { return len(os) }
 func (os orderedServices) Swap(i, j int)      { os[i], os[j] = os[j], os[i] }
 func (os orderedServices) Less(i, j int) bool { return os[i].LongName < os[j].LongName }
+
+type orderedMethods []*ServiceMethod
+
+func (om orderedMethods) Len() int           { return len(om) }
+func (om orderedMethods) Swap(i, j int)      { om[i], om[j] = om[j], om[i] }
+func (om orderedMethods) Less(i, j int) bool { return om[i].Name < om[j].Name }
