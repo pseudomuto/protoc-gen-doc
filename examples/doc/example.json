@@ -703,7 +703,7 @@
             },
             {
               "name": "daily_hire_rate_cents",
-              "description": "Cents per day.",
+              "description": "Cents per day.\n\ne.g. 20",
               "label": "optional",
               "type": "sint32",
               "longType": "sint32",

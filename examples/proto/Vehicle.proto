@@ -76,6 +76,8 @@ message Vehicle {
 
   /**
    * Cents per day.
+   *
+   * e.g. 20
    */
   optional sint32 daily_hire_rate_cents = 7;
 
