@@ -41,32 +41,32 @@ publishing {
       }
 
       //linux 64 arm
-      artifact("$buildDir/dist/protoc-gen-doc_linux_arm64") {
+      artifact("$projectDir/dist/protoc-gen-doc_linux_arm64/protoc-gen-doc") {
         classifier 'linux-aarch_64'
         extension 'exe'
       }
       //linux 64 intel
-      artifact("$buildDir/dist/protoc-gen-doc_linux_amd64") {
+      artifact("$projectDir/dist/protoc-gen-doc_linux_amd64/protoc-gen-doc") {
         classifier 'linux-x86_64'
         extension 'exe'
       }
       //mac 64 arm
-      artifact("$buildDir/dist/protoc-gen-doc_darwin_arm64") {
+      artifact("$projectDir/dist/protoc-gen-doc_darwin_arm64/protoc-gen-doc") {
         classifier 'osx-aarch_64'
         extension 'exe'
       }
       //mac 64 intel
-      artifact("$buildDir/dist/protoc-gen-doc_darwin_amd64") {
+      artifact("$projectDir/dist/protoc-gen-doc_darwin_amd64/protoc-gen-doc") {
         classifier 'osx-x86_64'
         extension 'exe'
       }
       //windows 64 arm
-      artifact("$buildDir/dist/protoc-gen-doc_windows_arm64") {
+      artifact("$projectDir/dist/protoc-gen-doc_windows_arm64/protoc-gen-doc.exe") {
         classifier 'windows-aarch_64'
         extension 'exe'
       }
       //windows 64 intel
-      artifact("$buildDir/dist/protoc-gen-doc_windows_amd64") {
+      artifact("$projectDir/dist/protoc-gen-doc_windows_amd64/protoc-gen-doc.exe") {
         classifier 'windows-x86_64'
         extension 'exe'
       }
@@ -93,21 +93,3 @@ signing {
   useInMemoryPgpKeys(signingKey, signingPassword)
   sign publishing.publications.maven
 }
-
-// A strange issue with signing meant that only the first files (with the same name) got signed.
-// To workaround this, rename all executables to include architecture.
-tasks.register('flattenDistDirectory', Copy) {
-  from("$projectDir/dist") {
-    include "**/protoc-gen-doc"
-    include "**/protoc-gen-doc.exe"
-    eachFile { file ->
-      file.name = file.relativePath.parent.lastName
-      file.relativePath = new RelativePath(true, file.relativePath.segments.drop(1))
-    }
-    includeEmptyDirs = false
-  }
-  into "$buildDir/dist"
-}
-
-publish.dependsOn flattenDistDirectory
-signMavenPublication.mustRunAfter flattenDistDirectory
