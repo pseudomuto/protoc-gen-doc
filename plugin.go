@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
-
+	"github.com/pseudomuto/protoc-gen-doc/extensions"
 	"github.com/golang/protobuf/proto"
 	plugin_go "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/pseudomuto/protokit"
@@ -39,6 +39,10 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 	}
 
 	result := excludeUnwantedProtos(protokit.ParseCodeGenRequest(r), options.ExcludePatterns)
+
+	// Dynamically register extensions
+	extensions.RegisterAllExtensions(result)
+
 
 	customTemplate := ""
 

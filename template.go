@@ -6,10 +6,12 @@ import (
 	"sort"
 	"strings"
 	"unicode"
-
-	"github.com/golang/protobuf/protoc-gen-go/descriptor"
+	"github.com/golang/protobuf/proto"
 	"github.com/pseudomuto/protoc-gen-doc/extensions"
 	"github.com/pseudomuto/protokit"
+    descriptor "github.com/golang/protobuf/protoc-gen-go/descriptor"
+	
+
 )
 
 // Template is a type for encapsulating all the parsed files, messages, fields, enums, services, extensions, etc. into
@@ -541,21 +543,43 @@ func parseService(ps *protokit.ServiceDescriptor) *Service {
 	return service
 }
 
+
+
+
+
 func parseServiceMethod(pm *protokit.MethodDescriptor) *ServiceMethod {
-	return &ServiceMethod{
-		Name:              pm.GetName(),
-		Description:       description(pm.GetComments().String()),
-		RequestType:       baseName(pm.GetInputType()),
-		RequestLongType:   strings.TrimPrefix(pm.GetInputType(), "."+pm.GetPackage()+"."),
-		RequestFullType:   strings.TrimPrefix(pm.GetInputType(), "."),
-		RequestStreaming:  pm.GetClientStreaming(),
-		ResponseType:      baseName(pm.GetOutputType()),
-		ResponseLongType:  strings.TrimPrefix(pm.GetOutputType(), "."+pm.GetPackage()+"."),
-		ResponseFullType:  strings.TrimPrefix(pm.GetOutputType(), "."),
-		ResponseStreaming: pm.GetServerStreaming(),
-		Options:           mergeOptions(extractOptions(pm.GetOptions()), extensions.Transform(pm.OptionExtensions)),
-	}
+    methodOptions := extractOptions(pm.GetOptions())
+    methodExtensionOptions := make(map[string]interface{})
+
+    methodOpts := pm.GetOptions()
+
+    if methodOpts != nil {
+        // Using registered extensions to get correct names dynamically
+        for _, extDesc := range proto.RegisteredExtensions(methodOpts) {
+            if extValue, err := proto.GetExtension(methodOpts, extDesc); err == nil && extValue != nil {
+                methodExtensionOptions[extDesc.Name] = extValue
+            }
+        }
+    }
+
+    return &ServiceMethod{
+        Name:              pm.GetName(),
+        Description:       description(pm.GetComments().String()),
+        RequestType:       baseName(pm.GetInputType()),
+        RequestLongType:   strings.TrimPrefix(pm.GetInputType(), "."+pm.GetPackage()+"."),
+        RequestFullType:   strings.TrimPrefix(pm.GetInputType(), "."),
+        RequestStreaming:  pm.GetClientStreaming(),
+        ResponseType:      baseName(pm.GetOutputType()),
+        ResponseLongType:  strings.TrimPrefix(pm.GetOutputType(), "."+pm.GetPackage()+"."),
+        ResponseFullType:  strings.TrimPrefix(pm.GetOutputType(), "."),
+        ResponseStreaming: pm.GetServerStreaming(),
+        Options: mergeOptions(
+            methodOptions,
+            methodExtensionOptions, 
+        ),
+    }
 }
+
 
 func baseName(name string) string {
 	parts := strings.Split(name, ".")
