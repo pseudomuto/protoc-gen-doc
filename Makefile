@@ -1,6 +1,6 @@
 GORELEASER_BIN ?= https://github.com/goreleaser/goreleaser/releases/download/v1.5.0/goreleaser_Linux_x86_64.tar.gz
 REVIVE_BIN ?= https://github.com/mgechev/revive/releases/download/v1.1.4/revive_1.1.4_Linux_x86_64.tar.gz
-PROTOC_BIN ?= https://github.com/protocolbuffers/protobuf/releases/download/v3.19.4/protoc-3.19.4-linux-x86_64.zip
+PROTOC_BIN ?= https://github.com/protocolbuffers/protobuf/releases/download/v32.0/protoc-32.0-linux-x86_64.zip
 
 EXAMPLE_DIR=$(PWD)/examples
 DOCS_DIR=$(EXAMPLE_DIR)/doc

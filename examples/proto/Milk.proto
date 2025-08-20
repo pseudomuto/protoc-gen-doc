@@ -1,0 +1,12 @@
+edition = "2024";
+
+package com.example;
+
+/**
+ * Represents a milk.
+ */
+message Milk {
+  string id = 1; // The id of the milk.
+  string name = 2; // The name of the milk.
+  int32 volume = 3; // The volume of the milk.
+}

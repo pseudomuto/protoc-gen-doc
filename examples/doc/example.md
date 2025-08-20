@@ -15,6 +15,9 @@
     - [Address](#com-example-Address)
     - [Customer](#com-example-Customer)
   
+- [Milk.proto](#Milk-proto)
+    - [Milk](#com-example-Milk)
+  
 - [Vehicle.proto](#Vehicle-proto)
     - [Manufacturer](#com-example-Manufacturer)
     - [Model](#com-example-Model)
@@ -164,6 +167,39 @@ Represents a customer.
 | email_address | [string](#string) | optional | Customer e-mail address. |
 | phone_number | [string](#string) | repeated | Customer phone numbers, primary first. |
 | mail_addresses | [Address](#com-example-Address) | repeated | Customer mail addresses, primary first. |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+<a name="Milk-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## Milk.proto
+
+
+
+<a name="com-example-Milk"></a>
+
+### Milk
+Represents a milk.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [string](#string) | optional | The id of the milk. |
+| name | [string](#string) | optional | The name of the milk. |
+| volume | [int32](#int32) | optional | The volume of the milk. |
 
 
 

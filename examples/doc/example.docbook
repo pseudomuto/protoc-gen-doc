@@ -365,6 +365,66 @@
   </section>
   
   <section>
+    <title>Milk.proto</title>
+    <para></para>
+    
+    <section id="com.example.Milk">
+      <title>Milk</title>
+      <para>Represents a milk.</para>
+      
+      <table frame="all">
+        <title><classname>Milk</classname> Fields</title>
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>id</entry>
+              <entry><link linkend="string">string</link></entry>
+              <entry>optional</entry>
+              <entry><para>The id of the milk.</para></entry>
+            </row>
+            
+            <row>
+              <entry>name</entry>
+              <entry><link linkend="string">string</link></entry>
+              <entry>optional</entry>
+              <entry><para>The name of the milk.</para></entry>
+            </row>
+            
+            <row>
+              <entry>volume</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry>optional</entry>
+              <entry><para>The volume of the milk.</para></entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </table>
+      
+      
+    </section>
+    
+    
+
+    
+
+    
+  </section>
+  
+  <section>
     <title>Vehicle.proto</title>
     <para>Messages describing manufacturers / vehicles.</para>
     

@@ -124,6 +124,30 @@ Represents a customer.
 
 
 
+== Milk.proto
+
+
+
+=== Milk
+Represents a milk.
+
+
+|===========================================
+|*Field* |*Type* |*Label* |*Description*
+
+|id | <<string,string>> |optional |The id of the milk.
+
+|name | <<string,string>> |optional |The name of the milk.
+
+|volume | <<int32,int32>> |optional |The volume of the milk.
+
+|===========================================
+
+
+
+
+
+
 == Vehicle.proto
 
 

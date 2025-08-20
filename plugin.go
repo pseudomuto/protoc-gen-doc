@@ -25,7 +25,7 @@ type PluginOptions struct {
 }
 
 // SupportedFeatures describes a flag setting for supported features.
-var SupportedFeatures = uint64(plugin_go.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL)
+var SupportedFeatures = uint64(plugin_go.CodeGeneratorResponse_FEATURE_SUPPORTS_EDITIONS)
 
 // Plugin describes a protoc code generate plugin. It's an implementation of Plugin from github.com/pseudomuto/protokit
 type Plugin struct{}
@@ -68,6 +68,8 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 	}
 
 	resp.SupportedFeatures = proto.Uint64(SupportedFeatures)
+	resp.MinimumEdition = proto.Int32(900)  // Edition_EDITION_LEGACY
+	resp.MaximumEdition = proto.Int32(1001) // Edition_EDITION_2024
 
 	return resp, nil
 }
