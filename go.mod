@@ -1,6 +1,6 @@
 module github.com/pseudomuto/protoc-gen-doc
 
-go 1.17
+go 1.24.0
 
 require (
 	github.com/Masterminds/semver v1.5.0 // indirect
@@ -18,7 +18,7 @@ require (
 require (
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
-	golang.org/x/crypto v0.20.0 // indirect
+	golang.org/x/crypto v0.43.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240205150955-31a09d347014
 )
 
