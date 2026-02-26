@@ -83,8 +83,8 @@ func (f *Flags) PrintVersion() {
 // ParseFlags parses the supplied options are returns a `Flags` object to the caller.
 //
 // Parameters:
-//   * `w` - the `io.Writer` to use for printing messages (help, version, etc.)
-//   * `args` - the set of args the program was invoked with (typically `os.Args`)
+//   - `w` - the `io.Writer` to use for printing messages (help, version, etc.)
+//   - `args` - the set of args the program was invoked with (typically `os.Args`)
 func ParseFlags(w io.Writer, args []string) *Flags {
 	f := Flags{appName: args[0], writer: w}
 
