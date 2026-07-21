@@ -4,13 +4,12 @@ import (
 	"os"
 	"testing"
 
-	"github.com/golang/protobuf/proto"
-	"github.com/golang/protobuf/protoc-gen-go/descriptor"
-	. "github.com/pseudomuto/protoc-gen-doc"
-	"github.com/pseudomuto/protoc-gen-doc/extensions"
 	"github.com/pseudomuto/protokit"
 	"github.com/pseudomuto/protokit/utils"
 	"github.com/stretchr/testify/require"
+
+	. "github.com/pseudomuto/protoc-gen-doc"
+	"github.com/pseudomuto/protoc-gen-doc/extensions"
 )
 
 var (
@@ -42,86 +41,29 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-func identity(payload interface{}) interface{} { return payload }
+func identity(payload any) any { return payload }
 
-var E_ExtendFile = &proto.ExtensionDesc{
-	ExtendedType:  (*descriptor.FileOptions)(nil),
-	ExtensionType: (*bool)(nil),
-	Field:         20000,
-	Name:          "com.pseudomuto.protokit.v1.extend_file",
-	Tag:           "varint,20000,opt,name=extend_file,json=extendFile",
-	Filename:      "extend.proto",
-}
-
-var E_ExtendService = &proto.ExtensionDesc{
-	ExtendedType:  (*descriptor.ServiceOptions)(nil),
-	ExtensionType: (*bool)(nil),
-	Field:         20000,
-	Name:          "com.pseudomuto.protokit.v1.extend_service",
-	Tag:           "varint,20000,opt,name=extend_service,json=extendService",
-	Filename:      "extend.proto",
-}
-
-var E_ExtendMethod = &proto.ExtensionDesc{
-	ExtendedType:  (*descriptor.MethodOptions)(nil),
-	ExtensionType: (*bool)(nil),
-	Field:         20000,
-	Name:          "com.pseudomuto.protokit.v1.extend_method",
-	Tag:           "varint,20000,opt,name=extend_method,json=extendMethod",
-	Filename:      "extend.proto",
-}
-
-var E_ExtendEnum = &proto.ExtensionDesc{
-	ExtendedType:  (*descriptor.EnumOptions)(nil),
-	ExtensionType: (*bool)(nil),
-	Field:         20000,
-	Name:          "com.pseudomuto.protokit.v1.extend_enum",
-	Tag:           "varint,20000,opt,name=extend_enum,json=extendEnum",
-	Filename:      "extend.proto",
-}
-
-var E_ExtendEnumValue = &proto.ExtensionDesc{
-	ExtendedType:  (*descriptor.EnumValueOptions)(nil),
-	ExtensionType: (*bool)(nil),
-	Field:         20000,
-	Name:          "com.pseudomuto.protokit.v1.extend_enum_value",
-	Tag:           "varint,20000,opt,name=extend_enum_value,json=extendEnumValue",
-	Filename:      "extend.proto",
-}
-
-var E_ExtendMessage = &proto.ExtensionDesc{
-	ExtendedType:  (*descriptor.MessageOptions)(nil),
-	ExtensionType: (*bool)(nil),
-	Field:         20000,
-	Name:          "com.pseudomuto.protokit.v1.extend_message",
-	Tag:           "varint,20000,opt,name=extend_message,json=extendMessage",
-	Filename:      "extend.proto",
-}
-
-var E_ExtendField = &proto.ExtensionDesc{
-	ExtendedType:  (*descriptor.FieldOptions)(nil),
-	ExtensionType: (*bool)(nil),
-	Field:         20000,
-	Name:          "com.pseudomuto.protokit.v1.extend_field",
-	Tag:           "varint,20000,opt,name=extend_field,json=extendField",
-	Filename:      "extend.proto",
-}
+// Extension option names defined in fixtures/extend.proto. protokit resolves the extensions
+// themselves from the descriptor set, so the tests only need the names to register transformers
+// and to look up the decoded values.
+const (
+	extendFileOption      = "com.pseudomuto.protokit.v1.extend_file"
+	extendServiceOption   = "com.pseudomuto.protokit.v1.extend_service"
+	extendMethodOption    = "com.pseudomuto.protokit.v1.extend_method"
+	extendEnumOption      = "com.pseudomuto.protokit.v1.extend_enum"
+	extendEnumValueOption = "com.pseudomuto.protokit.v1.extend_enum_value"
+	extendMessageOption   = "com.pseudomuto.protokit.v1.extend_message"
+	extendFieldOption     = "com.pseudomuto.protokit.v1.extend_field"
+)
 
 func registerTestExtensions() {
-	proto.RegisterExtension(E_ExtendFile)
-	extensions.SetTransformer(E_ExtendFile.Name, identity)
-	proto.RegisterExtension(E_ExtendService)
-	extensions.SetTransformer(E_ExtendService.Name, identity)
-	proto.RegisterExtension(E_ExtendMethod)
-	extensions.SetTransformer(E_ExtendMethod.Name, identity)
-	proto.RegisterExtension(E_ExtendEnum)
-	extensions.SetTransformer(E_ExtendEnum.Name, identity)
-	proto.RegisterExtension(E_ExtendEnumValue)
-	extensions.SetTransformer(E_ExtendEnumValue.Name, identity)
-	proto.RegisterExtension(E_ExtendMessage)
-	extensions.SetTransformer(E_ExtendMessage.Name, identity)
-	proto.RegisterExtension(E_ExtendField)
-	extensions.SetTransformer(E_ExtendField.Name, identity)
+	extensions.SetTransformer(extendFileOption, identity)
+	extensions.SetTransformer(extendServiceOption, identity)
+	extensions.SetTransformer(extendMethodOption, identity)
+	extensions.SetTransformer(extendEnumOption, identity)
+	extensions.SetTransformer(extendEnumValueOption, identity)
+	extensions.SetTransformer(extendMessageOption, identity)
+	extensions.SetTransformer(extendFieldOption, identity)
 }
 
 func TestTemplateProperties(t *testing.T) {
@@ -137,7 +79,7 @@ func TestFileProperties(t *testing.T) {
 	require.True(t, bookingFile.HasMessages)
 	require.True(t, bookingFile.HasServices)
 	require.NotEmpty(t, bookingFile.Options)
-	require.True(t, *bookingFile.Option(E_ExtendFile.Name).(*bool))
+	require.True(t, bookingFile.Option(extendFileOption).(bool))
 }
 
 func TestFileEnumProperties(t *testing.T) {
@@ -159,14 +101,14 @@ func TestFileEnumProperties(t *testing.T) {
 
 	enum = findEnum("BookingType", bookingFile)
 	require.NotEmpty(t, enum.Options)
-	require.True(t, *enum.Option(E_ExtendEnum.Name).(*bool))
-	require.Contains(t, enum.ValueOptions(), E_ExtendEnumValue.Name)
-	require.NotEmpty(t, enum.ValuesWithOption(E_ExtendEnumValue.Name))
+	require.True(t, enum.Option(extendEnumOption).(bool))
+	require.Contains(t, enum.ValueOptions(), extendEnumValueOption)
+	require.NotEmpty(t, enum.ValuesWithOption(extendEnumValueOption))
 
 	for _, value := range enum.Values {
 		if value.Name == "FUTURE" {
 			require.NotEmpty(t, value.Options)
-			require.True(t, *value.Option(E_ExtendEnumValue.Name).(*bool))
+			require.True(t, value.Option(extendEnumValueOption).(bool))
 		}
 	}
 }
@@ -197,9 +139,9 @@ func TestMessageProperties(t *testing.T) {
 	require.False(t, msg.HasExtensions)
 	require.True(t, msg.HasFields)
 	require.NotEmpty(t, msg.Options)
-	require.True(t, *msg.Option(E_ExtendMessage.Name).(*bool))
-	require.Contains(t, msg.FieldOptions(), E_ExtendField.Name)
-	require.NotEmpty(t, msg.FieldsWithOption(E_ExtendField.Name))
+	require.True(t, msg.Option(extendMessageOption).(bool))
+	require.Contains(t, msg.FieldOptions(), extendFieldOption)
+	require.NotEmpty(t, msg.FieldsWithOption(extendFieldOption))
 }
 
 func TestNestedMessageProperties(t *testing.T) {
@@ -253,7 +195,7 @@ func TestFieldProperties(t *testing.T) {
 	require.Empty(t, field.DefaultValue)
 	require.False(t, field.IsOneof)
 	require.NotEmpty(t, field.Options)
-	require.True(t, *field.Option(E_ExtendField.Name).(*bool))
+	require.True(t, field.Option(extendFieldOption).(bool))
 
 	field = findField("status_code", msg)
 	require.Equal(t, "status_code", field.Name)
@@ -391,9 +333,9 @@ func TestServiceProperties(t *testing.T) {
 	require.Equal(t, "The vehicle service.\n\nManages vehicles and such...", service.Description)
 	require.Len(t, service.Methods, 3)
 	require.NotEmpty(t, service.Options)
-	require.True(t, *service.Option(E_ExtendService.Name).(*bool))
-	require.Contains(t, service.MethodOptions(), E_ExtendMethod.Name)
-	require.NotEmpty(t, service.MethodsWithOption(E_ExtendMethod.Name))
+	require.True(t, service.Option(extendServiceOption).(bool))
+	require.Contains(t, service.MethodOptions(), extendMethodOption)
+	require.NotEmpty(t, service.MethodsWithOption(extendMethodOption))
 }
 
 func TestServiceMethodProperties(t *testing.T) {
@@ -423,7 +365,7 @@ func TestServiceMethodProperties(t *testing.T) {
 	require.Equal(t, "com.example.Vehicle", method.ResponseFullType)
 	require.False(t, method.ResponseStreaming)
 	require.NotEmpty(t, method.Options)
-	require.True(t, *method.Option(E_ExtendMethod.Name).(*bool))
+	require.True(t, method.Option(extendMethodOption).(bool))
 }
 
 func TestExcludedComments(t *testing.T) {

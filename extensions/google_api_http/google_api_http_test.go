@@ -4,10 +4,11 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/pseudomuto/protoc-gen-doc/extensions"
-	. "github.com/pseudomuto/protoc-gen-doc/extensions/google_api_http"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/genproto/googleapis/api/annotations"
+
+	"github.com/pseudomuto/protoc-gen-doc/extensions"
+	. "github.com/pseudomuto/protoc-gen-doc/extensions/google_api_http"
 )
 
 func TestTransform(t *testing.T) {
@@ -25,7 +26,7 @@ func TestTransform(t *testing.T) {
 		},
 	}
 
-	transformed := extensions.Transform(map[string]interface{}{"google.api.http": rule})
+	transformed := extensions.Transform(map[string]any{"google.api.http": rule})
 	require.NotEmpty(t, transformed)
 
 	rules := transformed["google.api.http"].(HTTPExtension).Rules

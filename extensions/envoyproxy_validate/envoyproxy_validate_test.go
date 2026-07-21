@@ -4,10 +4,11 @@ import (
 	"testing"
 
 	"github.com/envoyproxy/protoc-gen-validate/validate"
-	"github.com/golang/protobuf/proto"
+	"github.com/stretchr/testify/require"
+	"google.golang.org/protobuf/proto"
+
 	"github.com/pseudomuto/protoc-gen-doc/extensions"
 	. "github.com/pseudomuto/protoc-gen-doc/extensions/lyft_validate"
-	"github.com/stretchr/testify/require"
 )
 
 func TestTransform(t *testing.T) {
@@ -20,7 +21,7 @@ func TestTransform(t *testing.T) {
 		},
 	}
 
-	transformed := extensions.Transform(map[string]interface{}{"validate.rules": fieldRules})
+	transformed := extensions.Transform(map[string]any{"validate.rules": fieldRules})
 	require.NotEmpty(t, transformed)
 
 	rules := transformed["validate.rules"].(ValidateExtension).Rules()

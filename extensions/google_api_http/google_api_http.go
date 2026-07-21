@@ -3,8 +3,9 @@ package extensions
 import (
 	"net/http"
 
-	"github.com/pseudomuto/protoc-gen-doc/extensions"
 	"google.golang.org/genproto/googleapis/api/annotations"
+
+	"github.com/pseudomuto/protoc-gen-doc/extensions"
 )
 
 // HTTPRule represents a single HTTP rule from the (google.api.http) method option extension.
@@ -46,7 +47,7 @@ func getRule(r *annotations.HttpRule) (rule HTTPRule) {
 }
 
 func init() {
-	extensions.SetTransformer("google.api.http", func(payload interface{}) interface{} {
+	extensions.SetTransformer("google.api.http", func(payload any) any {
 		var rules []HTTPRule
 		rule, ok := payload.(*annotations.HttpRule)
 		if !ok {

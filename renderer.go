@@ -7,7 +7,7 @@ import (
 	html_template "html/template"
 	text_template "text/template"
 
-	"github.com/Masterminds/sprig"
+	"github.com/Masterminds/sprig/v3"
 )
 
 // RenderType is an "enum" for which type of renderer to use.
@@ -36,7 +36,7 @@ func NewRenderType(renderType string) (RenderType, error) {
 		return RenderTypeMarkdown, nil
 	}
 
-	return 0, errors.New("Invalid render type")
+	return 0, errors.New("invalid render type")
 }
 
 func (rt RenderType) renderer() (Processor, error) {
@@ -56,7 +56,7 @@ func (rt RenderType) renderer() (Processor, error) {
 		return &htmlRenderer{string(tmpl)}, nil
 	}
 
-	return nil, errors.New("Unable to create a processor")
+	return nil, errors.New("unable to create a processor")
 }
 
 func (rt RenderType) template() ([]byte, error) {
@@ -71,10 +71,10 @@ func (rt RenderType) template() ([]byte, error) {
 		return markdownTmpl, nil
 	}
 
-	return nil, errors.New("Couldn't find template for render type")
+	return nil, errors.New("couldn't find template for render type")
 }
 
-var funcMap = map[string]interface{}{
+var funcMap = map[string]any{
 	"p":      PFilter,
 	"para":   ParaFilter,
 	"nobr":   NoBrFilter,
@@ -90,10 +90,12 @@ type Processor interface {
 // supplying a non-empty string as the last parameter.
 //
 // Example: generating an HTML template (assuming you've got a Template object)
-//     data, err := RenderTemplate(RenderTypeHTML, &template, "")
+//
+//	data, err := RenderTemplate(RenderTypeHTML, &template, "")
 //
 // Example: generating a custom template (assuming you've got a Template object)
-//     data, err := RenderTemplate(RenderTypeHTML, &template, "{{range .Files}}{{.Name}}{{end}}")
+//
+//	data, err := RenderTemplate(RenderTypeHTML, &template, "{{range .Files}}{{.Name}}{{end}}")
 func RenderTemplate(kind RenderType, template *Template, inputTemplate string) ([]byte, error) {
 	if inputTemplate != "" {
 		processor := &textRenderer{inputTemplate}

@@ -8,8 +8,9 @@ import (
 	"unicode"
 
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
-	"github.com/pseudomuto/protoc-gen-doc/extensions"
 	"github.com/pseudomuto/protokit"
+
+	"github.com/pseudomuto/protoc-gen-doc/extensions"
 )
 
 // Template is a type for encapsulating all the parsed files, messages, fields, enums, services, extensions, etc. into
@@ -81,13 +82,13 @@ func NewTemplate(descs []*protokit.FileDescriptor, pluginOptions *PluginOptions)
 
 func makeScalars() []*ScalarValue {
 	var scalars []*ScalarValue
-	json.Unmarshal(scalarsJSON, &scalars)
+	json.Unmarshal(scalarsJSON, &scalars) //nolint:errcheck
 
 	return scalars
 }
 
-func mergeOptions(opts ...map[string]interface{}) map[string]interface{} {
-	out := make(map[string]interface{})
+func mergeOptions(opts ...map[string]any) map[string]any {
+	out := make(map[string]any)
 	for _, opts := range opts {
 		for k, v := range opts {
 			if _, ok := out[k]; ok {
@@ -124,8 +125,8 @@ type commonOptions interface {
 	GetDeprecated() bool
 }
 
-func extractOptions(opts commonOptions) map[string]interface{} {
-	out := make(map[string]interface{})
+func extractOptions(opts commonOptions) map[string]any {
+	out := make(map[string]any)
 	if opts.GetDeprecated() {
 		out["deprecated"] = true
 	}
@@ -158,11 +159,11 @@ type File struct {
 	Messages   orderedMessages   `json:"messages"`
 	Services   orderedServices   `json:"services"`
 
-	Options map[string]interface{} `json:"options,omitempty"`
+	Options map[string]any `json:"options,omitempty"`
 }
 
 // Option returns the named option.
-func (f File) Option(name string) interface{} { return f.Options[name] }
+func (f File) Option(name string) any { return f.Options[name] }
 
 // FileExtension contains details about top-level extensions within a proto(2) file.
 type FileExtension struct {
@@ -197,11 +198,11 @@ type Message struct {
 	Extensions []*MessageExtension `json:"extensions"`
 	Fields     []*MessageField     `json:"fields"`
 
-	Options map[string]interface{} `json:"options,omitempty"`
+	Options map[string]any `json:"options,omitempty"`
 }
 
 // Option returns the named option.
-func (m Message) Option(name string) interface{} { return m.Options[name] }
+func (m Message) Option(name string) any { return m.Options[name] }
 
 // FieldOptions returns all options that are set on the fields in this message.
 func (m Message) FieldOptions() []string {
@@ -253,11 +254,11 @@ type MessageField struct {
 	OneofDecl    string `json:"oneofdecl"`
 	DefaultValue string `json:"defaultValue"`
 
-	Options map[string]interface{} `json:"options,omitempty"`
+	Options map[string]any `json:"options,omitempty"`
 }
 
 // Option returns the named option.
-func (f MessageField) Option(name string) interface{} { return f.Options[name] }
+func (f MessageField) Option(name string) any { return f.Options[name] }
 
 // MessageExtension contains details about message-scoped extensions in proto(2) files.
 type MessageExtension struct {
@@ -276,11 +277,11 @@ type Enum struct {
 	Description string       `json:"description"`
 	Values      []*EnumValue `json:"values"`
 
-	Options map[string]interface{} `json:"options,omitempty"`
+	Options map[string]any `json:"options,omitempty"`
 }
 
 // Option returns the named option.
-func (e Enum) Option(name string) interface{} { return e.Options[name] }
+func (e Enum) Option(name string) any { return e.Options[name] }
 
 // ValueOptions returns all options that are set on the values in this enum.
 func (e Enum) ValueOptions() []string {
@@ -322,11 +323,11 @@ type EnumValue struct {
 	Number      string `json:"number"`
 	Description string `json:"description"`
 
-	Options map[string]interface{} `json:"options,omitempty"`
+	Options map[string]any `json:"options,omitempty"`
 }
 
 // Option returns the named option.
-func (v EnumValue) Option(name string) interface{} { return v.Options[name] }
+func (v EnumValue) Option(name string) any { return v.Options[name] }
 
 // Service contains details about a service definition within a proto file.
 type Service struct {
@@ -336,11 +337,11 @@ type Service struct {
 	Description string           `json:"description"`
 	Methods     []*ServiceMethod `json:"methods"`
 
-	Options map[string]interface{} `json:"options,omitempty"`
+	Options map[string]any `json:"options,omitempty"`
 }
 
 // Option returns the named option.
-func (s Service) Option(name string) interface{} { return s.Options[name] }
+func (s Service) Option(name string) any { return s.Options[name] }
 
 // MethodOptions returns all options that are set on the methods in this service.
 func (s Service) MethodOptions() []string {
@@ -389,11 +390,11 @@ type ServiceMethod struct {
 	ResponseFullType  string `json:"responseFullType"`
 	ResponseStreaming bool   `json:"responseStreaming"`
 
-	Options map[string]interface{} `json:"options,omitempty"`
+	Options map[string]any `json:"options,omitempty"`
 }
 
 // Option returns the named option.
-func (m ServiceMethod) Option(name string) interface{} { return m.Options[name] }
+func (m ServiceMethod) Option(name string) any { return m.Options[name] }
 
 // ScalarValue contains information about scalar value types in protobuf. The common use case for this type is to know
 // which language specific type maps to the protobuf type.
@@ -579,8 +580,8 @@ type typeContainer interface {
 func parseType(tc typeContainer) (string, string, string) {
 	name := tc.GetTypeName()
 
-	if strings.HasPrefix(name, ".") {
-		name = strings.TrimPrefix(name, ".")
+	if after, ok := strings.CutPrefix(name, "."); ok {
+		name = after
 		return baseName(name), strings.TrimPrefix(name, tc.GetPackage()+"."), name
 	}
 

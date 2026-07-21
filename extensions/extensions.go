@@ -3,7 +3,7 @@ package extensions
 
 // Transformer functions for transforming payloads of an extension option into
 // something that can be rendered by a template.
-type Transformer func(payload interface{}) interface{}
+type Transformer func(payload any) any
 
 var transformers = make(map[string]Transformer)
 
@@ -13,11 +13,11 @@ func SetTransformer(extensionName string, f Transformer) {
 }
 
 // Transform the extensions using the registered transformers.
-func Transform(extensions map[string]interface{}) map[string]interface{} {
+func Transform(extensions map[string]any) map[string]any {
 	if extensions == nil {
 		return nil
 	}
-	out := make(map[string]interface{}, len(extensions))
+	out := make(map[string]any, len(extensions))
 	for name, payload := range extensions {
 		transform, ok := transformers[name]
 		if !ok {

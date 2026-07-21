@@ -4,11 +4,11 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/golang/protobuf/proto"
 	plugin_go "github.com/golang/protobuf/protoc-gen-go/plugin"
-	. "github.com/pseudomuto/protoc-gen-doc"
 	"github.com/pseudomuto/protokit/utils"
 	"github.com/stretchr/testify/require"
+
+	. "github.com/pseudomuto/protoc-gen-doc"
 )
 
 func TestParseOptionsForBuiltinTemplates(t *testing.T) {
@@ -21,7 +21,7 @@ func TestParseOptionsForBuiltinTemplates(t *testing.T) {
 
 	for kind, file := range results {
 		req := new(plugin_go.CodeGeneratorRequest)
-		req.Parameter = proto.String(kind + "," + file)
+		req.Parameter = new(kind + "," + file)
 
 		options, err := ParseOptions(req)
 		require.NoError(t, err)
@@ -37,17 +37,17 @@ func TestParseOptionsForBuiltinTemplates(t *testing.T) {
 
 func TestParseOptionsForSourceRelative(t *testing.T) {
 	req := new(plugin_go.CodeGeneratorRequest)
-	req.Parameter = proto.String("markdown,index.md,source_relative")
+	req.Parameter = new("markdown,index.md,source_relative")
 	options, err := ParseOptions(req)
 	require.NoError(t, err)
 	require.Equal(t, options.SourceRelative, true)
 
-	req.Parameter = proto.String("markdown,index.md,default")
+	req.Parameter = new("markdown,index.md,default")
 	options, err = ParseOptions(req)
 	require.NoError(t, err)
 	require.Equal(t, options.SourceRelative, false)
 
-	req.Parameter = proto.String("markdown,index.md")
+	req.Parameter = new("markdown,index.md")
 	options, err = ParseOptions(req)
 	require.NoError(t, err)
 	require.Equal(t, options.SourceRelative, false)
@@ -55,7 +55,7 @@ func TestParseOptionsForSourceRelative(t *testing.T) {
 
 func TestParseOptionsForCustomTemplate(t *testing.T) {
 	req := new(plugin_go.CodeGeneratorRequest)
-	req.Parameter = proto.String("/path/to/template.tmpl,/base/name/only/output.md")
+	req.Parameter = new("/path/to/template.tmpl,/base/name/only/output.md")
 
 	options, err := ParseOptions(req)
 	require.NoError(t, err)
@@ -67,7 +67,7 @@ func TestParseOptionsForCustomTemplate(t *testing.T) {
 
 func TestParseOptionsForExcludePatterns(t *testing.T) {
 	req := new(plugin_go.CodeGeneratorRequest)
-	req.Parameter = proto.String(":google/*,notgoogle/*")
+	req.Parameter = new(":google/*,notgoogle/*")
 
 	options, err := ParseOptions(req)
 	require.NoError(t, err)
@@ -90,7 +90,7 @@ func TestParseOptionsWithInvalidValues(t *testing.T) {
 
 	for _, value := range badValues {
 		req := new(plugin_go.CodeGeneratorRequest)
-		req.Parameter = proto.String(value)
+		req.Parameter = new(value)
 
 		_, err := ParseOptions(req)
 		require.Error(t, err)
@@ -100,7 +100,7 @@ func TestParseOptionsWithInvalidValues(t *testing.T) {
 func TestRunPluginForBuiltinTemplate(t *testing.T) {
 	set, _ := utils.LoadDescriptorSet("fixtures", "fileset.pb")
 	req := utils.CreateGenRequest(set, "Booking.proto", "Vehicle.proto", "nested/Book.proto")
-	req.Parameter = proto.String("markdown,/base/name/only/output.md")
+	req.Parameter = new("markdown,/base/name/only/output.md")
 
 	plugin := new(Plugin)
 	resp, err := plugin.Generate(req)
@@ -113,7 +113,7 @@ func TestRunPluginForBuiltinTemplate(t *testing.T) {
 func TestRunPluginForCustomTemplate(t *testing.T) {
 	set, _ := utils.LoadDescriptorSet("fixtures", "fileset.pb")
 	req := utils.CreateGenRequest(set, "Booking.proto", "Vehicle.proto", "nested/Book.proto")
-	req.Parameter = proto.String("resources/html.tmpl,/base/name/only/output.html")
+	req.Parameter = new("resources/html.tmpl,/base/name/only/output.html")
 
 	plugin := new(Plugin)
 	resp, err := plugin.Generate(req)
@@ -125,7 +125,7 @@ func TestRunPluginForCustomTemplate(t *testing.T) {
 
 func TestRunPluginWithInvalidOptions(t *testing.T) {
 	req := new(plugin_go.CodeGeneratorRequest)
-	req.Parameter = proto.String("html")
+	req.Parameter = new("html")
 
 	plugin := new(Plugin)
 	_, err := plugin.Generate(req)
@@ -135,7 +135,7 @@ func TestRunPluginWithInvalidOptions(t *testing.T) {
 func TestRunPluginForSourceRelative(t *testing.T) {
 	set, _ := utils.LoadDescriptorSet("fixtures", "fileset.pb")
 	req := utils.CreateGenRequest(set, "Booking.proto", "Vehicle.proto", "nested/Book.proto")
-	req.Parameter = proto.String("markdown,index.md,source_relative")
+	req.Parameter = new("markdown,index.md,source_relative")
 
 	plugin := new(Plugin)
 	resp, err := plugin.Generate(req)

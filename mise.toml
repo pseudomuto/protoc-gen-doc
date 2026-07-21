@@ -1,0 +1,10 @@
+[settings]
+lockfile = true
+
+[tools]
+go = "1.26"
+golangci-lint = "2.12"
+goreleaser = "2.17"
+protoc = "35.1"
+protoc-gen-go = "1.36"
+protoc-gen-go-grpc = "1.6"

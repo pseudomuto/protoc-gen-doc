@@ -3,19 +3,20 @@ package extensions_test
 import (
 	"testing"
 
-	"github.com/golang/protobuf/proto"
 	validator "github.com/mwitkow/go-proto-validators"
+	"github.com/stretchr/testify/require"
+
 	"github.com/pseudomuto/protoc-gen-doc/extensions"
 	. "github.com/pseudomuto/protoc-gen-doc/extensions/validator_field"
-	"github.com/stretchr/testify/require"
 )
 
 func TestTransform(t *testing.T) {
+	notEmpty := true
 	fieldValidator := &validator.FieldValidator{
-		StringNotEmpty: proto.Bool(true),
+		StringNotEmpty: &notEmpty,
 	}
 
-	transformed := extensions.Transform(map[string]interface{}{"validator.field": fieldValidator})
+	transformed := extensions.Transform(map[string]any{"validator.field": fieldValidator})
 	require.NotEmpty(t, transformed)
 
 	rules := transformed["validator.field"].(ValidatorExtension).Rules()

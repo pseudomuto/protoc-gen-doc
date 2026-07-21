@@ -4,17 +4,17 @@ import (
 	"os"
 	"testing"
 
-	. "github.com/pseudomuto/protoc-gen-doc"
 	"github.com/pseudomuto/protokit"
 	"github.com/pseudomuto/protokit/utils"
 	"github.com/stretchr/testify/require"
+
+	. "github.com/pseudomuto/protoc-gen-doc"
 )
 
 func TestRenderers(t *testing.T) {
 	set, err := utils.LoadDescriptorSet("fixtures", "fileset.pb")
 	require.NoError(t, err)
-
-	os.Mkdir("./tmp", os.ModePerm)
+	require.NoError(t, os.MkdirAll("./tmp", os.ModePerm))
 
 	req := utils.CreateGenRequest(set, "Booking.proto", "Vehicle.proto")
 	result := protokit.ParseCodeGenRequest(req)

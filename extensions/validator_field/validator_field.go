@@ -5,9 +5,10 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/golang/protobuf/proto"
+	"github.com/golang/protobuf/proto" //nolint:staticcheck // go-proto-validators is gogo-based and registers (validator.field) only under gogo; bridging it into protokit's resolver requires the legacy golang/protobuf registry, and every hand-constructible ExtensionInfo field is itself deprecated, so there is no non-deprecated equivalent that preserves the concrete *validator.FieldValidator type.
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
 	validator "github.com/mwitkow/go-proto-validators"
+
 	"github.com/pseudomuto/protoc-gen-doc/extensions"
 )
 
@@ -16,7 +17,7 @@ func init() {
 	// only registers the extension under gogo. We need to register it under
 	// golang/protobuf/proto with the same properties, except using the
 	// golang/protobuf FieldOptions descriptor.
-	proto.RegisterExtension(&proto.ExtensionDesc{
+	proto.RegisterExtension(&proto.ExtensionDesc{ //nolint:staticcheck // see import comment: legacy registry needed to bridge the gogo-based validator extension.
 		ExtendedType:  (*descriptor.FieldOptions)(nil),
 		ExtensionType: validator.E_Field.ExtensionType,
 		Field:         validator.E_Field.Field,
@@ -28,8 +29,8 @@ func init() {
 
 // ValidatorRule represents a single validator rule from the (validator.field) method option extension.
 type ValidatorRule struct {
-	Name  string      `json:"name"`
-	Value interface{} `json:"value"`
+	Name  string `json:"name"`
+	Value any    `json:"value"`
 }
 
 // ValidatorExtension contains the rules set by the (validator.field) method option extension.
@@ -56,9 +57,9 @@ func (v ValidatorExtension) Rules() []ValidatorRule {
 		if !ok {
 			continue
 		}
-		for _, opt := range strings.Split(tag, ",") {
-			if strings.HasPrefix(opt, "name=") {
-				tag = strings.TrimPrefix(opt, "name=")
+		for opt := range strings.SplitSeq(tag, ",") {
+			if after, ok0 := strings.CutPrefix(opt, "name="); ok0 {
+				tag = after
 				break
 			}
 		}
@@ -73,7 +74,7 @@ func (v ValidatorExtension) Rules() []ValidatorRule {
 }
 
 func init() {
-	extensions.SetTransformer("validator.field", func(payload interface{}) interface{} {
+	extensions.SetTransformer("validator.field", func(payload any) any {
 		validator, ok := payload.(*validator.FieldValidator)
 		if !ok {
 			return nil

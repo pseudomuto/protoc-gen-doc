@@ -6,13 +6,14 @@ import (
 	"strings"
 
 	"github.com/envoyproxy/protoc-gen-validate/validate"
+
 	"github.com/pseudomuto/protoc-gen-doc/extensions"
 )
 
 // ValidateRule represents a single validator rule from the (validate.rules) method option extension.
 type ValidateRule struct {
-	Name  string      `json:"name"`
-	Value interface{} `json:"value"`
+	Name  string `json:"name"`
+	Value any    `json:"value"`
 }
 
 // ValidateExtension contains the rules set by the (validate.rules) method option extension.
@@ -46,7 +47,7 @@ func flattenRules(prefix string, vv reflect.Value) (rules []ValidateRule) {
 			ft := f.Type
 			fv := vv.Field(i)
 
-			for ft.Kind() == reflect.Interface || ft.Kind() == reflect.Ptr {
+			for ft.Kind() == reflect.Interface || ft.Kind() == reflect.Pointer {
 				if fv.IsNil() {
 					continue nextField
 				}
@@ -55,7 +56,7 @@ func flattenRules(prefix string, vv reflect.Value) (rules []ValidateRule) {
 			}
 			name := prefix
 			if tag, ok := f.Tag.Lookup("protobuf"); ok {
-				for _, opt := range strings.Split(tag, ",") {
+				for opt := range strings.SplitSeq(tag, ",") {
 					if strings.HasPrefix(opt, "name=") {
 						if name != "" && !strings.HasSuffix(name, ".") {
 							name += "."
@@ -81,7 +82,7 @@ func flattenRules(prefix string, vv reflect.Value) (rules []ValidateRule) {
 }
 
 func init() {
-	extensions.SetTransformer("validate.rules", func(payload interface{}) interface{} {
+	extensions.SetTransformer("validate.rules", func(payload any) any {
 		rules, ok := payload.(*validate.FieldRules)
 		if !ok {
 			return nil

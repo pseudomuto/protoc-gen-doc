@@ -2,13 +2,12 @@ package gendoc
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"path"
 	"path/filepath"
 	"regexp"
 	"strings"
 
-	"github.com/golang/protobuf/proto"
 	plugin_go "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/pseudomuto/protokit"
 )
@@ -43,7 +42,7 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 	customTemplate := ""
 
 	if options.TemplateFile != "" {
-		data, err := ioutil.ReadFile(options.TemplateFile)
+		data, err := os.ReadFile(options.TemplateFile)
 		if err != nil {
 			return nil, err
 		}
@@ -62,12 +61,12 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 		}
 
 		resp.File = append(resp.File, &plugin_go.CodeGeneratorResponse_File{
-			Name:    proto.String(filepath.Join(dir, options.OutputFile)),
-			Content: proto.String(string(output)),
+			Name:    new(filepath.Join(dir, options.OutputFile)),
+			Content: new(string(output)),
 		})
 	}
 
-	resp.SupportedFeatures = proto.Uint64(SupportedFeatures)
+	resp.SupportedFeatures = new(SupportedFeatures)
 
 	return resp, nil
 }
@@ -122,19 +121,19 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 	params := req.GetParameter()
 	colonParts := strings.Split(params, ":")
 	if len(colonParts) == 3 {
-		additionalOptions := (strings.Split(colonParts[2], "\n"))[0]
+		additionalOptions, _, _ := strings.Cut(colonParts[2], "\n")
 		if additionalOptions == "camel_case_fields=true" {
 			options.CamelCaseFields = true
 		} else if additionalOptions == "camel_case_fields=false" {
 			options.CamelCaseFields = false
 		} else if additionalOptions != "" {
-			return nil, fmt.Errorf("Invalid additional options after second colon separator: %v", additionalOptions)
+			return nil, fmt.Errorf("invalid additional options after second colon separator: %v", additionalOptions)
 		}
 	}
 	if len(colonParts) >= 2 {
 		if colonParts[1] != "" {
 			// Parse out exclude patterns if any
-			for _, pattern := range strings.Split(colonParts[1], ",") {
+			for pattern := range strings.SplitSeq(colonParts[1], ",") {
 				r, err := regexp.Compile(pattern)
 				if err != nil {
 					return nil, err
@@ -149,12 +148,12 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 	}
 
 	if !strings.Contains(fileParams, ",") {
-		return nil, fmt.Errorf("Invalid parameter: %s", fileParams)
+		return nil, fmt.Errorf("invalid parameter: %s", fileParams)
 	}
 
 	parts := strings.Split(fileParams, ",")
 	if len(parts) < 2 || len(parts) > 3 {
-		return nil, fmt.Errorf("Invalid parameter: %s", fileParams)
+		return nil, fmt.Errorf("invalid parameter: %s", fileParams)
 	}
 
 	options.TemplateFile = parts[0]
@@ -166,7 +165,7 @@ func ParseOptions(req *plugin_go.CodeGeneratorRequest) (*PluginOptions, error) {
 		case "default":
 			options.SourceRelative = false
 		default:
-			return nil, fmt.Errorf("Invalid parameter: %s", fileParams)
+			return nil, fmt.Errorf("invalid parameter: %s", fileParams)
 		}
 	}
 	options.SourceRelative = len(parts) > 2 && parts[2] == "source_relative"
