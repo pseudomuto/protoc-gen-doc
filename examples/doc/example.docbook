@@ -547,14 +547,14 @@
               <entry>daily_hire_rate_dollars</entry>
               <entry><link linkend="sint32">sint32</link></entry>
               <entry>optional</entry>
-              <entry><para>Dollars per day.</para><para>Default: 50</para></entry>
+              <entry><para>Dollars per day.</para><para>Check also cents field.</para><para>Default: 50</para></entry>
             </row>
             
             <row>
               <entry>daily_hire_rate_cents</entry>
               <entry><link linkend="sint32">sint32</link></entry>
               <entry>optional</entry>
-              <entry><para>Cents per day.</para></entry>
+              <entry><para>Cents per day.</para><para>Check also dollars field.</para></entry>
             </row>
             
           </tbody>

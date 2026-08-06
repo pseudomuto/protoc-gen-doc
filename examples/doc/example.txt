@@ -187,7 +187,11 @@ Represents a vehicle that can be hired.
 
 |daily_hire_rate_dollars | <<sint32,sint32>> |optional |Dollars per day.
 
+Check also cents field.
+
 |daily_hire_rate_cents | <<sint32,sint32>> |optional |Cents per day.
+
+Check also dollars field.
 
 |===========================================
 

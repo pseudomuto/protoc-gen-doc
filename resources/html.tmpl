@@ -226,7 +226,7 @@
                   <td>{{.Name}}</td>
                   <td><a href="#{{.FullType}}">{{.LongType}}</a></td>
                   <td>{{.Label}}</td>
-                  <td><p>{{if (index .Options "deprecated"|default false)}}<strong>Deprecated.</strong> {{end}}{{.Description}} {{if .DefaultValue}}Default: {{.DefaultValue}}{{end}}</p></td>
+                  <td><p>{{if (index .Options "deprecated"|default false)}}<strong>Deprecated.</strong> {{end}}{{br .Description}} {{if .DefaultValue}}<br/><br/>Default: {{.DefaultValue}}{{end}}</p></td>
                 </tr>
               {{end}}
             </tbody>

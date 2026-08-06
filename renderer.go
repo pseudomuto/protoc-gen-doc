@@ -78,6 +78,7 @@ var funcMap = map[string]any{
 	"p":      PFilter,
 	"para":   ParaFilter,
 	"nobr":   NoBrFilter,
+	"br":     BrFilter,
 	"anchor": AnchorFilter,
 }
 
