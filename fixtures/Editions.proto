@@ -1,0 +1,27 @@
+edition = "2023";
+
+package com.example;
+
+option features.field_presence = IMPLICIT;
+
+/**
+ * Represents a muffin. Lives in an editions file with proto3-like field presence.
+ */
+message Muffin {
+  string id = 1; // The id of the muffin.
+  string name = 2 [features.field_presence = EXPLICIT]; // The name of the muffin.
+  repeated string ingredients = 3; // Ingredients in the muffin.
+  Topping topping = 4; // The topping of the muffin.
+  string kind = 7 [features.field_presence = LEGACY_REQUIRED]; // The kind of the muffin.
+  oneof size {
+    int32 grams = 5; // The weight of the muffin.
+    string label = 6; // The size label of the muffin.
+  }
+}
+
+/**
+ * Represents a topping.
+ */
+message Topping {
+  string name = 1; // The name of the topping.
+}

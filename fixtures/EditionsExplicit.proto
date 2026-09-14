@@ -1,0 +1,13 @@
+edition = "2023";
+
+package com.example;
+
+/**
+ * Represents a scone. Lives in an editions file with the default explicit field presence.
+ */
+message Scone {
+  string id = 1; // The id of the scone.
+  string name = 2 [features.field_presence = IMPLICIT]; // The name of the scone.
+  string kind = 3 [features.field_presence = LEGACY_REQUIRED]; // The kind of the scone.
+  repeated string ingredients = 4; // Ingredients in the scone.
+}

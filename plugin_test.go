@@ -7,6 +7,7 @@ import (
 	plugin_go "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/pseudomuto/protokit/utils"
 	"github.com/stretchr/testify/require"
+	"google.golang.org/protobuf/types/descriptorpb"
 
 	. "github.com/pseudomuto/protoc-gen-doc"
 )
@@ -149,4 +150,21 @@ func TestRunPluginForSourceRelative(t *testing.T) {
 
 	require.NotEmpty(t, resp.File[0].GetContent())
 	require.NotEmpty(t, resp.File[1].GetContent())
+}
+
+func TestGenerateDeclaresEditionsSupport(t *testing.T) {
+	set, err := utils.LoadDescriptorSet("fixtures", "editions.pb")
+	require.NoError(t, err)
+	req := utils.CreateGenRequest(set, "Editions.proto")
+	req.Parameter = new("markdown,editions.md")
+
+	resp, err := new(Plugin).Generate(req)
+	require.NoError(t, err)
+	require.Len(t, resp.File, 1)
+
+	features := resp.GetSupportedFeatures()
+	require.NotZero(t, features&uint64(plugin_go.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL))
+	require.NotZero(t, features&uint64(plugin_go.CodeGeneratorResponse_FEATURE_SUPPORTS_EDITIONS))
+	require.Equal(t, int32(descriptorpb.Edition_EDITION_PROTO2), resp.GetMinimumEdition())
+	require.Equal(t, int32(descriptorpb.Edition_EDITION_2024), resp.GetMaximumEdition())
 }

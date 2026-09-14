@@ -7,3 +7,5 @@ package fixtures
 // compiled without the flag), only pass this flag when compiling the one message explicitly testing proto3 optional fields.
 // Once this feature is no longer behind an experimental flag, compilation of Cookie.proto can be moved to the above protoc command.
 //go:generate protoc --experimental_allow_proto3_optional --descriptor_set_out=cookie.pb --include_imports --include_source_info -I. -I../thirdparty Cookie.proto
+
+//go:generate protoc --descriptor_set_out=editions.pb --include_imports --include_source_info -I. -I../thirdparty Editions.proto EditionsExplicit.proto
