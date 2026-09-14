@@ -9,6 +9,7 @@ import (
 
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
 	"github.com/pseudomuto/protokit"
+	"google.golang.org/protobuf/types/descriptorpb"
 
 	"github.com/pseudomuto/protoc-gen-doc/extensions"
 )
@@ -442,7 +443,7 @@ func parseFileExtension(pe *protokit.ExtensionDescriptor) *FileExtension {
 		LongName:           pe.GetLongName(),
 		FullName:           pe.GetFullName(),
 		Description:        description(pe.GetComments().String()),
-		Label:              labelName(pe.GetLabel(), pe.IsProto3(), pe.GetProto3Optional()),
+		Label:              labelName(pe.GetLabel(), pe.IsProto3(), fieldPresence(pe.FieldDescriptorProto)),
 		Type:               t,
 		LongType:           lt,
 		FullType:           ft,
@@ -499,7 +500,7 @@ func parseMessageField(pf *protokit.FieldDescriptor, oneofDecls []*descriptor.On
 	m := &MessageField{
 		Name:         name,
 		Description:  description(pf.GetComments().String()),
-		Label:        labelName(pf.GetLabel(), pf.IsProto3(), pf.GetProto3Optional()),
+		Label:        labelName(pf.GetLabel(), pf.IsProto3(), fieldPresence(pf.FieldDescriptorProto)),
 		Type:         t,
 		LongType:     lt,
 		FullType:     ft,
@@ -563,11 +564,33 @@ func baseName(name string) string {
 	return parts[len(parts)-1]
 }
 
-func labelName(lbl descriptor.FieldDescriptorProto_Label, proto3 bool, proto3Opt bool) string {
-	if proto3 && !proto3Opt && lbl != descriptor.FieldDescriptorProto_LABEL_REPEATED {
+// fieldPresence returns the presence a field declares for itself: EXPLICIT for a proto3 optional field,
+// otherwise its editions features override. FIELD_PRESENCE_UNKNOWN means the field follows its file.
+func fieldPresence(fd *descriptorpb.FieldDescriptorProto) descriptorpb.FeatureSet_FieldPresence {
+	if fd.GetProto3Optional() {
+		return descriptorpb.FeatureSet_EXPLICIT
+	}
+	return fd.GetOptions().GetFeatures().GetFieldPresence()
+}
+
+// labelName returns the label shown for a field. A presence the field declares for itself decides.
+// Without one, singular fields in proto3 files and in editions files with proto3-like semantics have
+// no label, and every other field keeps its descriptor label.
+func labelName(lbl descriptor.FieldDescriptorProto_Label, proto3 bool, presence descriptorpb.FeatureSet_FieldPresence) string {
+	if lbl == descriptor.FieldDescriptorProto_LABEL_REPEATED {
+		return "repeated"
+	}
+	switch presence {
+	case descriptorpb.FeatureSet_IMPLICIT:
+		return ""
+	case descriptorpb.FeatureSet_EXPLICIT:
+		return "optional"
+	case descriptorpb.FeatureSet_LEGACY_REQUIRED:
+		return "required"
+	}
+	if proto3 {
 		return ""
 	}
-
 	return strings.ToLower(strings.TrimPrefix(lbl.String(), "LABEL_"))
 }
 

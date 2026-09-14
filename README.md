@@ -6,7 +6,7 @@
 This is a documentation generator plugin for the Google Protocol Buffers compiler (`protoc`). The plugin can generate
 HTML, JSON, DocBook, and Markdown documentation from comments in your `.proto` files.
 
-It supports proto2 and proto3, and can handle having both in the same context (see [examples](examples/) for proof).
+It supports proto2, proto3 and editions, and can handle having all of them in the same context (see [examples](examples/) for proof).
 
 ## Installation
 

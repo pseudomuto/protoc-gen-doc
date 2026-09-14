@@ -19,6 +19,10 @@ var (
 
 	cookieTemplate *Template
 	cookieFile     *File
+
+	editionsTemplate     *Template
+	editionsFile         *File
+	editionsExplicitFile *File
 )
 
 func TestMain(m *testing.M) {
@@ -37,6 +41,13 @@ func TestMain(m *testing.M) {
 	result = protokit.ParseCodeGenRequest(req)
 	cookieTemplate = NewTemplate(result, &PluginOptions{})
 	cookieFile = cookieTemplate.Files[0]
+
+	set, _ = utils.LoadDescriptorSet("fixtures", "editions.pb")
+	req = utils.CreateGenRequest(set, "Editions.proto", "EditionsExplicit.proto")
+	result = protokit.ParseCodeGenRequest(req)
+	editionsTemplate = NewTemplate(result, &PluginOptions{})
+	editionsFile = editionsTemplate.Files[0]
+	editionsExplicitFile = editionsTemplate.Files[1]
 
 	os.Exit(m.Run())
 }
@@ -436,4 +447,23 @@ func findField(name string, m *Message) *MessageField {
 	}
 
 	return nil
+}
+
+func TestEditionsFieldLabels(t *testing.T) {
+	msg := findMessage("Muffin", editionsFile)
+	require.Equal(t, "Represents a muffin. Lives in an editions file with proto3-like field presence.", msg.Description)
+
+	require.Empty(t, findField("id", msg).Label)               // implicit presence, the file default
+	require.Equal(t, "optional", findField("name", msg).Label) // explicit presence overrides the file default
+	require.Equal(t, "repeated", findField("ingredients", msg).Label)
+	require.Empty(t, findField("topping", msg).Label)
+	require.Equal(t, "required", findField("kind", msg).Label)
+	require.Empty(t, findField("grams", msg).Label)
+	require.True(t, findField("grams", msg).IsOneof)
+
+	msg = findMessage("Scone", editionsExplicitFile)
+	require.Equal(t, "optional", findField("id", msg).Label) // explicit presence, the file default
+	require.Empty(t, findField("name", msg).Label)           // implicit presence overrides the file default
+	require.Equal(t, "required", findField("kind", msg).Label)
+	require.Equal(t, "repeated", findField("ingredients", msg).Label)
 }

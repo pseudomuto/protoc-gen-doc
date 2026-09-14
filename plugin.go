@@ -10,6 +10,7 @@ import (
 
 	plugin_go "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/pseudomuto/protokit"
+	"google.golang.org/protobuf/types/descriptorpb"
 )
 
 // PluginOptions encapsulates options for the plugin. The type of renderer, template file, and the name of the output
@@ -24,7 +25,7 @@ type PluginOptions struct {
 }
 
 // SupportedFeatures describes a flag setting for supported features.
-var SupportedFeatures = uint64(plugin_go.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL)
+var SupportedFeatures = uint64(plugin_go.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL | plugin_go.CodeGeneratorResponse_FEATURE_SUPPORTS_EDITIONS)
 
 // Plugin describes a protoc code generate plugin. It's an implementation of Plugin from github.com/pseudomuto/protokit
 type Plugin struct{}
@@ -67,6 +68,9 @@ func (p *Plugin) Generate(r *plugin_go.CodeGeneratorRequest) (*plugin_go.CodeGen
 	}
 
 	resp.SupportedFeatures = new(SupportedFeatures)
+	// The range protoc-gen-go declares for the same protobuf-go version.
+	resp.MinimumEdition = new(int32(descriptorpb.Edition_EDITION_PROTO2))
+	resp.MaximumEdition = new(int32(descriptorpb.Edition_EDITION_2024))
 
 	return resp, nil
 }
